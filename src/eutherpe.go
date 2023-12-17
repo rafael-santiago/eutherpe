@@ -4,15 +4,24 @@ import (
     _ "internal/bluebraces"
     "internal/mplayer"
     "fmt"
-    "time"
+    _ "time"
     //"os"
 )
 
 func main() {
-    handle, err := mplayer.Play("/mnt/vmio/06 Dharma For One.mp3")
+    /*handle, err := mplayer.Play("/mnt/vmio/06 Dharma For One.mp3")
     if err != nil {
         fmt.Println(err)
     }
     time.Sleep(10 * time.Second)
-    defer mplayer.Stop(handle)
+    defer mplayer.Stop(handle)*/
+    var s mplayer.SongInfo
+    s, _ = mplayer.GetSongInfo("/mnt/vmio/06 - Venus In Force.mp3")
+    fmt.Println(s.Album, s.TrackNumber, s.Title, s.Artist, s.Year, s.Genre)
+    s, _ = mplayer.GetSongInfo("/mnt/vmio/06 Dharma For One.mp3")
+    fmt.Println(s.Album, s.TrackNumber, s.Title, s.Artist, s.Year, s.Genre)
+    s, _ = mplayer.GetSongInfo("/mnt/vmio/05 - Burn the Witch.mp3")
+    fmt.Println(s.Album, s.TrackNumber, s.Title, s.Artist, s.Year, s.Genre)
+    s, _ = mplayer.GetSongInfo("/mnt/vmio/05 The Electric Index Eel.mp3")
+    fmt.Println(s.Album, s.TrackNumber, s.Title, s.Artist, s.Year, s.Genre)
 }
