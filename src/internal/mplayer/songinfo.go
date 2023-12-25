@@ -9,10 +9,6 @@ import (
     "unicode/utf8"
 )
 
-const (
-    kSongInfoFieldsNr = 8
-)
-
 type SongInfo struct {
     FilePath string
     Title string
@@ -66,7 +62,7 @@ func GetSongInfo(filePath string) (SongInfo, error) {
     defer file.Close()
     id3Hdr := make([]byte, 6)
     n, err := file.Read(id3Hdr)
-    if err != nil || n < len(id3Hdr) {
+    if err != nil || n < len(id3Hdr) || (id3Hdr[0] != 'I' && id3Hdr[1] != 'D' && id3Hdr[2] != '3') {
         return SongInfo{}, fmt.Errorf("Invalid ID3 header.\n")
     }
     if id3Hdr[3] != 3 {
@@ -86,27 +82,49 @@ func GetSongInfo(filePath string) (SongInfo, error) {
     if err != nil {
         return SongInfo{}, err
     }
-    readFields := 1
-    for h := 0; (h + 4) < len(hdrData) && readFields < kSongInfoFieldsNr; h++ {
-        needle := string(hdrData[h:])
+    kWantedInfo := []string {
+        "TIT2",
+        "TALB",
+        "TPE",
+        "TRCK",
+        "TCON",
+        "TYER",
+        "APIC",
+    }
+    strHdrData := string(hdrData)
+    for _, info := range kWantedInfo {
+        h := strings.Index(strHdrData, info)
+        if h == -1 {
+            continue
+        }
         var field *string = nil
-        if len(s.Title) == 0 && strings.HasPrefix(needle, "TIT2") {
-            field = &s.Title
-        } else if len(s.Album) == 0 && strings.HasPrefix(needle, "TALB") {
-            field = &s.Album
-        } else if len(s.Artist) == 0 && strings.HasPrefix(needle, "TPE") {
-            field = &s.Artist
-        } else if len(s.TrackNumber) == 0 && strings.HasPrefix(needle, "TRCK") {
-            field = &s.TrackNumber
-        } else if len(s.Genre) == 0 && strings.HasPrefix(needle, "TCON") {
-            field = &s.Genre
-        } else if len(s.Year) == 0 && strings.HasPrefix(needle, "TYER") {
-            field = &s.Year
-        } else if len(s.AlbumCover) == 0 && strings.HasPrefix(needle, "APIC") {
-            field = &s.AlbumCover
+        switch info {
+            case "TIT2":
+                field = &s.Title
+                break
+            case "TALB":
+                field = &s.Album
+                break
+            case "TPE":
+                field = &s.Artist
+                break
+            case "TRCK":
+                field = &s.TrackNumber
+                break
+            case "TCON":
+                field = &s.Genre
+                break
+            case "TYER":
+                field = &s.Year
+                break
+            case "APIC":
+                field = &s.AlbumCover
+                break
+            default:
+                continue
         }
         if field != nil {
-            readFields++
+            needle := string(hdrData[h:])
             needleSize := (int(needle[4]) << 24) |
                           (int(needle[5]) << 16) |
                           (int(needle[6]) <<  8) |
@@ -124,9 +142,9 @@ func GetSongInfo(filePath string) (SongInfo, error) {
                 h += 3
             }
             if field == &s.TrackNumber {
-                subReg := regexp.MustCompile("/.*")
+                subReg := regexp.MustCompile("(^0|/.*)")
                 s.TrackNumber = subReg.ReplaceAllString(s.TrackNumber, "")
-            } 
+            }
         }
     }
     if len(s.Artist) == 0 {
@@ -163,13 +181,4 @@ func utfToAscii(utfStr string) string {
         }
     }
     return strings.Trim(string(mbStr), "\x00 ")
-}
-
-func stripNullEndings(str string) string {
-    for s := 0; s < len(str); s++ {
-        if str[s] == 0 {
-            return str[0:s]
-        }
-    }
-    return str
 }
