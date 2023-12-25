@@ -138,6 +138,9 @@ func GetSongInfo(filePath string) (SongInfo, error) {
     if len(s.Title) == 0 {
         s.Title = "[Unknown Track]"
     }
+    if len(s.TrackNumber) == 0 {
+        s.TrackNumber = "0"
+    }
     return s, nil
 }
 
