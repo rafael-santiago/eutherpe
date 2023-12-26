@@ -1,13 +1,14 @@
 package mplayer
 
 import (
-    _"os"
-    _"path"
+    "os"
+    "io/ioutil"
+    "path"
     "testing"
+    "strings"
 )
 
 func TestGetSongInfo(t *testing.T) {
-    //wd, _ := os.Getwd()
     type TestVector []struct {
         ID3SamplePath string
         ExpectedSongInfo SongInfo
@@ -50,6 +51,32 @@ func TestGetSongInfo(t *testing.T) {
           },
         },
     }
+    _, err := GetSongInfo("blau.mp3")
+    if err == nil {
+        t.Errorf("err == nil.\n")
+    }
+    _, err = GetSongInfo("songinfo_test.go")
+    if err == nil {
+        t.Errorf("err == nil.\n")
+    }
+    if err.Error() != "Invalid ID3 header." {
+        t.Errorf("err has not the expected content : '%s'\n", err.Error())
+    }
+    wfile, err := os.Create("unsupported-id3.dat")
+    if err != nil {
+        t.Errorf("err != nil : '%s'\n", err.Error())
+    } else {
+        defer os.Remove("unsupported-id3.dat")
+        wfile.Write([]byte { 'I', 'D', '3', 0x4 })
+        wfile.Close()
+    }
+    _, err = GetSongInfo("")
+    if err == nil {
+        t.Errorf("err == nil.\n")
+    }
+    if err.Error() != "Empty song file path was passed." {
+        t.Errorf("err has not the expected content : '%s'\n", err.Error())
+    }
     for _, testData := range testVector {
         songInfo, err := GetSongInfo(testData.ID3SamplePath)
         if err != nil {
@@ -81,5 +108,38 @@ func TestGetSongInfo(t *testing.T) {
         if songInfo.Genre != testData.ExpectedSongInfo.Genre {
             t.Errorf("songInfo.Title has not the expected content : '%s'\n", songInfo.Genre)
         }
+    }
+}
+
+func TestScanSongs(t *testing.T) {
+    songs, err := ScanSongs("test-data")
+    if err != nil {
+        t.Errorf("ScanSongs() has returned an error while it should not.\n")
+    }
+    if len(songs) != 0 {
+        t.Errorf("Slice songs has items while it should not.\n")
+    }
+    entries, err := os.ReadDir("test-data")
+    if err != nil {
+        t.Errorf("os.ReadDir() has returned an error while it should not.\n")
+    }
+    for _, f := range entries {
+        if strings.HasSuffix(f.Name(), ".id3") {
+            destFilePath := path.Join("test-data", strings.Replace(f.Name(), ".id3", ".mp3", -1))
+            data, _ := ioutil.ReadFile(path.Join("test-data", f.Name()))
+            ioutil.WriteFile(destFilePath, data, 0644)
+            defer os.Remove(destFilePath)
+        }
+    }
+    songs, err = ScanSongs("test-data")
+    if err != nil {
+        t.Errorf("ScanSongs() has returned an error while it should not.\n")
+    }
+    if len(songs) != 3 {
+        t.Errorf("ScanSongs() has not returned three items as it should.\n")
+    }
+    _, err = ScanSongs("404-songs")
+    if err == nil {
+        t.Errorf("ScanSongs() has not returned an error as it should.\n")
     }
 }

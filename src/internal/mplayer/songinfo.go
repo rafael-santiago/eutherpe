@@ -51,7 +51,7 @@ func ScanSongs(basePath string) ([]SongInfo, error) {
 
 func GetSongInfo(filePath string) (SongInfo, error) {
     if len(filePath) == 0 {
-        return SongInfo{}, fmt.Errorf("Empty song file path was passed.\n")
+        return SongInfo{}, fmt.Errorf("Empty song file path was passed.")
     }
     s := SongInfo{ }
     s.FilePath = filePath
@@ -63,10 +63,10 @@ func GetSongInfo(filePath string) (SongInfo, error) {
     id3Hdr := make([]byte, 6)
     n, err := file.Read(id3Hdr)
     if err != nil || n < len(id3Hdr) || (id3Hdr[0] != 'I' && id3Hdr[1] != 'D' && id3Hdr[2] != '3') {
-        return SongInfo{}, fmt.Errorf("Invalid ID3 header.\n")
+        return SongInfo{}, fmt.Errorf("Invalid ID3 header.")
     }
     if id3Hdr[3] != 3 {
-        return SongInfo{}, fmt.Errorf("Unsupported ID3 header.\n")
+        return SongInfo{}, fmt.Errorf("Unsupported ID3 header.")
     }
     hdrLen := make([]byte, 4)
     n, err = file.Read(hdrLen)
