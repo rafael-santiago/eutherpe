@@ -46,7 +46,7 @@ func GetAlbumsFromArtist(artist string, collection MusicCollection) []string {
     if !exists {
         return make([]string, 0)
     }
-    var albumsByYear map[string]string
+    albumsByYear := make(map[string]string)
     for album, song := range albums {
         albumsByYear[guessUpAlbumYear(song) + "_" + album] = album
     }
@@ -69,7 +69,12 @@ func sortTracksFromAlbum(trackList []SongInfo) []SongInfo {
         trackNumbers = append(trackNumbers, track.TrackNumber)
     }
     albumTracks := make([]SongInfo, 0)
-    sort.Slice(trackNumbers, func (i, j int) bool { a, _ := strconv.Atoi(trackNumbers[i]); b, _ := strconv.Atoi(trackNumbers[j]); return a < b })
+    sort.Slice(trackNumbers,
+               func (i, j int) bool {
+                    a, _ := strconv.Atoi(trackNumbers[i])
+                    b, _ := strconv.Atoi(trackNumbers[j])
+                    return a < b
+                })
     for _, trackNumber := range trackNumbers {
         for _, track := range trackList {
             if track.TrackNumber == trackNumber {
@@ -81,14 +86,13 @@ func sortTracksFromAlbum(trackList []SongInfo) []SongInfo {
 }
 
 func guessUpAlbumYear(albumTracks []SongInfo) string {
-    var years map[string]int
-    years["Unk"] = 1
+    years := make(map[string]int)
     for _, track := range albumTracks {
         if len(track.Year) > 0 {
             years[track.Year] += 1
         }
     }
-    foundFreq := 1
+    foundFreq := 0
     foundYear := "Unk"
     for year, freq := range years {
         if freq > foundFreq {

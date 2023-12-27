@@ -3,7 +3,7 @@ package main
 import (
     _ "internal/bluebraces"
     "internal/mplayer"
-    _ "fmt"
+    "fmt"
     _ "time"
     //"os"
 )
@@ -24,7 +24,7 @@ func main() {
     fmt.Println(s.Album, s.TrackNumber, s.Title, s.Artist, s.Year, s.Genre)
     s, _ = mplayer.GetSongInfo("/mnt/vmio/05 The Electric Index Eel.mp3")
     fmt.Println(s.Album, s.TrackNumber, s.Title, s.Artist, s.Year, s.Genre)*/
-    /*collection, _ := mplayer.LoadMusicCollection("/mnt/vmio")
+    collection, _ := mplayer.LoadMusicCollection("/mnt/vmio")
     for artist, albums := range collection {
         fmt.Println(artist)
         for album, songs := range albums {
@@ -33,6 +33,5 @@ func main() {
                 fmt.Println("  ", s.Title, s.TrackNumber)
             }
         }
-    }*/
-    mplayer.Xablau("/mnt/vmio/05 The Electric Index Eel.mp3")
+    }
 }
