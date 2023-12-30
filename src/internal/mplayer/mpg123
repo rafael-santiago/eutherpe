@@ -1,0 +1,3 @@
+#!/bin/bash
+
+[[ -z $MPG123_MUST_FAIL ]] && read || exit 1

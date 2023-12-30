@@ -2,10 +2,15 @@ package mplayer
 
 import (
     "os/exec"
+    "path"
 )
 
-func Play(filePath string) (*exec.Cmd, error) {
-    cmd := exec.Command("mpg123", filePath)
+func Play(filePath string, customPath ...string) (*exec.Cmd, error) {
+    var mpg123Path string = "mpg123"
+    if len(customPath) > 0 {
+        mpg123Path = path.Join(customPath[0], mpg123Path)
+    }
+    cmd := exec.Command(mpg123Path, filePath)
     return cmd, cmd.Start()
 }
 
