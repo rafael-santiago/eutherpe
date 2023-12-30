@@ -3,6 +3,7 @@ package main
 import (
     _ "internal/bluebraces"
     "internal/mplayer"
+    "internal/dj"
     "fmt"
     _ "time"
     //"os"
@@ -34,4 +35,15 @@ func main() {
             }
         }
     }
+    playlist := dj.Playlist{}
+    playlist.Name = "PlaylistTeste.eu"
+    song, _ := mplayer.GetSongInfo("/mnt/vmio/06 - Venus In Force.mp3")
+    song.AlbumCover = "data"
+    playlist.Add(song)
+    playlist.SaveTo("blau")
+    x := dj.Playlist{}
+    x.LoadFrom("blau")
+    fmt.Println(x.Name)
+    s, _ := x.GetSongByFilePath("/mnt/vmio/06 - Venus In Force.mp3")
+    fmt.Println(s)
 }

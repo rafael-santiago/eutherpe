@@ -6,3 +6,5 @@ require internal/bluebraces v1.0.0
 replace internal/bluebraces => ./internal/bluebraces
 require internal/mplayer v1.0.0
 replace internal/mplayer => ./internal/mplayer
+require internal/dj v1.0.0
+replace internal/dj => ./internal/dj
