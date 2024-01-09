@@ -7,7 +7,7 @@ import (
     "testing"
 )
 
-func TestAddSelectionToNext(t *testing.T) {
+func TestAddSelectionToUpNext(t *testing.T) {
     eutherpeVars := &vars.EutherpeVars{}
     eutherpeVars.Collection = make(mplayer.MusicCollection)
     eutherpeVars.Collection["Queens Of The Stone Age"] = make(map[string][]mplayer.SongInfo)
@@ -30,40 +30,40 @@ func TestAddSelectionToNext(t *testing.T) {
     userData.Add(vars.EutherpePostFieldSelection, "The Cramps/Songs The Lord Taught Us/Fever:fever.mp3")
     userData.Add(vars.EutherpePostFieldSelection, "Queens Of The Stone Age/Queens Of The Stone Age/Regular John:regular-john.mp3")
     eutherpeVars.Player.UpNext = append(eutherpeVars.Player.UpNext, eutherpeVars.Collection["Motorhead"]["Bomber"][0])
-    err := AddSelectionToNext(eutherpeVars, userData)
+    err := AddSelectionToUpNext(eutherpeVars, userData)
     if err != nil {
-        t.Errorf("AddSelectionToNext() returned error.\n")
+        t.Errorf("AddSelectionToUpNext() returned error.\n")
     }
     if len(eutherpeVars.Player.UpNext) != 4 {
         t.Errorf("eutherpeVars.Player.UpNext has wrong total of songs.\n")
     }
-    if eutherpeVars.Player.UpNext[0] != eutherpeVars.Collection["Motorhead"]["Bomber"][0] {
+    if eutherpeVars.Player.UpNext[0] != eutherpeVars.Collection["Motorhead"]["Overkill"][0] {
         t.Errorf("eutherpeVars.Player.UpNext seems like not following the order of userData.\n")
     }
-    if eutherpeVars.Player.UpNext[1] != eutherpeVars.Collection["Motorhead"]["Overkill"][0] {
+    if eutherpeVars.Player.UpNext[1] != eutherpeVars.Collection["The Cramps"]["Songs The Lord Taught Us"][0] {
         t.Errorf("eutherpeVars.Player.UpNext seems like not following the order of userData.\n")
     }
-    if eutherpeVars.Player.UpNext[2] != eutherpeVars.Collection["The Cramps"]["Songs The Lord Taught Us"][0] {
+    if eutherpeVars.Player.UpNext[2] != eutherpeVars.Collection["Queens Of The Stone Age"]["Queens Of The Stone Age"][0] {
         t.Errorf("eutherpeVars.Player.UpNext seems like not following the order of userData.\n")
     }
-    if eutherpeVars.Player.UpNext[3] != eutherpeVars.Collection["Queens Of The Stone Age"]["Queens Of The Stone Age"][0] {
+    if eutherpeVars.Player.UpNext[3] != eutherpeVars.Collection["Motorhead"]["Bomber"][0] {
         t.Errorf("eutherpeVars.Player.UpNext seems like not following the order of userData.\n")
     }
     userData = &url.Values{}
-    err = AddSelectionToNext(eutherpeVars, userData)
+    err = AddSelectionToUpNext(eutherpeVars, userData)
     if err == nil {
-        t.Errorf("AddSelectionToNext did not return an error.\n")
+        t.Errorf("AddSelectionToUpNext did not return an error.\n")
     }
-    if err.Error() != "Malformed addselectiontonext request." {
+    if err.Error() != "Malformed addselectiontoupnext request." {
         t.Errorf("Unexpected error message.\n")
     }
     userData = &url.Values{}
     userData.Add(vars.EutherpePostFieldSelection, "Motorhead/Overkill/Stay Clean:stay-clean.mp3")
     userData.Add(vars.EutherpePostFieldSelection, "The Grumpies/Songs The Lord Taught Us/Fever:fever.mp3")
     userData.Add(vars.EutherpePostFieldSelection, "Queens Of The Stone Age/Queens Of The Stone Age/Regular John:regular-john.mp3")
-    err = AddSelectionToNext(eutherpeVars, userData)
+    err = AddSelectionToUpNext(eutherpeVars, userData)
     if err == nil {
-        t.Errorf("AddSelectionToNext did not return an error.\n")
+        t.Errorf("AddSelectionToUpNext did not return an error.\n")
     }
     if err.Error() != "No collection for The Grumpies." {
         t.Errorf("Unexpected error message.\n")
