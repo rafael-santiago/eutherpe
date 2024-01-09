@@ -1,4 +1,4 @@
-package web
+package actions
 
 import (
     "internal/vars"

@@ -1,8 +1,10 @@
+package vars
+
 import (
     "internal/mplayer"
     "internal/dj"
     "internal/bluebraces"
-    "sync/mutex"
+    "sync"
 )
 
 type EutherpeVars struct {
@@ -15,6 +17,7 @@ type EutherpeVars struct {
     Collection mplayer.MusicCollection
     Playlists []dj.Playlist
     Player struct {
+        NowPlaying mplayer.SongInfo
         UpNext []mplayer.SongInfo
         Shuffle bool
         RepeatAll bool
@@ -25,11 +28,11 @@ type EutherpeVars struct {
 }
 
 func (e *EutherpeVars) Lock() {
-    mtx.Lock()
+    e.mtx.Lock()
 }
 
 func (e *EutherpeVars) Unlock() {
-    mtx.Unlock()
+    e.mtx.Unlock()
 }
 
 func (e *EutherpeVars) Render(template string) string {
@@ -79,3 +82,5 @@ const EutherpeBluetoothPairId = "bluetooth-pair"
 const EutherpeBluetoothUnpairId = "bluetooth-unpair"
 const EutherpeBluetoothTrustId = "bluetooth-trust"
 const EutherpeBluetoothUntrustId = "bluetooth-untrust"
+
+const EutherpePostFieldSelection = "selection"

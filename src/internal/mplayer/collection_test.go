@@ -118,3 +118,64 @@ func TestGetAlbumsFromArtist(t *testing.T) {
         t.Errorf("Unknown artist has returned albums : '%v'.\n", artist404)
     }
 }
+
+func TestGetSongFromArtistAlbum(t *testing.T) {
+    collection := make(MusicCollection)
+    collection["Queens Of The Stone Age"] = make(map[string][]SongInfo)
+    collection["Motorhead"] = make(map[string][]SongInfo)
+    collection["The Cramps"] = make(map[string][]SongInfo)
+    collection["Queens Of The Stone Age"]["Queens Of The Stone Age"] = []SongInfo {
+        SongInfo { "regular-john.mp3", "Regular John", "Queens Of The Stone Age", "Queens Of The Stone Age", "1", "1998", "", "Stoner Rock", },
+    }
+    collection["Queens Of The Stone Age"]["Songs For The Deaf"] = []SongInfo {
+        SongInfo { "no-one-knows.mp3", "No One Knows", "Queens Of The Stone Age", "Songs For The Deaf", "2", "2002", "", "Stoner Rock", },
+    }
+    collection["Queens Of The Stone Age"]["In Times New Roman"] = []SongInfo {
+        SongInfo { "emotion-sickness.mp3", "Emotion Sickness", "Queens Of The Stone Age", "In Times New Roman", "9", "2023", "", "Stoner Rock" },
+    }
+    collection["Motorhead"]["Bomber"] = []SongInfo {
+        SongInfo { "dead_men_tell_no_tales.mp3", "Dead Men Tell No Tales", "Motorhead", "Bomber", "1", "1979", "", "Speed Metal", },
+    }
+    collection["Motorhead"]["Overkill"] = []SongInfo {
+        SongInfo { "stay-clean.mp3", "Stay Clean", "Motorhead", "Overkill", "2", "1979", "", "Speed Metal", },
+    }
+    collection["The Cramps"]["Songs The Lord Taught Us"] = []SongInfo {
+        SongInfo { "fever.mp3", "Fever", "The Cramps", "Songs The Lord Taught Us", "13", "1980", "", "Psychobilly", },
+    }
+    _, err := collection.GetSongFromArtistAlbum("Falcao",
+                                                "Dinheiro nao eh tudo, mas eh 70%",
+                                                "Atirei o Pau No Gato (Soh Para Ouvir o Miau).m4a")
+    if err == nil {
+        t.Errorf("GetSongFromArtistAlbum() did not return an error.\n")
+    }
+    if err.Error() != "No collection for Falcao." {
+        t.Errorf("Unexpected error message.\n")
+    }
+    _, err = collection.GetSongFromArtistAlbum("Queens Of The Stone Age", "...Like Clockwork", "i-sat-by-the-ocean.mp3")
+    if err == nil {
+        t.Errorf("GetSongFromArtistAlbum() did not return an error.\n")
+    }
+    if err.Error() != "No album ...Like Clockwork for Queens Of The Stone Age was found." {
+        t.Errorf("Unexpected error message.\n")
+    }
+    _, err = collection.GetSongFromArtistAlbum("Queens Of The Stone Age", "Queens Of The Stone Age", "the-bronze.mp3")
+    if err == nil {
+        t.Errorf("GetSongFromArtistAlbum() did not return an error.\n")
+    }
+    if err.Error() != "No song the-bronze.mp3 in album Queens Of The Stone Age by Queens Of The Stone Age was found." {
+        t.Errorf("Unexpected error message.\n")
+    }
+    for artist, albums := range collection {
+        for album, songs := range albums {
+            for _, song := range songs {
+                curr_song, err := collection.GetSongFromArtistAlbum(artist, album, song.FilePath)
+                if err != nil {
+                    t.Errorf("GetSongFromArtistAlbum() returned an error.\n")
+                }
+                if curr_song != song {
+                    t.Errorf("curr_song != song : '%v' != '%v'.\n", curr_song, song)
+                }
+            }
+        }
+    }
+}

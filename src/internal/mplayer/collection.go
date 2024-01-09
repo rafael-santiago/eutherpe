@@ -4,9 +4,27 @@ import(
     "sort"
     "strings"
     "strconv"
+    "fmt"
 )
 
 type MusicCollection map[string]map[string][]SongInfo
+
+func (m *MusicCollection) GetSongFromArtistAlbum(artist, album, filePath string) (SongInfo, error) {
+    artistCollection, has := (*m)[artist]
+    if !has {
+        return SongInfo{}, fmt.Errorf("No collection for %s.", artist)
+    }
+    songs, has := artistCollection[album]
+    if !has {
+        return SongInfo{}, fmt.Errorf("No album %s for %s was found.", album, artist)
+    }
+    for _, song := range songs {
+        if song.FilePath == filePath {
+            return song, nil
+        }
+    }
+    return SongInfo{}, fmt.Errorf("No song %s in album %s by %s was found.", filePath, album, artist)
+}
 
 func LoadMusicCollection(basePath string) (MusicCollection, error) {
     songs, err := ScanSongs(basePath)
