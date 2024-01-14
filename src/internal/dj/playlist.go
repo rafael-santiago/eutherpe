@@ -46,6 +46,12 @@ func (p *Playlist) MoveDown(song mplayer.SongInfo) {
     p.metaMove(song, +1)
 }
 
+func (p *Playlist) ClearAll() {
+    p.mtx.Lock()
+    defer p.mtx.Unlock()
+    p.songs = make([]mplayer.SongInfo, 0)
+}
+
 func (p *Playlist) GetSongByFilePath(filePath string) (mplayer.SongInfo, error) {
     p.mtx.Lock()
     defer p.mtx.Unlock()

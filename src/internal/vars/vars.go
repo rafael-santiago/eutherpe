@@ -86,3 +86,5 @@ const EutherpeBluetoothUntrustId = "bluetooth-untrust"
 
 const EutherpePostFieldSelection = "selection"
 const EutherpePostFieldPlaylist = "playlist"
+const EutherpePostFieldStorageDevice = "storage-device"
+const EutherpePostFieldBluetoothDevice = "bluetooth-device"

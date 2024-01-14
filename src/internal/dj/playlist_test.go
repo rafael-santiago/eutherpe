@@ -407,3 +407,54 @@ func TestGetPlaylist(t *testing.T) {
         t.Errorf("Playlist 'MetalFarofa' not found.\n")
     }
 }
+
+func TestClearAll(t *testing.T) {
+    songs := []mplayer.SongInfo {
+        {
+            "/mnt/jukebox/feeling-good.mp3",
+            "Feeling Good",
+            "Nina Simone",
+            "Best of Nina Simone",
+            "10",
+            "1999",
+            "some data...",
+            "Jazz/Soul",
+        },
+        {
+            "/mnt/jukebox/lawman.mp3",
+            "Lawnman",
+            "Motorhead",
+            "Bomber",
+            "2",
+            "1979",
+            "",
+            "Speed Metal",
+        },
+        {
+            "/mnt/jukebox/mambo sun.mp3",
+            "Mambo Sun",
+            "T-Rex",
+            "Electric Warrior",
+            "1",
+            "1971",
+            "(...)",
+            "Glam Rock",
+        },
+    }
+    playlist := Playlist{}
+    playlist.Name = "TestPlaylist"
+    for _, song := range songs {
+        playlist.Add(song)
+    }
+    for s, song := range songs {
+        if playlist.GetSongIndexByFilePath(song.FilePath) != s {
+            t.Errorf("Add() failed when it must not.\n")
+        }
+    }
+    playlist.ClearAll()
+    for _, song := range songs {
+        if playlist.GetSongIndexByFilePath(song.FilePath) != -1 {
+            t.Errorf("ClearAll() seems not being empty the playlist.\n")
+        }
+    }
+}
