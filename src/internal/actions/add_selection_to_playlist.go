@@ -18,7 +18,7 @@ func AddSelectionToPlaylist(eutherpeVars *vars.EutherpeVars, userData *url.Value
     if !has || len(playlist) != 1 {
         return fmt.Errorf("Malformed addselectiontoplaylist request.")
     }
-    editedPlaylist := getPlaylist(playlist[0], &eutherpeVars.Playlists)
+    editedPlaylist := dj.GetPlaylist(playlist[0], &eutherpeVars.Playlists)
     if editedPlaylist == nil {
         return fmt.Errorf("Playlist %s not found.", playlist[0])
     }
@@ -31,15 +31,6 @@ func AddSelectionToPlaylist(eutherpeVars *vars.EutherpeVars, userData *url.Value
             return err
         }
         editedPlaylist.Add(song)
-    }
-    return nil
-}
-
-func getPlaylist(playlist string, playlists *[]dj.Playlist) *dj.Playlist {
-    for p, curr_playlist := range *playlists {
-        if curr_playlist.Name == playlist {
-            return &(*playlists)[p]
-        }
     }
     return nil
 }

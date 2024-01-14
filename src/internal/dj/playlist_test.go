@@ -388,3 +388,22 @@ func TestSaveToLoadFrom(t *testing.T) {
         }
     }
 }
+
+func TestGetPlaylist(t *testing.T) {
+    playlists := make([]Playlist, 0)
+    playlists = append(playlists, Playlist{Name: "SohAsBregas"})
+    playlists = append(playlists, Playlist{Name: "SofrenciaMetal"})
+    playlists = append(playlists, Playlist{Name: "MetalFarofa"})
+    if GetPlaylist("MotownOnly", &playlists) != nil {
+        t.Errorf("playlist != nil when it should equals to.\n")
+    }
+    if GetPlaylist("SohAsBregas", &playlists) == nil {
+        t.Errorf("Playlist 'SohAsBregas' not found.\n")
+    }
+    if GetPlaylist("SofrenciaMetal", &playlists) == nil {
+        t.Errorf("Playlist 'SofrenciaMetal' not found.\n")
+    }
+    if GetPlaylist("MetalFarofa", &playlists) == nil {
+        t.Errorf("Playlist 'MetalFarofa' not found.\n")
+    }
+}

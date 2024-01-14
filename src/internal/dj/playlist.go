@@ -118,6 +118,15 @@ func (p *Playlist) LoadFrom(filePath string) error {
     return nil
 }
 
+func GetPlaylist(playlist string, playlists *[]Playlist) *Playlist {
+    for p, curr_playlist := range *playlists {
+        if curr_playlist.Name == playlist {
+            return &(*playlists)[p]
+        }
+    }
+    return nil
+}
+
 func (p *Playlist) getSongIndex(song mplayer.SongInfo) int {
     var s int
     for s = 0; s < len(p.songs); s++ {

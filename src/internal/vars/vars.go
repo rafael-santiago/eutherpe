@@ -16,6 +16,7 @@ type EutherpeVars struct {
     }
     Collection mplayer.MusicCollection
     Playlists []dj.Playlist
+    RenderedPlaylist string
     Player struct {
         NowPlaying mplayer.SongInfo
         UpNext []mplayer.SongInfo
