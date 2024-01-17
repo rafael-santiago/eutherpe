@@ -12,3 +12,5 @@ require internal/vars v1.0.0
 replace internal/vars => ./internal/vars
 require internal/actions v1.0.0
 replace internal/actions => ./internal/actions
+require internal/storage v1.0.0
+replace internal/storage => ./internal/storage
