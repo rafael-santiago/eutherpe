@@ -69,7 +69,7 @@ func TestUnwearMustFailDueToBluetoohctl(t *testing.T) {
 }
 
 func TestScanDevicesMustPass(t *testing.T) {
-    blueDevs, err := ScanDevices(time.Duration(3 * time.Second), "./")
+    blueDevs, err := ScanDevices(time.Duration(3 * time.Second), "../bluebraces")
     if len(blueDevs) == 0 {
         t.Error("bluebraces.ScanDevices() returned no devices.")
     }
@@ -96,7 +96,7 @@ func TestScanDevicesMustPass(t *testing.T) {
 func TestScanDevicesMustFail(t *testing.T) {
     os.Setenv("BLUETOOTHCTL_MUST_FAIL", "1")
     defer os.Unsetenv("BLUETOOTHCTL_MUST_FAIL")
-    blueDevs, err := ScanDevices(time.Duration(3 * time.Second), "./")
+    blueDevs, err := ScanDevices(time.Duration(3 * time.Second), "../bluebraces")
     if len(blueDevs) > 0 {
         t.Error("bluebraces.ScanDevices() returned devices.")
     }
@@ -106,7 +106,7 @@ func TestScanDevicesMustFail(t *testing.T) {
 }
 
 func TestPairDeviceMustPass(t *testing.T) {
-    err := PairDevice("00:00:00:00:00:00", "./")
+    err := PairDevice("00:00:00:00:00:00", "../bluebraces")
     if err != nil {
         t.Error("bluebraces.PairDevice() has failed.")
     }
@@ -115,14 +115,14 @@ func TestPairDeviceMustPass(t *testing.T) {
 func TestPairDeviceMustFail(t *testing.T) {
     os.Setenv("BLUETOOTHCTL_MUST_FAIL", "1")
     defer os.Unsetenv("BLUETOOTHCTL_MUST_FAIL")
-    err := PairDevice("00:00:00:00:00:00", "./")
+    err := PairDevice("00:00:00:00:00:00", "../bluebraces")
     if err == nil {
         t.Error("bluebrances.PairDevice() has succeeded.")
     }
 }
 
 func TestUnpairDeviceMustPass(t *testing.T) {
-    err := UnpairDevice("00:00:00:00:00:00", "./")
+    err := UnpairDevice("00:00:00:00:00:00", "../bluebraces")
     if err != nil {
         t.Error("bluebraces.UnpairDevice() has failed.")
     }
@@ -131,14 +131,14 @@ func TestUnpairDeviceMustPass(t *testing.T) {
 func TestUnpairDeviceMustFail(t *testing.T) {
     os.Setenv("BLUETOOTHCTL_MUST_FAIL", "1")
     defer os.Unsetenv("BLUETOOTHCTL_MUST_FAIL")
-    err := UnpairDevice("00:00:00:00:00:00", "./")
+    err := UnpairDevice("00:00:00:00:00:00", "../bluebraces")
     if err == nil {
         t.Error("bluebrances.UnpairDevice() has succeeded.")
     }
 }
 
 func TestConnectDeviceMustPass(t *testing.T) {
-    err := ConnectDevice("00:00:00:00:00:00", "./")
+    err := ConnectDevice("00:00:00:00:00:00", "../bluebraces")
     if err != nil {
         t.Error("bluebraces.ConnectDevice() has failed.")
     }
@@ -147,14 +147,14 @@ func TestConnectDeviceMustPass(t *testing.T) {
 func TestConnectDeviceMustFail(t *testing.T) {
     os.Setenv("BLUETOOTHCTL_MUST_FAIL", "1")
     defer os.Unsetenv("BLUETOOTHCTL_MUST_FAIL")
-    err := ConnectDevice("00:00:00:00:00:00", "./")
+    err := ConnectDevice("00:00:00:00:00:00", "../bluebraces")
     if err == nil {
         t.Error("bluebrances.ConnectDevice() has succeeded.")
     }
 }
 
 func TestDisconnectDeviceMustPass(t *testing.T) {
-    err := DisconnectDevice("00:00:00:00:00:00", "./")
+    err := DisconnectDevice("00:00:00:00:00:00", "../bluebraces")
     if err != nil {
         t.Error("bluebraces.DisconnectDevice() has failed.")
     }
@@ -163,14 +163,14 @@ func TestDisconnectDeviceMustPass(t *testing.T) {
 func TestDisconnectDeviceMustFail(t *testing.T) {
     os.Setenv("BLUETOOTHCTL_MUST_FAIL", "1")
     defer os.Unsetenv("BLUETOOTHCTL_MUST_FAIL")
-    err := DisconnectDevice("00:00:00:00:00:00", "./")
+    err := DisconnectDevice("00:00:00:00:00:00", "../bluebraces")
     if err == nil {
         t.Error("bluebrances.DisconnectDevice() has succeeded.")
     }
 }
 
 func TestTrustDeviceMustPass(t *testing.T) {
-    err := TrustDevice("00:00:00:00:00:00", "./")
+    err := TrustDevice("00:00:00:00:00:00", "../bluebraces")
     if err != nil {
         t.Error("bluebraces.TrustDevice() has failed.")
     }
@@ -179,14 +179,14 @@ func TestTrustDeviceMustPass(t *testing.T) {
 func TestTrustDeviceMustFail(t *testing.T) {
     os.Setenv("BLUETOOTHCTL_MUST_FAIL", "1")
     defer os.Unsetenv("BLUETOOTHCTL_MUST_FAIL")
-    err := TrustDevice("00:00:00:00:00:00", "./")
+    err := TrustDevice("00:00:00:00:00:00", "../bluebraces")
     if err == nil {
         t.Error("bluebrances.TrustDevice() has succeeded.")
     }
 }
 
 func TestUntrustDeviceMustPass(t *testing.T) {
-    err := UntrustDevice("00:00:00:00:00:00", "./")
+    err := UntrustDevice("00:00:00:00:00:00", "../bluebraces")
     if err != nil {
         t.Error("bluebraces.UntrustDevice() has failed.")
     }
@@ -195,7 +195,7 @@ func TestUntrustDeviceMustPass(t *testing.T) {
 func TestUntrustDeviceMustFail(t *testing.T) {
     os.Setenv("BLUETOOTHCTL_MUST_FAIL", "1")
     defer os.Unsetenv("BLUETOOTHCTL_MUST_FAIL")
-    err := UntrustDevice("00:00:00:00:00:00", "./")
+    err := UntrustDevice("00:00:00:00:00:00", "../bluebraces")
     if err == nil {
         t.Error("bluebrances.UntrustDevice() has succeeded.")
     }

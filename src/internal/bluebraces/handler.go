@@ -5,6 +5,7 @@ import(
     "os/exec"
     "time"
     "strings"
+    "path"
 )
 
 const (
@@ -40,27 +41,27 @@ func ScanDevices(duration time.Duration, customPath ...string) ([]BluetoothDevic
 }
 
 func PairDevice(devId string, customPath ...string) error {
-    return exec.Command(getToolPath(customPath...) + "bluetoothctl", "pair", devId).Run()
+    return exec.Command(path.Join(getToolPath(customPath...), "bluetoothctl"), "pair", devId).Run()
 }
 
 func UnpairDevice(devId string, customPath ...string) error {
-    return exec.Command(getToolPath(customPath...) + "bluetoothctl", "cancel-pairing", devId).Run()
+    return exec.Command(path.Join(getToolPath(customPath...), "bluetoothctl"), "cancel-pairing", devId).Run()
 }
 
 func ConnectDevice(devId string, customPath ...string) error {
-    return exec.Command(getToolPath(customPath...) + "bluetoothctl", "connect", devId).Run()
+    return exec.Command(path.Join(getToolPath(customPath...), "bluetoothctl"), "connect", devId).Run()
 }
 
 func DisconnectDevice(devId string, customPath ...string) error {
-    return exec.Command(getToolPath(customPath...) + "bluetoothctl", "disconnect", devId).Run()
+    return exec.Command(path.Join(getToolPath(customPath...), "bluetoothctl"), "disconnect", devId).Run()
 }
 
 func TrustDevice(devId string, customPath ...string) error {
-    return exec.Command(getToolPath(customPath...) + "bluetoothctl", "trust", devId).Run()
+    return exec.Command(path.Join(getToolPath(customPath...), "bluetoothctl"), "trust", devId).Run()
 }
 
 func UntrustDevice(devId string, customPath ...string) error {
-    return exec.Command(getToolPath(customPath...) + "bluetoothctl", "untrust", devId).Run()
+    return exec.Command(path.Join(getToolPath(customPath...), "bluetoothctl"), "untrust", devId).Run()
 }
 
 func getToolPath(customPath ...string) string {
@@ -71,7 +72,7 @@ func getToolPath(customPath ...string) string {
 }
 
 func doDevicesScan(blueDevs *[]BluetoothDevice, duration time.Duration, customPath ...string) error {
-    cmd := exec.Command(getToolPath(customPath...) + "bluetoothctl", "scan", "on")
+    cmd := exec.Command(path.Join(getToolPath(customPath...), "bluetoothctl"), "scan", "on")
     var out []byte
     var err error
     go func() {
@@ -99,7 +100,7 @@ func doDevicesScan(blueDevs *[]BluetoothDevice, duration time.Duration, customPa
 }
 
 func getDeviceAlias(devId string, customPath ...string) string {
-    cmd := exec.Command(getToolPath(customPath...) + "bluetoothctl", "info", devId)
+    cmd := exec.Command(path.Join(getToolPath(customPath...), "bluetoothctl"), "info", devId)
     out, err := cmd.CombinedOutput()
     if err != nil {
         return "(unamed)"
