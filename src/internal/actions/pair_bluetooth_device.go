@@ -19,8 +19,7 @@ func PairBluetoothDevice(eutherpeVars *vars.EutherpeVars,
         customPath = "../bluebraces"
     }
     if len(eutherpeVars.CachedDevices.BlueDevId) > 0 {
-        _ = bluebraces.DisconnectDevice(eutherpeVars.CachedDevices.BlueDevId, customPath)
-        _ = bluebraces.UnpairDevice(eutherpeVars.CachedDevices.BlueDevId, customPath)
+        _ = UnpairBluetoothDevice(eutherpeVars, &url.Values{})
     }
     err := bluebraces.PairDevice(bluetoothDevice[0], customPath)
     if err != nil {
