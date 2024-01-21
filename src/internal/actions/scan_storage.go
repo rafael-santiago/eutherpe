@@ -8,6 +8,8 @@ import (
 )
 
 func ScanStorage(eutherpeVars *vars.EutherpeVars, _ *url.Values) error {
+    eutherpeVars.Lock()
+    defer eutherpeVars.Unlock()
     if len(eutherpeVars.CachedDevices.MusicDevId) == 0 {
         return fmt.Errorf("Unset MusicDevId.")
     }

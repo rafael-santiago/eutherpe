@@ -10,12 +10,13 @@ import (
 )
 
 func main() {
-    /*handle, err := mplayer.Play("/mnt/vmio/06 Dharma For One.mp3")
+    handle, err := mplayer.Play("/mnt/vmio/06 Dharma For One.mp3")
     if err != nil {
         fmt.Println(err)
     }
-    time.Sleep(10 * time.Second)
-    defer mplayer.Stop(handle)*/
+    //time.Sleep(10 * time.Second)
+    handle.Wait()
+    defer mplayer.Stop(handle)
     /*var s mplayer.SongInfo
     s, _ = mplayer.GetSongInfo("/mnt/vmio/06 - Venus In Force.mp3")
     fmt.Println(s.Album, s.TrackNumber, s.Title, s.Artist, s.Year, s.Genre)

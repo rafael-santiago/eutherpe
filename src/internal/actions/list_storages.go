@@ -7,6 +7,8 @@ import (
 )
 
 func ListStorages(eutherpeVars *vars.EutherpeVars, _ *url.Values) error {
+    eutherpeVars.Lock()
+    defer eutherpeVars.Unlock()
     eutherpeVars.StorageDevices = storage.GetAllAvailableStorages()
     if len(eutherpeVars.CachedDevices.MusicDevId) == 0 {
         return nil

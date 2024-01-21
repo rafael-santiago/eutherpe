@@ -5,6 +5,7 @@ import (
     "internal/dj"
     "internal/bluebraces"
     "sync"
+    "os/exec"
 )
 
 type EutherpeVars struct {
@@ -20,9 +21,13 @@ type EutherpeVars struct {
     Player struct {
         NowPlaying mplayer.SongInfo
         UpNext []mplayer.SongInfo
+        UpNextCurrentOffset int
+        Handle *exec.Cmd
+        UpNextBkp []mplayer.SongInfo
         Shuffle bool
         RepeatAll bool
         RepeatOne bool
+        Stopped bool
     }
     Error error
     mtx sync.Mutex
@@ -52,6 +57,7 @@ const EutherpeMusicShuffleId = "music-shuffle"
 const EutherpeMusicRepeatAllId = "music-repeatall"
 const EutherpeMusicRepeatOneId = "music-repeatone"
 const EutherpeMusicPlayId = "music-play"
+const EutherpeMusicStopId = "music-stop"
 const EutherpeMusicNextId = "music-next"
 
 // INFO(Rafael): Actions from "Collection" sheet.
