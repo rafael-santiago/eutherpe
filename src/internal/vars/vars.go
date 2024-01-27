@@ -75,6 +75,7 @@ const EutherpePlaylistShowId = "playlist-show"
 const EutherpePlaylistMoveUpId = "playlist-moveup"
 const EutherpePlaylistMoveDownId = "playlist-movedown"
 const EutherpePlaylistClearAllId = "playlist-clearall"
+const EutherpePlaylistRemoveSongsId = "playlist-removesongs"
 
 // INFO(Rafael): Actions from "Storage" sheet.
 
