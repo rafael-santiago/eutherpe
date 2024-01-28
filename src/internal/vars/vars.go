@@ -9,6 +9,11 @@ import (
 )
 
 type EutherpeVars struct {
+    APPName string
+    HTTPd struct {
+        URLSchema string
+        Addr string
+    }
     BluetoothDevices []bluebraces.BluetoothDevice
     StorageDevices []string
     CachedDevices struct {
@@ -95,3 +100,16 @@ const EutherpePostFieldSelection = "selection"
 const EutherpePostFieldPlaylist = "playlist"
 const EutherpePostFieldStorageDevice = "storage-device"
 const EutherpePostFieldBluetoothDevice = "bluetooth-device"
+
+// INFO(Rafael): Template markers id.
+
+const EutherpeTemplateNeedleURLSchema = "{{.URL-SCHEMA}}"
+const EutherpeTemplateNeedleEutherpeAddr = "{{.EUTHERPE-ADDR}}"
+const EutherpeTemplateNeedleEutherpe = "{{.EUTHERPE}}"
+const EutherpeTemplateNeedleUpNext = "{{.UP-NEXT}}"
+const EutherpeTemplateNeedleCollection = "{{.COLLECTION}}"
+const EutherpeTemplateNeedlePlaylists = "{{.PLAYLISTS}}"
+const EutherpeTemplateNeedleSelectedStorageDevice = "{{.SELECTED-STORAGE-DEVICE}}"
+const EutherpeTemplateNeedleFoundStorageDevices = "{{.FOUND-STORAGE-DEVICES}}"
+const EutherpeTemplateNeedleSelectedBluetoothDevice = "{{.SELECTED-BLUETOOTH-DEVICE}}"
+const EutherpeTemplateNeedleFoundBluetoothDevices = "{{.FOUND-BLUETOOTH-DEVICES}}"

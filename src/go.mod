@@ -14,3 +14,5 @@ require internal/actions v1.0.0
 replace internal/actions => ./internal/actions
 require internal/storage v1.0.0
 replace internal/storage => ./internal/storage
+require internal/renders v1.0.0
+replace internal/renders => ./internal/renders

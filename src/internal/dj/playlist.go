@@ -15,6 +15,10 @@ type Playlist struct {
     mtx sync.Mutex
 }
 
+func (p *Playlist) Songs() []mplayer.SongInfo {
+    return p.songs
+}
+
 func (p *Playlist) Add(song mplayer.SongInfo) {
     p.mtx.Lock()
     defer p.mtx.Unlock()

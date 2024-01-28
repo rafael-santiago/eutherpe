@@ -458,3 +458,21 @@ func TestClearAll(t *testing.T) {
         }
     }
 }
+
+func TestSongs(t *testing.T) {
+    playlists := make([]Playlist, 0)
+    playlists = append(playlists, Playlist{Name: "MetalFarofa"})
+    playlist := GetPlaylist("MetalFarofa", &playlists)
+    if playlist == nil {
+        t.Errorf("playlist == nil when it should not.\n")
+    }
+    playlist.Add(mplayer.SongInfo{Artist: "MetaleiroFarofaChatao", FilePath: "chato"})
+    playlist.Add(mplayer.SongInfo{Artist: "MetaleiroFarofaMalzaoComOsBracosCruzadosAlaLinkedin", FilePath: "coach_malzao"})
+    songs := playlist.Songs()
+    if len(songs) != 2 {
+        t.Errorf("songs has not the expected total of elements.\n")
+    } else if songs[0].Artist != "MetaleiroFarofaChatao" ||
+              songs[1].Artist != "MetaleiroFarofaMalzaoComOsBracosCruzadosAlaLinkedin" {
+        t.Errorf("songs has unexpected content.\n")
+    }
+}
