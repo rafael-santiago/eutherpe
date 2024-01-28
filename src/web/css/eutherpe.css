@@ -1,0 +1,176 @@
+* {box-sizing: border-box;}
+@font-face {
+    font-family: "Sabo-Filled";
+    src: url("{{.URL-SCHEMA}}{{.EUTHERPE-ADDR}}/web/fonts/Sabo-Filled.otf") format("opentype");
+}
+@font-face {
+    font-family: "Sabo-Regular";
+    src: url("{{.URL-ADDR}}{{.EUTHERPE-ADDR}}/web/Sabo-Regular.otf") format("opentype");
+}
+.title-banner {
+    font-family: "Sabo-Filled";
+    font-size: 50px;
+}
+.config {
+    float: left;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+    width: 25%;
+    height: 307px;
+}
+.config button {
+    font-family: "Sabo-Filled";
+    display: block;
+    background-color: inherit;
+    color: black;
+    padding: 22px 16px;
+    width: 100%;
+    border: none;
+    outline: none;
+    text-align: left;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.config button:hover {
+    font-family: "Sabo-Regular";
+    background-color: #ddd;
+}
+.config button.active {
+    text-align: right;
+    background-color: #ccc;
+}
+.configcontent {
+    font-family: "Sabo-Filled";
+    font-size: 18px;
+    float: left;
+    padding: 0px 12px;
+    border: 1px solid #ccc;
+    width: 70%;
+    border-left: none;
+    height: 307px;
+}
+.nowplaying {
+    padding: 0px 0;
+}
+.eutherpeBUTTON {
+    font-family: "Sabo-Filled";
+    cursor: pointer;
+    border: 1px solid #ccc;
+}
+ul, #eutherpeUL {
+    list-style-type: none;
+}
+#eutherpeUL {
+    margin: 0;
+    padding: 0;
+}
+.caret {
+    cursor: pointer;
+    -webkit-user-select: none; /* Safari 3.1+ */
+    -moz-user-select: none; /* Firefox 2+ */
+    -ms-user-select: none; /* IE 10+ */
+    user-select: none;
+}
+.caret::before {
+    content: "\25B6";
+    color: black;
+    display: inline-block;
+    margin-right: 6px;
+}
+.caret-down::before {
+    -ms-transform: rotate(90deg); /* IE 9 */
+    -webkit-transform: rotate(90deg); /* Safari */'
+    transform: rotate(90deg);
+}
+.nested {
+    display: none;
+}
+.active {
+    display: block;
+}
+.scrollbox {
+    background-color: white;
+    color: black;
+    border: 2px solid black;
+    margin: 1px;
+    padding: 5px;
+    max-height: 60%;
+    overflow-y: auto;
+}
+.tinyscrollbox {
+    background-color: white;
+    color: black;
+    border: 0px solid black;
+    margin: 1px;
+    padding: 5px;
+    max-height: 32%;
+    max-width: 100%;
+    overflow-y: auto;
+}
+.hugescrollbox {
+    background-color: white;
+    color: black;
+    border: 0px solid black;
+    margin: 1px;
+    padding: 5px;
+    max-height: 70%;
+    max-width: 100%;
+    overflow-y: auto;
+}
+@media only screen and (orientation: landscape) {
+    /* For mobile phones: */
+    [class*="config"] {
+        width: 20%;
+    }
+    [class*="configcontent"] {
+        width: 80%;
+    }
+    .scrollbox {
+        max-height: 45%;
+    }
+}
+@media only screen and (orientation: portrait) {
+    /* For mobile phones: */
+    .scrollbox {
+        width: 50%;
+        max-height: 75%;
+    }
+    .config {
+        float: left;
+        border: 1px solid #ccc;
+        background-color: #f1f1f1;
+        width: 15%;
+        height: 307px;
+    }
+    .configcontent {
+        font-family: "Sabo-Filled";
+        font-size: 18px;
+        float: left;
+        padding: 0px 12px;
+        border: 1px solid #ccc;
+        width: 85%;
+        border-left: none;
+        height: 307px;
+    }
+    .tinyscrollbox {
+        max-height: 25%;
+        font-size: 100%;
+    }
+    .scrollbox {
+        background-color: white;
+        color: black;
+        border: 2px solid black;
+        margin: 1px;
+        padding: 5px;
+        max-height: 45%;
+        width: 100%;
+        font-size: 100%;
+        overflow-y: auto;
+    }
+    .eutherpeBUTTON {
+        font-size: 100%;
+    }
+    .configcontent {
+        font-size: 70%;
+    }
+}
