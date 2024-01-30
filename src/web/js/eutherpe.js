@@ -71,12 +71,13 @@ function getSelectedBluetoothDevice() {
 }
 
 function selectPlaylist(sender) {
+    var state = sender.checked;
     setUnchecked(document.getElementsByClassName("PlaylistSong"));
     playlists = document.getElementsByClassName("Playlist");
     for (var p = 0; p < playlists.length; p++) {
         playlists[p].checked = false;
     }
-    sender.checked = true;
+    sender.checked = state;
 }
 
 function getSelectedPlaylist() {
@@ -294,7 +295,7 @@ function setUncheckedAllSongsOutFromPlaylist(sender) {
     }
     playlistSongs = document.getElementsByClassName("PlaylistSong");
     for (var p = 0; p < playlistSongs.length; p++) {
-        if (!playlistSongs[p].id.startsWith(sender.id)) {
+        if (!playlistSongs[p].id.startsWith(playlistOfThisSong)) {
             playlistSongs[p].checked = false;
         }
     }
