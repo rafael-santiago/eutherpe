@@ -1,11 +1,11 @@
 * {box-sizing: border-box;}
 @font-face {
     font-family: "Sabo-Filled";
-    src: url("{{.URL-SCHEMA}}{{.EUTHERPE-ADDR}}/web/fonts/Sabo-Filled.otf") format("opentype");
+    src: url("{{.URL-SCHEMA}}://{{.EUTHERPE-ADDR}}/web/fonts/Sabo-Filled.otf") format("opentype");
 }
 @font-face {
     font-family: "Sabo-Regular";
-    src: url("{{.URL-ADDR}}{{.EUTHERPE-ADDR}}/web/Sabo-Regular.otf") format("opentype");
+    src: url("{{.URL-ADDR}}://{{.EUTHERPE-ADDR}}/web/Sabo-Regular.otf") format("opentype");
 }
 .title-banner {
     font-family: "Sabo-Filled";

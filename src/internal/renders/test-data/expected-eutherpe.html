@@ -2,11 +2,11 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" type="text/css" href="{{.URL-SCHEMA}}://{{.EUTHERPE-ADDR}}/web/css/eutherpe.css">
-<script type="text/javascript" src="{{.URL-SCHEMA}}://{{.EUTHERPE-ADDR}}/web/js/eutherpe.js"></script>
+<link rel="stylesheet" type="text/css" href="http://127.0.0.1:80/web/css/eutherpe.css">
+<script type="text/javascript" src="http://127.0.0.1:80/web/js/eutherpe.js"></script>
 </head>
 <body>
-    <div class="title-banner">{{.EUTHERPE}}</div>
+    <div class="title-banner">Eutherpe</div>
     <div class="config">
         <button class="configtab" id="defaultOpen" onclick="openConfig(event, 'Music')"><script>setButtonLabel("&#119066;&#119070;&#119066;", "Music");</script></button>
         <button class="configtab" onclick="openConfig(event, 'Collection')"><script>setButtonLabel("&#9835;", "Collection");</script></button>
@@ -16,14 +16,14 @@
     </div>
     <div id="Music" class="configcontent">
         <div height=5px>
-            <center>{{.ALBUM-ART-THUMBNAIL}}</center>
-            <marquee class="nowplaying" scrollamount="15"><font face="Sabo-Regular" size="5px">&#119066;&#119070;&#119066;&#119046; {{.NOW-PLAYING}} &#119066;&#119047;</font></marquee>
+            <center></center>
+            <marquee class="nowplaying" scrollamount="15"><font face="Sabo-Regular" size="5px">&#119066;&#119070;&#119066;&#119046; Motorhead - Stay Clean &#119066;&#119047;</font></marquee>
         </div>
         <div class="tinyscrollbox">
             <ul id="eutherpeUL">
                 <li>
                     <span class="caret">Up next...</span>
-                    {{.UP-NEXT}}
+                    <ul class="nested"><input type="checkbox" id="Motorhead/Overkill:stay-clean.mp3" class="UpNext">Stay Clean<br><input type="checkbox" id="The Cramps/Songs The Lord Taught Us:fever.mp3" class="UpNext">Fever<br><input type="checkbox" id="Queens Of The Stone Age/Queens Of The Stone Age:regular-john.mp3" class="UpNext">Regular John<br></ul>
                 </li>
             </ul>
         </div>
@@ -44,7 +44,7 @@
     <div id="Collection" class="configcontent">
         <h3>Collection</h3>
         <div class="scrollbox">
-            {{.COLLECTION}}
+            <ul id="eutherpeUL"><li><input type="checkbox" onclick="flush_child(this);" id="Motorhead" class="CollectionArtist"><span class="caret">Motorhead</span><ul class="nested"><li><input type="checkbox" onclick="flush_child(this);" id="Motorhead/Overkill" class="CollectionAlbum"><span class="caret">Overkill</span><ul class="nested"><li><input type="checkbox" onclick="flush_child(this);" id="Motorhead/Overkill:overkill.mp3" class="CollectionSong">Overkill</li><li><input type="checkbox" onclick="flush_child(this);" id="Motorhead/Overkill:stay-clean.mp3" class="CollectionSong">Stay Clean</li><li><input type="checkbox" onclick="flush_child(this);" id="Motorhead/Overkill:pay-your-price.mp3" class="CollectionSong">(I Won't) Pay Your Price</li></ul></li><li><input type="checkbox" onclick="flush_child(this);" id="Motorhead/Bomber" class="CollectionAlbum"><span class="caret">Bomber</span><ul class="nested"><li><input type="checkbox" onclick="flush_child(this);" id="Motorhead/Bomber:dead_men_tell_no_tales.mp3" class="CollectionSong">Dead Men Tell No Tales</li></ul></li></ul></li><li><input type="checkbox" onclick="flush_child(this);" id="Queens Of The Stone Age" class="CollectionArtist"><span class="caret">Queens Of The Stone Age</span><ul class="nested"><li><input type="checkbox" onclick="flush_child(this);" id="Queens Of The Stone Age/Queens Of The Stone Age" class="CollectionAlbum"><span class="caret">Queens Of The Stone Age</span><ul class="nested"><li><input type="checkbox" onclick="flush_child(this);" id="Queens Of The Stone Age/Queens Of The Stone Age:regular-john.mp3" class="CollectionSong">Regular John</li></ul></li></ul></li><li><input type="checkbox" onclick="flush_child(this);" id="The Cramps" class="CollectionArtist"><span class="caret">The Cramps</span><ul class="nested"><li><input type="checkbox" onclick="flush_child(this);" id="The Cramps/Songs The Lord Taught Us" class="CollectionAlbum"><span class="caret">Songs The Lord Taught Us</span><ul class="nested"><li><input type="checkbox" onclick="flush_child(this);" id="The Cramps/Songs The Lord Taught Us:fever.mp3" class="CollectionSong">Fever</li></ul></li></ul></li></ul>
         </div>
         <center>
         <input class="eutherpeBUTTON" type="button" value="Add Selection to Next" onclick="addToNext();"/>
@@ -56,7 +56,7 @@
     <div id="Playlists" class="configcontent">
         <h3>Playlists</h3>
         <div class="scrollbox">
-            {{.PLAYLISTS}}
+            <ul id="eutherpeUL"><li><input type="checkbox" onclick="flush_child(this);selectPlaylist(this);" id="Stoner Rock" class="Playlist"><span class="caret">Stoner Rock</span><ul class="nested"><li><input type="checkbox" onclick="flush_child(this);setUncheckedAllSongsOutFromPlaylist(this);" id="Stoner Rock:regular-john.mp3" class="PlaylistSong">Regular John</li></ul></li></ul><ul id="eutherpeUL"><li><input type="checkbox" onclick="flush_child(this);selectPlaylist(this);" id="Speed Metal & Psychobilly" class="Playlist"><span class="caret">Speed Metal & Psychobilly</span><ul class="nested"><li><input type="checkbox" onclick="flush_child(this);setUncheckedAllSongsOutFromPlaylist(this);" id="Speed Metal & Psychobilly:fever.mp3" class="PlaylistSong">Fever</li><li><input type="checkbox" onclick="flush_child(this);setUncheckedAllSongsOutFromPlaylist(this);" id="Speed Metal & Psychobilly:pay-your-price.mp3" class="PlaylistSong">(I Won't) Pay Your Price</li><li><input type="checkbox" onclick="flush_child(this);setUncheckedAllSongsOutFromPlaylist(this);" id="Speed Metal & Psychobilly:overkill.mp3" class="PlaylistSong">Overkill</li><li><input type="checkbox" onclick="flush_child(this);setUncheckedAllSongsOutFromPlaylist(this);" id="Speed Metal & Psychobilly:stay-clean.mp3" class="PlaylistSong">Stay Clean</li></ul></li></ul>
         </div>
         <center>
         <input class="eutherpeBUTTON" type="button" value="Remove playlist..." onclick="removePlaylist();"/>
@@ -67,13 +67,13 @@
         </center>
     </div>
     <div id="Storage" class="configcontent">
-        <h3>You are reading your music collection from: {{.SELECTED-STORAGE-DEVICE}}</h3>
+        <h3>You are reading your music collection from: /media/rs/musicas</h3>
         <hr>
         <div class="hugescrollbox">
             <ul id="eutherpeUL">
                 <li>
                     <span class="caret">Found Devices...</span>
-                    {{.FOUND-STORAGE-DEVICES}}
+                    <ul class="nested"><input type="checkbox" id="/dev/stordev42" class="StorageDevice" onclick="selectSingleElement(this);">/dev/stordev42<br><input type="checkbox" id="/media/rs/musicas" class="StorageDevice" onclick="selectSingleElement(this);">/media/rs/musicas<br><input type="checkbox" id="/media/usbdrive101" class="StorageDevice" onclick="selectSingleElement(this);">/media/usbdrive101<br></ul>
                 </li>
             </ul>
         </div>
@@ -86,13 +86,13 @@
     </div>
     </div>
     <div id="Bluetooth" class="configcontent">
-        <h3>You are connected to device: {{.SELECTED-BLUETOOTH-DEVICE}}</h3>
+        <h3>You are connected to device: /dev/deepblue42</h3>
         <hr>
         <div class="hugescrollbox">
             <ul id="eutherpeUL">
                 <li>
                     <span class="caret">Found Devices...</span>
-                    {{.FOUND-BLUETOOTH-DEVICES}}
+                    <ul class="nested"><input type="checkbox" id="/dev/blue42" class="BluetoothDevice" onclick="selectSingleElement(this);">/dev/blue42<br><input type="checkbox" id="/dev/deepblue42" class="BluetoothDevice" onclick="selectSingleElement(this);">/dev/deepblue42<br><input type="checkbox" id="/dev/dentucaumazulnofundodoseu___bolsuhhhh" class="BluetoothDevice" onclick="selectSingleElement(this);">/dev/dentucaumazulnofundodoseu___bolsuhhhh<br></ul>
                 </li>
             </ul>
         </div>
