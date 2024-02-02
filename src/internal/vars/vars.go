@@ -13,6 +13,10 @@ type EutherpeVars struct {
     HTTPd struct {
         URLSchema string
         Addr string
+        PubRoot string
+        PubFiles []string
+        IndexHTML string
+        ErrorHTML string
     }
     BluetoothDevices []bluebraces.BluetoothDevice
     StorageDevices []string
@@ -34,7 +38,7 @@ type EutherpeVars struct {
         RepeatOne bool
         Stopped bool
     }
-    Error error
+    LastError error
     mtx sync.Mutex
 }
 
@@ -100,6 +104,7 @@ const EutherpePostFieldSelection = "selection"
 const EutherpePostFieldPlaylist = "playlist"
 const EutherpePostFieldStorageDevice = "storage-device"
 const EutherpePostFieldBluetoothDevice = "bluetooth-device"
+const EutherpePostFieldLastError = "last-error"
 
 // INFO(Rafael): Template markers id.
 
@@ -115,3 +120,4 @@ const EutherpeTemplateNeedleSelectedBluetoothDevice = "{{.SELECTED-BLUETOOTH-DEV
 const EutherpeTemplateNeedleFoundBluetoothDevices = "{{.FOUND-BLUETOOTH-DEVICES}}"
 const EutherpeTemplateNeedleNowPlaying = "{{.NOW-PLAYING}}"
 const EutherpeTemplateNeedleAlbumArtThumbnail = "{{.ALBUM-ART-THUMBNAIL}}"
+const EutherpeTemplateNeedleLastError = "{{.LAST-ERROR}}"

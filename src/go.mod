@@ -16,3 +16,5 @@ require internal/storage v1.0.0
 replace internal/storage => ./internal/storage
 require internal/renders v1.0.0
 replace internal/renders => ./internal/renders
+require internal/webui v1.0.0
+replace internal/webui => ./internal/webui
