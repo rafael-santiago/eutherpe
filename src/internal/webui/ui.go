@@ -7,7 +7,7 @@ import (
     "fmt"
     "os"
     "path"
-    "path/filepath"
+    //"path/filepath"
     "os/signal"
     "syscall"
     "net/http"
@@ -47,6 +47,9 @@ func (ehh *EutherpeHTTPHandler) handler(w http.ResponseWriter, r *http.Request) 
                 if r.Method == "GET" {
                     // TODO(Rafael): Set up a default page.
                     templatedOutput = ehh.eutherpeVars.HTTPd.IndexHTML
+                    if len(ehh.eutherpeVars.CurrentConfig) == 0 {
+                        ehh.eutherpeVars.CurrentConfig = vars.EutherpeWebUIConfigSheetDefault
+                    }
                 } else if r.Method == "POST" {
                     r.ParseForm()
                     actionHandler := actions.GetEutherpeActionHandler(&r.Form)
@@ -70,6 +73,7 @@ func (ehh *EutherpeHTTPHandler) processAction(actionHandler actions.EutherpeActi
                 fmt.Errorf("500 Internal Server Error (ou, voce tava muito zureta [sabe-se la de que] quando me mandou isso...)")
         return ehh.eutherpeVars.HTTPd.ErrorHTML
     }
+    ehh.eutherpeVars.CurrentConfig = actions.CurrentConfigByActionId(userData)
     ehh.eutherpeVars.LastError = actionHandler(ehh.eutherpeVars, userData)
     if ehh.eutherpeVars.LastError != nil {
         userData.Del(vars.EutherpePostFieldLastError)
@@ -79,7 +83,7 @@ func (ehh *EutherpeHTTPHandler) processAction(actionHandler actions.EutherpeActi
 }
 
 func (ehh *EutherpeHTTPHandler) processGET(w *http.ResponseWriter, r *http.Request) string {
-    vdoc := filepath.Base(r.URL.Path)
+    vdoc := r.URL.Path
     if !ehh.isPubFile(vdoc) {
         ehh.eutherpeVars.LastError = fmt.Errorf("403 Forbidden (ou, sabe de nada inocente...)")
         return ehh.eutherpeVars.HTTPd.ErrorHTML

@@ -20,7 +20,7 @@ func CollectionRender(templatedInput string, eutherpeVars *vars.EutherpeVars) st
             collectionHTML += "<ul class=\"nested\">"
             tracks := eutherpeVars.Collection[artist][album]
             for _, track := range tracks {
-                collectionHTML += "<li><input type=\"checkbox\" onclick=\"flush_child(this);\" id=\"" + artist + "/" + album + ":" + track.FilePath + "\" class=\"CollectionSong\">" + track.Title + "</li>"
+                collectionHTML += "<li><input type=\"checkbox\" onclick=\"flush_child(this);\" id=\"" + artist + "/" + album + "/" + track.Title + ":" + track.FilePath + "\" class=\"CollectionSong\">" + track.Title + "</li>"
             }
             collectionHTML += "</ul></li>"
         }

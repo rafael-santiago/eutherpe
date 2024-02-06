@@ -23,6 +23,7 @@ func PairBluetoothDevice(eutherpeVars *vars.EutherpeVars,
     if len(eutherpeVars.CachedDevices.BlueDevId) > 0 {
         eutherpeVars.Unlock()
         _ = UnpairBluetoothDevice(eutherpeVars, &url.Values{})
+        _ = ProbeBluetoothDevices(eutherpeVars, &url.Values{})
         eutherpeVars.Lock()
     }
     err := bluebraces.PairDevice(bluetoothDevice[0], customPath)

@@ -6,6 +6,7 @@ import (
     "flag"
     "net/url"
     "time"
+    "fmt"
 )
 
 func ProbeBluetoothDevices(eutherpeVars *vars.EutherpeVars,
@@ -16,8 +17,9 @@ func ProbeBluetoothDevices(eutherpeVars *vars.EutherpeVars,
     if flag.Lookup("test.v") != nil {
         customPath = "../bluebraces"
     }
-    blueDevs, err := bluebraces.ScanDevices(time.Duration(3 * time.Second), customPath)
+    blueDevs, err := bluebraces.ScanDevices(time.Duration(10 * time.Second), customPath)
     if err != nil {
+        fmt.Print(err)
         return err
     }
     eutherpeVars.BluetoothDevices = blueDevs

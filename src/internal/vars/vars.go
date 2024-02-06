@@ -39,6 +39,7 @@ type EutherpeVars struct {
         Stopped bool
     }
     LastError error
+    CurrentConfig string
     mtx sync.Mutex
 }
 
@@ -121,3 +122,13 @@ const EutherpeTemplateNeedleFoundBluetoothDevices = "{{.FOUND-BLUETOOTH-DEVICES}
 const EutherpeTemplateNeedleNowPlaying = "{{.NOW-PLAYING}}"
 const EutherpeTemplateNeedleAlbumArtThumbnail = "{{.ALBUM-ART-THUMBNAIL}}"
 const EutherpeTemplateNeedleLastError = "{{.LAST-ERROR}}"
+const EutherpeTemplateNeedleRepeatAll = "{{.REPEAT-ALL}}"
+const EutherpeTemplateNeedleRepeatOne = "{{.REPEAT-ONE}}"
+const EutherpeTemplateNeedleCurrentConfig = "{{.CURRENT-CONFIG}}"
+
+const EutherpeWebUIConfigSheetMusic = "Music"
+const EutherpeWebUIConfigSheetCollection = "Collection"
+const EutherpeWebUIConfigSheetPlaylists = "Playlists"
+const EutherpeWebUIConfigSheetStorage = "Storage"
+const EutherpeWebUIConfigSheetBluetooth = "Bluetooth"
+const EutherpeWebUIConfigSheetDefault = EutherpeWebUIConfigSheetMusic

@@ -20,8 +20,8 @@ pair() {
     [[ ! -z $1 ]] && return `eval_exit_code` || return 1
 }
 
-cancel_pairing() {
-    printf "[cancel-pairing $1]\n" >&2
+remove() {
+    printf "[remove $1]\n" >&2
     [[ ! -z $1 ]] && return `eval_exit_code`|| return 1
 }
 
@@ -99,7 +99,7 @@ info() {
 case $1 in
     power) exit `power $2` ;;
     pair) exit `pair $2` ;;
-    cancel-pairing) exit `cancel_pairing $2` ;;
+    remove) exit `remove $2` ;;
     connect) exit `connect $2` ;;
     disconnect) exit `disconnect $2` ;;
     trust) exit `trust $2` ;;

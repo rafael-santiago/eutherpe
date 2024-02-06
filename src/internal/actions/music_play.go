@@ -43,10 +43,12 @@ func MusicPlay(eutherpeVars *vars.EutherpeVars, _ *url.Values) error {
         if eutherpeVars.Player.Handle == nil {
             return
         }
+        fmt.Println("Playing...")
         eutherpeVars.Player.Handle.Wait()
         if eutherpeVars.Player.Stopped {
             return
         }
+        fmt.Println("Next...")
         eutherpeVars.Player.UpNextCurrentOffset++
         eutherpeVars.Player.Handle = nil
         MusicPlay(eutherpeVars, nil)

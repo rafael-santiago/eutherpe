@@ -45,7 +45,7 @@ func PairDevice(devId string, customPath ...string) error {
 }
 
 func UnpairDevice(devId string, customPath ...string) error {
-    return exec.Command(path.Join(getToolPath(customPath...), "bluetoothctl"), "cancel-pairing", devId).Run()
+    return exec.Command(path.Join(getToolPath(customPath...), "bluetoothctl"), "remove", devId).Run()
 }
 
 func ConnectDevice(devId string, customPath ...string) error {
@@ -81,6 +81,7 @@ func doDevicesScan(blueDevs *[]BluetoothDevice, duration time.Duration, customPa
 
     time.Sleep(duration)
     cmd.Process.Signal(os.Interrupt)
+    time.Sleep(time.Duration(1 * time.Second))
 
     if err != nil {
         return err

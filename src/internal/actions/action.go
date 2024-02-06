@@ -10,59 +10,101 @@ type EutherpeActionFunc func(eutherpeInstance *vars.EutherpeVars, userData *url.
 func GetEutherpeActionHandler(userData *url.Values) EutherpeActionFunc {
     switch userData.Get(vars.EutherpeActionId) {
         case vars.EutherpeMusicRemoveId:
-            return nil
+            return MusicRemove
         case vars.EutherpeMusicMoveUpId:
-            return nil
+            return MusicMoveUp
         case vars.EutherpeMusicMoveDownId:
-            return nil
+            return MusicMoveDown
         case vars.EutherpeMusicClearAllId:
-            return nil
+            return MusicClearAll
         case vars.EutherpeMusicShuffleId:
-            return nil
+            return MusicShuffle
         case vars.EutherpeMusicRepeatAllId:
-            return nil
+            return MusicRepeatAll
         case vars.EutherpeMusicRepeatOneId:
-            return nil
+            return MusicRepeatOne
         case vars.EutherpeMusicPlayId:
-            return nil
+            return MusicPlay
         case vars.EutherpeMusicNextId:
-            return nil
+            return MusicNext
         case vars.EutherpeCollectionAddSelectionToNextId:
-            return nil
+            return AddSelectionToNext
         case vars.EutherpeCollectionAddSelectionToUpNextId:
-            return nil
+            return AddSelectionToUpNext
         case vars.EutherpeCollectionAddSelectionToPlaylistId:
-            return nil
+            return AddSelectionToPlaylist
         case vars.EutherpeCollectionTagSelectionAsId:
             return nil
         case vars.EutherpePlaylistCreateId:
-            return nil
+            return CreatePlaylist
         case vars.EutherpePlaylistRemoveId:
-            return nil
+            return RemovePlaylist
         case vars.EutherpePlaylistShowId:
-            return nil
+            return ShowPlaylist
         case vars.EutherpePlaylistMoveUpId:
-            return nil
+            return MoveUpPlaylistSongs
         case vars.EutherpePlaylistMoveDownId:
-            return nil
+            return MoveDownPlaylistSongs
         case vars.EutherpePlaylistClearAllId:
-            return nil
+            return ClearAllPlaylist
         case vars.EutherpeStorageListId:
-            return nil
+            return ListStorages
         case vars.EutherpeStorageScanId:
-            return nil
+            return ScanStorage
         case vars.EutherpeStorageSetId:
-            return nil
+            return SetStorage
         case vars.EutherpeBluetoothProbeDevicesId:
-            return nil
+            return ProbeBluetoothDevices
         case vars.EutherpeBluetoothPairId:
-            return nil
+            return PairBluetoothDevice
         case vars.EutherpeBluetoothUnpairId:
-            return nil
+            return UnpairBluetoothDevice
         case vars.EutherpeBluetoothTrustId:
-            return nil
+            return TrustBluetoothDevice
         case vars.EutherpeBluetoothUntrustId:
-            return nil
+            return UntrustBluetoothDevice
     }
     return nil
+}
+
+func CurrentConfigByActionId(userData *url.Values) string {
+    switch userData.Get(vars.EutherpeActionId) {
+        case vars.EutherpeMusicRemoveId,
+             vars.EutherpeMusicMoveUpId,
+             vars.EutherpeMusicMoveDownId,
+             vars.EutherpeMusicClearAllId,
+             vars.EutherpeMusicShuffleId,
+             vars.EutherpeMusicRepeatAllId,
+             vars.EutherpeMusicRepeatOneId,
+             vars.EutherpeMusicPlayId,
+             vars.EutherpeMusicNextId:
+            return vars.EutherpeWebUIConfigSheetMusic
+
+        case vars.EutherpeCollectionAddSelectionToNextId,
+             vars.EutherpeCollectionAddSelectionToUpNextId,
+             vars.EutherpeCollectionAddSelectionToPlaylistId,
+             vars.EutherpeCollectionTagSelectionAsId:
+            return vars.EutherpeWebUIConfigSheetCollection
+
+        case vars.EutherpePlaylistCreateId,
+             vars.EutherpePlaylistRemoveId,
+             vars.EutherpePlaylistShowId,
+             vars.EutherpePlaylistMoveUpId,
+             vars.EutherpePlaylistMoveDownId,
+             vars.EutherpePlaylistClearAllId:
+            return vars.EutherpeWebUIConfigSheetPlaylists
+
+        case vars.EutherpeStorageListId,
+             vars.EutherpeStorageScanId,
+             vars.EutherpeStorageSetId:
+            return vars.EutherpeWebUIConfigSheetStorage
+
+        case vars.EutherpeBluetoothProbeDevicesId,
+             vars.EutherpeBluetoothPairId,
+             vars.EutherpeBluetoothUnpairId,
+             vars.EutherpeBluetoothTrustId,
+             vars.EutherpeBluetoothUntrustId:
+            return vars.EutherpeWebUIConfigSheetBluetooth
+    }
+    return vars.EutherpeWebUIConfigSheetDefault
 }

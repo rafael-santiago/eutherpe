@@ -1,11 +1,11 @@
 * {box-sizing: border-box;}
 @font-face {
     font-family: "Sabo-Filled";
-    src: url("{{.URL-SCHEMA}}://{{.EUTHERPE-ADDR}}/web/fonts/Sabo-Filled.otf") format("opentype");
+    src: url("{{.URL-SCHEMA}}://{{.EUTHERPE-ADDR}}/fonts/Sabo-Filled.otf") format("opentype");
 }
 @font-face {
     font-family: "Sabo-Regular";
-    src: url("{{.URL-ADDR}}://{{.EUTHERPE-ADDR}}/web/Sabo-Regular.otf") format("opentype");
+    src: url("{{.URL-SCHEMA}}://{{.EUTHERPE-ADDR}}/fonts/Sabo-Regular.otf") format("opentype");
 }
 .title-banner {
     font-family: "Sabo-Filled";
@@ -113,7 +113,7 @@ ul, #eutherpeUL {
     border: 0px solid black;
     margin: 1px;
     padding: 5px;
-    max-height: 70%;
+    max-height: 50%;
     max-width: 100%;
     overflow-y: auto;
 }

@@ -22,7 +22,22 @@ func UnpairBluetoothDevice(eutherpeVars *vars.EutherpeVars,
     _ = bluebraces.DisconnectDevice(eutherpeVars.CachedDevices.BlueDevId, customPath)
     err := bluebraces.UnpairDevice(eutherpeVars.CachedDevices.BlueDevId, customPath)
     if err == nil {
+        removeBluetoothDevice(&eutherpeVars.BluetoothDevices, eutherpeVars.CachedDevices.BlueDevId)
         eutherpeVars.CachedDevices.BlueDevId = ""
     }
     return err
+}
+
+func removeBluetoothDevice(blueDevs *[]bluebraces.BluetoothDevice, blueDevId string) {
+    var bIndex int = -1
+    for b, currBlueDev := range (*blueDevs) {
+        if currBlueDev.Id == blueDevId {
+            bIndex = b
+            break
+        }
+    }
+    if bIndex == -1 {
+        return
+    }
+    (*blueDevs) = append((*blueDevs)[:bIndex], (*blueDevs)[bIndex + 1:]...)
 }

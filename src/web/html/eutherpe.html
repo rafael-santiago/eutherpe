@@ -2,17 +2,17 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" type="text/css" href="{{.URL-SCHEMA}}://{{.EUTHERPE-ADDR}}/web/css/eutherpe.css">
-<script type="text/javascript" src="{{.URL-SCHEMA}}://{{.EUTHERPE-ADDR}}/web/js/eutherpe.js"></script>
+<link rel="stylesheet" type="text/css" href="{{.URL-SCHEMA}}://{{.EUTHERPE-ADDR}}/css/eutherpe.css">
+<script type="text/javascript" src="{{.URL-SCHEMA}}://{{.EUTHERPE-ADDR}}/js/eutherpe.js"></script>
 </head>
 <body>
     <div class="title-banner">{{.EUTHERPE}}</div>
     <div class="config">
-        <button class="configtab" id="defaultOpen" onclick="openConfig(event, 'Music')"><script>setButtonLabel("&#119066;&#119070;&#119066;", "Music");</script></button>
-        <button class="configtab" onclick="openConfig(event, 'Collection')"><script>setButtonLabel("&#9835;", "Collection");</script></button>
-        <button class="configtab" onclick="openConfig(event, 'Playlists')"><script>setButtonLabel("&#119046;&#119066;&#119047;", "Playlists");</script></button>
-        <button class="configtab" onclick="openConfig(event, 'Storage')"><script>setButtonLabel("&#x1f4be;", "Storage");</script></button>
-        <button class="configtab" onclick="openConfig(event, 'Bluetooth')"><script>setButtonLabel("&#128264;", "Bluetooth");</script></button>
+        <button class="configtab" id="MusicButton" onclick="openConfig('Music')"><script>setButtonLabel("&#119066;&#119070;&#119066;", "Music");</script></button>
+        <button class="configtab" id="CollectionButton" onclick="openConfig('Collection')"><script>setButtonLabel("&#9835;", "Collection");</script></button>
+        <button class="configtab" id="PlaylistsButton" onclick="openConfig('Playlists')"><script>setButtonLabel("&#119046;&#119066;&#119047;", "Playlists");</script></button>
+        <button class="configtab" id="StorageButton" onclick="openConfig('Storage')"><script>setButtonLabel("&#x1f4be;", "Storage");</script></button>
+        <button class="configtab" id="BluetoothButton" onclick="openConfig('Bluetooth')"><script>setButtonLabel("&#128264;", "Bluetooth");</script></button>
     </div>
     <div id="Music" class="configcontent">
         <div height=5px>
@@ -34,8 +34,9 @@
             <input class="eutherpeBUTTON" type="button" value="Move down" onclick="moveSelectedSongsFromUpNextDown();"/>
             <input class="eutherpeBUTTON" type="button" value="Clear all..." onclick="clearUpNextAll();"/>
             <input class="eutherpeBUTTON" type="button" value="Shuffle" onclick="shuffleUpNext();"/>
-            <input type="checkbox" onclick="musicRepeatAll();">Repeat All
-            <input type="checkbox" onclick="musicRepeatOne();">Repeat One
+            <!--<input type="checkbox" onclick="musicRepeatAll();">Repeat All
+            <input type="checkbox" onclick="musicRepeatOne();">Repeat One-->
+            {{.REPEAT-ALL}}{{.REPEAT-ONE}}
             <hr>
             <input class="eutherpeBUTTON" type="button" value="Play" onclick="musicPlay();"/>
             <input class="eutherpeBUTTON" type="button" value="Next" onclick="musicNext();"/>
@@ -108,13 +109,14 @@
 </body>
 
 <script language="javascript">
-function openConfig(evt, configName) {
+function openConfig(configName) {
   // Declare all variables
   var i, configcontent, configtab;
 
   // Get all elements with class="tabcontent" and hide them
   configcontent = document.getElementsByClassName("configcontent");
-  for (i = 0; i < configcontent.length; i++) {  configcontent[i].style.display = "none";
+  for (i = 0; i < configcontent.length; i++) {
+    configcontent[i].style.display = "none";
   }
 
   // Get all elements with class="tablinks" and remove the class "active"
@@ -126,13 +128,14 @@ function openConfig(evt, configName) {
 
   // Show the current tab, and add an "active" class to the link that opened the tab
   document.getElementById(configName).style.display = "block";
-  evt.currentTarget.className += " active";
+
+  btn = document.getElementById(configName + "Button");
+  btn.className += " active";
   if (window.matchMedia("(orientation: landscape)").matches) {
-    evt.currentTarget.innerHTML = evt.currentTarget.innerHTML + " &gt;";
+    btn.innerHTML = btn.innerHTML + " &gt;";
   }
 }
 
-document.getElementById("defaultOpen").click();
 
 function flush_child(sender) {
     childs = document.getElementsByTagName("*");
@@ -152,6 +155,9 @@ for (i = 0; i < toggler.length; i++) {
         this.classList.toggle("caret-down");
     });
 }
+
+openConfig("{{.CURRENT-CONFIG}}");
+
 </script>
 
 </html>
