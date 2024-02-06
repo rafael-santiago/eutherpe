@@ -25,7 +25,7 @@ func main() {
     eutherpeVars.Player.RepeatOne = false
     eutherpeVars.HTTPd.URLSchema = "http"
     eutherpeVars.HTTPd.Addr = "192.168.0.130:8080"
-    eutherpeVars.HTTPd.PubRoot = "/root/src/eutherpe/src/web"
+    eutherpeVars.HTTPd.PubRoot = "/home/rs/src/eutherpe/src/web"
     eutherpeVars.HTTPd.PubFiles = append(eutherpeVars.HTTPd.PubFiles, "/js/eutherpe.js")
     eutherpeVars.HTTPd.PubFiles = append(eutherpeVars.HTTPd.PubFiles, "/css/eutherpe.css")
     eutherpeVars.HTTPd.PubFiles = append(eutherpeVars.HTTPd.PubFiles, "/fonts/Sabo-Filled.otf")
@@ -33,7 +33,6 @@ func main() {
     data, _ := os.ReadFile("web/html/eutherpe.html")
     eutherpeVars.HTTPd.IndexHTML = string(data)
     webui.RunWebUI(eutherpeVars)
-    fmt.Println("boo!")
 }
 
 /*
