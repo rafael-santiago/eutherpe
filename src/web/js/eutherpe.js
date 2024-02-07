@@ -150,9 +150,7 @@ function listStorageDevices() {
 }
 
 function scanStorageDevice() {
-    storageDev = getSelectedStorageDevice();
-    doEutherpeRequest("/eutherpe", { "action" : "storage-scan",
-                                     "storage-device" : storageDev.id }, "post");
+    doEutherpeRequest("/eutherpe", { "action" : "storage-scan" }, "post");
 }
 
 function setStorageDevice() {
