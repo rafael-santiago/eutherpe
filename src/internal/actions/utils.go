@@ -5,7 +5,12 @@ import (
 )
 
 func GetSongFilePathFromSelectionId(selectionId string) string {
-    s := strings.Index(selectionId, ":")
+    var s int = len(selectionId) - 1
+    for ; s >= 0; s-- {
+        if selectionId[s] == ':' {
+            break
+        }
+    }
     if s == -1 {
         return ""
     }

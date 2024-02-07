@@ -93,11 +93,25 @@ func doDevicesScan(blueDevs *[]BluetoothDevice, duration time.Duration, customPa
     for nextDevOff > -1 {
         startOff += nextDevOff + len(kNextDeviceNeedle)
         id := sOut[startOff : startOff + kDevIdLen]
-        *blueDevs = append(*blueDevs, BluetoothDevice { id, getDeviceAlias(id, customPath...) })
+        if !hasDeviceById(id, *blueDevs) {
+            *blueDevs = append(*blueDevs, BluetoothDevice { id, getDeviceAlias(id, customPath...) })
+        }
         nextDevOff = strings.Index(sOut[startOff:], kNextDeviceNeedle)
     }
 
     return nil
+}
+
+func hasDeviceById(id string, blueDevs []BluetoothDevice) bool {
+    if blueDevs == nil {
+        return false
+    }
+    for _, blueDev := range blueDevs {
+        if blueDev.Id == id {
+            return true
+        }
+    }
+    return false
 }
 
 func getDeviceAlias(devId string, customPath ...string) string {
