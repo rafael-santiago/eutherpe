@@ -11,6 +11,8 @@ func TestGetSongFilePathFromSelectionId(t *testing.T) {
     }{
         { "jethro tull/this was/my sunday feeling:/abc/my-sunday-feeling.m4a", "/abc/my-sunday-feeling.m4a", },
         { "queens of the stone age/rater-r/regular john:/dev/stoner/regular_john.mp3", "/dev/stoner/regular_john.mp3", },
+        { "the jimi hendrix experience/the jimi hendrix experience: greatest hits/the wind cries mary:/dev/60s/the_wind_cries_mary.mp3",
+          "/dev/60s/the_wind_cries_mary.mp3", },
     }
     for _, test := range testVector {
         filePath := GetSongFilePathFromSelectionId(test.Id)

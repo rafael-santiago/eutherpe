@@ -21,7 +21,6 @@ func TestProbeBluetoothDevices(t *testing.T) {
         {"B5:D0:38:C0:ED:74", "EASYWAY-BLE"},
         {"BA:BA:CA:BA:BA:CA", "PHONE-BLAU"},
         {"42:42:42:42:42:42", "zaphoid-spks"},
-        {"E3:91:B6:02:8C:47", "GT FUN"},
     }
     if eutherpeVars.CachedDevices.BlueDevId != "/dev/blue-42" {
         t.Errorf("ProbeBluetoothDevices() seems to be clearing the cached bluetooth device id.\n")

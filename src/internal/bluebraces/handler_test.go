@@ -81,14 +81,14 @@ func TestScanDevicesMustPass(t *testing.T) {
         {"B5:D0:38:C0:ED:74", "EASYWAY-BLE"},
         {"BA:BA:CA:BA:BA:CA", "PHONE-BLAU"},
         {"42:42:42:42:42:42", "zaphoid-spks"},
-        {"E3:91:B6:02:8C:47", "GT FUN"},
     }
     if len(blueDevs) != len(expected) {
         t.Error("Wrong quantity of devices was returned.")
-    }
-    for e, exp := range expected {
-        if exp != blueDevs[e] {
-            t.Errorf("%v != %v\n", exp, blueDevs[e])
+    } else {
+        for e, exp := range expected {
+            if exp != blueDevs[e] {
+                t.Errorf("%v != %v\n", exp, blueDevs[e])
+            }
         }
     }
 }

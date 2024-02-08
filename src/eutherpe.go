@@ -12,6 +12,19 @@ import (
 )
 
 func main() {
+    /*collection, _ := mplayer.LoadMusicCollection("/media/rs/624B-F629/")
+    for artist, albums := range collection {
+        fmt.Println(artist)
+        for album, songs := range albums {
+            fmt.Println(" ", album)
+            for _, s := range songs {
+                fmt.Println("  ", s.Title, s.TrackNumber)
+            }
+        }
+    }
+    //song, _ := mplayer.GetSongInfo("IDv1.mp3")
+    //fmt.Println(song.Title, song.Artist, song.Album, song.TrackNumber)
+    os.Exit(1)*/
     fmt.Printf("info: Initializing bluetooth subsystem... wait...\n")
     err := bluebraces.Wear()
     if err != nil {

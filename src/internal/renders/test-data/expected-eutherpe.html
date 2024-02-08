@@ -2,17 +2,17 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" type="text/css" href="http://127.0.0.1:80/web/css/eutherpe.css">
-<script type="text/javascript" src="http://127.0.0.1:80/web/js/eutherpe.js"></script>
+<link rel="stylesheet" type="text/css" href="http://127.0.0.1:80/css/eutherpe.css">
+<script type="text/javascript" src="http://127.0.0.1:80/js/eutherpe.js"></script>
 </head>
 <body>
     <div class="title-banner">Eutherpe</div>
     <div class="config">
-        <button class="configtab" id="defaultOpen" onclick="openConfig(event, 'Music')"><script>setButtonLabel("&#119066;&#119070;&#119066;", "Music");</script></button>
-        <button class="configtab" onclick="openConfig(event, 'Collection')"><script>setButtonLabel("&#9835;", "Collection");</script></button>
-        <button class="configtab" onclick="openConfig(event, 'Playlists')"><script>setButtonLabel("&#119046;&#119066;&#119047;", "Playlists");</script></button>
-        <button class="configtab" onclick="openConfig(event, 'Storage')"><script>setButtonLabel("&#x1f4be;", "Storage");</script></button>
-        <button class="configtab" onclick="openConfig(event, 'Bluetooth')"><script>setButtonLabel("&#128264;", "Bluetooth");</script></button>
+        <button class="configtab" id="MusicButton" onclick="openConfig('Music')"><script>setButtonLabel("&#119066;&#119070;&#119066;", "Music");</script></button>
+        <button class="configtab" id="CollectionButton" onclick="openConfig('Collection')"><script>setButtonLabel("&#9835;", "Collection");</script></button>
+        <button class="configtab" id="PlaylistsButton" onclick="openConfig('Playlists')"><script>setButtonLabel("&#119046;&#119066;&#119047;", "Playlists");</script></button>
+        <button class="configtab" id="StorageButton" onclick="openConfig('Storage')"><script>setButtonLabel("&#x1f4be;", "Storage");</script></button>
+        <button class="configtab" id="BluetoothButton" onclick="openConfig('Bluetooth')"><script>setButtonLabel("&#128264;", "Bluetooth");</script></button>
     </div>
     <div id="Music" class="configcontent">
         <div height=5px>
@@ -34,8 +34,9 @@
             <input class="eutherpeBUTTON" type="button" value="Move down" onclick="moveSelectedSongsFromUpNextDown();"/>
             <input class="eutherpeBUTTON" type="button" value="Clear all..." onclick="clearUpNextAll();"/>
             <input class="eutherpeBUTTON" type="button" value="Shuffle" onclick="shuffleUpNext();"/>
-            <input type="checkbox" onclick="musicRepeatAll();">Repeat All
-            <input type="checkbox" onclick="musicRepeatOne();">Repeat One
+            <!--<input type="checkbox" onclick="musicRepeatAll();">Repeat All
+            <input type="checkbox" onclick="musicRepeatOne();">Repeat One-->
+            <input type="checkbox" onclick="musicRepeatAll();"><small>Repeat All</small><input type="checkbox" onclick="musicRepeatOne();"><small>Repeat One</small>
             <hr>
             <input class="eutherpeBUTTON" type="button" value="Play" onclick="musicPlay();"/>
             <input class="eutherpeBUTTON" type="button" value="Next" onclick="musicNext();"/>
@@ -44,7 +45,7 @@
     <div id="Collection" class="configcontent">
         <h3>Collection</h3>
         <div class="scrollbox">
-            <ul id="eutherpeUL"><li><input type="checkbox" onclick="flush_child(this);" id="Motorhead" class="CollectionArtist"><span class="caret">Motorhead</span><ul class="nested"><li><input type="checkbox" onclick="flush_child(this);" id="Motorhead/Overkill" class="CollectionAlbum"><span class="caret">Overkill</span><ul class="nested"><li><input type="checkbox" onclick="flush_child(this);" id="Motorhead/Overkill:overkill.mp3" class="CollectionSong">Overkill</li><li><input type="checkbox" onclick="flush_child(this);" id="Motorhead/Overkill:stay-clean.mp3" class="CollectionSong">Stay Clean</li><li><input type="checkbox" onclick="flush_child(this);" id="Motorhead/Overkill:pay-your-price.mp3" class="CollectionSong">(I Won't) Pay Your Price</li></ul></li><li><input type="checkbox" onclick="flush_child(this);" id="Motorhead/Bomber" class="CollectionAlbum"><span class="caret">Bomber</span><ul class="nested"><li><input type="checkbox" onclick="flush_child(this);" id="Motorhead/Bomber:dead_men_tell_no_tales.mp3" class="CollectionSong">Dead Men Tell No Tales</li></ul></li></ul></li><li><input type="checkbox" onclick="flush_child(this);" id="Queens Of The Stone Age" class="CollectionArtist"><span class="caret">Queens Of The Stone Age</span><ul class="nested"><li><input type="checkbox" onclick="flush_child(this);" id="Queens Of The Stone Age/Queens Of The Stone Age" class="CollectionAlbum"><span class="caret">Queens Of The Stone Age</span><ul class="nested"><li><input type="checkbox" onclick="flush_child(this);" id="Queens Of The Stone Age/Queens Of The Stone Age:regular-john.mp3" class="CollectionSong">Regular John</li></ul></li></ul></li><li><input type="checkbox" onclick="flush_child(this);" id="The Cramps" class="CollectionArtist"><span class="caret">The Cramps</span><ul class="nested"><li><input type="checkbox" onclick="flush_child(this);" id="The Cramps/Songs The Lord Taught Us" class="CollectionAlbum"><span class="caret">Songs The Lord Taught Us</span><ul class="nested"><li><input type="checkbox" onclick="flush_child(this);" id="The Cramps/Songs The Lord Taught Us:fever.mp3" class="CollectionSong">Fever</li></ul></li></ul></li></ul>
+            <ul id="eutherpeUL"><li><input type="checkbox" onclick="flush_child(this);" id="Motorhead" class="CollectionArtist"><span class="caret">Motorhead</span><ul class="nested"><li><input type="checkbox" onclick="flush_child(this);" id="Motorhead/Overkill" class="CollectionAlbum"><span class="caret">Overkill</span><ul class="nested"><li><input type="checkbox" onclick="flush_child(this);" id="Motorhead/Overkill/Overkill:overkill.mp3" class="CollectionSong">Overkill</li><li><input type="checkbox" onclick="flush_child(this);" id="Motorhead/Overkill/Stay Clean:stay-clean.mp3" class="CollectionSong">Stay Clean</li><li><input type="checkbox" onclick="flush_child(this);" id="Motorhead/Overkill/(I Won't) Pay Your Price:pay-your-price.mp3" class="CollectionSong">(I Won't) Pay Your Price</li></ul></li><li><input type="checkbox" onclick="flush_child(this);" id="Motorhead/Bomber" class="CollectionAlbum"><span class="caret">Bomber</span><ul class="nested"><li><input type="checkbox" onclick="flush_child(this);" id="Motorhead/Bomber/Dead Men Tell No Tales:dead_men_tell_no_tales.mp3" class="CollectionSong">Dead Men Tell No Tales</li></ul></li></ul></li><li><input type="checkbox" onclick="flush_child(this);" id="Queens Of The Stone Age" class="CollectionArtist"><span class="caret">Queens Of The Stone Age</span><ul class="nested"><li><input type="checkbox" onclick="flush_child(this);" id="Queens Of The Stone Age/Queens Of The Stone Age" class="CollectionAlbum"><span class="caret">Queens Of The Stone Age</span><ul class="nested"><li><input type="checkbox" onclick="flush_child(this);" id="Queens Of The Stone Age/Queens Of The Stone Age/Regular John:regular-john.mp3" class="CollectionSong">Regular John</li></ul></li></ul></li><li><input type="checkbox" onclick="flush_child(this);" id="The Cramps" class="CollectionArtist"><span class="caret">The Cramps</span><ul class="nested"><li><input type="checkbox" onclick="flush_child(this);" id="The Cramps/Songs The Lord Taught Us" class="CollectionAlbum"><span class="caret">Songs The Lord Taught Us</span><ul class="nested"><li><input type="checkbox" onclick="flush_child(this);" id="The Cramps/Songs The Lord Taught Us/Fever:fever.mp3" class="CollectionSong">Fever</li></ul></li></ul></li></ul>
         </div>
         <center>
         <input class="eutherpeBUTTON" type="button" value="Add Selection to Next" onclick="addToNext();"/>
@@ -108,13 +109,14 @@
 </body>
 
 <script language="javascript">
-function openConfig(evt, configName) {
+function openConfig(configName) {
   // Declare all variables
   var i, configcontent, configtab;
 
   // Get all elements with class="tabcontent" and hide them
   configcontent = document.getElementsByClassName("configcontent");
-  for (i = 0; i < configcontent.length; i++) {  configcontent[i].style.display = "none";
+  for (i = 0; i < configcontent.length; i++) {
+    configcontent[i].style.display = "none";
   }
 
   // Get all elements with class="tablinks" and remove the class "active"
@@ -126,13 +128,14 @@ function openConfig(evt, configName) {
 
   // Show the current tab, and add an "active" class to the link that opened the tab
   document.getElementById(configName).style.display = "block";
-  evt.currentTarget.className += " active";
+
+  btn = document.getElementById(configName + "Button");
+  btn.className += " active";
   if (window.matchMedia("(orientation: landscape)").matches) {
-    evt.currentTarget.innerHTML = evt.currentTarget.innerHTML + " &gt;";
+    btn.innerHTML = btn.innerHTML + " &gt;";
   }
 }
 
-document.getElementById("defaultOpen").click();
 
 function flush_child(sender) {
     childs = document.getElementsByTagName("*");
@@ -152,6 +155,9 @@ for (i = 0; i < toggler.length; i++) {
         this.classList.toggle("caret-down");
     });
 }
+
+openConfig("");
+
 </script>
 
 </html>

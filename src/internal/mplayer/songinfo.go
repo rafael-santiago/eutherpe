@@ -62,10 +62,14 @@ func GetSongInfo(filePath string) (SongInfo, error) {
     defer file.Close()
     id3Hdr := make([]byte, 6)
     n, err := file.Read(id3Hdr)
+    if id3Hdr[0] == 0xFF && id3Hdr[1] == 0xFB {
+        return getSongInfoFromIDv1(filePath)
+    }
     if err != nil || n < len(id3Hdr) || (id3Hdr[0] != 'I' && id3Hdr[1] != 'D' && id3Hdr[2] != '3') {
         return SongInfo{}, fmt.Errorf("Invalid ID3 header.")
     }
-    if id3Hdr[3] != 3 {
+    id3V := id3Hdr[3]
+    if id3V != 3 && id3V != 4 {
         return SongInfo{}, fmt.Errorf("Unsupported ID3 header.")
     }
     hdrLen := make([]byte, 4)
@@ -129,8 +133,11 @@ func GetSongInfo(filePath string) (SongInfo, error) {
                           (int(needle[5]) << 16) |
                           (int(needle[6]) <<  8) |
                           int(needle[7]) - 1
+            if needleSize > len(needle) {
+                continue
+            }
             h += needleSize
-            if needle[10] == 0 {
+            if needle[10] == 0 || (needle[9] == 0 &&  id3V == 4 && needle[11] != 0xFF && needle[12] != 0xFE) {
                 *field = string(needle[11:])[:needleSize]
                 h += 1
                 *field = strings.Trim(*field, "\x00 ")
@@ -157,9 +164,74 @@ func GetSongInfo(filePath string) (SongInfo, error) {
         s.Title = "[Unknown Track]"
     }
     if len(s.TrackNumber) == 0 {
-        s.TrackNumber = "0"
+        s.TrackNumber = getTrackNumberFromFileName(filePath)
     }
     return s, nil
+}
+
+func getSongInfoFromIDv1(filePath string) (SongInfo, error) {
+    data, err := os.ReadFile(filePath)
+    if err != nil {
+        return SongInfo{}, err
+    }
+    if len(data) < 128 {
+        return SongInfo{}, fmt.Errorf("Not enough bytes in supposed ID1 header.")
+    }
+    idv1Data := data[len(data) - 128:]
+    if idv1Data[0] != 'T' && idv1Data[1] != 'A' && idv1Data[2] != 'G' {
+        return SongInfo{}, fmt.Errorf("Invalid ID1 header.")
+    }
+    if len(idv1Data) < 97 {
+        return SongInfo{}, fmt.Errorf("ID1 header seems corrupted.")
+    }
+    type IDv1MetaDataCtx struct {
+        Title []byte
+        Artist []byte
+        Album []byte
+        Year []byte
+    }
+    var IDv1MetaData IDv1MetaDataCtx
+    IDv1MetaData.Title = make([]byte, 30)
+    copy(IDv1MetaData.Title, idv1Data[3:])
+    IDv1MetaData.Artist = make([]byte, 30)
+    copy(IDv1MetaData.Artist, idv1Data[33:])
+    IDv1MetaData.Album = make([]byte, 30)
+    copy(IDv1MetaData.Album, idv1Data[63:])
+    IDv1MetaData.Year = make([]byte, 4)
+    copy(IDv1MetaData.Year, idv1Data[93:])
+    return SongInfo{ Title: getStringFromNullTerminatedString(IDv1MetaData.Title),
+                     Album: getStringFromNullTerminatedString(IDv1MetaData.Album),
+                     Artist: getStringFromNullTerminatedString(IDv1MetaData.Artist),
+                     Year: getStringFromNullTerminatedString(IDv1MetaData.Year),
+                     FilePath: filePath,
+                     TrackNumber: getTrackNumberFromFileName(filePath), }, nil
+}
+
+func getTrackNumberFromFileName(filePath string) string {
+    var startOff int = -1
+    var endOff int = -1
+    fileName := path.Base(filePath)
+    for f, char := range fileName {
+        if char >= '0' && char <= '9' {
+            if startOff == -1 {
+                startOff = f
+            }
+        } else if startOff > -1 {
+            endOff = f
+            break
+        }
+    }
+    if startOff == -1 || endOff == -1 {
+        return "0"
+    }
+    return string(fileName[startOff:endOff])
+}
+
+func getStringFromNullTerminatedString(cStr []byte) string {
+    var off int = 0
+    for ; off < len(cStr) && cStr[off] != 0x00; off++ {
+    }
+    return string(cStr[:off])
 }
 
 func utfToAscii(utfStr string) string {

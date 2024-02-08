@@ -50,6 +50,54 @@ func TestGetSongInfo(t *testing.T) {
             "Rock",
           },
         },
+        { "test-data/07_dont_stand_so_close_to_me.id3v1",
+          SongInfo {
+            "test-data/07_dont_stand_so_close_to_me.id3v1",
+            "Don't Stand So Close To Me",
+            "Police",
+            "Greatest Hits",
+            "07",
+            "",
+            "",
+            "",
+          },
+        },
+        { "test-data/radar_on.id3v23",
+          SongInfo {
+            "test-data/radar_on.id3v23",
+            "radar on",
+            "Hoboken Division",
+            "Hoboken Division",
+            "3",
+            "",
+            "",
+            "",
+          },
+        },
+        { "test-data/no_song_unheard.id3v24",
+          SongInfo {
+            "test-data/no_song_unheard.id3v24",
+            "No Song Unheard",
+            "The Hellacopters",
+            "High Visibility",
+            "7",
+            "",
+            "",
+            "Rock",
+          },
+        },
+        { "test-data/so_sorry.id3v24",
+          SongInfo {
+            "test-data/so_sorry.id3v24",
+            "So Sorry",
+            "Feist",
+            "The Reminder",
+            "1",
+            "",
+            "",
+            "Indie; Acoustic; Indie Pop; Alternative; Guitar",
+          },
+        },
     }
     _, err := GetSongInfo("blau.mp3")
     if err == nil {
@@ -89,16 +137,16 @@ func TestGetSongInfo(t *testing.T) {
             t.Errorf("songInfo.Title has not the expected content : '%s'\n", songInfo.Title)
         }
         if songInfo.Artist != testData.ExpectedSongInfo.Artist {
-            t.Errorf("songInfo.Title has not the expected content : '%s'\n", songInfo.Artist)
+            t.Errorf("songInfo.Artist has not the expected content : '%s'\n", songInfo.Artist)
         }
         if songInfo.Album != testData.ExpectedSongInfo.Album {
-            t.Errorf("songInfo.Title has not the expected content : '%s'\n", songInfo.Album)
+            t.Errorf("songInfo.Album has not the expected content : '%s'\n", songInfo.Album)
         }
         if songInfo.TrackNumber != testData.ExpectedSongInfo.TrackNumber {
-            t.Errorf("songInfo.Title has not the expected content : '%s'\n", songInfo.TrackNumber)
+            t.Errorf("songInfo.TrackNumber has not the expected content : '%s'\n", songInfo.TrackNumber)
         }
         if songInfo.Year != testData.ExpectedSongInfo.Year {
-            t.Errorf("songInfo.Title has not the expected content : '%s'\n", songInfo.Year)
+            t.Errorf("songInfo.Year has not the expected content : '%s'\n", songInfo.Year)
         }
         if len(testData.ExpectedSongInfo.AlbumCover) != 0 && len(songInfo.AlbumCover) == 0 {
             t.Errorf("songInfo.AlbumCover has no data while it should.\n")
@@ -106,7 +154,7 @@ func TestGetSongInfo(t *testing.T) {
             t.Errorf("songInfo.AlbumCover has data while it should not.\n")
         }
         if songInfo.Genre != testData.ExpectedSongInfo.Genre {
-            t.Errorf("songInfo.Title has not the expected content : '%s'\n", songInfo.Genre)
+            t.Errorf("songInfo.Genre has not the expected content : '%s'\n", songInfo.Genre)
         }
     }
 }
