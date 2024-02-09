@@ -313,5 +313,6 @@ function doEutherpeRequest(vdoc, userData, method) {
         }
     }
     document.body.appendChild(form);
+    openConfig("Loading");
     form.submit();
 }

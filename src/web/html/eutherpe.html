@@ -14,6 +14,9 @@
         <button class="configtab" id="StorageButton" onclick="openConfig('Storage')"><script>setButtonLabel("&#x1f4be;", "Storage");</script></button>
         <button class="configtab" id="BluetoothButton" onclick="openConfig('Bluetooth')"><script>setButtonLabel("&#128264;", "Bluetooth");</script></button>
     </div>
+    <div id="Loading" class="configcontent" style="text-align: center; padding: 10%;">
+        <p> Wait... &#x23F3; </p>
+    </div>
     <div id="Music" class="configcontent">
         <div height=5px>
             <center>{{.ALBUM-ART-THUMBNAIL}}</center>
@@ -130,6 +133,9 @@ function openConfig(configName) {
   document.getElementById(configName).style.display = "block";
 
   btn = document.getElementById(configName + "Button");
+  if (btn === null) {
+    return;
+  }
   btn.className += " active";
   if (window.matchMedia("(orientation: landscape)").matches) {
     btn.innerHTML = btn.innerHTML + " &gt;";

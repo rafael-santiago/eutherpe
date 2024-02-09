@@ -6,7 +6,7 @@ import (
     "net/url"
     "fmt"
     "flag"
-_    "io/ioutil"
+    "io/ioutil"
 )
 
 func MusicPlay(eutherpeVars *vars.EutherpeVars, _ *url.Values) error {
@@ -35,8 +35,8 @@ func MusicPlay(eutherpeVars *vars.EutherpeVars, _ *url.Values) error {
     }
     var err error
     eutherpeVars.Player.NowPlaying = eutherpeVars.Player.UpNext[eutherpeVars.Player.UpNextCurrentOffset]
-    //createCache(eutherpeVars.Player.NowPlaying.FilePath, "/tmp/cache.mp3")
-    eutherpeVars.Player.Handle, err = mplayer.Play(/*"/tmp/cache.mp3"*/eutherpeVars.Player.NowPlaying.FilePath, customPath)
+    createCache(eutherpeVars.Player.NowPlaying.FilePath, "/tmp/cache.mp3")
+    eutherpeVars.Player.Handle, err = mplayer.Play("/tmp/cache.mp3"/*eutherpeVars.Player.NowPlaying.FilePath*/, customPath)
     eutherpeVars.Player.Stopped = (err != nil)
     if eutherpeVars.Player.Stopped {
         return err
@@ -61,9 +61,9 @@ func MusicPlay(eutherpeVars *vars.EutherpeVars, _ *url.Values) error {
     }()
     return nil
 }
-/*
+
 func createCache(src, dest string) {
     input, _ := ioutil.ReadFile(src)
     ioutil.WriteFile(dest, input, 0644)
 }
-*/
+
