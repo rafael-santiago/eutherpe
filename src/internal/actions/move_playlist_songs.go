@@ -35,7 +35,7 @@ func metaMove(eutherpeVars *vars.EutherpeVars, userData *url.Values, move moveFu
     if !has {
         return fmt.Errorf("Malformed playlist-moveup/down request.")
     }
-    selection, has := (*userData)[vars.EutherpePostFieldSelection]
+    data, has := (*userData)[vars.EutherpePostFieldSelection]
     if !has {
         return fmt.Errorf("Malformed playlist-moveup/down request.")
     }
@@ -43,6 +43,7 @@ func metaMove(eutherpeVars *vars.EutherpeVars, userData *url.Values, move moveFu
     if editedPlaylist == nil {
         return fmt.Errorf("Playlist '%s' not exists.", playlist[0])
     }
+    selection := ParseSelection(data[0])
     for _, selectionId := range selection {
         artist := GetArtistFromSelectionId(selectionId)
         album := GetAlbumFromSelectionId(selectionId)

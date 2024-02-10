@@ -21,8 +21,7 @@ func TestMusicMoveUp(t *testing.T) {
     } else if err.Error() != "Malformed music-moveup request." {
         t.Errorf("MusicMoveUp() has returned an unexpected error.\n")
     }
-    userData.Add(vars.EutherpePostFieldSelection, "Motorhead/Overkill/Stay Clean:stay-clean.mp3")
-    userData.Add(vars.EutherpePostFieldSelection, "The Cramps/Songs The Lord Taught Us/Fever:fever.mp3")
+    userData.Add(vars.EutherpePostFieldSelection, "[ \"Motorhead/Overkill/Stay Clean:stay-clean.mp3\", \"The Cramps/Songs The Lord Taught Us/Fever:fever.mp3\" ]")
     err = MusicMoveUp(eutherpeVars, userData)
     if err != nil {
         t.Errorf("MusicMoveUp() has returned an error when it should not.\n")
@@ -50,8 +49,7 @@ func TestMusicMoveDown(t *testing.T) {
     } else if err.Error() != "Malformed music-movedown request." {
         t.Errorf("MusicMoveDown() has returned an unexpected error.\n")
     }
-    userData.Add(vars.EutherpePostFieldSelection, "Queens Of The Stone Age/Queens Of The Stone Age/Regular John:regular-john.mp3")
-    userData.Add(vars.EutherpePostFieldSelection, "Motorhead/Stay Clean/Stay Clean:stay-clean.mp3")
+    userData.Add(vars.EutherpePostFieldSelection, "[ \"Queens Of The Stone Age/Queens Of The Stone Age/Regular John:regular-john.mp3\", \"Motorhead/Stay Clean/Stay Clean:stay-clean.mp3\" ]")
     err = MusicMoveDown(eutherpeVars, userData)
     if err != nil {
         t.Errorf("MusicMoveDown() has returned an error when it should not.\n")

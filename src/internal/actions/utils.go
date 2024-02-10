@@ -2,7 +2,17 @@ package actions
 
 import (
     "strings"
+    "encoding/json"
 )
+
+func ParseSelection(selection string) []string {
+    if len(selection) == 0 {
+        return []string{}
+    }
+    var selectionSlice []string
+    _ = json.Unmarshal([]byte(selection), &selectionSlice)
+    return selectionSlice
+}
 
 func GetSongFilePathFromSelectionId(selectionId string) string {
     var s int = len(selectionId) - 1

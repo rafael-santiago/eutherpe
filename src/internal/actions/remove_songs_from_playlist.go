@@ -11,10 +11,11 @@ import (
 
 func RemoveSongsFromPlaylist(eutherpeVars *vars.EutherpeVars,
                              userData *url.Values) error {
-    selections, has := (*userData)[vars.EutherpePostFieldSelection]
+    data, has := (*userData)[vars.EutherpePostFieldSelection]
     if !has {
         return fmt.Errorf("Malformed playlist-removesongs request.")
     }
+    selections := ParseSelection(data[0])
     for _, selection := range selections {
         data := strings.Split(selection, ":")
         if len(data) != 2 {

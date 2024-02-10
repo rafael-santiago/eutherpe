@@ -10,7 +10,7 @@ import (
 func AddSelectionToPlaylist(eutherpeVars *vars.EutherpeVars, userData *url.Values) error {
     eutherpeVars.Lock()
     defer eutherpeVars.Unlock()
-    selection, has := (*userData)[vars.EutherpePostFieldSelection]
+    data, has := (*userData)[vars.EutherpePostFieldSelection]
     if !has {
         return fmt.Errorf("Malformed addselectiontoplaylist request.")
     }
@@ -22,6 +22,7 @@ func AddSelectionToPlaylist(eutherpeVars *vars.EutherpeVars, userData *url.Value
     if editedPlaylist == nil {
         return fmt.Errorf("Playlist %s not found.", playlist[0])
     }
+    selection := ParseSelection(data[0])
     for _, selectionId := range selection {
         artist := GetArtistFromSelectionId(selectionId)
         album := GetAlbumFromSelectionId(selectionId)

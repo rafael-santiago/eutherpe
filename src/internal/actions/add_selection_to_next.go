@@ -9,10 +9,11 @@ import (
 func AddSelectionToNext(eutherpeVars *vars.EutherpeVars, userData *url.Values) error {
     eutherpeVars.Lock()
     defer eutherpeVars.Unlock()
-    selection, has := (*userData)[vars.EutherpePostFieldSelection]
+    data, has := (*userData)[vars.EutherpePostFieldSelection]
     if !has {
         return fmt.Errorf("Malformed addselectiontonext request.")
     }
+    selection := ParseSelection(data[0])
     for _, selectionId := range selection {
         artist := GetArtistFromSelectionId(selectionId)
         album := GetAlbumFromSelectionId(selectionId)

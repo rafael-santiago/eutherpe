@@ -25,6 +25,8 @@ func GetEutherpeActionHandler(userData *url.Values) EutherpeActionFunc {
             return MusicRepeatOne
         case vars.EutherpeMusicPlayId:
             return MusicPlay
+        case vars.EutherpeMusicStopId:
+            return MusicStop
         case vars.EutherpeMusicNextId:
             return MusicNext
         case vars.EutherpeCollectionAddSelectionToNextId:

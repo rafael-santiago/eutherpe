@@ -34,8 +34,7 @@ func TestAddSelectionToPlaylist(t *testing.T) {
     if err.Error() != "Malformed addselectiontoplaylist request." {
         t.Errorf("AddSelectionToPlaylist() has returned an unexpected error : '%s'\n", err.Error())
     }
-    userData.Add(vars.EutherpePostFieldSelection, "Motorhead/Overkill/Stay Clean:stay-clean.mp3")
-    userData.Add(vars.EutherpePostFieldSelection, "Queens Of The Stone Age/Queens Of The Stone Age/Regular John:regular-john.mp3")
+    userData.Add(vars.EutherpePostFieldSelection, "[ \"Motorhead/Overkill/Stay Clean:stay-clean.mp3\", \"Queens Of The Stone Age/Queens Of The Stone Age/Regular John:regular-john.mp3\" ]")
     err = AddSelectionToPlaylist(eutherpeVars, userData)
     if err == nil {
         t.Errorf("AddSelectionToPlaylist() should return an error.\n")
@@ -61,7 +60,7 @@ func TestAddSelectionToPlaylist(t *testing.T) {
         t.Errorf("AddSelectionToPlaylist() seems broken because it has not follow the selection order.\n")
     }
     userData.Del(vars.EutherpePostFieldSelection)
-    userData.Add(vars.EutherpePostFieldSelection, "The Cramps/Songs The Lord Taught Us/Fever:fever.mp3")
+    userData.Add(vars.EutherpePostFieldSelection, "[ \"The Cramps/Songs The Lord Taught Us/Fever:fever.mp3\" ]")
     err = AddSelectionToPlaylist(eutherpeVars, userData)
     if err != nil {
         t.Errorf("AddSelectionToPlaylist() has failed while it should not.\n")
@@ -72,7 +71,7 @@ func TestAddSelectionToPlaylist(t *testing.T) {
         t.Errorf("AddSelectionToPlaylist() seems broken because it has not follow the selection order.\n")
     }
     userData.Del(vars.EutherpePostFieldSelection)
-    userData.Add(vars.EutherpePostFieldSelection, "The Cramps/Songs The Lord Taught Us/Garbage Man:garbage-man.mp3")
+    userData.Add(vars.EutherpePostFieldSelection, "[ \"The Cramps/Songs The Lord Taught Us/Garbage Man:garbage-man.mp3\" ]")
     err = AddSelectionToPlaylist(eutherpeVars, userData)
     if err == nil {
         t.Errorf("AddSelectionToPlaylist() has worked when it should not.\n")

@@ -23,7 +23,7 @@ func MusicShuffle(eutherpeVars *vars.EutherpeVars, _ *url.Values) error {
 }
 
 func shuffle(playlist []mplayer.SongInfo) []mplayer.SongInfo {
-    if len(playlist) == 1 {
+    if len(playlist) <= 1 {
         return playlist
     }
     totalSongs := len(playlist)

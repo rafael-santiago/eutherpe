@@ -125,6 +125,8 @@ const EutherpeTemplateNeedleLastError = "{{.LAST-ERROR}}"
 const EutherpeTemplateNeedleRepeatAll = "{{.REPEAT-ALL}}"
 const EutherpeTemplateNeedleRepeatOne = "{{.REPEAT-ONE}}"
 const EutherpeTemplateNeedleCurrentConfig = "{{.CURRENT-CONFIG}}"
+const EutherpeTemplateNeedleShuffleMode = "{{.SHUFFLE-MODE}}"
+const EutherpeTemplateNeedlePlayMode = "{{.PLAY-MODE}}"
 
 const EutherpeWebUIConfigSheetMusic = "Music"
 const EutherpeWebUIConfigSheetCollection = "Collection"

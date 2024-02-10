@@ -151,6 +151,21 @@ func GetSongInfo(filePath string) (SongInfo, error) {
             if field == &s.TrackNumber {
                 subReg := regexp.MustCompile("(^0|/.*)")
                 s.TrackNumber = subReg.ReplaceAllString(s.TrackNumber, "")
+            } else if field == &s.AlbumCover && len(s.AlbumCover) > 0 {
+                a := 0
+                for skp := 0; skp < 2; skp++ {
+                    for ; a < len(s.AlbumCover); a++ {
+                        if (s.AlbumCover[a] == 0x00) {
+                            break
+                        }
+                    }
+                    a++
+                }
+                if a > len(s.AlbumCover) {
+                    s.AlbumCover = ""
+                } else {
+                    s.AlbumCover = s.AlbumCover[a:]
+                }
             }
         }
     }

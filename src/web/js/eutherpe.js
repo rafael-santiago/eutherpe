@@ -225,12 +225,9 @@ function shuffleUpNext() {
     doEutherpeRequest("/eutherpe", { "action" : "music-shuffle" }, "post");
 }
 
-function musicPlay() {
-    doEutherpeRequest("/eutherpe", { "action" : "music-play" }, "post");
-}
-
-function musicStop() {
-    doEutherpeRequest("/eutherpe", { "action" : "music-play" }, "post");
+function musicPlayOrStop(sender) {
+    var action = (sender.value != "Stop") ? "music-play" : "music-stop";
+    doEutherpeRequest("/eutherpe", { "action" : action }, "post");
 }
 
 function musicNext() {
@@ -270,7 +267,7 @@ function metaActionOverSongSelection(action, songListClassName) {
         return;
     }
     doEutherpeRequest("/eutherpe", { "action" : action,
-                                     "selection" : selectedOnes }, "post");
+                                     "selection" : JSON.stringify(selectedOnes) } , "post");
 }
 
 function setButtonLabel(glyph, label) {

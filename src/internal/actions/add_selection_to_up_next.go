@@ -10,10 +10,11 @@ import (
 func AddSelectionToUpNext(eutherpeVars *vars.EutherpeVars, userData *url.Values) error {
     eutherpeVars.Lock()
     defer eutherpeVars.Unlock()
-    selection, has := (*userData)[vars.EutherpePostFieldSelection]
+    data, has := (*userData)[vars.EutherpePostFieldSelection]
     if !has {
         return fmt.Errorf("Malformed addselectiontoupnext request.")
     }
+    selection := ParseSelection(data[0])
     var upNextNewHead []mplayer.SongInfo
     for _, selectionId := range selection {
         artist := GetArtistFromSelectionId(selectionId)
@@ -25,6 +26,14 @@ func AddSelectionToUpNext(eutherpeVars *vars.EutherpeVars, userData *url.Values)
         }
         upNextNewHead = append(upNextNewHead, song)
     }
-    eutherpeVars.Player.UpNext = append(upNextNewHead, eutherpeVars.Player.UpNext...)
+    if eutherpeVars.Player.Stopped {
+        eutherpeVars.Player.UpNext = append(upNextNewHead, eutherpeVars.Player.UpNext...)
+    } else {
+        if eutherpeVars.Player.UpNextCurrentOffset < 0 {
+            eutherpeVars.Player.UpNextCurrentOffset = 0
+        }
+        upNextNewHead = append(upNextNewHead, eutherpeVars.Player.UpNext[eutherpeVars.Player.UpNextCurrentOffset+1:]...)
+        eutherpeVars.Player.UpNext = append(eutherpeVars.Player.UpNext[:eutherpeVars.Player.UpNextCurrentOffset+1], upNextNewHead...)
+    }
     return nil
 }

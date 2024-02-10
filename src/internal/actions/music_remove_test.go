@@ -21,9 +21,7 @@ func TestMusicRemove(t *testing.T) {
     } else if err.Error() != "Malformed music-remove request." {
         t.Errorf("MusicRemove() has returned an unexpected error.\n")
     }
-    userData.Add(vars.EutherpePostFieldSelection, "Motorhead/Bomber/Dead Men Tell No Tales:dead_men_tell_no_tales.mp3")
-    userData.Add(vars.EutherpePostFieldSelection, "Queens Of The Stone Age/Queens Of The Stone Age/Regular John:regular-john.mp3")
-    userData.Add(vars.EutherpePostFieldSelection, "The Cramps/Songs The Lord Taught Us/Fever:fever.mp3")
+    userData.Add(vars.EutherpePostFieldSelection, "[ \"Motorhead/Bomber/Dead Men Tell No Tales:dead_men_tell_no_tales.mp3\", \"Queens Of The Stone Age/Queens Of The Stone Age/Regular John:regular-john.mp3\", \"The Cramps/Songs The Lord Taught Us/Fever:fever.mp3\" ]")
     err = MusicRemove(eutherpeVars, userData)
     if err != nil {
         t.Errorf("MusicRemove() has returned an error when it should not.\n")

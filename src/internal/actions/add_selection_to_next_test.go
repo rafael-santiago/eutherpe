@@ -26,9 +26,7 @@ func TestAddSelectionToNext(t *testing.T) {
         mplayer.SongInfo { "fever.mp3", "Fever", "The Cramps", "Songs The Lord Taught Us", "13", "1980", "", "Psychobilly", },
     }
     userData := &url.Values{}
-    userData.Add(vars.EutherpePostFieldSelection, "Motorhead/Overkill/Stay Clean:stay-clean.mp3")
-    userData.Add(vars.EutherpePostFieldSelection, "The Cramps/Songs The Lord Taught Us/Fever:fever.mp3")
-    userData.Add(vars.EutherpePostFieldSelection, "Queens Of The Stone Age/Queens Of The Stone Age/Regular John:regular-john.mp3")
+    userData.Add(vars.EutherpePostFieldSelection, "[ \"Motorhead/Overkill/Stay Clean:stay-clean.mp3\", \"The Cramps/Songs The Lord Taught Us/Fever:fever.mp3\", \"Queens Of The Stone Age/Queens Of The Stone Age/Regular John:regular-john.mp3\" ]")
     eutherpeVars.Player.UpNext = append(eutherpeVars.Player.UpNext, eutherpeVars.Collection["Motorhead"]["Bomber"][0])
     err := AddSelectionToNext(eutherpeVars, userData)
     if err != nil {
@@ -58,9 +56,7 @@ func TestAddSelectionToNext(t *testing.T) {
         t.Errorf("Unexpected error message.\n")
     }
     userData = &url.Values{}
-    userData.Add(vars.EutherpePostFieldSelection, "Motorhead/Overkill/Stay Clean:stay-clean.mp3")
-    userData.Add(vars.EutherpePostFieldSelection, "The Grumpies/Songs The Lord Taught Us/Fever:fever.mp3")
-    userData.Add(vars.EutherpePostFieldSelection, "Queens Of The Stone Age/Queens Of The Stone Age/Regular John:regular-john.mp3")
+    userData.Add(vars.EutherpePostFieldSelection, "[ \"Motorhead/Overkill/Stay Clean:stay-clean.mp3\", \"The Grumpies/Songs The Lord Taught Us/Fever:fever.mp3\", \"Queens Of The Stone Age/Queens Of The Stone Age/Regular John:regular-john.mp3\" ]")
     err = AddSelectionToNext(eutherpeVars, userData)
     if err == nil {
         t.Errorf("AddSelectionToNext did not return an error.\n")

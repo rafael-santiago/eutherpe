@@ -18,7 +18,7 @@ func MusicMoveDown(eutherpeVars *vars.EutherpeVars, userData *url.Values) error 
 func metaMusicMove(eutherpeVars *vars.EutherpeVars, userData *url.Values, direction int) error {
     eutherpeVars.Lock()
     defer eutherpeVars.Unlock()
-    selection, has := (*userData)[vars.EutherpePostFieldSelection]
+    data, has := (*userData)[vars.EutherpePostFieldSelection]
     if !has {
         return fmt.Errorf("Malformed %s request.", func(d int) string {
                                                         if d < 0 {
@@ -27,6 +27,7 @@ func metaMusicMove(eutherpeVars *vars.EutherpeVars, userData *url.Values, direct
                                                         return "music-movedown"
                                                     }(direction))
     }
+    selection := ParseSelection(data[0])
     for _, selectionId := range selection {
         songFilePath := GetSongFilePathFromSelectionId(selectionId)
         for _, curr_song := range eutherpeVars.Player.UpNext {
