@@ -101,6 +101,8 @@ const EutherpeBluetoothUnpairId = "bluetooth-unpair"
 const EutherpeBluetoothTrustId = "bluetooth-trust"
 const EutherpeBluetoothUntrustId = "bluetooth-untrust"
 
+const EutherpePlayerStatusId = "player-status"
+
 const EutherpePostFieldSelection = "selection"
 const EutherpePostFieldPlaylist = "playlist"
 const EutherpePostFieldStorageDevice = "storage-device"
@@ -127,6 +129,7 @@ const EutherpeTemplateNeedleRepeatOne = "{{.REPEAT-ONE}}"
 const EutherpeTemplateNeedleCurrentConfig = "{{.CURRENT-CONFIG}}"
 const EutherpeTemplateNeedleShuffleMode = "{{.SHUFFLE-MODE}}"
 const EutherpeTemplateNeedlePlayMode = "{{.PLAY-MODE}}"
+const EutherpeTemplateNeedlePlayerStatus = "{{.PLAYER-STATUS}}"
 
 const EutherpeWebUIConfigSheetMusic = "Music"
 const EutherpeWebUIConfigSheetCollection = "Collection"

@@ -296,6 +296,28 @@ function setUncheckedAllSongsOutFromPlaylist(sender) {
     }
 }
 
+function requestPlayerStatus() {
+    if (document.getElementById("Music").style.display != "block") {
+        return;
+    }
+    var req = new XMLHttpRequest();
+    req.open("POST", "/eutherpe", true);
+    req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    req.onreadystatechange = function () {
+        if (req.readyState == 4 && req.status == 200) {
+            try {
+                response = JSON.parse(req.responseText);
+                player_status_markee = document.getElementById("playerStatusMarkee");
+                player_status_markee.innerHTML = response["now-playing-markee"];
+            } catch (e) {
+            }
+        }
+    };
+    req.onerror = function() {
+    };
+    req.send("action=player-status");
+}
+
 function doEutherpeRequest(vdoc, userData, method) {
     var form = document.createElement("form");
     form.method = method;

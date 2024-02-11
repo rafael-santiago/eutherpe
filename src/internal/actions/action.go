@@ -79,7 +79,8 @@ func CurrentConfigByActionId(userData *url.Values) string {
              vars.EutherpeMusicRepeatAllId,
              vars.EutherpeMusicRepeatOneId,
              vars.EutherpeMusicPlayId,
-             vars.EutherpeMusicNextId:
+             vars.EutherpeMusicNextId,
+             vars.EutherpeMusicStopId:
             return vars.EutherpeWebUIConfigSheetMusic
 
         case vars.EutherpeCollectionAddSelectionToNextId,
@@ -109,4 +110,78 @@ func CurrentConfigByActionId(userData *url.Values) string {
             return vars.EutherpeWebUIConfigSheetBluetooth
     }
     return vars.EutherpeWebUIConfigSheetDefault
+}
+
+func GetContentTypeByActionId(userData *url.Values) string {
+    switch userData.Get(vars.EutherpeActionId) {
+        case vars.EutherpeMusicRemoveId,
+             vars.EutherpeMusicMoveUpId,
+             vars.EutherpeMusicMoveDownId,
+             vars.EutherpeMusicClearAllId,
+             vars.EutherpeMusicShuffleId,
+             vars.EutherpeMusicRepeatAllId,
+             vars.EutherpeMusicRepeatOneId,
+             vars.EutherpeMusicPlayId,
+             vars.EutherpeMusicNextId,
+             vars.EutherpeMusicStopId,
+             vars.EutherpeCollectionAddSelectionToNextId,
+             vars.EutherpeCollectionAddSelectionToUpNextId,
+             vars.EutherpeCollectionAddSelectionToPlaylistId,
+             vars.EutherpeCollectionTagSelectionAsId,
+             vars.EutherpePlaylistCreateId,
+             vars.EutherpePlaylistRemoveId,
+             vars.EutherpePlaylistShowId,
+             vars.EutherpePlaylistMoveUpId,
+             vars.EutherpePlaylistMoveDownId,
+             vars.EutherpePlaylistClearAllId,
+             vars.EutherpeStorageListId,
+             vars.EutherpeStorageScanId,
+             vars.EutherpeStorageSetId,
+             vars.EutherpeBluetoothProbeDevicesId,
+             vars.EutherpeBluetoothPairId,
+             vars.EutherpeBluetoothUnpairId,
+             vars.EutherpeBluetoothTrustId,
+             vars.EutherpeBluetoothUntrustId:
+            return "text/html"
+    }
+    return "application/json"
+}
+
+func GetVDocByActionId(userData *url.Values, eutherpeVars *vars.EutherpeVars) string {
+    switch userData.Get(vars.EutherpeActionId) {
+        case vars.EutherpeMusicRemoveId,
+             vars.EutherpeMusicMoveUpId,
+             vars.EutherpeMusicMoveDownId,
+             vars.EutherpeMusicClearAllId,
+             vars.EutherpeMusicShuffleId,
+             vars.EutherpeMusicRepeatAllId,
+             vars.EutherpeMusicRepeatOneId,
+             vars.EutherpeMusicPlayId,
+             vars.EutherpeMusicNextId,
+             vars.EutherpeMusicStopId,
+             vars.EutherpeCollectionAddSelectionToNextId,
+             vars.EutherpeCollectionAddSelectionToUpNextId,
+             vars.EutherpeCollectionAddSelectionToPlaylistId,
+             vars.EutherpeCollectionTagSelectionAsId,
+             vars.EutherpePlaylistCreateId,
+             vars.EutherpePlaylistRemoveId,
+             vars.EutherpePlaylistShowId,
+             vars.EutherpePlaylistMoveUpId,
+             vars.EutherpePlaylistMoveDownId,
+             vars.EutherpePlaylistClearAllId,
+             vars.EutherpeStorageListId,
+             vars.EutherpeStorageScanId,
+             vars.EutherpeStorageSetId,
+             vars.EutherpeBluetoothProbeDevicesId,
+             vars.EutherpeBluetoothPairId,
+             vars.EutherpeBluetoothUnpairId,
+             vars.EutherpeBluetoothTrustId,
+             vars.EutherpeBluetoothUntrustId:
+            return eutherpeVars.HTTPd.IndexHTML
+
+        case vars.EutherpePlayerStatusId:
+            return vars.EutherpeTemplateNeedlePlayerStatus
+    }
+
+    return eutherpeVars.HTTPd.ErrorHTML
 }

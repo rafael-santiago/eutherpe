@@ -51,6 +51,9 @@
 }
 .nowplaying {
     padding: 0px 0;
+    font-family: "Sabo-Regular";
+    font-size: 18px;
+    animation: marquee 32s linear infinite;
 }
 .eutherpeBUTTON {
     font-family: "Sabo-Filled";

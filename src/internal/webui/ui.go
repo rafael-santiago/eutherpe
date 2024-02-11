@@ -44,8 +44,8 @@ func (ehh *EutherpeHTTPHandler) handler(w http.ResponseWriter, r *http.Request) 
     var templatedOutput string
     switch r.URL.Path {
         case "/eutherpe":
+                var contentType = "text/html"
                 if r.Method == "GET" {
-                    // TODO(Rafael): Set up a default page.
                     templatedOutput = ehh.eutherpeVars.HTTPd.IndexHTML
                     if len(ehh.eutherpeVars.CurrentConfig) == 0 {
                         ehh.eutherpeVars.CurrentConfig = vars.EutherpeWebUIConfigSheetDefault
@@ -54,11 +54,12 @@ func (ehh *EutherpeHTTPHandler) handler(w http.ResponseWriter, r *http.Request) 
                     r.ParseForm()
                     actionHandler := actions.GetEutherpeActionHandler(&r.Form)
                     templatedOutput = ehh.processAction(actionHandler, &r.Form)
+                    contentType = actions.GetContentTypeByActionId(&r.Form)
                 } else {
                     templatedOutput = ehh.eutherpeVars.HTTPd.ErrorHTML
                     ehh.eutherpeVars.LastError = fmt.Errorf("501 Not Implemented (ou, boa tentativa mas vai ter que melhorar...)")
                 }
-                w.Header().Set("content-type", "text/html")
+                w.Header().Set("content-type", contentType)
             break
         default:
             templatedOutput = ehh.processGET(&w, r)
@@ -71,7 +72,7 @@ func (ehh *EutherpeHTTPHandler) processAction(actionHandler actions.EutherpeActi
     if actionHandler == nil {
         ehh.eutherpeVars.LastError =
                 fmt.Errorf("500 Internal Server Error (ou, voce tava muito zureta [sabe-se la de que] quando me mandou isso...)")
-        return ehh.eutherpeVars.HTTPd.ErrorHTML
+        return actions.GetVDocByActionId(userData, ehh.eutherpeVars)
     }
     ehh.eutherpeVars.CurrentConfig = actions.CurrentConfigByActionId(userData)
     ehh.eutherpeVars.LastError = actionHandler(ehh.eutherpeVars, userData)
@@ -79,7 +80,7 @@ func (ehh *EutherpeHTTPHandler) processAction(actionHandler actions.EutherpeActi
         userData.Del(vars.EutherpePostFieldLastError)
         userData.Add(vars.EutherpePostFieldLastError, ehh.eutherpeVars.LastError.Error())
     }
-    return ehh.eutherpeVars.HTTPd.IndexHTML
+    return actions.GetVDocByActionId(userData, ehh.eutherpeVars)
 }
 
 func (ehh *EutherpeHTTPHandler) processGET(w *http.ResponseWriter, r *http.Request) string {
