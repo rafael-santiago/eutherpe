@@ -49,11 +49,31 @@
     border-left: none;
     height: 307px;
 }
-.nowplaying {
+.marquee {
+    height: 35px;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    padding: 8px 0 4px 0;
+}
+.marquee .nowplaying {
     padding: 0px 0;
     font-family: "Sabo-Regular";
     font-size: 18px;
-    animation: marquee 32s linear infinite;
+    animation: marquee 15s linear infinite;
+}
+.marquee div {
+    position: absolute;
+    width: 100%;
+    left: 100%;
+    height: 40px;
+    display: flex;
+    justify-content: space-between;
+}
+@keyframes marquee {
+    0% { left: 100%; }
+    50% { left: -10%; }
+    100% { right: -100%; }
 }
 .eutherpeBUTTON {
     font-family: "Sabo-Filled";
