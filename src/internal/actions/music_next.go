@@ -14,8 +14,7 @@ func MusicNext(eutherpeVars *vars.EutherpeVars, _ *url.Values) error {
         return fmt.Errorf("Not playing anything by now.")
     }
     if eutherpeVars.Player.UpNextCurrentOffset >= len(eutherpeVars.Player.UpNext) - 1 {
-        eutherpeVars.Unlock()
-        return fmt.Errorf("You have hit the end of the reproduction list.")
+        eutherpeVars.Player.UpNextCurrentOffset = -1
     }
     eutherpeVars.Unlock()
     err := MusicStop(eutherpeVars, nil)

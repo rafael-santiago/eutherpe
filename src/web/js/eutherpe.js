@@ -307,8 +307,13 @@ function requestPlayerStatus() {
         if (req.readyState == 4 && req.status == 200) {
             try {
                 response = JSON.parse(req.responseText);
-                player_status_markee = document.getElementById("playerStatusMarkee");
-                player_status_markee.innerHTML = response["now-playing-markee"];
+                playerStatusMarkee = document.getElementById("playerStatusMarkee");
+                playerStatusMarkee.innerHTML = response["now-playing-markee"];
+                albumCover = document.getElementById("albumCover");
+                albumCover.src = response["album-cover-src"];
+                if (playerStatusMarkee.innerHTML == "") {
+                    document.getElementById("playStop").value = "play";
+                }
             } catch (e) {
             }
         }

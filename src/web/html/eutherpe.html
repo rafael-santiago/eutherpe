@@ -20,7 +20,7 @@
     <div id="Music" class="configcontent">
         <div height=5px>
             <center>{{.ALBUM-ART-THUMBNAIL}}</center>
-            <div class="marquee"><div id="playerStatusMarkee" class="nowplaying" >&#119066;&#119070;&#119066;&#119046; {{.NOW-PLAYING}} &#119066;&#119047;</div></div>
+            <div class="marquee"><div id="playerStatusMarkee" class="nowplaying" >{{.NOW-PLAYING}}</div></div>
         </div>
         <div class="tinyscrollbox">
             <ul id="eutherpeUL">
@@ -39,7 +39,7 @@
             <input class="eutherpeBUTTON" type="button" value="{{.SHUFFLE-MODE}}" onclick="shuffleUpNext();"/>
             {{.REPEAT-ALL}}{{.REPEAT-ONE}}
             <hr>
-            <input class="eutherpeBUTTON" type="button" value="{{.PLAY-MODE}}" onclick="musicPlayOrStop(this);"/>
+            <input class="eutherpeBUTTON" type="button" id="playStop" value="{{.PLAY-MODE}}" onclick="musicPlayOrStop(this);"/>
             <input class="eutherpeBUTTON" type="button" value="Next" onclick="musicNext();"/>
         </center>
     </div>
@@ -157,6 +157,17 @@ for (i = 0; i < toggler.length; i++) {
     toggler[i].addEventListener("click", function() {
         this.parentElement.querySelector(".nested").classList.toggle("active");
         this.classList.toggle("caret-down");
+        this.classList.down = !this.classList.down;
+        if (document.getElementById("Music").style.display == "block") {
+            albumCover = document.getElementById("albumCover");
+            if (this.classList.down) {
+                albumCover.width = 50;
+                albumCover.height = 50;
+            } else {
+                albumCover.width = 125;
+                albumCover.height = 125;
+            }
+        }
     });
 }
 

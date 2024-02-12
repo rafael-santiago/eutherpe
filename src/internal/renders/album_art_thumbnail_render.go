@@ -6,11 +6,16 @@ import (
     "strings"
 )
 
+func EncodeAlbumCover(albumCoverBlob string) string {
+    return "data:image/" + getImageFmt(albumCoverBlob) + ";base64," +
+                        base64.StdEncoding.EncodeToString([]byte(albumCoverBlob))
+}
+
 func AlbumArtThumbnailRender(templatedInput string, eutherpeVars *vars.EutherpeVars) string {
     var albumArtThumbnailHTML string
     if len(eutherpeVars.Player.NowPlaying.AlbumCover) > 0 {
-        albumArtThumbnailHTML = "<img src=\"data:image/" + getImageFmt(eutherpeVars.Player.NowPlaying.AlbumCover) + ";base64," +
-                        base64.StdEncoding.EncodeToString([]byte(eutherpeVars.Player.NowPlaying.AlbumCover))  + "\" width=50 height=50>"
+        albumArtThumbnailHTML = "<img id=\"albumCover\" src=\"" + EncodeAlbumCover(eutherpeVars.Player.NowPlaying.AlbumCover) +
+                                    "\" width=125 height=125>"
     }
     return strings.Replace(templatedInput, vars.EutherpeTemplateNeedleAlbumArtThumbnail, albumArtThumbnailHTML, -1)
 }
