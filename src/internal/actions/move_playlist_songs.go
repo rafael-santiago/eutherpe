@@ -6,6 +6,7 @@ import (
     "internal/mplayer"
     "net/url"
     "fmt"
+    "strings"
 )
 
 type moveFunc func(editedPlaylist *dj.Playlist, song mplayer.SongInfo)
@@ -45,6 +46,11 @@ func metaMove(eutherpeVars *vars.EutherpeVars, userData *url.Values, move moveFu
     }
     selection := ParseSelection(data[0])
     for _, selectionId := range selection {
+        s := strings.Index(selectionId, ":")
+        if (s == -1) {
+            continue
+        }
+        selectionId = selectionId[s+1:]
         artist := GetArtistFromSelectionId(selectionId)
         album := GetAlbumFromSelectionId(selectionId)
         filePath := GetSongFilePathFromSelectionId(selectionId)

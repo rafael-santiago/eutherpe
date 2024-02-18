@@ -37,7 +37,7 @@ func main() {
     eutherpeVars.Player.RepeatAll = false
     eutherpeVars.Player.RepeatOne = false
     eutherpeVars.HTTPd.URLSchema = "http"
-    eutherpeVars.HTTPd.Addr = "192.168.0.130:8080"
+    eutherpeVars.HTTPd.Addr = "192.168.0.133:8080"
     eutherpeVars.HTTPd.PubRoot = "/home/rs/src/eutherpe/src/web"
     eutherpeVars.HTTPd.PubFiles = append(eutherpeVars.HTTPd.PubFiles, "/js/eutherpe.js")
     eutherpeVars.HTTPd.PubFiles = append(eutherpeVars.HTTPd.PubFiles, "/css/eutherpe.css")

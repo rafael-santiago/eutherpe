@@ -70,10 +70,19 @@
     display: flex;
     justify-content: space-between;
 }
+.NowPlaying {
+    font-family: "Sabo-Regular";
+    font-size: 18px;
+    text-align: center;
+}
+.AlbumCover {
+    text-align: center;
+    margin-top: 10px;
+}
 @keyframes marquee {
     0% { left: 100%; }
     50% { left: -10%; }
-    100% { right: -100%; }
+    100% { right: 10%; }
 }
 .eutherpeBUTTON {
     font-family: "Sabo-Filled";

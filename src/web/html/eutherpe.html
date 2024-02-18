@@ -17,11 +17,19 @@
     <div id="Loading" class="configcontent" style="text-align: center; padding: 10%;">
         <p> Wait... &#x23F3; </p>
     </div>
+    <div id="AddToPlaylist" class="configcontent" style="text-align: center; padding: 10%;">
+        <b>Enter with the name of an existing or new playlist...</b>
+        <input type="text" id="playlistName" size="70%">
+        <input class="eutherpeBUTTON" type="button" value="Add" onclick="addToPlaylist();">
+        <input class="eutherpeBUTTON" type="button" value="Cancel" onclick="closeAddToPlaylist();">
+    </div>
     <div id="Music" class="configcontent">
-        <div height=5px>
+        <!--<div height=5px>
             <center>{{.ALBUM-ART-THUMBNAIL}}</center>
             <div class="marquee"><div id="playerStatusMarkee" class="nowplaying" >{{.NOW-PLAYING}}</div></div>
-        </div>
+        </div>-->
+        <div class="AlbumCover" id="AlbumCoverDiv">{{.ALBUM-ART-THUMBNAIL}}</div>
+        <div class="NowPlaying" id="NowPlayingDiv">{{.NOW-PLAYING}}</div>
         <div class="tinyscrollbox">
             <ul id="eutherpeUL">
                 <li>
@@ -51,7 +59,7 @@
         <center>
         <input class="eutherpeBUTTON" type="button" value="Add Selection to Next" onclick="addToNext();"/>
         <input class="eutherpeBUTTON" type="button" value="Add Selection to Up Next" onclick="addToUpNext();"/>
-        <input class="eutherpeBUTTON" type="button" value="Add Selection to Playlist..." onclick="addToPlaylist();"/>
+        <input class="eutherpeBUTTON" type="button" value="Add Selection to Playlist..." onclick="openConfig('AddToPlaylist');"/>
         <input class="eutherpeBUTTON" type="button" value="Tag Selection As..." onclick="tagSelectionAs();"/>
         </center>
     </div>
@@ -82,8 +90,8 @@
         <center>
             <hr>
             <input class="eutherpeBUTTON" type="button" value="List storages" onclick="listStorageDevices();"/>
-            <input class="eutherpeBUTTON" type="button" value="Scan selected storage" onclick="scanStorageDevice();"/>
             <input class="eutherpeBUTTON" type="button" value="Set storage" onclick="setStorageDevice();"/>
+            <input class="eutherpeBUTTON" type="button" value="Scan selected storage" onclick="scanStorageDevice();"/>
         </center>
     </div>
     </div>

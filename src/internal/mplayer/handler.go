@@ -6,11 +6,11 @@ import (
 )
 
 func Play(filePath string, customPath ...string) (*exec.Cmd, error) {
-    var mpg123Path string = "mpg123"
+    var ffplayPath string = "ffplay"
     if len(customPath) > 0 {
-        mpg123Path = path.Join(customPath[0], mpg123Path)
+        ffplayPath = path.Join(customPath[0], ffplayPath)
     }
-    cmd := exec.Command(mpg123Path, filePath)//, "-b", "65535", "--no-seekbuffer", "-y")
+    cmd := exec.Command(ffplayPath, filePath, "-nodisp", "-autoexit")
     return cmd, cmd.Start()
 }
 

@@ -18,7 +18,7 @@ func RemoveSongsFromPlaylist(eutherpeVars *vars.EutherpeVars,
     selections := ParseSelection(data[0])
     for _, selection := range selections {
         data := strings.Split(selection, ":")
-        if len(data) != 2 {
+        if len(data) != 3 {
             return fmt.Errorf("Malformed playlist-removesongs parameter.")
         }
         var editedPlaylist *dj.Playlist
@@ -32,7 +32,7 @@ func RemoveSongsFromPlaylist(eutherpeVars *vars.EutherpeVars,
         if editedPlaylist == nil {
             return fmt.Errorf("Playlists '%s' does not exist.", data[0])
         }
-        editedPlaylist.Remove(mplayer.SongInfo{ FilePath: data[1] })
+        editedPlaylist.Remove(mplayer.SongInfo{ FilePath: data[2] })
     }
     return nil
 }

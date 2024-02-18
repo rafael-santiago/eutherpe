@@ -1,3 +1,7 @@
+function closeAddToPlaylist() {
+    openConfig("Collection");
+}
+
 function addToNext() {
     metaCollectionAdd("collection-addselectiontonext");
 }
@@ -8,6 +12,7 @@ function addToUpNext() {
 
 function addToPlaylist() {
     metaCollectionAdd("collection-addselectiontoplaylist");
+    closeAddToPlaylist();
 }
 
 function tagSelectionAs() {
@@ -266,8 +271,19 @@ function metaActionOverSongSelection(action, songListClassName) {
     if (selectedOnes.length == 0) {
         return;
     }
-    doEutherpeRequest("/eutherpe", { "action" : action,
-                                     "selection" : JSON.stringify(selectedOnes) } , "post");
+    var reqParams = { "action"    : action,
+                      "selection" : JSON.stringify(selectedOnes) };
+    if (action == "collection-addselectiontoplaylist") {
+        reqParams.playlist = document.getElementById("playlistName").value;
+    } else if (songListClassName == "PlaylistSong") {
+        playlist = getSelectedPlaylist();
+        if (playlist === null) {
+            alert("No playlist was selected!");
+            return;
+        }
+        reqParams.playlist = playlist.id;
+    }
+    doEutherpeRequest("/eutherpe", reqParams, "post");
 }
 
 function setButtonLabel(glyph, label) {
@@ -307,8 +323,8 @@ function requestPlayerStatus() {
         if (req.readyState == 4 && req.status == 200) {
             try {
                 response = JSON.parse(req.responseText);
-                playerStatusMarkee = document.getElementById("playerStatusMarkee");
-                playerStatusMarkee.innerHTML = response["now-playing-markee"];
+                playerStatusMarkee = document.getElementById("NowPlayingDiv");
+                playerStatusMarkee.innerHTML = response["now-playing"];
                 albumCover = document.getElementById("albumCover");
                 albumCover.src = response["album-cover-src"];
                 if (playerStatusMarkee.innerHTML == "") {
