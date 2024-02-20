@@ -18,7 +18,7 @@ func MoveUpPlaylistSongs(eutherpeVars *vars.EutherpeVars, userData *url.Values) 
                     userData,
                     func(editedPlaylist *dj.Playlist, song mplayer.SongInfo) {
                         editedPlaylist.MoveUp(song)
-                    })
+                    }, -1)
 }
 
 func MoveDownPlaylistSongs(eutherpeVars *vars.EutherpeVars, userData *url.Values) error {
@@ -28,10 +28,10 @@ func MoveDownPlaylistSongs(eutherpeVars *vars.EutherpeVars, userData *url.Values
                     userData,
                     func(editedPlaylist *dj.Playlist, song mplayer.SongInfo) {
                         editedPlaylist.MoveDown(song)
-                    })
+                    }, 0)
 }
 
-func metaMove(eutherpeVars *vars.EutherpeVars, userData *url.Values, move moveFunc) error {
+func metaMove(eutherpeVars *vars.EutherpeVars, userData *url.Values, move moveFunc, direction int) error {
     playlist, has := (*userData)[vars.EutherpePostFieldPlaylist]
     if !has {
         return fmt.Errorf("Malformed playlist-moveup/down request.")
@@ -45,20 +45,39 @@ func metaMove(eutherpeVars *vars.EutherpeVars, userData *url.Values, move moveFu
         return fmt.Errorf("Playlist '%s' not exists.", playlist[0])
     }
     selection := ParseSelection(data[0])
-    for _, selectionId := range selection {
-        s := strings.Index(selectionId, ":")
-        if (s == -1) {
-            continue
+    if direction == -1 {
+        for _, selectionId := range selection {
+            s := strings.Index(selectionId, ":")
+            if (s == -1) {
+                continue
+            }
+            selectionId = selectionId[s+1:]
+            artist := GetArtistFromSelectionId(selectionId)
+            album := GetAlbumFromSelectionId(selectionId)
+            filePath := GetSongFilePathFromSelectionId(selectionId)
+            song, err := eutherpeVars.Collection.GetSongFromArtistAlbum(artist, album, filePath)
+            if err != nil {
+                return err
+            }
+            move(editedPlaylist, song)
         }
-        selectionId = selectionId[s+1:]
-        artist := GetArtistFromSelectionId(selectionId)
-        album := GetAlbumFromSelectionId(selectionId)
-        filePath := GetSongFilePathFromSelectionId(selectionId)
-        song, err := eutherpeVars.Collection.GetSongFromArtistAlbum(artist, album, filePath)
-        if err != nil {
-            return err
+    } else {
+        for sl := len(selection) - 1; sl >= 0; sl-- {
+            selectionId := selection[sl]
+            s := strings.Index(selectionId, ":")
+            if (s == -1) {
+                continue
+            }
+            selectionId = selectionId[s+1:]
+            artist := GetArtistFromSelectionId(selectionId)
+            album := GetAlbumFromSelectionId(selectionId)
+            filePath := GetSongFilePathFromSelectionId(selectionId)
+            song, err := eutherpeVars.Collection.GetSongFromArtistAlbum(artist, album, filePath)
+            if err != nil {
+                return err
+            }
+            move(editedPlaylist, song)
         }
-        move(editedPlaylist, song)
     }
     return nil
 }

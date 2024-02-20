@@ -28,12 +28,25 @@ func metaMusicMove(eutherpeVars *vars.EutherpeVars, userData *url.Values, direct
                                                     }(direction))
     }
     selection := ParseSelection(data[0])
-    for _, selectionId := range selection {
-        songFilePath := GetSongFilePathFromSelectionId(selectionId)
-        for _, curr_song := range eutherpeVars.Player.UpNext {
-            if curr_song.FilePath == songFilePath {
-                eutherpeVars.Player.UpNext = metaMoveSong(curr_song, eutherpeVars.Player.UpNext, direction)
-                break
+    if direction >= 0 {
+        for s := len(selection) - 1; s >= 0; s-- {
+            selectionId := selection[s]
+            songFilePath := GetSongFilePathFromSelectionId(selectionId)
+            for _, curr_song := range eutherpeVars.Player.UpNext {
+                if  curr_song.FilePath == songFilePath {
+                    eutherpeVars.Player.UpNext = metaMoveSong(curr_song, eutherpeVars.Player.UpNext, direction)
+                    break
+                }
+            }
+        }
+    } else {
+        for _, selectionId := range selection {
+            songFilePath := GetSongFilePathFromSelectionId(selectionId)
+            for _, curr_song := range eutherpeVars.Player.UpNext {
+                if  curr_song.FilePath == songFilePath {
+                    eutherpeVars.Player.UpNext = metaMoveSong(curr_song, eutherpeVars.Player.UpNext, direction)
+                    break
+                }
             }
         }
     }
