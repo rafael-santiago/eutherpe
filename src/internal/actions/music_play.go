@@ -49,6 +49,7 @@ func MusicPlay(eutherpeVars *vars.EutherpeVars, _ *url.Values) error {
         if eutherpeVars.Player.Stopped {
             return
         }
+        eutherpeVars.Lock()
         if !eutherpeVars.Player.RepeatOne {
             eutherpeVars.Player.UpNextCurrentOffset++
         }
@@ -57,6 +58,7 @@ func MusicPlay(eutherpeVars *vars.EutherpeVars, _ *url.Values) error {
             eutherpeVars.Player.UpNextCurrentOffset = -1
         }
         eutherpeVars.Player.Handle = nil
+        eutherpeVars.Unlock()
         MusicPlay(eutherpeVars, nil)
     }()
     return nil

@@ -323,11 +323,13 @@ function requestPlayerStatus() {
         if (req.readyState == 4 && req.status == 200) {
             try {
                 response = JSON.parse(req.responseText);
-                playerStatusMarkee = document.getElementById("NowPlayingDiv");
-                playerStatusMarkee.innerHTML = response["now-playing"];
+                nowPlayingDiv = document.getElementById("NowPlayingDiv");
+                nowPlayingDiv.innerHTML = response["now-playing"];
                 albumCover = document.getElementById("albumCover");
-                albumCover.src = response["album-cover-src"];
-                if (playerStatusMarkee.innerHTML == "") {
+                if (albumCover != null) {
+                    albumCover.src = response["album-cover-src"];
+                }
+                if (response["now-playing"].length == 0) {
                     document.getElementById("playStop").value = "play";
                 }
             } catch (e) {

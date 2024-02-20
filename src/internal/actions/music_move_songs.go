@@ -37,6 +37,12 @@ func metaMusicMove(eutherpeVars *vars.EutherpeVars, userData *url.Values, direct
             }
         }
     }
+    for off, song := range eutherpeVars.Player.UpNext {
+        if song == eutherpeVars.Player.NowPlaying {
+            eutherpeVars.Player.UpNextCurrentOffset = off
+            break
+        }
+    }
     return nil
 }
 
