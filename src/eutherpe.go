@@ -2,7 +2,7 @@ package main
 
 import (
     "internal/bluebraces"
-    _ "internal/mplayer"
+    "internal/mplayer"
     _ "internal/dj"
     "fmt"
     _ "time"
@@ -36,6 +36,7 @@ func main() {
     eutherpeVars := &vars.EutherpeVars{}
     eutherpeVars.Player.RepeatAll = false
     eutherpeVars.Player.RepeatOne = false
+    eutherpeVars.Player.VolumeLevel = mplayer.GetVolumeLevel()
     eutherpeVars.HTTPd.URLSchema = "http"
     eutherpeVars.HTTPd.Addr = "192.168.0.133:8080"
     eutherpeVars.HTTPd.PubRoot = "/home/rs/src/eutherpe/src/web"

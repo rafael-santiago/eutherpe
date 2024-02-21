@@ -341,7 +341,12 @@ function requestPlayerStatus() {
     req.send("action=player-status");
 }
 
-function doEutherpeRequest(vdoc, userData, method) {
+function setVolume() {
+    doEutherpeRequest("/eutherpe", { "action" : "music-setvolume",
+                                     "volume-level" : document.getElementById("volumeLevel").value }, "post", true);
+}
+
+function doEutherpeRequest(vdoc, userData, method, noWaitBanner = false) {
     var form = document.createElement("form");
     form.method = method;
     form.action = vdoc;
@@ -355,6 +360,8 @@ function doEutherpeRequest(vdoc, userData, method) {
         }
     }
     document.body.appendChild(form);
-    openConfig("Loading");
+    if (!noWaitBanner) {
+        openConfig("Loading");
+    }
     form.submit();
 }

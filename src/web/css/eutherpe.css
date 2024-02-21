@@ -89,6 +89,9 @@
     cursor: pointer;
     border: 1px solid #ccc;
 }
+.eutherpeRANGE {
+    cursor: pointer;
+}
 ul, #eutherpeUL {
     list-style-type: none;
 }

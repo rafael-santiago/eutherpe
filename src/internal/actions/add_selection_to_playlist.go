@@ -20,8 +20,17 @@ func AddSelectionToPlaylist(eutherpeVars *vars.EutherpeVars, userData *url.Value
     }
     editedPlaylist := dj.GetPlaylist(playlist[0], &eutherpeVars.Playlists)
     if editedPlaylist == nil {
-        eutherpeVars.Playlists = append(eutherpeVars.Playlists, dj.Playlist{Name: playlist[0]})
+        eutherpeVars.Unlock()
+        err := CreatePlaylist(eutherpeVars, userData)
+        if err != nil {
+            eutherpeVars.Lock()
+            return err
+        }
+        eutherpeVars.Lock()
         editedPlaylist = dj.GetPlaylist(playlist[0], &eutherpeVars.Playlists)
+        if editedPlaylist == nil {
+            return fmt.Errorf("Null playlist.")
+        }
     }
     selection := ParseSelection(data[0])
     for _, selectionId := range selection {

@@ -24,10 +24,6 @@
         <input class="eutherpeBUTTON" type="button" value="Cancel" onclick="closeAddToPlaylist();">
     </div>
     <div id="Music" class="configcontent">
-        <!--<div height=5px>
-            <center>{{.ALBUM-ART-THUMBNAIL}}</center>
-            <div class="marquee"><div id="playerStatusMarkee" class="nowplaying" >{{.NOW-PLAYING}}</div></div>
-        </div>-->
         <div class="AlbumCover" id="AlbumCoverDiv">{{.ALBUM-ART-THUMBNAIL}}</div>
         <div class="NowPlaying" id="NowPlayingDiv">{{.NOW-PLAYING}}</div>
         <div class="tinyscrollbox">
@@ -40,15 +36,15 @@
         </div>
         <center>
             <hr>
+            <input class="eutherpeBUTTON" type="button" id="playStop" value="{{.PLAY-MODE}}" onclick="musicPlayOrStop(this);"/>
+            <input class="eutherpeBUTTON" type="button" value="Next" onclick="musicNext();"/>
             <input class="eutherpeBUTTON" type="button" value="Remove..." onclick="removeSelectedSongsFromUpNext();"/>
             <input class="eutherpeBUTTON" type="button" value="Move up" onclick="moveSelectedSongsFromUpNextUp();"/>
             <input class="eutherpeBUTTON" type="button" value="Move down" onclick="moveSelectedSongsFromUpNextDown();"/>
             <input class="eutherpeBUTTON" type="button" value="Clear all..." onclick="clearUpNextAll();"/>
             <input class="eutherpeBUTTON" type="button" value="{{.SHUFFLE-MODE}}" onclick="shuffleUpNext();"/>
-            {{.REPEAT-ALL}}{{.REPEAT-ONE}}
             <hr>
-            <input class="eutherpeBUTTON" type="button" id="playStop" value="{{.PLAY-MODE}}" onclick="musicPlayOrStop(this);"/>
-            <input class="eutherpeBUTTON" type="button" value="Next" onclick="musicNext();"/>
+            <input class="eutherpeRANGE" type="range" id="volumeLevel" min="0" max="100" value="{{.VOLUME-LEVEL}}" onclick="setVolume();"/>{{.REPEAT-ALL}}{{.REPEAT-ONE}}
         </center>
     </div>
     <div id="Collection" class="configcontent">

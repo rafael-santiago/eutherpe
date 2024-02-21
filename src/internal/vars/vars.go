@@ -37,6 +37,7 @@ type EutherpeVars struct {
         RepeatAll bool
         RepeatOne bool
         Stopped bool
+        VolumeLevel uint
     }
     LastError error
     CurrentConfig string
@@ -69,6 +70,7 @@ const EutherpeMusicRepeatOneId = "music-repeatone"
 const EutherpeMusicPlayId = "music-play"
 const EutherpeMusicStopId = "music-stop"
 const EutherpeMusicNextId = "music-next"
+const EutherpeMusicSetVolumeId = "music-setvolume"
 
 // INFO(Rafael): Actions from "Collection" sheet.
 
@@ -107,6 +109,7 @@ const EutherpePostFieldSelection = "selection"
 const EutherpePostFieldPlaylist = "playlist"
 const EutherpePostFieldStorageDevice = "storage-device"
 const EutherpePostFieldBluetoothDevice = "bluetooth-device"
+const EutherpePostFieldVolumeLevel = "volume-level"
 const EutherpePostFieldLastError = "last-error"
 
 // INFO(Rafael): Template markers id.
@@ -130,6 +133,7 @@ const EutherpeTemplateNeedleCurrentConfig = "{{.CURRENT-CONFIG}}"
 const EutherpeTemplateNeedleShuffleMode = "{{.SHUFFLE-MODE}}"
 const EutherpeTemplateNeedlePlayMode = "{{.PLAY-MODE}}"
 const EutherpeTemplateNeedlePlayerStatus = "{{.PLAYER-STATUS}}"
+const EutherpeTemplateNeedleVolumeLevel = "{{.VOLUME-LEVEL}}"
 
 const EutherpeWebUIConfigSheetMusic = "Music"
 const EutherpeWebUIConfigSheetCollection = "Collection"

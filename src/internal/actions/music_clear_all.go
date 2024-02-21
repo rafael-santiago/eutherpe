@@ -17,6 +17,10 @@ func MusicClearAll(eutherpeVars *vars.EutherpeVars, _ *url.Values) error {
         MusicStop(eutherpeVars, nil)
         eutherpeVars.Lock()
     }
+    if eutherpeVars.Player.Shuffle {
+        eutherpeVars.Player.UpNextBkp = make([]mplayer.SongInfo, 0)
+        eutherpeVars.Player.Shuffle = false
+    }
     eutherpeVars.Player.UpNext = make([]mplayer.SongInfo, 0)
     return nil
 }
