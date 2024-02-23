@@ -36,6 +36,7 @@ func main() {
     eutherpeVars := &vars.EutherpeVars{}
     eutherpeVars.Player.RepeatAll = false
     eutherpeVars.Player.RepeatOne = false
+    eutherpeVars.Player.Stopped = true
     eutherpeVars.Player.VolumeLevel = mplayer.GetVolumeLevel()
     eutherpeVars.HTTPd.URLSchema = "http"
     eutherpeVars.HTTPd.Addr = "192.168.0.133:8080"

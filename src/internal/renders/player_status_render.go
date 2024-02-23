@@ -12,9 +12,7 @@ func PlayerStatusRender(templatedInput string, eutherpeVars *vars.EutherpeVars) 
     albumCoverSrc := "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=="
     if len(nowPlayingInfo) > 0 {
         templatedMarkeeInnerHTML = nowPlayingInfo
-        if len(eutherpeVars.Player.NowPlaying.AlbumCover) > 0 {
-            albumCoverSrc = EncodeAlbumCover(eutherpeVars.Player.NowPlaying.AlbumCover)
-        }
+        albumCoverSrc = EncodeAlbumCover(eutherpeVars.Player.NowPlaying.AlbumCover)
     }
     playerStatusJSON = "{\"now-playing\":\"" + templatedMarkeeInnerHTML + "\"," +
                         "\"album-cover-src\" : \"" + albumCoverSrc + "\"}"

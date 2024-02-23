@@ -1,0 +1,61 @@
+package actions
+
+import (
+    "internal/vars"
+    "net/url"
+    "fmt"
+    "strings"
+)
+
+func ReproduceSelectedOnesFromPlaylist(eutherpeVars *vars.EutherpeVars, userData *url.Values) error {
+    playlist, has := (*userData)[vars.EutherpePostFieldPlaylist]
+    if !has {
+        return fmt.Errorf("Malformed playlist-reproduceselectedones request.")
+    }
+    data, has := (*userData)[vars.EutherpePostFieldSelection]
+    if !has {
+        return fmt.Errorf("Malformed playlist-reproduceselectedones request.")
+    }
+    var err error
+    eutherpeVars.Lock()
+    defer eutherpeVars.Unlock()
+    var playlistHasFound bool
+    for _, currPlaylist := range eutherpeVars.Playlists {
+        if currPlaylist.Name == playlist[0] {
+            playlistHasFound = true
+            break
+        }
+    }
+    if !playlistHasFound {
+        return fmt.Errorf("Playlist '%s' has not found.", playlist[0])
+    }
+    userData.Del(vars.EutherpePostFieldSelection)
+    selection := ParseSelection(data[0])
+    jsonData := "["
+    for s, selectionId := range selection {
+        data := strings.Split(selectionId, ":")
+        if len(data) != 3 {
+            return fmt.Errorf("Malformed playlist-reproduceselectedones parameter.")
+        }
+        jsonData += "\"" + data[1] + ":" + data[2] + "\""
+        if (s + 1) < len(selection) {
+            jsonData += ","
+        }
+    }
+    jsonData += "]"
+    userData.Add(vars.EutherpePostFieldSelection, jsonData)
+    if !eutherpeVars.Player.Stopped {
+        eutherpeVars.Unlock()
+        MusicClearAll(eutherpeVars, nil)
+        eutherpeVars.Lock()
+    }
+    eutherpeVars.Unlock()
+    err = AddSelectionToUpNext(eutherpeVars, userData)
+    if err != nil {
+        eutherpeVars.Lock()
+        return err
+    }
+    err = MusicPlay(eutherpeVars, nil)
+    eutherpeVars.Lock()
+    return err
+}

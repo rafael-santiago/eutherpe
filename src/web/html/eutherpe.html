@@ -8,9 +8,9 @@
 <body>
     <div class="title-banner">{{.EUTHERPE}}</div>
     <div class="config">
-        <button class="configtab" id="MusicButton" onclick="openConfig('Music')"><script>setButtonLabel("&#119066;&#119070;&#119066;", "Music");</script></button>
-        <button class="configtab" id="CollectionButton" onclick="openConfig('Collection')"><script>setButtonLabel("&#9835;", "Collection");</script></button>
-        <button class="configtab" id="PlaylistsButton" onclick="openConfig('Playlists')"><script>setButtonLabel("&#119046;&#119066;&#119047;", "Playlists");</script></button>
+        <button class="configtab" id="MusicButton" onclick="openConfig('Music')"><script>setButtonLabel("&#x1F4FB", "Music");</script></button>
+        <button class="configtab" id="CollectionButton" onclick="openConfig('Collection')"><script>setButtonLabel("&#x1F3B6;", "Collection");</script></button>
+        <button class="configtab" id="PlaylistsButton" onclick="openConfig('Playlists')"><script>setButtonLabel("&#x1F352;", "Playlists");</script></button>
         <button class="configtab" id="StorageButton" onclick="openConfig('Storage')"><script>setButtonLabel("&#x1f4be;", "Storage");</script></button>
         <button class="configtab" id="BluetoothButton" onclick="openConfig('Bluetooth')"><script>setButtonLabel("&#128264;", "Bluetooth");</script></button>
     </div>
@@ -38,13 +38,13 @@
             <hr>
             <input class="eutherpeBUTTON" type="button" id="playStop" value="{{.PLAY-MODE}}" onclick="musicPlayOrStop(this);"/>
             <input class="eutherpeBUTTON" type="button" value="Next" onclick="musicNext();"/>
-            <input class="eutherpeBUTTON" type="button" value="Remove..." onclick="removeSelectedSongsFromUpNext();"/>
+            <input class="eutherpeBUTTON" type="button" value="{{.SHUFFLE-MODE}}" onclick="shuffleUpNext();"/>
             <input class="eutherpeBUTTON" type="button" value="Move up" onclick="moveSelectedSongsFromUpNextUp();"/>
             <input class="eutherpeBUTTON" type="button" value="Move down" onclick="moveSelectedSongsFromUpNextDown();"/>
+            <input class="eutherpeBUTTON" type="button" value="Remove..." onclick="removeSelectedSongsFromUpNext();"/>
             <input class="eutherpeBUTTON" type="button" value="Clear all..." onclick="clearUpNextAll();"/>
-            <input class="eutherpeBUTTON" type="button" value="{{.SHUFFLE-MODE}}" onclick="shuffleUpNext();"/>
             <hr>
-            <input class="eutherpeRANGE" type="range" id="volumeLevel" min="0" max="100" value="{{.VOLUME-LEVEL}}" onclick="setVolume();"/>{{.REPEAT-ALL}}{{.REPEAT-ONE}}
+            <input class="eutherpeRANGE" type="range" id="volumeLevel" min="0" max="100" step="1" value="{{.VOLUME-LEVEL}}" onclick="setVolume();"/>{{.REPEAT-ALL}}{{.REPEAT-ONE}}
         </center>
     </div>
     <div id="Collection" class="configcontent">
@@ -65,11 +65,15 @@
             {{.PLAYLISTS}}
         </div>
         <center>
+        <hr>
         <input class="eutherpeBUTTON" type="button" value="Remove playlist..." onclick="removePlaylist();"/>
         <input class="eutherpeBUTTON" type="button" value="Clear all playlist..." onclick="clearAllPlaylist();"/>
         <input class="eutherpeBUTTON" type="button" value="Move up" onclick="moveUpPlaylistSongs();"/>
         <input class="eutherpeBUTTON" type="button" value="Move down" onclick="moveDownPlaylistSongs();"/>
         <input class="eutherpeBUTTON" type="button" value="Remove selected songs from playlist..." onclick="removeSelectedSongsFromPlaylist();"/>
+        <hr>
+        <input class="eutherpeBUTTON" type="button" value="Reproduce playlist" onclick="reproducePlaylist();"/>
+        <input class="eutherpeBUTTON" type="button" value="Reproduce selected ones from playlist" onclick="reproduceSelectedOnesFromPlaylist();"/>
         </center>
     </div>
     <div id="Storage" class="configcontent">
@@ -107,8 +111,8 @@
             <input class="eutherpeBUTTON" type="button" value="Probe devices" onclick="probeDevices();"/>
             <input class="eutherpeBUTTON" type="button" value="Pair..." onclick="pairDevice();"/>
             <input class="eutherpeBUTTON" type="button" value="Unpair..." onclick="unpairDevice();"/>
-            <input class="eutherpeBUTTON" type="button" value="Trust..." onclick="trustDevice();"/>
-            <input class="eutherpeBUTTON" type="button" value="Untrust..." onclick="untrustDevice();"/>
+            <!--<input class="eutherpeBUTTON" type="button" value="Trust..." onclick="trustDevice();"/>
+            <input class="eutherpeBUTTON" type="button" value="Untrust..." onclick="untrustDevice();"/>-->
         </center>
     </div>
 </body>

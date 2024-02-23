@@ -53,6 +53,10 @@ func GetEutherpeActionHandler(userData *url.Values) EutherpeActionFunc {
             return ClearAllPlaylist
         case vars.EutherpePlaylistRemoveSongsId:
             return RemoveSongsFromPlaylist
+        case vars.EutherpePlaylistReproduceId:
+            return ReproducePlaylist
+        case vars.EutherpePlaylistReproduceSelectedOnesId:
+            return ReproduceSelectedOnesFromPlaylist
         case vars.EutherpeStorageListId:
             return ListStorages
         case vars.EutherpeStorageScanId:
@@ -85,7 +89,9 @@ func CurrentConfigByActionId(userData *url.Values) string {
              vars.EutherpeMusicPlayId,
              vars.EutherpeMusicNextId,
              vars.EutherpeMusicStopId,
-             vars.EutherpeMusicSetVolumeId:
+             vars.EutherpeMusicSetVolumeId,
+             vars.EutherpePlaylistReproduceId,
+             vars.EutherpePlaylistReproduceSelectedOnesId:
             return vars.EutherpeWebUIConfigSheetMusic
 
         case vars.EutherpeCollectionAddSelectionToNextId,
@@ -142,6 +148,8 @@ func GetContentTypeByActionId(userData *url.Values) string {
              vars.EutherpePlaylistMoveDownId,
              vars.EutherpePlaylistClearAllId,
              vars.EutherpePlaylistRemoveSongsId,
+             vars.EutherpePlaylistReproduceId,
+             vars.EutherpePlaylistReproduceSelectedOnesId,
              vars.EutherpeStorageListId,
              vars.EutherpeStorageScanId,
              vars.EutherpeStorageSetId,
@@ -179,6 +187,8 @@ func GetVDocByActionId(userData *url.Values, eutherpeVars *vars.EutherpeVars) st
              vars.EutherpePlaylistMoveDownId,
              vars.EutherpePlaylistClearAllId,
              vars.EutherpePlaylistRemoveSongsId,
+             vars.EutherpePlaylistReproduceId,
+             vars.EutherpePlaylistReproduceSelectedOnesId,
              vars.EutherpeStorageListId,
              vars.EutherpeStorageScanId,
              vars.EutherpeStorageSetId,

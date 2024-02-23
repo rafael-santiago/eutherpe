@@ -37,7 +37,7 @@
 }
 .config button.active {
     text-align: right;
-    background-color: #ccc;
+    background-color: rgb(201, 184, 246);
 }
 .configcontent {
     font-family: "Sabo-Filled";
@@ -84,10 +84,31 @@
     50% { left: -10%; }
     100% { right: 10%; }
 }
+img {
+    box-shadow: 1px 1px 10px 0px black;
+}
 .eutherpeBUTTON {
+    padding: 5px 25px;
+    font-size: 10px;
     font-family: "Sabo-Filled";
+    text-align: center;
     cursor: pointer;
-    border: 1px solid #ccc;
+    outline: none;
+    color: black;
+    background-color: transparent;
+    border: 1px solid;
+    border-radius: 50%;
+    max-height: 25px;
+    box-shadow: 5px 5px 0 #ddd;
+}
+.eutherpeBUTTON:hover {
+    background-color: rgb(201, 184, 246);
+}
+.eutherpeBUTTON:active {
+    border: inset;
+    box-shadow: 0 0px white;
+    transform: translanteY(4px);
+    cursor: grab;
 }
 .eutherpeRANGE {
     cursor: pointer;
@@ -108,15 +129,16 @@ ul, #eutherpeUL {
     down: false;
 }
 .caret::before {
-    content: "\25B6";
+    content: "\266F";
     color: black;
     display: inline-block;
     margin-right: 6px;
 }
 .caret-down::before {
-    -ms-transform: rotate(90deg); /* IE 9 */
-    -webkit-transform: rotate(90deg); /* Safari */'
-    transform: rotate(90deg);
+    //-ms-transform: rotate(90deg); /* IE 9 */
+    //-webkit-transform: rotate(90deg); /* Safari */'
+    //transform: rotate(90deg);
+    content: "\266D"
 }
 .nested {
     display: none;

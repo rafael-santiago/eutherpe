@@ -210,6 +210,21 @@ function removeSelectedSongsFromPlaylist() {
     clearPlaylistSelection();
 }
 
+function reproducePlaylist() {
+    playlist = getSelectedPlaylist();
+    if (playlist === null) {
+        alert("You must pick one playlist.");
+        return;
+    }
+    doEutherpeRequest("/eutherpe", { "action" : "playlist-reproduce",
+                                     "playlist" : playlist.id }, "post");
+}
+
+function reproduceSelectedOnesFromPlaylist() {
+    metaActionPlaylistSongs("playlist-reproduceselectedones");
+    clearPlaylistSelection();
+}
+
 function removeSelectedSongsFromUpNext() {
     metaActionMusic("music-remove", "UpNext");
 }
