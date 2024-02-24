@@ -29,6 +29,8 @@ func GetEutherpeActionHandler(userData *url.Values) EutherpeActionFunc {
             return MusicStop
         case vars.EutherpeMusicNextId:
             return MusicNext
+        case vars.EutherpeMusicLastId:
+            return MusicLast
         case vars.EutherpeMusicSetVolumeId:
             return MusicSetVolume
         case vars.EutherpeCollectionAddSelectionToNextId:
@@ -88,6 +90,7 @@ func CurrentConfigByActionId(userData *url.Values) string {
              vars.EutherpeMusicRepeatOneId,
              vars.EutherpeMusicPlayId,
              vars.EutherpeMusicNextId,
+             vars.EutherpeMusicLastId,
              vars.EutherpeMusicStopId,
              vars.EutherpeMusicSetVolumeId,
              vars.EutherpePlaylistReproduceId,
@@ -135,6 +138,7 @@ func GetContentTypeByActionId(userData *url.Values) string {
              vars.EutherpeMusicRepeatOneId,
              vars.EutherpeMusicPlayId,
              vars.EutherpeMusicNextId,
+             vars.EutherpeMusicLastId,
              vars.EutherpeMusicStopId,
              vars.EutherpeMusicSetVolumeId,
              vars.EutherpeCollectionAddSelectionToNextId,
@@ -174,6 +178,7 @@ func GetVDocByActionId(userData *url.Values, eutherpeVars *vars.EutherpeVars) st
              vars.EutherpeMusicRepeatOneId,
              vars.EutherpeMusicPlayId,
              vars.EutherpeMusicNextId,
+             vars.EutherpeMusicLastId,
              vars.EutherpeMusicStopId,
              vars.EutherpeMusicSetVolumeId,
              vars.EutherpeCollectionAddSelectionToNextId,

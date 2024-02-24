@@ -246,12 +246,16 @@ function shuffleUpNext() {
 }
 
 function musicPlayOrStop(sender) {
-    var action = (sender.value != "Stop") ? "music-play" : "music-stop";
+    var action = (sender.value != "\u25A0") ? "music-play" : "music-stop";
     doEutherpeRequest("/eutherpe", { "action" : action }, "post");
 }
 
 function musicNext() {
     doEutherpeRequest("/eutherpe", { "action" : "music-next" }, "post");
+}
+
+function musicLast() {
+    doEutherpeRequest("/eutherpe", { "action" : "music-last" }, "post");
 }
 
 function musicRepeatAll() {
@@ -344,8 +348,11 @@ function requestPlayerStatus() {
                 if (albumCover != null) {
                     albumCover.src = response["album-cover-src"];
                 }
+                playStop = document.getElementById("playStop");
                 if (response["now-playing"].length == 0) {
-                    document.getElementById("playStop").value = "play";
+                    playStop.value = "\u25BA";
+                } else if (playStop.value != "\u25A0") {
+                    location.replace(location.href);
                 }
             } catch (e) {
             }

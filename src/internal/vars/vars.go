@@ -70,6 +70,7 @@ const EutherpeMusicRepeatOneId = "music-repeatone"
 const EutherpeMusicPlayId = "music-play"
 const EutherpeMusicStopId = "music-stop"
 const EutherpeMusicNextId = "music-next"
+const EutherpeMusicLastId = "music-last"
 const EutherpeMusicSetVolumeId = "music-setvolume"
 
 // INFO(Rafael): Actions from "Collection" sheet.

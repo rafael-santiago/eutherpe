@@ -36,11 +36,12 @@
         </div>
         <center>
             <hr>
+            <input class="eutherpeBUTTON" type="button" value="&#x226A" onclick="musicLast();"/>
             <input class="eutherpeBUTTON" type="button" id="playStop" value="{{.PLAY-MODE}}" onclick="musicPlayOrStop(this);"/>
-            <input class="eutherpeBUTTON" type="button" value="Next" onclick="musicNext();"/>
+            <input class="eutherpeBUTTON" type="button" value="&#x226B" onclick="musicNext();"/>
+            <input class="eutherpeBUTTON" type="button" value="&#x23F6" onclick="moveSelectedSongsFromUpNextUp();"/>
+            <input class="eutherpeBUTTON" type="button" value="&#x23F7" onclick="moveSelectedSongsFromUpNextDown();"/>
             <input class="eutherpeBUTTON" type="button" value="{{.SHUFFLE-MODE}}" onclick="shuffleUpNext();"/>
-            <input class="eutherpeBUTTON" type="button" value="Move up" onclick="moveSelectedSongsFromUpNextUp();"/>
-            <input class="eutherpeBUTTON" type="button" value="Move down" onclick="moveSelectedSongsFromUpNextDown();"/>
             <input class="eutherpeBUTTON" type="button" value="Remove..." onclick="removeSelectedSongsFromUpNext();"/>
             <input class="eutherpeBUTTON" type="button" value="Clear all..." onclick="clearUpNextAll();"/>
             <hr>
