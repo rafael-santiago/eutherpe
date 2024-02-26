@@ -22,6 +22,10 @@ func RunWebUI(eutherpeVars *vars.EutherpeVars) error {
     if eutherpeVars == nil {
         fmt.Errorf("panic: nil eutherpeVars!\n")
     }
+    if eutherpeVars.Player.Shuffle {
+        eutherpeVars.Player.Shuffle = false
+        actions.MusicShuffle(eutherpeVars, nil)
+    }
     var err error = nil
     sigintWatchdog := make(chan os.Signal, 1)
     go eutherpeHTTPd(EutherpeHTTPHandler { eutherpeVars }, sigintWatchdog, &err)
@@ -57,7 +61,7 @@ func (ehh *EutherpeHTTPHandler) handler(w http.ResponseWriter, r *http.Request) 
                     contentType = actions.GetContentTypeByActionId(&r.Form)
                 } else {
                     templatedOutput = ehh.eutherpeVars.HTTPd.ErrorHTML
-                    ehh.eutherpeVars.LastError = fmt.Errorf("501 Not Implemented (ou, boa tentativa mas vai ter que melhorar...)")
+                    ehh.eutherpeVars.LastError = fmt.Errorf("501 Not Implemented")
                 }
                 w.Header().Set("content-type", contentType)
             break
@@ -71,7 +75,7 @@ func (ehh *EutherpeHTTPHandler) handler(w http.ResponseWriter, r *http.Request) 
 func (ehh *EutherpeHTTPHandler) processAction(actionHandler actions.EutherpeActionFunc, userData *url.Values) string {
     if actionHandler == nil {
         ehh.eutherpeVars.LastError =
-                fmt.Errorf("500 Internal Server Error (ou, voce tava muito zureta [sabe-se la de que] quando me mandou isso...)")
+                fmt.Errorf("500 Internal Server Error")
         return actions.GetVDocByActionId(userData, ehh.eutherpeVars)
     }
     ehh.eutherpeVars.CurrentConfig = actions.CurrentConfigByActionId(userData)
@@ -86,7 +90,7 @@ func (ehh *EutherpeHTTPHandler) processAction(actionHandler actions.EutherpeActi
 func (ehh *EutherpeHTTPHandler) processGET(w *http.ResponseWriter, r *http.Request) string {
     vdoc := r.URL.Path
     if !ehh.isPubFile(vdoc) {
-        ehh.eutherpeVars.LastError = fmt.Errorf("403 Forbidden (ou, sabe de nada inocente...)")
+        ehh.eutherpeVars.LastError = fmt.Errorf("403 Forbidden")
         return ehh.eutherpeVars.HTTPd.ErrorHTML
     }
     (*w).Header().Set("content-type", GetMIMEType(vdoc))

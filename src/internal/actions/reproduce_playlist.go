@@ -16,7 +16,7 @@ func ReproducePlaylist(eutherpeVars *vars.EutherpeVars, userData *url.Values) er
     defer eutherpeVars.Unlock()
     for _, currPlaylist := range eutherpeVars.Playlists {
         if currPlaylist.Name == playlist[0] {
-            if !eutherpeVars.Player.Stopped {
+            if len(eutherpeVars.Player.UpNext) > 0 {
                 eutherpeVars.Unlock()
                 MusicClearAll(eutherpeVars, nil)
                 eutherpeVars.Lock()

@@ -21,5 +21,6 @@ func SetStorage(eutherpeVars *vars.EutherpeVars, userData *url.Values) error {
         return fmt.Errorf("'%s' seems not to be a valid storage device.", storageDevice[0])
     }
     eutherpeVars.CachedDevices.MusicDevId = storageDevice[0]
+    eutherpeVars.LoadCollection()
     return nil
 }

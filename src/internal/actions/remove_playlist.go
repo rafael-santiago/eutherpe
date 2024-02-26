@@ -23,6 +23,7 @@ func RemovePlaylist(eutherpeVars *vars.EutherpeVars, userData *url.Values) error
             if eutherpeVars.RenderedPlaylist == playlist[0] {
                 eutherpeVars.RenderedPlaylist = ""
             }
+            eutherpeVars.RemovePlaylistFromDisk(playlist[0])
             break
         }
     }

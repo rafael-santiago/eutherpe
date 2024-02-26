@@ -22,6 +22,12 @@ func MusicRemove(eutherpeVars *vars.EutherpeVars, userData *url.Values) error {
                 break
             }
         }
+        for n, nextSong := range eutherpeVars.Player.UpNextBkp {
+            if nextSong.FilePath == songFilePath {
+                eutherpeVars.Player.UpNextBkp = append(eutherpeVars.Player.UpNextBkp[:n], eutherpeVars.Player.UpNextBkp[n+1:]...)
+                break
+            }
+        }
     }
     return nil
 }

@@ -5,9 +5,30 @@ import(
     "strings"
     "strconv"
     "fmt"
+    "encoding/json"
+    "encoding/base64"
+    "os"
 )
 
 type MusicCollection map[string]map[string][]SongInfo
+
+type AlbumsArray struct {
+    Album string
+    Songs []SongInfo
+}
+
+type ArtistsArray struct {
+    Artist string
+    Albums []AlbumsArray
+}
+
+type CollectionArray struct {
+    Artists []ArtistsArray
+}
+
+type WholeDeviceCollection struct {
+    Collection CollectionArray
+}
 
 func (m *MusicCollection) GetSongFromArtistAlbum(artist, album, filePath string) (SongInfo, error) {
     artistCollection, has := (*m)[artist]
@@ -81,6 +102,57 @@ func GetAlbumsFromArtist(artist string, collection MusicCollection) []string {
     return albumsFromPresentToPast
 }
 
+func (m *MusicCollection) ToJSON() string {
+    var deviceCollection WholeDeviceCollection
+    artistsFromCollection := GetArtistsFromCollection(*m)
+    artistsFromCollectionLen := len(artistsFromCollection)
+    if artistsFromCollectionLen == 0 {
+        return ""
+    }
+    deviceCollection.Collection.Artists = make([]ArtistsArray, artistsFromCollectionLen)
+    for a, currentArtist := range artistsFromCollection {
+        albumsFromArtist := GetAlbumsFromArtist(currentArtist, *m)
+        deviceCollection.Collection.Artists[a].Artist = currentArtist
+        deviceCollection.Collection.Artists[a].Albums = getAlbumsAsArray(currentArtist, albumsFromArtist, *m)
+    }
+    data, err := json.Marshal(deviceCollection)
+    if err != nil {
+        return ""
+    }
+    return string(data)
+}
+
+func (m *MusicCollection) FromJSON(filePath string) error {
+    var deviceCollection WholeDeviceCollection
+    fileData, err := os.ReadFile(filePath)
+    if err != nil {
+        return err
+    }
+    err = json.Unmarshal([]byte(fileData), &deviceCollection)
+    if err != nil {
+        return err
+    }
+    (*m) = make(MusicCollection)
+    for _, artist := range deviceCollection.Collection.Artists {
+        (*m)[artist.Artist] = make(map[string][]SongInfo)
+        for _, album := range artist.Albums {
+            var albumCover string
+            for _, song := range album.Songs {
+                if len(song.AlbumCover) > 0 {
+                    blob, _ := base64.StdEncoding.DecodeString(song.AlbumCover)
+                    albumCover = string(blob)
+                    break
+                }
+            }
+            (*m)[artist.Artist][album.Album] = album.Songs
+            for s, _ := range (*m)[artist.Artist][album.Album] {
+                (*m)[artist.Artist][album.Album][s].AlbumCover = albumCover
+            }
+        }
+    }
+    return nil
+}
+
 func sortTracksFromAlbum(trackList []SongInfo) []SongInfo {
     trackNumbers := make([]string, 0)
     for _, track := range trackList {
@@ -130,3 +202,23 @@ func has(haystack []string, needle string) bool {
     return false
 }
 
+func getAlbumsAsArray(currentArtist string, albumsFromArtist[]string, collection MusicCollection) []AlbumsArray {
+    albumsArray := make([]AlbumsArray, len(albumsFromArtist))
+    for a, currentAlbum := range albumsFromArtist {
+        albumsArray[a].Album = currentAlbum
+        albumsArray[a].Songs = getSongsAsArray(currentArtist, currentAlbum, collection)
+    }
+    return albumsArray
+}
+
+func getSongsAsArray(artist string, album string, collection MusicCollection) []SongInfo {
+    albumSongs := collection[artist][album]
+    songs := make([]SongInfo, len(albumSongs))
+    for s, currSong := range albumSongs {
+        songs[s] = currSong
+        if len(currSong.AlbumCover) > 0 {
+            songs[s].AlbumCover = base64.StdEncoding.EncodeToString([]byte(currSong.AlbumCover))
+        }
+    }
+    return songs
+}

@@ -44,7 +44,7 @@ func ReproduceSelectedOnesFromPlaylist(eutherpeVars *vars.EutherpeVars, userData
     }
     jsonData += "]"
     userData.Add(vars.EutherpePostFieldSelection, jsonData)
-    if !eutherpeVars.Player.Stopped {
+    if len(eutherpeVars.Player.UpNext) > 0 {
         eutherpeVars.Unlock()
         MusicClearAll(eutherpeVars, nil)
         eutherpeVars.Lock()

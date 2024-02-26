@@ -4,6 +4,7 @@ import (
     "internal/bluebraces"
     "internal/mplayer"
     _ "internal/dj"
+    _ "internal/storage"
     "fmt"
     _ "time"
     "internal/vars"
@@ -34,6 +35,7 @@ func main() {
     defer bluebraces.Unwear()
     fmt.Printf("info: Bluetooth subsystem initialized!\n")
     eutherpeVars := &vars.EutherpeVars{}
+    eutherpeVars.ConfHome = "/home/rs/src/eutherpe/src/etc/eutherpe"
     eutherpeVars.Player.RepeatAll = false
     eutherpeVars.Player.RepeatOne = false
     eutherpeVars.Player.Stopped = true
@@ -47,7 +49,11 @@ func main() {
     eutherpeVars.HTTPd.PubFiles = append(eutherpeVars.HTTPd.PubFiles, "/fonts/Sabo-Regular.otf")
     data, _ := os.ReadFile("web/html/eutherpe.html")
     eutherpeVars.HTTPd.IndexHTML = string(data)
+    data, _ = os.ReadFile("web/html/error.html")
+    eutherpeVars.HTTPd.ErrorHTML = string(data)
+    eutherpeVars.RestoreSession()
     webui.RunWebUI(eutherpeVars)
+    eutherpeVars.SaveSession()
 }
 
 /*

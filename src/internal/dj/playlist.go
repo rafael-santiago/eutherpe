@@ -90,7 +90,7 @@ func (p *Playlist) SaveTo(filePath string) error {
     }
     data, err := json.Marshal(struct {
         Name string
-        Songs []mplayer.SongInfo 
+        Songs []mplayer.SongInfo
     }{
         p.Name,
         songs,
@@ -119,7 +119,7 @@ func (p *Playlist) LoadFrom(filePath string) error {
     json.Unmarshal(data, &aux)
     for a, _ := range aux.Songs {
         if len(aux.Songs[a].AlbumCover) > 0 {
-            data, _ = base64.StdEncoding.DecodeString(aux.Songs[a].AlbumCover)
+            data, _ := base64.StdEncoding.DecodeString(aux.Songs[a].AlbumCover)
             aux.Songs[a].AlbumCover = string(data)
         }
     }

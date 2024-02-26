@@ -43,5 +43,6 @@ func AddSelectionToPlaylist(eutherpeVars *vars.EutherpeVars, userData *url.Value
         }
         editedPlaylist.Add(song)
     }
+    eutherpeVars.SavePlaylist(editedPlaylist)
     return nil
 }
