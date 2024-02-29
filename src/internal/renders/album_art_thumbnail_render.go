@@ -4,6 +4,8 @@ import (
     "internal/vars"
     "encoding/base64"
     "strings"
+    "os"
+    "path"
 )
 
 func EncodeAlbumCover(albumCoverBlob string) string {
@@ -22,10 +24,22 @@ func EncodeAlbumCover(albumCoverBlob string) string {
 func AlbumArtThumbnailRender(templatedInput string, eutherpeVars *vars.EutherpeVars) string {
     var albumArtThumbnailHTML string
     if !eutherpeVars.Player.Stopped {
+        eutherpeVars.Player.NowPlaying.AlbumCover = getAlbumCoverBlob(eutherpeVars.GetCoversCacheRootPath(), eutherpeVars.Player.NowPlaying.AlbumCover)
         albumArtThumbnailHTML = "<img id=\"albumCover\" src=\"" + EncodeAlbumCover(eutherpeVars.Player.NowPlaying.AlbumCover) +
                                 "\" width=125 height=125>"
     }
     return strings.Replace(templatedInput, vars.EutherpeTemplateNeedleAlbumArtThumbnail, albumArtThumbnailHTML, -1)
+}
+
+func getAlbumCoverBlob(coversCacheRootPath, albumCoverBlob string) string {
+    if !strings.HasPrefix(albumCoverBlob, "blob-id=") {
+        return albumCoverBlob
+    }
+    blob, err := os.ReadFile(path.Join(coversCacheRootPath, albumCoverBlob[8:]))
+    if err != nil {
+        return ""
+    }
+    return string(blob)
 }
 
 func getImageFmt(blob string) string {

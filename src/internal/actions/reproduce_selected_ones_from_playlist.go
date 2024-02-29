@@ -4,7 +4,6 @@ import (
     "internal/vars"
     "net/url"
     "fmt"
-    "strings"
 )
 
 func ReproduceSelectedOnesFromPlaylist(eutherpeVars *vars.EutherpeVars, userData *url.Values) error {
@@ -33,8 +32,9 @@ func ReproduceSelectedOnesFromPlaylist(eutherpeVars *vars.EutherpeVars, userData
     selection := ParseSelection(data[0])
     jsonData := "["
     for s, selectionId := range selection {
-        data := strings.Split(selectionId, ":")
+        data := split(selectionId)
         if len(data) != 3 {
+            fmt.Println(selectionId)
             return fmt.Errorf("Malformed playlist-reproduceselectedones parameter.")
         }
         jsonData += "\"" + data[1] + ":" + data[2] + "\""
@@ -58,4 +58,23 @@ func ReproduceSelectedOnesFromPlaylist(eutherpeVars *vars.EutherpeVars, userData
     err = MusicPlay(eutherpeVars, nil)
     eutherpeVars.Lock()
     return err
+}
+
+func split(selectionId string) []string {
+    items := make([]string, 0)
+    startOff := 0
+    for endOff, _ := range selectionId {
+        if len(items) == 0 {
+            if selectionId[endOff] == ':' {
+                items = append(items, selectionId[startOff:endOff])
+                startOff = endOff + 1
+            }
+        } else if selectionId[endOff] == ':' && (endOff + 1) < len(selectionId) && selectionId[endOff + 1] == '/'{
+            items = append(items, selectionId[startOff:endOff])
+            startOff = endOff + 1
+        } else if  (endOff + 1) == len(selectionId) {
+            items = append(items, selectionId[startOff:endOff+1])
+        }
+    }
+    return items
 }

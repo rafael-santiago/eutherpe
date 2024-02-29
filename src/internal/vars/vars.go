@@ -12,6 +12,7 @@ import (
     "os"
     "path"
     "fmt"
+    "strings"
 )
 
 type EutherpeVars struct {
@@ -81,7 +82,8 @@ func (e *EutherpeVars) toJSON() string {
         cachedData.UpNext = e.Player.UpNextBkp
     }
     for u, _ := range cachedData.UpNext {
-        if len(cachedData.UpNext[u].AlbumCover) > 0 {
+        isCachedAlbumCover := strings.HasPrefix(cachedData.UpNext[u].AlbumCover, "blob-id=")
+        if !isCachedAlbumCover && len(cachedData.UpNext[u].AlbumCover) > 0 {
             cachedData.UpNext[u].AlbumCover = base64.StdEncoding.EncodeToString([]byte(cachedData.UpNext[u].AlbumCover))
         }
     }
@@ -103,7 +105,8 @@ func (e *EutherpeVars) fromJSON(filePath string) error {
         return err
     }
     for u, _ := range cachedData.UpNext {
-        if len(cachedData.UpNext[u].AlbumCover) > 0 {
+        isCachedAlbumCover := strings.HasPrefix(cachedData.UpNext[u].AlbumCover, "blob-id=")
+        if !isCachedAlbumCover && len(cachedData.UpNext[u].AlbumCover) > 0 {
             blob, _ := base64.StdEncoding.DecodeString(cachedData.UpNext[u].AlbumCover)
             cachedData.UpNext[u].AlbumCover = string(blob)
         }
@@ -231,6 +234,10 @@ func (e *EutherpeVars) RemovePlaylistFromDisk(playlistName string) error {
     return os.Remove(path.Join(playlistsRootPath, playlistName))
 }
 
+func (e *EutherpeVars) GetCoversCacheRootPath() string {
+    return path.Join(e.ConfHome, EutherpeCoversHome)
+}
+
 const EutherpeActionId = "action"
 
 // INFO(Rafael): Actions from "Music" sheet.
@@ -324,3 +331,4 @@ const EutherpeConfHome = "/etc/eutherpe"
 const EutherpePlayerCache = "player.cache"
 const EutherpePlaylistsHome = "playlists"
 const EutherpeLastCollectionsHome = "collections"
+const EutherpeCoversHome = "covers"

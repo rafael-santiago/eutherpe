@@ -47,8 +47,8 @@ func (m *MusicCollection) GetSongFromArtistAlbum(artist, album, filePath string)
     return SongInfo{}, fmt.Errorf("No song %s in album %s by %s was found.", filePath, album, artist)
 }
 
-func LoadMusicCollection(basePath string) (MusicCollection, error) {
-    songs, err := ScanSongs(basePath)
+func LoadMusicCollection(basePath string, coversCacheRootPath ...string) (MusicCollection, error) {
+    songs, err := ScanSongs(basePath, coversCacheRootPath...)
     if err != nil {
         return nil, err
     }
@@ -136,11 +136,15 @@ func (m *MusicCollection) FromJSON(filePath string) error {
     for _, artist := range deviceCollection.Collection.Artists {
         (*m)[artist.Artist] = make(map[string][]SongInfo)
         for _, album := range artist.Albums {
-            var albumCover string
+            albumCover := ""
             for _, song := range album.Songs {
-                if len(song.AlbumCover) > 0 {
+                isCachedCover := strings.HasPrefix(song.AlbumCover, "blob-id=")
+                if !isCachedCover && len(song.AlbumCover) > 0 {
                     blob, _ := base64.StdEncoding.DecodeString(song.AlbumCover)
                     albumCover = string(blob)
+                    break
+                } else if isCachedCover {
+                    albumCover = song.AlbumCover
                     break
                 }
             }
@@ -216,7 +220,8 @@ func getSongsAsArray(artist string, album string, collection MusicCollection) []
     songs := make([]SongInfo, len(albumSongs))
     for s, currSong := range albumSongs {
         songs[s] = currSong
-        if len(currSong.AlbumCover) > 0 {
+        isCachedCover := strings.HasPrefix(currSong.AlbumCover, "blob-id=")
+        if !isCachedCover && len(currSong.AlbumCover) > 0 {
             songs[s].AlbumCover = base64.StdEncoding.EncodeToString([]byte(currSong.AlbumCover))
         }
     }

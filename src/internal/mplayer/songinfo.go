@@ -7,6 +7,7 @@ import (
     "regexp"
     "path"
     "unicode/utf8"
+    "crypto/sha256"
 )
 
 type SongInfo struct {
@@ -20,7 +21,7 @@ type SongInfo struct {
     Genre string
 }
 
-func ScanSongs(basePath string) ([]SongInfo, error) {
+func ScanSongs(basePath string, coversCacheRootPath ...string) ([]SongInfo, error) {
     files, err := os.ReadDir(basePath)
     if err != nil {
         return make([]SongInfo, 0), err
@@ -29,7 +30,7 @@ func ScanSongs(basePath string) ([]SongInfo, error) {
     for _, file := range files {
         fileName := file.Name()
         if path.Ext(fileName) == ".mp3" || path.Ext(fileName) == ".mp4" {
-            songInfo, err := GetSongInfo(path.Join(basePath, fileName))
+            songInfo, err := GetSongInfo(path.Join(basePath, fileName), coversCacheRootPath...)
             if err != nil {
                 continue
             }
@@ -38,7 +39,7 @@ func ScanSongs(basePath string) ([]SongInfo, error) {
             filePath := path.Join(basePath, fileName)
             stat, err := os.Stat(filePath)
             if err == nil && stat.IsDir() {
-                subSongs, err := ScanSongs(filePath)
+                subSongs, err := ScanSongs(filePath, coversCacheRootPath...)
                 if err != nil {
                     continue
                 }
@@ -49,7 +50,7 @@ func ScanSongs(basePath string) ([]SongInfo, error) {
     return songs, err
 }
 
-func GetSongInfo(filePath string) (SongInfo, error) {
+func GetSongInfo(filePath string, coversCacheRootPath ...string) (SongInfo, error) {
     if len(filePath) == 0 {
         return SongInfo{}, fmt.Errorf("Empty song file path was passed.")
     }
@@ -96,6 +97,7 @@ func GetSongInfo(filePath string) (SongInfo, error) {
         "APIC",
     }
     strHdrData := string(hdrData)
+    shouldUseCachedCovers := (len(coversCacheRootPath) > 0 && len(coversCacheRootPath[0]) > 0)
     for _, info := range kWantedInfo {
         h := strings.Index(strHdrData, info)
         if h == -1 {
@@ -163,8 +165,15 @@ func GetSongInfo(filePath string) (SongInfo, error) {
                 }
                 if a > len(s.AlbumCover) {
                     s.AlbumCover = ""
-                } else {
+                } else if !shouldUseCachedCovers {
                     s.AlbumCover = s.AlbumCover[a:]
+                } else {
+                    coverBlob := []byte(s.AlbumCover[a:])
+                    var coverId string
+                    if !isAlbumCoverCached(coverBlob, coversCacheRootPath[0], &coverId) {
+                        makeAlbumCoverCache(coversCacheRootPath[0], coverId, coverBlob)
+                    }
+                    s.AlbumCover = "blob-id=" + coverId
                 }
             }
         }
@@ -268,4 +277,26 @@ func utfToAscii(utfStr string) string {
         }
     }
     return strings.Trim(string(mbStr), "\x00 ")
+}
+
+func getAlbumCoverId(blob []byte) string {
+    imageHash :=  sha256.Sum256(blob)
+    return fmt.Sprintf("%x", imageHash)
+}
+
+func isAlbumCoverCached(blob []byte, coversCacheRootPath string, imageHash *string) bool {
+    (*imageHash) = getAlbumCoverId(blob)
+    if len(*imageHash) == 0 {
+        return false
+    }
+    err := os.MkdirAll(coversCacheRootPath, 0777)
+    if err != nil {
+        return false
+    }
+    _, err = os.Stat(path.Join(coversCacheRootPath, *imageHash))
+    return (err == nil)
+}
+
+func makeAlbumCoverCache(coversCacheRootPath, imageHash string, blob []byte) {
+    os.WriteFile(path.Join(coversCacheRootPath, imageHash), blob, 0777)
 }

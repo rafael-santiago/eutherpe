@@ -7,6 +7,7 @@ import (
     "encoding/base64"
     "encoding/json"
     "os"
+    "strings"
 )
 
 type Playlist struct {
@@ -84,7 +85,8 @@ func (p *Playlist) SaveTo(filePath string) error {
     songs := make([]mplayer.SongInfo, len(p.songs))
     copy(songs, p.songs)
     for s, _ := range songs {
-        if len(songs[s].AlbumCover) > 0 {
+        isCachedCover := strings.HasPrefix(songs[s].AlbumCover, "blob-id=")
+        if !isCachedCover && len(songs[s].AlbumCover) > 0 {
             songs[s].AlbumCover = base64.StdEncoding.EncodeToString([]byte(songs[s].AlbumCover))
         }
     }
@@ -118,7 +120,8 @@ func (p *Playlist) LoadFrom(filePath string) error {
     }
     json.Unmarshal(data, &aux)
     for a, _ := range aux.Songs {
-        if len(aux.Songs[a].AlbumCover) > 0 {
+        isCachedCover := strings.HasPrefix(aux.Songs[a].AlbumCover, "blob-id=")
+        if !isCachedCover && len(aux.Songs[a].AlbumCover) > 0 {
             data, _ := base64.StdEncoding.DecodeString(aux.Songs[a].AlbumCover)
             aux.Songs[a].AlbumCover = string(data)
         }
