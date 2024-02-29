@@ -47,6 +47,9 @@ func ScanSongs(basePath string, coversCacheRootPath ...string) ([]SongInfo, erro
             }
         }
     }
+    if err == nil && len(coversCacheRootPath) > 0 {
+        cleanUpUnusedCovers(coversCacheRootPath[0], songs)
+    }
     return songs, err
 }
 
@@ -299,4 +302,25 @@ func isAlbumCoverCached(blob []byte, coversCacheRootPath string, imageHash *stri
 
 func makeAlbumCoverCache(coversCacheRootPath, imageHash string, blob []byte) {
     os.WriteFile(path.Join(coversCacheRootPath, imageHash), blob, 0777)
+}
+
+func cleanUpUnusedCovers(coversCacheRootPath string, songs []SongInfo) {
+    coversListing, err := os.ReadDir(path.Join(coversCacheRootPath))
+    if err != nil || len(coversListing) < 100 {
+        return
+    }
+    covers := make(map[string]bool)
+    for _, coverFile := range coversListing {
+        for _, song := range songs {
+            if strings.HasPrefix(song.AlbumCover, "blob-id=") && song.AlbumCover[8:] == coverFile.Name() {
+                covers[coverFile.Name()] = true
+                break
+            }
+        }
+    }
+    for coverId, used := range covers {
+        if !used {
+            os.Remove(path.Join(coversCacheRootPath, coverId))
+        }
+    }
 }

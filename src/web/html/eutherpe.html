@@ -18,8 +18,8 @@
         <p> Wait... &#x23F3; </p>
     </div>
     <div id="AddToPlaylist" class="configcontent" style="text-align: center; padding: 10%;">
-        <b>Enter with the name of an existing or new playlist...</b>
-        <input type="text" id="playlistName" size="70%">
+        <b>Give me the name of an existing or new playlist...</b><br><br>
+        <input type="text" id="playlistName" size="15%">
         <input class="eutherpeBUTTON" type="button" value="Add" onclick="addToPlaylist();">
         <input class="eutherpeBUTTON" type="button" value="Cancel" onclick="closeAddToPlaylist();">
     </div>
@@ -49,7 +49,7 @@
         </center>
     </div>
     <div id="Collection" class="configcontent">
-        <h3>Collection</h3>
+        <h3>&#x1F3B6; Collection</h3>
         <div class="scrollbox">
             {{.COLLECTION}}
         </div>
@@ -61,7 +61,7 @@
         </center>
     </div>
     <div id="Playlists" class="configcontent">
-        <h3>Playlists</h3>
+        <h3>&#x1F352; Playlists</h3>
         <div class="scrollbox">
             {{.PLAYLISTS}}
         </div>
@@ -78,7 +78,7 @@
         </center>
     </div>
     <div id="Storage" class="configcontent">
-        <h3>You are reading your music collection from: {{.SELECTED-STORAGE-DEVICE}}</h3>
+        <h3>&#x1f4be; You are reading your music collection from: {{.SELECTED-STORAGE-DEVICE}}</h3>
         <hr>
         <div class="hugescrollbox">
             <ul id="eutherpeUL">
@@ -97,7 +97,7 @@
     </div>
     </div>
     <div id="Bluetooth" class="configcontent">
-        <h3>You are connected to device: {{.SELECTED-BLUETOOTH-DEVICE}}</h3>
+        <h3>&#128264; You are connected to device: {{.SELECTED-BLUETOOTH-DEVICE}}</h3>
         <hr>
         <div class="hugescrollbox">
             <ul id="eutherpeUL">
