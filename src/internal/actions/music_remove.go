@@ -18,6 +18,11 @@ func MusicRemove(eutherpeVars *vars.EutherpeVars, userData *url.Values) error {
         songFilePath := GetSongFilePathFromSelectionId(selectionId)
         for n, nextSong := range eutherpeVars.Player.UpNext {
             if nextSong.FilePath == songFilePath {
+                if eutherpeVars.Player.NowPlaying.FilePath == songFilePath && n == eutherpeVars.Player.UpNextCurrentOffset {
+                    eutherpeVars.Unlock()
+                    MusicStop(eutherpeVars, nil)
+                    eutherpeVars.Lock()
+                }
                 eutherpeVars.Player.UpNext = append(eutherpeVars.Player.UpNext[:n], eutherpeVars.Player.UpNext[n+1:]...)
                 break
             }

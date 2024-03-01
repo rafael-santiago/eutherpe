@@ -51,7 +51,7 @@ func metaMusicMove(eutherpeVars *vars.EutherpeVars, userData *url.Values, direct
         }
     }
     for off, song := range eutherpeVars.Player.UpNext {
-        if song == eutherpeVars.Player.NowPlaying {
+        if song.FilePath == eutherpeVars.Player.NowPlaying.FilePath {
             eutherpeVars.Player.UpNextCurrentOffset = off
             break
         }

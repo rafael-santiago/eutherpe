@@ -60,6 +60,7 @@ type eutherpeVarsCacheCtx struct {
     RepeatAll bool
     BlueDevId string
     MusicDevId string
+    UpNextCurrentOffset int
 }
 
 func (e *EutherpeVars) Lock() {
@@ -77,7 +78,8 @@ func (e *EutherpeVars) toJSON() string {
                                          e.Player.RepeatOne,
                                          e.Player.RepeatAll,
                                          e.CachedDevices.BlueDevId,
-                                         e.CachedDevices.MusicDevId }
+                                         e.CachedDevices.MusicDevId,
+                                         e.Player.UpNextCurrentOffset, }
     if e.Player.Shuffle {
         cachedData.UpNext = e.Player.UpNextBkp
     }
@@ -117,6 +119,7 @@ func (e *EutherpeVars) fromJSON(filePath string) error {
     e.Player.VolumeLevel = cachedData.VolumeLevel
     e.Player.RepeatOne = cachedData.RepeatOne
     e.Player.RepeatAll = cachedData.RepeatAll
+    e.Player.UpNextCurrentOffset = cachedData.UpNextCurrentOffset
     e.CachedDevices.BlueDevId = cachedData.BlueDevId
     e.CachedDevices.MusicDevId = cachedData.MusicDevId
     return nil

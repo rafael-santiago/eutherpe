@@ -22,5 +22,6 @@ func MusicClearAll(eutherpeVars *vars.EutherpeVars, _ *url.Values) error {
         eutherpeVars.Player.Shuffle = false
     }
     eutherpeVars.Player.UpNext = make([]mplayer.SongInfo, 0)
+    eutherpeVars.Player.UpNextCurrentOffset = -1
     return nil
 }
