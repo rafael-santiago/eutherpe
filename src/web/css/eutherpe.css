@@ -7,23 +7,35 @@
     font-family: "Sabo-Regular";
     src: url("{{.URL-SCHEMA}}://{{.EUTHERPE-ADDR}}/fonts/Sabo-Regular.otf") format("opentype");
 }
+.html, .body {
+    width: 100%;
+    max-width: 100vw;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+}
 .title-banner {
     font-family: "Sabo-Filled";
-    font-size: 280%;
+    font-size: 360%;
+    text-shadow: 5px 5px 0 #ddd;
 }
 .config {
+    display: block;
+    position: absolute;
+    left: 1%;
     float: left;
     border: 1px solid #ccc;
     background-color: #f1f1f1;
     width: 25%;
-    height: 307px;
+    max-height: 71.8%;
+    box-shadow: 5px 5px 0 #ddd;
 }
 .config button {
     font-family: "Sabo-Filled";
     display: block;
     background-color: inherit;
     color: black;
-    padding: 22px 16px;
+    padding: 10% 10%;
     width: 100%;
     border: none;
     outline: none;
@@ -40,56 +52,32 @@
     background-color: rgb(201, 184, 246);
 }
 .configcontent {
-    font-family: "Sabo-Filled";
-    font-size: 18px;
-    float: left;
-    padding: 0px 12px;
-    border: 1px solid #ccc;
-    width: 70%;
-    border-left: none;
-    height: 307px;
-}
-.marquee {
-    height: 35px;
-    width: 100%;
-    overflow: hidden;
-    position: relative;
-    padding: 8px 0 4px 0;
-}
-.marquee .nowplaying {
-    padding: 0px 0;
-    font-family: "Sabo-Regular";
-    font-size: 18px;
-    animation: marquee 15s linear infinite;
-}
-.marquee div {
     position: absolute;
-    width: 100%;
-    left: 100%;
-    height: 40px;
-    display: flex;
-    justify-content: space-between;
+    font-family: "Sabo-Filled";
+    font-size: 100%;
+    float: left;
+    left: 26%;
+    padding: 0 1%;
+    width: 70%;
+    max-width: 100%;
+    border: none;
+    height: 66.4%;
 }
 .NowPlaying {
     font-family: "Sabo-Regular";
-    font-size: 18px;
+    font-size: 100%;
     text-align: center;
 }
 .AlbumCover {
     text-align: center;
-    margin-top: 10px;
-}
-@keyframes marquee {
-    0% { left: 100%; }
-    50% { left: -10%; }
-    100% { right: 10%; }
+    margin-top: 1%;
 }
 img {
     box-shadow: 1px 1px 10px 0px black;
 }
 .eutherpeBUTTON {
-    padding: 5px 25px;
-    font-size: 10px;
+    padding: .5% 3%;
+    font-size: 70%;
     font-family: "Sabo-Filled";
     text-align: center;
     cursor: pointer;
@@ -98,7 +86,7 @@ img {
     background-color: transparent;
     border: 1px solid;
     border-radius: 50%;
-    max-height: 25px;
+    max-height: 20%;
     box-shadow: 5px 5px 0 #ddd;
 }
 .eutherpeBUTTON:hover {
@@ -109,6 +97,7 @@ img {
     box-shadow: 0 0px white;
     transform: translanteY(4px);
     cursor: grab;
+    background-color: orange;
 }
 .eutherpeRANGE {
     cursor: pointer;
@@ -135,9 +124,6 @@ ul, #eutherpeUL {
     margin-right: 6px;
 }
 .caret-down::before {
-    //-ms-transform: rotate(90deg); /* IE 9 */
-    //-webkit-transform: rotate(90deg); /* Safari */'
-    //transform: rotate(90deg);
     content: "\266D"
 }
 .nested {
@@ -150,8 +136,8 @@ ul, #eutherpeUL {
     background-color: white;
     color: black;
     border: 2px solid black;
-    margin: 1px;
-    padding: 5px;
+    margin: 1%;
+    padding: .5%;
     max-height: 60%;
     overflow-y: auto;
 }
@@ -159,8 +145,8 @@ ul, #eutherpeUL {
     background-color: white;
     color: black;
     border: 0px solid black;
-    margin: 1px;
-    padding: 5px;
+    margin: 1%;
+    padding: .5%;
     max-height: 32%;
     max-width: 100%;
     overflow-y: auto;
@@ -170,73 +156,66 @@ input[type="text"] {
     border-color: black;
     background-color: #f1f1f1;
     font-family: "Sabo-Regular";
-    font-size: 25px;
+    font-size: 100%;
     outline: none;
 }
 .hugescrollbox {
     background-color: white;
     color: black;
     border: 0px solid black;
-    margin: 1px;
-    padding: 5px;
+    margin: 1%;
+    padding: .5%;
     max-height: 50%;
     max-width: 100%;
     overflow-y: auto;
 }
-@media only screen and (orientation: landscape) {
-    /* For mobile phones: */
-    [class*="config"] {
+
+@media only screen and (orientation: landscape) and (max-width: 926px) {
+    .config {
         width: 20%;
     }
-    [class*="configcontent"] {
-        width: 80%;
-    }
-    .scrollbox {
-        max-height: 45%;
-    }
-}
-@media only screen and (orientation: portrait) {
-    /* For mobile phones: */
-    .scrollbox {
-        width: 50%;
-        max-height: 75%;
-    }
-    .config {
-        float: left;
-        border: 1px solid #ccc;
-        background-color: #f1f1f1;
-        width: 15%;
-        height: 307px;
-    }
     .configcontent {
-        font-family: "Sabo-Filled";
-        font-size: 18px;
-        float: left;
-        padding: 0px 12px;
-        border: 1px solid #ccc;
-        width: 85%;
-        border-left: none;
-        height: 307px;
+        font-size: 90%;
+        left: 21%;
+        width: 70%;
+        height: 63%;
     }
-    .tinyscrollbox {
-        max-height: 25%;
-        font-size: 100%;
+    .title-banner {
+        font-size: 170%;
     }
     .scrollbox {
-        background-color: white;
-        color: black;
-        border: 2px solid black;
-        margin: 1px;
-        padding: 5px;
-        max-height: 45%;
-        width: 100%;
-        font-size: 100%;
-        overflow-y: auto;
+        max-height: 40%;
     }
     .eutherpeBUTTON {
-        font-size: 100%;
+        font-size: 60%;
+        max-height: 30%;
+    }
+}
+@media only screen and (orientation: portrait) and (max-width: 926px) {
+    .config button {
+        font-family: "Sabo-Filled";
+        display: block;
+        background-color: inherit;
+        color: black;
+        padding: 30% 30%;
+        width: 100%;
+        border: none;
+        outline: none;
+        text-align: left;
+        cursor: pointer;
+        transition: 0.3s;
     }
     .configcontent {
-        font-size: 70%;
+        font-size: 100%;
+    }
+    .title-banner {
+        font-size: 420%;
+    }
+    .scrollbox {
+        max-height: 35%;
+    }
+    .eutherpeBUTTON {
+        font-size: 60%;
+        max-height: 30%;
     }
 }

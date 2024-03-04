@@ -26,7 +26,7 @@ func AddSelectionToUpNext(eutherpeVars *vars.EutherpeVars, userData *url.Values)
         }
         upNextNewHead = append(upNextNewHead, song)
     }
-    if eutherpeVars.Player.Stopped {
+    if eutherpeVars.Player.Stopped && eutherpeVars.Player.UpNextCurrentOffset <= 0 {
         eutherpeVars.Player.UpNext = append(upNextNewHead, eutherpeVars.Player.UpNext...)
     } else {
         if eutherpeVars.Player.UpNextCurrentOffset < 0 {
