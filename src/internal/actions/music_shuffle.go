@@ -55,7 +55,7 @@ func has(value int, values []int) bool {
 
 func isEqual(a, b []mplayer.SongInfo) bool {
     for i, _ := range a {
-        if a[i] != b[i] {
+        if a[i].FilePath != b[i].FilePath {
             return false
         }
     }

@@ -79,7 +79,7 @@ func metaMoveSong(song mplayer.SongInfo, songs []mplayer.SongInfo, d int) []mpla
 
 func getSongIndex(song mplayer.SongInfo, songs []mplayer.SongInfo) int {
     for s, curr_song := range songs {
-        if curr_song == song {
+        if curr_song.FilePath == song.FilePath {
             return s
         }
     }

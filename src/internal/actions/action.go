@@ -40,7 +40,11 @@ func GetEutherpeActionHandler(userData *url.Values) EutherpeActionFunc {
         case vars.EutherpeCollectionAddSelectionToPlaylistId:
             return AddSelectionToPlaylist
         case vars.EutherpeCollectionTagSelectionAsId:
-            return nil
+            return TagSelection
+        case vars.EutherpeCollectionUntagSelectionsId:
+            return UntagSelection
+        case vars.EutherpeGetCommonTagsId:
+            return GetCommonTags
         case vars.EutherpePlaylistCreateId:
             return CreatePlaylist
         case vars.EutherpePlaylistRemoveId:
@@ -100,7 +104,9 @@ func CurrentConfigByActionId(userData *url.Values) string {
         case vars.EutherpeCollectionAddSelectionToNextId,
              vars.EutherpeCollectionAddSelectionToUpNextId,
              vars.EutherpeCollectionAddSelectionToPlaylistId,
-             vars.EutherpeCollectionTagSelectionAsId:
+             vars.EutherpeCollectionTagSelectionAsId,
+             vars.EutherpeCollectionUntagSelectionsId,
+             vars.EutherpeGetCommonTagsId:
             return vars.EutherpeWebUIConfigSheetCollection
 
         case vars.EutherpePlaylistCreateId,
@@ -145,6 +151,7 @@ func GetContentTypeByActionId(userData *url.Values) string {
              vars.EutherpeCollectionAddSelectionToUpNextId,
              vars.EutherpeCollectionAddSelectionToPlaylistId,
              vars.EutherpeCollectionTagSelectionAsId,
+             vars.EutherpeCollectionUntagSelectionsId,
              vars.EutherpePlaylistCreateId,
              vars.EutherpePlaylistRemoveId,
              vars.EutherpePlaylistShowId,
@@ -161,7 +168,8 @@ func GetContentTypeByActionId(userData *url.Values) string {
              vars.EutherpeBluetoothPairId,
              vars.EutherpeBluetoothUnpairId,
              vars.EutherpeBluetoothTrustId,
-             vars.EutherpeBluetoothUntrustId:
+             vars.EutherpeBluetoothUntrustId,
+             vars.EutherpeGetCommonTagsId:
             return "text/html"
     }
     return "application/json"
@@ -185,6 +193,7 @@ func GetVDocByActionId(userData *url.Values, eutherpeVars *vars.EutherpeVars) st
              vars.EutherpeCollectionAddSelectionToUpNextId,
              vars.EutherpeCollectionAddSelectionToPlaylistId,
              vars.EutherpeCollectionTagSelectionAsId,
+             vars.EutherpeCollectionUntagSelectionsId,
              vars.EutherpePlaylistCreateId,
              vars.EutherpePlaylistRemoveId,
              vars.EutherpePlaylistShowId,
@@ -201,8 +210,12 @@ func GetVDocByActionId(userData *url.Values, eutherpeVars *vars.EutherpeVars) st
              vars.EutherpeBluetoothPairId,
              vars.EutherpeBluetoothUnpairId,
              vars.EutherpeBluetoothTrustId,
-             vars.EutherpeBluetoothUntrustId:
+             vars.EutherpeBluetoothUntrustId,
+             vars.EutherpeGetCommonTagsId:
             return eutherpeVars.HTTPd.IndexHTML
+
+        //case vars.EutherpeGetCommonTagsId:
+        //    return vars.EutherpeTemplateNeedleCommonTags
 
         case vars.EutherpePlayerStatusId:
             return vars.EutherpeTemplateNeedlePlayerStatus

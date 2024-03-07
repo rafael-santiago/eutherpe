@@ -22,7 +22,32 @@
         <b>Give me the name of an existing or new playlist...</b><br><br>
         <input type="text" id="playlistName" size="15%">
         <input class="eutherpeBUTTON" type="button" value="Add" onclick="addToPlaylist();">
-        <input class="eutherpeBUTTON" type="button" value="Cancel" onclick="closeAddToPlaylist();">
+        <input class="eutherpeBUTTON" type="button" value="Back" onclick="closeAddToPlaylist();">
+    </div>
+    <div id="AddTags" class="configcontent" style="text-align: center; padding: 10%;">
+        <b>Give me the tag or a bunch separated by commas...</b><br><br>
+        <input type="text" id="tagsSet" size="15%">
+        <input class="eutherpeBUTTON" type="button" value="Add" onclick="addTagsToSelection();">
+        <input class="eutherpeBUTTON" type="button" value="Back" onclick="closeAddTags();">
+    </div>
+    <div id="RemoveTags" class="configcontent" style="text-align: center; padding: 1%;">
+        <b>Uncheck the tags you want to remove from your song selection...</b><br><br>
+        <div class="hugescrollbox" style="text-align: left;">
+            <ul id="eutherpeUL">
+                <li>
+                    <span class="caret">Available tags</span>
+                    {{.COMMON-TAGS}}
+                </li>
+            </ul>
+        </div>
+        <input class="eutherpeBUTTON" type="button" value="Save" onclick="delTagsFromSelection();">
+        <input class="eutherpeBUTTON" type="button" value="Back" onclick="closeRemoveTags();">
+    </div>
+    <div id="PlayByTags" class="configcontent" style="text-align: center; padding: 10%;">
+        <b>Give me a tag or a bunch separated by commas and I will find it to play...</b><br><br>
+        <input type="text" id="tagsCtx" size="15%">
+        <input class="eutherpeBUTTON" type="button" value="Play" onclick="playByGivenTags();">
+        <input class="eutherpeBUTTON" type="button" value="Back" onclick="closePlayByTags();">
     </div>
     <div id="Music" class="configcontent">
         <div class="AlbumCover" id="AlbumCoverDiv">{{.ALBUM-ART-THUMBNAIL}}</div>
@@ -58,7 +83,10 @@
         <input class="eutherpeBUTTON" type="button" value="Add to Next" onclick="addToNext();"/>
         <input class="eutherpeBUTTON" type="button" value="Add to Up Next" onclick="addToUpNext();"/>
         <input class="eutherpeBUTTON" type="button" value="Add to Playlist..." onclick="openConfig('AddToPlaylist');"/>
-        <input class="eutherpeBUTTON" type="button" value="Add tag..." onclick="tagSelectionAs();"/>
+        <hr>
+        <input class="eutherpeBUTTON" type="button" value="Add tags..." onclick="showAddTags();"/>
+        <input class="eutherpeBUTTON" type="button" value="Del tags..." onclick="showRemoveTagsDiv();"/>
+        <input class="eutherpeBUTTON" type="button" value="Play tagged..." onclick="showPlayByTags();"/>
         </center>
     </div>
     <div id="Playlists" class="configcontent">
@@ -115,6 +143,7 @@
             <input class="eutherpeBUTTON" type="button" value="Unpair..." onclick="unpairDevice();"/>
         </center>
     </div>
+    <input type="hidden" id="lastSelection" name="lastSelection" value="{{.LAST-SELECTION}}"/>
 </body>
 
 <script language="javascript">

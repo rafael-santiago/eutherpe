@@ -34,6 +34,7 @@ type EutherpeVars struct {
     }
     Collection mplayer.MusicCollection
     Playlists []dj.Playlist
+    Tags dj.Tags
     RenderedPlaylist string
     Player struct {
         NowPlaying mplayer.SongInfo
@@ -49,6 +50,8 @@ type EutherpeVars struct {
     }
     LastError error
     CurrentConfig string
+    LastCommonTags []string
+    LastSelection string
     mtx sync.Mutex
 }
 
@@ -166,8 +169,7 @@ func (e *EutherpeVars) SaveCollection() error {
     }
     musicDevSerial := storage.GetDeviceSerialNumberByMountPoint(e.CachedDevices.MusicDevId)
     cacheFilePath = path.Join(cacheFilePath, musicDevSerial)
-    err = os.WriteFile(cacheFilePath, []byte(e.Collection.ToJSON()), 0777)
-    return err
+    return os.WriteFile(cacheFilePath, []byte(e.Collection.ToJSON()), 0777)
 }
 
 func (e *EutherpeVars) LoadCollection() error {
@@ -264,6 +266,7 @@ const EutherpeCollectionAddSelectionToNextId = "collection-addselectiontonext"
 const EutherpeCollectionAddSelectionToUpNextId = "collection-addselectiontoupnext"
 const EutherpeCollectionAddSelectionToPlaylistId = "collection-addselectiontoplaylist"
 const EutherpeCollectionTagSelectionAsId = "collection-tagselectionas"
+const EutherpeCollectionUntagSelectionsId = "collection-untagselections"
 
 // INFO(Rafael): Actions from "Playlists" sheet.
 
@@ -292,6 +295,7 @@ const EutherpeBluetoothTrustId = "bluetooth-trust"
 const EutherpeBluetoothUntrustId = "bluetooth-untrust"
 
 const EutherpePlayerStatusId = "player-status"
+const EutherpeGetCommonTagsId = "get-commontags"
 
 const EutherpePostFieldSelection = "selection"
 const EutherpePostFieldPlaylist = "playlist"
@@ -299,6 +303,7 @@ const EutherpePostFieldStorageDevice = "storage-device"
 const EutherpePostFieldBluetoothDevice = "bluetooth-device"
 const EutherpePostFieldVolumeLevel = "volume-level"
 const EutherpePostFieldLastError = "last-error"
+const EutherpePostFieldTags = "tags"
 
 // INFO(Rafael): Template markers id.
 
@@ -322,6 +327,8 @@ const EutherpeTemplateNeedleShuffleMode = "{{.SHUFFLE-MODE}}"
 const EutherpeTemplateNeedlePlayMode = "{{.PLAY-MODE}}"
 const EutherpeTemplateNeedlePlayerStatus = "{{.PLAYER-STATUS}}"
 const EutherpeTemplateNeedleVolumeLevel = "{{.VOLUME-LEVEL}}"
+const EutherpeTemplateNeedleCommonTags = "{{.COMMON-TAGS}}"
+const EutherpeTemplateNeedleLastSelection = "{{.LAST-SELECTION}}"
 
 const EutherpeWebUIConfigSheetMusic = "Music"
 const EutherpeWebUIConfigSheetCollection = "Collection"
@@ -335,3 +342,4 @@ const EutherpePlayerCache = "player.cache"
 const EutherpePlaylistsHome = "playlists"
 const EutherpeLastCollectionsHome = "collections"
 const EutherpeCoversHome = "covers"
+const EutherpeTagsHome = "tags"

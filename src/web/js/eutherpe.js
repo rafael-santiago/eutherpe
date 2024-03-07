@@ -2,6 +2,54 @@ function closeAddToPlaylist() {
     openConfig("Collection");
 }
 
+function closeAddTags() {
+    openConfig("Collection");
+}
+
+function closeRemoveTags() {
+    openConfig("Collection");
+}
+
+function closePlayByTags() {
+    openConfig("Collection");
+}
+
+function showRemoveTagsDiv() {
+    getCommonTags();
+}
+
+function showPlayByTags() {
+    openConfig("PlayByTags");
+}
+
+function showAddTags() {
+    songSelection = document.getElementsByClassName("CollectionSong");
+    selectedOnes = getSelectedSongs(songSelection);
+    if (selectedOnes.length == 0) {
+        return;
+    }
+    openConfig("AddTags");
+}
+
+function delTagsFromSelection() {
+    unselectedOnes = getUnselectedElements("Tag");
+    var tagsToDelete = "";
+    for (u = 0; u < unselectedOnes.length; u++) {
+        tagsToDelete += unselectedOnes[u];
+        if ((u + 1) < unselectedOnes.length) {
+            tagsToDelete += ",";
+        }
+    }
+    doEutherpeRequest("/eutherpe", { "action" : "collection-untagselections",
+                                     "selection" : JSON.stringify(getLastSelection()),
+                                     "tags" : tagsToDelete }, "post", true);
+    closeRemoveTags();
+}
+
+function getLastSelection() {
+    return document.getElementById("lastSelection").value.split(",");
+}
+
 function addToNext() {
     metaCollectionAdd("collection-addselectiontonext");
 }
@@ -15,17 +63,16 @@ function addToPlaylist() {
     closeAddToPlaylist();
 }
 
-function tagSelectionAs() {
-    collectionSongs = document.getElementsByClassName("CollectionSong");
-    selectedOnes = getSelectedSongs(collectionSongs);
-    if (selectedOnes.length == 0) {
-        return;
-    }
-    tagList = getTagList();
-    doEutherpeRequest("/eutherpe", { "action"    : "collection-tagselectionas",
-                                     "selection" : selectedOnes,
-                                     "tags"      : tagList         }, "post");
-    clearCollectionSelection();
+function addTagsToSelection() {
+    metaActionOverSongSelection("collection-tagselectionas", "CollectionSong");
+}
+
+function getTagList() {
+    return document.getElementById("tagsSet").value;
+}
+
+function getCommonTags() {
+    metaActionOverSongSelection("get-commontags", "CollectionSong");
 }
 
 function metaCollectionAdd(action) {
@@ -276,6 +323,18 @@ function getSelectedElement(className) {
     return null;
 }
 
+function getUnselectedElements(className) {
+    var unselectedOnes = [];
+    objects = document.getElementsByClassName(className);
+    for (var o = 0; o < objects.length; o++) {
+        if (!objects[o].checked) {
+            unselectedOnes.push(objects[o].id);
+        }
+    }
+    return unselectedOnes;
+}
+
+
 function metaActionPlaylistSongs(action) {
     metaActionOverSongSelection(action, "PlaylistSong");
 }
@@ -301,6 +360,8 @@ function metaActionOverSongSelection(action, songListClassName) {
             return;
         }
         reqParams.playlist = playlist.id;
+    } else if (action == "collection-tagselectionas") {
+        reqParams.tags = getTagList();
     }
     doEutherpeRequest("/eutherpe", reqParams, "post");
 }
