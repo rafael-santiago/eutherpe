@@ -26,8 +26,7 @@ func GetCommonTags(eutherpeVars *vars.EutherpeVars, userData *url.Values) error 
 func getCommonTagsFromSelection(selection []string, tagsRepo dj.Tags) []string {
     tagsRefCount := make(map[string]int, 0)
     for _, currSelection := range selection {
-        filePath := GetSongFilePathFromSelectionId(currSelection)
-        tagsFromFile := tagsRepo.GetTagsFromFile(filePath)
+        tagsFromFile := tagsRepo.GetTagsFromFile(currSelection)
         for _, currTag := range tagsFromFile {
             tagsRefCount[currTag] += 1
         }

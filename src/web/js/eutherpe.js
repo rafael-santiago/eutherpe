@@ -67,8 +67,18 @@ function addTagsToSelection() {
     metaActionOverSongSelection("collection-tagselectionas", "CollectionSong");
 }
 
+function playByGivenTags() {
+    doEutherpeRequest("/eutherpe", { "action" : "collection-playbygiventags",
+                                     "tags" :  getTagContext(),
+                                     "amount" : document.getElementById("songsAmount").value }, "post", true);
+}
+
 function getTagList() {
     return document.getElementById("tagsSet").value;
+}
+
+function getTagContext() {
+    return document.getElementById("tagsCtx").value;
 }
 
 function getCommonTags() {

@@ -5,6 +5,7 @@ import (
     "internal/mplayer"
     "net/url"
     "math/rand"
+    "time"
 )
 
 func MusicShuffle(eutherpeVars *vars.EutherpeVars, _ *url.Values) error {
@@ -30,6 +31,7 @@ func shuffle(playlist []mplayer.SongInfo) []mplayer.SongInfo {
     shufflePlaylist := make([]mplayer.SongInfo, totalSongs)
     selectedIndexes := make([]int, 0)
     t := 0
+    rand.Seed(time.Now().UnixNano())
     for t < totalSongs {
         s := rand.Intn(totalSongs)
         if !has(s, selectedIndexes) {

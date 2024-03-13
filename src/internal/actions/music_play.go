@@ -18,6 +18,7 @@ func MusicPlay(eutherpeVars *vars.EutherpeVars, _ *url.Values) error {
     defer eutherpeVars.Unlock()
     if eutherpeVars.Player.Handle != nil {
         // INFO(Rafael): Playing already just keep on playing.
+        fmt.Println("#1")
         return nil
     }
     upNextLen := len(eutherpeVars.Player.UpNext)
@@ -28,6 +29,7 @@ func MusicPlay(eutherpeVars *vars.EutherpeVars, _ *url.Values) error {
         eutherpeVars.Player.UpNextCurrentOffset = -1
         eutherpeVars.Player.Stopped = true
         eutherpeVars.Player.NowPlaying = mplayer.SongInfo{}
+        fmt.Println("#2")
         return nil
     }
     if eutherpeVars.Player.UpNextCurrentOffset < 0 {

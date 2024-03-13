@@ -39,15 +39,12 @@ func metaTagSelection(eutherpeVars *vars.EutherpeVars, userData *url.Values, doT
     selection := ParseSelection(selectionJSON[0])
     tags := strings.Split(rawTags[0], ",")
     metaTagEdition(selection, tags, doTagEdition)
+    eutherpeVars.SaveTags()
     return nil
 }
 
 func metaTagEdition(selection, tags []string, doTagEdition TagEditionFunc) {
     for _, selectionId := range selection {
-        filePath := GetSongFilePathFromSelectionId(selectionId)
-        if len(filePath) == 0 {
-            filePath = selectionId
-        }
-        doTagEdition(filePath, tags...)
+        doTagEdition(selectionId, tags...)
     }
 }

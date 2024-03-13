@@ -43,6 +43,8 @@ func GetEutherpeActionHandler(userData *url.Values) EutherpeActionFunc {
             return TagSelection
         case vars.EutherpeCollectionUntagSelectionsId:
             return UntagSelection
+        case vars.EutherpeCollectionPlayByGivenTagsId:
+            return PlayByGivenTags
         case vars.EutherpeGetCommonTagsId:
             return GetCommonTags
         case vars.EutherpePlaylistCreateId:
@@ -98,7 +100,8 @@ func CurrentConfigByActionId(userData *url.Values) string {
              vars.EutherpeMusicStopId,
              vars.EutherpeMusicSetVolumeId,
              vars.EutherpePlaylistReproduceId,
-             vars.EutherpePlaylistReproduceSelectedOnesId:
+             vars.EutherpePlaylistReproduceSelectedOnesId,
+             vars.EutherpeCollectionPlayByGivenTagsId:
             return vars.EutherpeWebUIConfigSheetMusic
 
         case vars.EutherpeCollectionAddSelectionToNextId,
@@ -152,6 +155,7 @@ func GetContentTypeByActionId(userData *url.Values) string {
              vars.EutherpeCollectionAddSelectionToPlaylistId,
              vars.EutherpeCollectionTagSelectionAsId,
              vars.EutherpeCollectionUntagSelectionsId,
+             vars.EutherpeCollectionPlayByGivenTagsId,
              vars.EutherpePlaylistCreateId,
              vars.EutherpePlaylistRemoveId,
              vars.EutherpePlaylistShowId,
@@ -194,6 +198,7 @@ func GetVDocByActionId(userData *url.Values, eutherpeVars *vars.EutherpeVars) st
              vars.EutherpeCollectionAddSelectionToPlaylistId,
              vars.EutherpeCollectionTagSelectionAsId,
              vars.EutherpeCollectionUntagSelectionsId,
+             vars.EutherpeCollectionPlayByGivenTagsId,
              vars.EutherpePlaylistCreateId,
              vars.EutherpePlaylistRemoveId,
              vars.EutherpePlaylistShowId,

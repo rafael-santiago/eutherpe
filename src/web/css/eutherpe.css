@@ -109,7 +109,11 @@ ul, #eutherpeUL {
     margin: 0;
     padding: 0;
 }
+.caret:hover {
+    text-decoration: underline rgb(201, 184, 246) 2px;
+}
 .caret {
+    text-decoration: none;
     cursor: pointer;
     -webkit-user-select: none; /* Safari 3.1+ */
     -moz-user-select: none; /* Firefox 2+ */
@@ -135,7 +139,7 @@ ul, #eutherpeUL {
 .scrollbox {
     background-color: white;
     color: black;
-    border: 2px solid black;
+    border: 2px solid #ddd;
     margin: 1%;
     padding: .5%;
     max-height: 60%;
@@ -144,7 +148,7 @@ ul, #eutherpeUL {
 .tinyscrollbox {
     background-color: white;
     color: black;
-    border: 0px solid black;
+    border: 0px solid #ddd;
     margin: 1%;
     padding: .5%;
     max-height: 32%;
@@ -159,6 +163,15 @@ input[type="text"] {
     font-size: 100%;
     outline: none;
 }
+input[type="number"] {
+    border-style: solid;
+    border-color: black;
+    background-color: #f1f1f1;
+    font-family: "Sabo-Regular";
+    font-size: 100%;
+    outline: none;
+    text-align: right;
+}
 .hugescrollbox {
     background-color: white;
     color: black;
@@ -169,7 +182,9 @@ input[type="text"] {
     max-width: 100%;
     overflow-y: auto;
 }
-
+hr {
+    border: 1px dashed #ddd;
+}
 @media only screen and (orientation: landscape) and (max-width: 926px) {
     .config {
         width: 20%;
@@ -197,13 +212,14 @@ input[type="text"] {
         display: block;
         background-color: inherit;
         color: black;
-        padding: 30% 30%;
+        padding: 30% 15%;
         width: 100%;
         border: none;
         outline: none;
         text-align: left;
         cursor: pointer;
         transition: 0.3s;
+        font-size: 50%;
     }
     .configcontent {
         font-size: 100%;

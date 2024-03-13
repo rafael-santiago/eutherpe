@@ -141,7 +141,11 @@ func (e *EutherpeVars) SaveSession() error {
     if err != nil {
         return err
     }
-    return e.SavePlaylists()
+    err = e.SavePlaylists()
+    if err != nil {
+        return err
+    }
+    return e.SaveTags()
 }
 
 
@@ -201,7 +205,7 @@ func (e *EutherpeVars) LoadCollection() error {
         }
         e.Playlists = append(e.Playlists, playlist)
     }
-    return nil
+    return e.LoadTags()
 }
 
 func (e *EutherpeVars) SavePlaylists() error {
@@ -239,6 +243,26 @@ func (e *EutherpeVars) RemovePlaylistFromDisk(playlistName string) error {
     return os.Remove(path.Join(playlistsRootPath, playlistName))
 }
 
+func (e *EutherpeVars) SaveTags() error {
+    musicDevSerial := storage.GetDeviceSerialNumberByMountPoint(e.CachedDevices.MusicDevId)
+    tagsRootPath := path.Join(e.ConfHome, EutherpeTagsHome)
+    err := os.MkdirAll(tagsRootPath, 0777)
+    if err != nil {
+        return err
+    }
+    return e.Tags.SaveTo(path.Join(tagsRootPath, musicDevSerial))
+}
+
+func (e *EutherpeVars) LoadTags() error {
+    musicDevSerial := storage.GetDeviceSerialNumberByMountPoint(e.CachedDevices.MusicDevId)
+    deviceTagsFilePath := path.Join(e.ConfHome, EutherpeTagsHome, musicDevSerial)
+    _, err := os.Stat(deviceTagsFilePath)
+    if err != nil {
+        return nil
+    }
+    return e.Tags.LoadFrom(deviceTagsFilePath)
+}
+
 func (e *EutherpeVars) GetCoversCacheRootPath() string {
     return path.Join(e.ConfHome, EutherpeCoversHome)
 }
@@ -267,6 +291,7 @@ const EutherpeCollectionAddSelectionToUpNextId = "collection-addselectiontoupnex
 const EutherpeCollectionAddSelectionToPlaylistId = "collection-addselectiontoplaylist"
 const EutherpeCollectionTagSelectionAsId = "collection-tagselectionas"
 const EutherpeCollectionUntagSelectionsId = "collection-untagselections"
+const EutherpeCollectionPlayByGivenTagsId = "collection-playbygiventags"
 
 // INFO(Rafael): Actions from "Playlists" sheet.
 
@@ -304,6 +329,7 @@ const EutherpePostFieldBluetoothDevice = "bluetooth-device"
 const EutherpePostFieldVolumeLevel = "volume-level"
 const EutherpePostFieldLastError = "last-error"
 const EutherpePostFieldTags = "tags"
+const EutherpePostFieldAmount = "amount"
 
 // INFO(Rafael): Template markers id.
 

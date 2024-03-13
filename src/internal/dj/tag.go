@@ -12,16 +12,26 @@ type TagEntry struct {
 }
 
 type Tags struct {
-    tags []TagEntry
+    Tags []TagEntry
+}
+
+func (t *Tags) Get(tag string) []string {
+    normalizedTag := strings.ToLower(tag)
+    for _, currTag := range t.Tags {
+        if normalizedTag == currTag.Name {
+            return currTag.FilePaths
+        }
+    }
+    return make([]string, 0)
 }
 
 func (t *Tags) Add(filePath string, tags ...string) {
     for _, tag := range tags {
         tagIndex := t.getTagIndex(tag)
         if tagIndex == -1 {
-            t.tags = append(t.tags, TagEntry { strings.Trim(tag, " "), []string { filePath } })
-        } else if !t.tags[tagIndex].IsTaggedAlready(filePath) {
-            t.tags[tagIndex].FilePaths = append(t.tags[tagIndex].FilePaths, filePath)
+            t.Tags = append(t.Tags, TagEntry { strings.Trim(strings.ToLower(tag), " "), []string { filePath } })
+        } else if !t.Tags[tagIndex].IsTaggedAlready(filePath) {
+            t.Tags[tagIndex].FilePaths = append(t.Tags[tagIndex].FilePaths, filePath)
         }
     }
 }
@@ -33,15 +43,15 @@ func (t *Tags) Del(filePath string, tags ...string) {
         if tagIndex == -1 {
             continue
         }
-        t.tags[tagIndex].Del(filePath)
-        if len(t.tags[tagIndex].FilePaths) == 0 {
+        t.Tags[tagIndex].Del(filePath)
+        if len(t.Tags[tagIndex].FilePaths) == 0 {
             emptiedTags = append(emptiedTags, tag)
         }
     }
     for _, tag := range emptiedTags {
-        for tagIndex, _ := range t.tags {
-            if t.tags[tagIndex].Name == strings.Trim(tag, " ") {
-                t.tags = append(t.tags[:tagIndex], t.tags[(tagIndex + 1):]...)
+        for tagIndex, _ := range t.Tags {
+            if t.Tags[tagIndex].Name == strings.Trim(tag, " ") {
+                t.Tags = append(t.Tags[:tagIndex], t.Tags[(tagIndex + 1):]...)
                 break
             }
         }
@@ -66,7 +76,7 @@ func (t *Tags) LoadFrom(filePath string) error {
 
 func (t *Tags) GetTagsFromFile(filePath string) []string {
     tags := make([]string, 0)
-    for _, currTag := range t.tags {
+    for _, currTag := range t.Tags {
         for _, currFilePath := range currTag.FilePaths {
             if currFilePath == filePath {
                 tags = append(tags, currTag.Name)
@@ -78,10 +88,10 @@ func (t *Tags) GetTagsFromFile(filePath string) []string {
 }
 
 func (t *Tags) getTagIndex(tagName string) int {
-    if len(t.tags) == 0 {
+    if len(t.Tags) == 0 {
         return -1
     }
-    for p, currTag := range t.tags {
+    for p, currTag := range t.Tags {
         if currTag.Name == tagName {
             return p
         }
