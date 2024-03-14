@@ -50,7 +50,7 @@ func (t *Tags) Del(filePath string, tags ...string) {
     }
     for _, tag := range emptiedTags {
         for tagIndex, _ := range t.Tags {
-            if t.Tags[tagIndex].Name == strings.Trim(tag, " ") {
+            if t.Tags[tagIndex].Name == strings.Trim(strings.ToLower(tag), " ") {
                 t.Tags = append(t.Tags[:tagIndex], t.Tags[(tagIndex + 1):]...)
                 break
             }
@@ -91,8 +91,9 @@ func (t *Tags) getTagIndex(tagName string) int {
     if len(t.Tags) == 0 {
         return -1
     }
+    normalizedTagName := strings.ToLower(tagName)
     for p, currTag := range t.Tags {
-        if currTag.Name == tagName {
+        if currTag.Name == normalizedTagName {
             return p
         }
     }
