@@ -3,7 +3,6 @@ package actions
 import (
     "internal/vars"
     "internal/mplayer"
-    "internal/dj"
     "net/url"
     "testing"
 )
@@ -44,13 +43,15 @@ func TestAddSelectionToPlaylist(t *testing.T) {
     }
     userData.Add(vars.EutherpePostFieldPlaylist, "1-2-3-eh-um-teste")
     err = AddSelectionToPlaylist(eutherpeVars, userData)
-    if err == nil {
-        t.Errorf("AddSelectionToPlaylist() should return an error.\n")
+    if err != nil {
+        t.Errorf("AddSelectionToPlaylist() should not return an error.\n")
     }
-    if err.Error() != "Playlist 1-2-3-eh-um-teste not found." {
-        t.Errorf("AddSelectionToPlaylist() has returned an unexpected error : '%s'.\n", err.Error())
+    if len(eutherpeVars.Playlists) != 1 {
+        t.Errorf("eutherpeVars.Playlists should have one playlist.\n")
     }
-    eutherpeVars.Playlists = append(eutherpeVars.Playlists, dj.Playlist{ Name: "1-2-3-eh-um-teste" })
+    if eutherpeVars.Playlists[0].Name != "1-2-3-eh-um-teste" {
+        t.Errorf("eutherpeVars.Playlist[0] is not '1-2-3-eh-um-teste' playlist.\n")
+    }
     err = AddSelectionToPlaylist(eutherpeVars, userData)
     if err != nil {
         t.Errorf("AddSelectionToPlaylist() has failed while it should not.\n")

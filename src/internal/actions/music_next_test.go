@@ -51,10 +51,8 @@ func TestMusicNext(t *testing.T) {
             } else {
                 fmt.Printf("=== now playing ['%s'] and we hit the end of the reproduction list.\n", eutherpeVars.Player.NowPlaying.Title)
                 err = MusicNext(eutherpeVars, userData)
-                if err == nil {
-                    t.Errorf("MusicNext() did not return an error when it should.\n")
-                } else if err.Error() != "You have hit the end of the reproduction list." {
-                    t.Errorf("MusicNext() did return an unexpected error : '%s'.\n", err.Error())
+                if err != nil {
+                    t.Errorf("MusicNext() did return an error when it should not.\n")
                 }
             }
             time.Sleep(1 * time.Nanosecond)

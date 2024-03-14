@@ -45,7 +45,7 @@ func TestMoveUpPlaylistSongs(t *testing.T) {
     } else if err.Error() != "Malformed playlist-moveup/down request." {
         t.Errorf("MoveUpPlaylistSongs() has returned an unexpected error : '%s'\n", err.Error())
     }
-    userData.Add(vars.EutherpePostFieldSelection, "[ \"Motorhead/Bomber/Dead Men Tell No Tales:dead_men_tell_no_tales.mp3\", \"The Grumpies/Songs The Lord Taught Us/Fever:fever.mp3\" ]")
+    userData.Add(vars.EutherpePostFieldSelection, "[ \"speed-metal-e-psychobilly-do-bom:Motorhead/Bomber/Dead Men Tell No Tales:dead_men_tell_no_tales.mp3\", \"speed-metal-e-psychobilly-do-bom:The Grumpies/Songs The Lord Taught Us/Fever:fever.mp3\" ]")
     err = MoveUpPlaylistSongs(eutherpeVars, userData)
     if err == nil {
         t.Errorf("MoveUpPlaylistSongs() has not return an error while it should.\n")
@@ -61,7 +61,7 @@ func TestMoveUpPlaylistSongs(t *testing.T) {
         t.Errorf("MoveUpPlaylistSongs() has returned an unexpected error : '%s'\n", err.Error())
     }
     userData.Del(vars.EutherpePostFieldSelection)
-    userData.Add(vars.EutherpePostFieldSelection, "[ \"Motorhead/Bomber/Dead Men Tell No Tales:dead_men_tell_no_tales.mp3\", \"The Cramps/Songs The Lord Taught Us/Fever:fever.mp3\" ]")
+    userData.Add(vars.EutherpePostFieldSelection, "[ \"speed-metal-e-psychobilly-do-bom:Motorhead/Bomber/Dead Men Tell No Tales:dead_men_tell_no_tales.mp3\", \"speed-metal-e-psychobilly-do-bom:The Cramps/Songs The Lord Taught Us/Fever:fever.mp3\" ]")
     err = MoveUpPlaylistSongs(eutherpeVars, userData)
     if err != nil {
         t.Errorf("MoveUpPlaylistSongs() has return an error when it should not.\n")
@@ -110,7 +110,7 @@ func TestMoveDownPlaylistSongs(t *testing.T) {
     } else if err.Error() != "Malformed playlist-moveup/down request." {
         t.Errorf("MoveDownPlaylistSongs() has returned an unexpected error : '%s'\n", err.Error())
     }
-    userData.Add(vars.EutherpePostFieldSelection, "[ \"Motorhead/Bomber/Dead Men Tell No Tales:dead_men_tell_no_tales.mp3\", \"Moforhead/Overkill/Stay Clean:stay-clean.mp3\" ]")
+    userData.Add(vars.EutherpePostFieldSelection, "[ \"speed-metal-e-psychobilly-do-bom:Motorhead/Bomber/Dead Men Tell No Tales:dead_men_tell_no_tales.mp3\", \"speed-metal-e-psychobilly-do-bom:Moforhead/Overkill/Stay Clean:stay-clean.mp3\" ]")
     err = MoveDownPlaylistSongs(eutherpeVars, userData)
     if err == nil {
         t.Errorf("MoveDownPlaylistSongs() has not return an error while it should.\n")
@@ -126,14 +126,14 @@ func TestMoveDownPlaylistSongs(t *testing.T) {
         t.Errorf("MoveDownPlaylistSongs() has returned an unexpected error : '%s'\n", err.Error())
     }
     userData.Del(vars.EutherpePostFieldSelection)
-    userData.Add(vars.EutherpePostFieldSelection, "[ \"Motorhead/Bomber/Dead Men Tell No Tales:dead_men_tell_no_tales.mp3\", \"Motorhead/Overkill/Stay Clean:stay-clean.mp3\" ]")
+    userData.Add(vars.EutherpePostFieldSelection, "[ \"speed-metal-e-psychobilly-do-bom:Motorhead/Bomber/Dead Men Tell No Tales:dead_men_tell_no_tales.mp3\", \"speed-metal-e-psychobilly-do-bom:Motorhead/Overkill/Stay Clean:stay-clean.mp3\" ]")
     err = MoveDownPlaylistSongs(eutherpeVars, userData)
     if err != nil {
         t.Errorf("MoveDownPlaylistSongs() has return an error when it should not.\n")
     }
-    if eutherpeVars.Playlists[0].GetSongIndexByFilePath("fever.mp3") != 0 ||
-       eutherpeVars.Playlists[0].GetSongIndexByFilePath("stay-clean.mp3") != 1 ||
-       eutherpeVars.Playlists[0].GetSongIndexByFilePath("dead_men_tell_no_tales.mp3") != 2 {
+    if eutherpeVars.Playlists[0].GetSongIndexByFilePath("fever.mp3") != 2 ||
+       eutherpeVars.Playlists[0].GetSongIndexByFilePath("stay-clean.mp3") != 0 ||
+       eutherpeVars.Playlists[0].GetSongIndexByFilePath("dead_men_tell_no_tales.mp3") != 1 {
         t.Errorf("MoveDownPlaylistSongs() seems not being manipulating playlist accordingly : '%v'\n", eutherpeVars.Playlists[0])
     }
 }

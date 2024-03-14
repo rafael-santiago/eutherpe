@@ -49,7 +49,7 @@ func TestRemoveSongsFromPlaylist(t *testing.T) {
         t.Errorf("RemoveSongsFromPlaylist() did return an unexpected error.\n")
     }
     userData.Del(vars.EutherpePostFieldSelection)
-    userData.Add(vars.EutherpePostFieldSelection, "[ \"speed-metal-e-psychobilly-do-bom:regular-john.mp3\", \"speed-metal-e-psychobilly-do-bom:dead_men_tell_no_tales.mp3\" ]")
+    userData.Add(vars.EutherpePostFieldSelection, "[ \"speed-metal-e-psychobilly-do-bom:Queens Of The Stone Age/QUeens Of The Stone Age/Regular John:regular-john.mp3\", \"speed-metal-e-psychobilly-do-bom:Motorhead/Bomber:dead_men_tell_no_tales.mp3\" ]")
     err = RemoveSongsFromPlaylist(eutherpeVars, userData)
     if eutherpeVars.Playlists[0].GetSongIndexByFilePath("stay-clean.mp3") != 0 ||
        eutherpeVars.Playlists[0].GetSongIndexByFilePath("dead_men_tell_no_tales.mp3") != -1 ||
