@@ -34,7 +34,6 @@ func ReproduceSelectedOnesFromPlaylist(eutherpeVars *vars.EutherpeVars, userData
     for s, selectionId := range selection {
         data := split(selectionId)
         if len(data) != 3 {
-            fmt.Println(selectionId)
             return fmt.Errorf("Malformed playlist-reproduceselectedones parameter.")
         }
         jsonData += "\"" + data[1] + ":" + data[2] + "\""
@@ -69,7 +68,7 @@ func split(selectionId string) []string {
                 items = append(items, selectionId[startOff:endOff])
                 startOff = endOff + 1
             }
-        } else if selectionId[endOff] == ':' && (endOff + 1) < len(selectionId) && selectionId[endOff + 1] == '/'{
+        } else if selectionId[endOff] == ':' && (endOff + 1) < len(selectionId) && selectionId[endOff + 1] == '/' {
             items = append(items, selectionId[startOff:endOff])
             startOff = endOff + 1
         } else if  (endOff + 1) == len(selectionId) {

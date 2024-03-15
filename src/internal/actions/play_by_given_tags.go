@@ -27,7 +27,12 @@ func PlayByGivenTags(eutherpeVars *vars.EutherpeVars, userData *url.Values) erro
     tags := strings.Split(rawTags[0], ",")
     filePaths := make([]string, 0)
     for _, tag := range tags {
-        filePaths = append(filePaths, eutherpeVars.Tags.Get(strings.Trim(tag, " "))...)
+        filePathsByTag := eutherpeVars.Tags.Get(strings.Trim(tag, " "))
+        for _, currFilePath := range filePathsByTag {
+            if !hasFilePath(currFilePath, filePaths) {
+                filePaths = append(filePaths, currFilePath)
+            }
+        }
     }
     songs := make([]mplayer.SongInfo, 0)
     for _, filePath := range filePaths {
@@ -43,9 +48,7 @@ func PlayByGivenTags(eutherpeVars *vars.EutherpeVars, userData *url.Values) erro
     if len(songs) == 0 {
         return fmt.Errorf("UpNext stack underflow.")
     }
-    for i := 0; i < len(songs); i++ {
-        songs = shuffle(songs)
-    }
+    songs = shuffle(songs)
     if !eutherpeVars.Player.Stopped {
         eutherpeVars.Unlock()
         MusicClearAll(eutherpeVars, nil)
@@ -59,4 +62,13 @@ func PlayByGivenTags(eutherpeVars *vars.EutherpeVars, userData *url.Values) erro
     err = MusicPlay(eutherpeVars, nil)
     eutherpeVars.Lock()
     return err
+}
+
+func hasFilePath(filePath string, filePaths []string) bool {
+    for _, currFilePath := range filePaths {
+        if filePath == currFilePath {
+            return true
+        }
+    }
+    return false
 }

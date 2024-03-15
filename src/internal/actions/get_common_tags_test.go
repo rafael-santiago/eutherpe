@@ -14,7 +14,6 @@ func TestGetCommonTags(t *testing.T) {
     eutherpeVars.Collection["Sonic Youth"]["Washing Machine"] = []mplayer.SongInfo {
         mplayer.SongInfo { "diamond-sea.mp3", "Diamond Sea", "Sonic Youth", "Washing Machine", "11", "1994", "", "Indie", },
     }
-    eutherpeVars.Collection = make(mplayer.MusicCollection)
     eutherpeVars.Collection["Nirvana"] = make(map[string][]mplayer.SongInfo)
     eutherpeVars.Collection["Nirvana"]["Unplugged"] = []mplayer.SongInfo {
         mplayer.SongInfo { "about-a-girl.mp3", "About a Girl", "Nirvana", "Unplugged", "01", "1993", "", "Grunge", },
