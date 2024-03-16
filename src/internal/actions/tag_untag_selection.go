@@ -34,7 +34,7 @@ func metaTagSelection(eutherpeVars *vars.EutherpeVars, userData *url.Values, doT
     }
     rawTags, has := (*userData)[vars.EutherpePostFieldTags]
     if !has {
-        return fmt.Errorf("Malformed collection-un/tagselectionas/collection-untagselections request.")
+        return fmt.Errorf("Malformed collection-tagselectionas/collection-untagselections request.")
     }
     selection := ParseSelection(selectionJSON[0])
     tags := strings.Split(rawTags[0], ",")

@@ -1,0 +1,19 @@
+#!/bin/bash
+
+DATA="Simple mixer control 'Master',0\n
+   Capabilities: pvolume pswitch pswitch-joined\n
+   Playback channels: Front Left - Front Right\n
+   Limits: Playback 0 - 65536\n
+   Mono:\n
+   Front Left: Playback 60948 [93%] [on]\n
+   Front Right: Playback 60948 [93%] [on]\n
+Simple mixer control 'Capture',0\n
+   Capabilities: cvolume cswitch cswitch-joined\n
+   Capture channels: Front Left - Front Right\n
+   Limits: Capture 0 - 65536\n
+   Front Left: Capture 43800 [67%] [on]\n
+   Front Right: Capture 43800 [67%] [on]"
+
+echo -e $DATA
+exit 0
+
