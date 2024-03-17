@@ -16,7 +16,20 @@
         <button class="configtab" id="BluetoothButton" onclick="openConfig('Bluetooth')"><script>setButtonLabel("&#128264;", "Bluetooth");</script></button>
     </div>
     <div id="Loading" class="configcontent" style="text-align: center; padding: 10%;">
-        <p> Wait... &#x23F3; </p>
+        <h2 class="info-banner">&#x1F9A5 Wait... &#x23F3;</h2>
+    </div>
+    <div id="ErrorDialog" class="configcontent" style="text-align: center; padding: 5%;">
+        <p class="info-banner" id="messageBuffer" style="font-size: 20px;"></p><br><br>
+        <input class="eutherpeBUTTON" type="button" value="Ok" onclick="openConfig('{{.CURRENT-CONFIG}}');">
+    </div>
+    <div id="QueryDialog" class="configcontent" style="text-align: center; padding: 5%;">
+        <p class="info-banner" id="queryBuffer" style="font-size: 20px;"></p><br><br>
+        <input class="eutherpeBUTTON" id="doYesBtn" type="button" value="Yes">
+        <input class="eutherpeBUTTON" id="doNoBtn" type="button" value="No">
+    </div>
+    <div id="TipDialog" class="configcontent" style="text-align: center; padding: 5%;">
+        <p class="info-banner" id="tipBuffer" style="font-size: 20px;"></p><br><br>
+        <input class="eutherpeBUTTON" type="button" id="doGotItBtn" value="I got it!">
     </div>
     <div id="AddToPlaylist" class="configcontent" style="text-align: center; padding: 10%;">
         <b>Give me the name of an existing or new playlist...</b><br><br>
@@ -146,6 +159,8 @@
         </center>
     </div>
     <input type="hidden" id="lastSelection" name="lastSelection" value="{{.LAST-SELECTION}}"/>
+    <input type="hidden" id="lastError" name="lastError" value="{{.LAST-ERROR}}"/>
+    <input type="hidden" id="lastQueryAnswer" name="lastQueryAnswer" value="false"/>
 </body>
 
 <script language="javascript">
@@ -211,6 +226,8 @@ for (i = 0; i < toggler.length; i++) {
 }
 
 openConfig("{{.CURRENT-CONFIG}}");
+
+showError();
 
 setInterval(() => {
     requestPlayerStatus();

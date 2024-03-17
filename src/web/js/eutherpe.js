@@ -153,53 +153,69 @@ function getSelectedStorageDevice() {
 function pairDevice() {
     blueDev = getSelectedBluetoothDevice();
     if (blueDev === null) {
-        alert("You must pick up one device.");
+        tip("You must pick up one device", function() { openConfig("Bluetooth"); });
         return;
     }
-    if (!confirm("Are you sure you want to pair with this device?")) {
-        return;
-    }
-    doEutherpeRequest("/eutherpe", { "action" : "bluetooth-pair",
-                                     "bluetooth-device" : blueDev.id }, "post");
+    query("Are you sure you want to pair with this device",
+          function() {
+            doEutherpeRequest("/eutherpe", { "action" : "bluetooth-pair",
+                              "bluetooth-device" : blueDev.id }, "post");
+          },
+          function() {
+            openConfig("Bluetooth");
+          }
+    );
 }
 
 function unpairDevice() {
     blueDev = getSelectedBluetoothDevice();
     if (blueDev === null) {
-        alert("You must pick up one device.");
+        tip("You must pick up one device", function() { openConfig("Bluetooth"); });
         return;
     }
-    if (!confirm("Are you sure you want to unpair with this device?")) {
-        return;
-    }
-    doEutherpeRequest("/eutherpe", { "action" : "bluetooth-unpair",
-                                     "bluetooth-device" : blueDev.id }, "post");
+    query("Are you sure you want to unpair with this device",
+          function() {
+                doEutherpeRequest("/eutherpe", { "action" : "bluetooth-unpair",
+                                  "bluetooth-device" : blueDev.id }, "post");
+          },
+          function() {
+                openConfig("Bluetooth");
+          }
+    );
 }
 
 function trustDevice() {
     blueDev = getSelectedBluetoothDevice();
     if (blueDev === null) {
-        alert("You must pick up one device.");
+        tip("You must pick up one device", function() { openConfig("Bluetooth"); });
         return;
     }
-    if (!confirm("Are you sure you want to trust this device?")) {
-        return;
-    }
-    doEutherpeRequest("/eutherpe", { "action" : "bluetooth-trust",
-                                     "bluetooth-device" : blueDev.id }, "post");
+    query("Are you sure you want to trust this device",
+          function() {
+                doEutherpeRequest("/eutherpe", { "action" : "bluetooth-trust",
+                                  "bluetooth-device" : blueDev.id }, "post");
+          },
+          function() {
+                openConfig("Bluetooth");
+          }
+    );
 }
 
 function untrustDevice() {
     blueDev = getSelectedBluetoothDevice();
     if (blueDev === null) {
-        alert("You must pick up one device.");
+        tip("You must pick up one device", function() { openConfig("Bluetooth"); });
         return;
     }
-    if (!confirm("Are you sure you want to untrust this device?")) {
-        return;
-    }
-    doEutherpeRequest("/eutherpe", { "action" : "bluetooth-untrust",
-                                     "bluetooth-device" : blueDev.id }, "post");
+    query("Are you sure you want to untrust this device",
+          function() {
+                doEutherpeRequest("/eutherpe", { "action" : "bluetooth-untrust",
+                                  "bluetooth-device" : blueDev.id }, "post");
+          },
+          function() {
+                openConfig("Bluetooth");
+          }
+    );
 }
 
 function probeDevices() {
@@ -224,27 +240,35 @@ function setStorageDevice() {
 function removePlaylist() {
     playlist = getSelectedPlaylist();
     if (playlist === null) {
-        alert("You must pick up one playlist.");
+        tip("You must pick up one playlist", function() { openConfig("Playlists"); });
         return;
     }
-    if (!confirm("Are you sure you want to remove the playlist '" + playlist.id + "'?")) {
-        return;
-    }
-    doEutherpeRequest("/eutherpe", { "action" : "playlist-remove",
-                                     "playlist" : playlist.id }, "post");
+    query("Are you sure you want to remove the playlist '" + playlist.id + "'",
+          function() {
+                doEutherpeRequest("/eutherpe", { "action" : "playlist-remove",
+                                  "playlist" : playlist.id }, "post");
+          },
+          function() {
+                openConfig("Playlists");
+          }
+    );
 }
 
 function clearAllPlaylist() {
     playlist = getSelectedPlaylist();
     if (playlist === null) {
-        alert("You must pick up one playlist.");
+        tip("You must pick up one playlist", function() { openConfig("Playlists"); });
         return;
     }
-    if (!confirm("Are you sure you want to empty the playlist '" + playlist.id + "'?")) {
-        return;
-    }
-    doEutherpeRequest("/eutherpe", { "action" : "playlist-clearall",
-                                     "playlist" : playlist.id }, "post");
+    query("Are you sure you want to empty the playlist '" + playlist.id + "'",
+          function() {
+                doEutherpeRequest("/eutherpe", { "action" : "playlist-clearall",
+                                  "playlist" : playlist.id }, "post");
+          },
+          function() {
+                openConfig("Playlists");
+          }
+    );
 }
 
 function createPlaylist(playlist) {
@@ -260,17 +284,27 @@ function moveDownPlaylistSongs() {
 }
 
 function removeSelectedSongsFromPlaylist() {
-    if (!confirm("Are you sure?")) {
+    songSelection = document.getElementsByClassName("PlaylistSong");
+    selectedOnes = getSelectedSongs(songSelection);
+    if (selectedOnes.length == 0) {
+        tip("You must pick at least one song", function() { openConfig("Playlists"); });
         return;
     }
-    metaActionPlaylistSongs("playlist-removesongs");
-    clearPlaylistSelection();
+    query("Do you want to remove this selection",
+          function() {
+                metaActionPlaylistSongs("playlist-removesongs");
+                clearPlaylistSelection();
+          },
+          function() {
+            openConfig("Playlists");
+          }
+    );
 }
 
 function reproducePlaylist() {
     playlist = getSelectedPlaylist();
     if (playlist === null) {
-        alert("You must pick one playlist.");
+        tip("You must pick one playlist", function() { openConfig("Playlists"); });
         return;
     }
     doEutherpeRequest("/eutherpe", { "action" : "playlist-reproduce",
@@ -278,6 +312,12 @@ function reproducePlaylist() {
 }
 
 function reproduceSelectedOnesFromPlaylist() {
+    songSelection = document.getElementsByClassName("PlaylistSong");
+    selectedOnes = getSelectedSongs(songSelection);
+    if (selectedOnes.length == 0) {
+        tip("You must pick at least one song", function() { openConfig("Playlists"); });
+        return;
+    }
     metaActionPlaylistSongs("playlist-reproduceselectedones");
     clearPlaylistSelection();
 }
@@ -366,7 +406,7 @@ function metaActionOverSongSelection(action, songListClassName) {
     } else if (songListClassName == "PlaylistSong") {
         playlist = getSelectedPlaylist();
         if (playlist === null) {
-            alert("No playlist was selected!");
+            tip("No playlist was selected", function() { openConfig("Playlists"); });
             return;
         }
         reqParams.playlist = playlist.id;
@@ -382,6 +422,37 @@ function setButtonLabel(glyph, label) {
     } else {
         document.write(glyph + " " + label);
     }
+}
+
+function showError() {
+    lastError = document.getElementById("lastError").value;
+    if (lastError.length > 0) {
+        showErrorDialog(lastError);
+    }
+}
+
+function showErrorDialog(errorMessage) {
+    messageBuffer = document.getElementById("messageBuffer");
+    messageBuffer.innerHTML = "&#x1F4A3 "  + errorMessage + " &#x1F4A5";
+    openConfig("ErrorDialog");
+}
+
+function query(queryMessage, doYes, doNo) {
+    queryBuffer = document.getElementById("queryBuffer");
+    queryBuffer.innerHTML = "&#x1F4A1 " + queryMessage + " &#x2753";
+    doYesBtn = document.getElementById("doYesBtn");
+    doYesBtn.onclick = doYes;
+    doNoBtn = document.getElementById("doNoBtn");
+    doNoBtn.onclick = doNo;
+    openConfig("QueryDialog");
+}
+
+function tip(tipMessage, doGotIt) {
+    tipBuffer = document.getElementById("tipBuffer");
+    tipBuffer.innerHTML = "&#x1F989 " + tipMessage + " &#x1F9A7";
+    doGotItBtn = document.getElementById("doGotItBtn");
+    doGotItBtn.onclick = doGotIt;
+    openConfig("TipDialog");
 }
 
 function setUncheckedAllSongsOutFromPlaylist(sender) {

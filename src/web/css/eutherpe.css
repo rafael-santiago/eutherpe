@@ -19,6 +19,9 @@
     font-size: 360%;
     text-shadow: 5px 5px 0 #ddd;
 }
+.info-banner {
+    text-shadow: 5px 5px 0 #ddd;
+}
 .config {
     display: block;
     position: absolute;

@@ -6,7 +6,6 @@ import (
     "internal/mplayer"
     "net/url"
     "fmt"
-    "strings"
 )
 
 func RemoveSongsFromPlaylist(eutherpeVars *vars.EutherpeVars,
@@ -17,7 +16,7 @@ func RemoveSongsFromPlaylist(eutherpeVars *vars.EutherpeVars,
     }
     selections := ParseSelection(data[0])
     for _, selection := range selections {
-        data := strings.Split(selection, ":")
+        data := split(selection)
         if len(data) != 3 {
             return fmt.Errorf("Malformed playlist-removesongs parameter.")
         }
