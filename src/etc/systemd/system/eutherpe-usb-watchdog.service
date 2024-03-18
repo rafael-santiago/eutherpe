@@ -1,0 +1,13 @@
+[Unit]
+Description=Eutherpe's automount facility for USB pen-drives
+After=network.target
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=1
+ExecStart=/usr/sbin/eutherpe-usb-watchdog.sh --mount-point=/media/USB
+
+[Install]
+WantedBy=multi-user.target
