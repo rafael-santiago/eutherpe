@@ -18,3 +18,5 @@ require internal/renders v1.0.0
 replace internal/renders => ./internal/renders
 require internal/webui v1.0.0
 replace internal/webui => ./internal/webui
+require internal/auth v1.0.0
+replace internal/auth => ./internal/auth
