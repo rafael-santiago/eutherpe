@@ -5,6 +5,7 @@ import (
     "internal/dj"
     "internal/bluebraces"
     "internal/storage"
+    "internal/auth"
     "sync"
     "os/exec"
     "encoding/json"
@@ -19,12 +20,16 @@ type EutherpeVars struct {
     APPName string
     ConfHome string
     HTTPd struct {
+        Authenticated bool
+        AuthWatchdog *auth.AuthWatchdog
+        HashKey string
         URLSchema string
         Addr string
         PubRoot string
         PubFiles []string
         IndexHTML string
         ErrorHTML string
+        LoginHTML string
     }
     BluetoothDevices []bluebraces.BluetoothDevice
     StorageDevices []string
@@ -322,6 +327,8 @@ const EutherpeBluetoothUntrustId = "bluetooth-untrust"
 const EutherpePlayerStatusId = "player-status"
 const EutherpeGetCommonTagsId = "get-commontags"
 
+const EutherpeAuthenticateId = "authenticate"
+
 const EutherpePostFieldSelection = "selection"
 const EutherpePostFieldPlaylist = "playlist"
 const EutherpePostFieldStorageDevice = "storage-device"
@@ -330,6 +337,8 @@ const EutherpePostFieldVolumeLevel = "volume-level"
 const EutherpePostFieldLastError = "last-error"
 const EutherpePostFieldTags = "tags"
 const EutherpePostFieldAmount = "amount"
+const EutherpePostFieldRemoteAddr = "remote-addr"
+const EutherpePostFieldPassword = "password"
 
 // INFO(Rafael): Template markers id.
 

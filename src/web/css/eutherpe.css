@@ -66,6 +66,23 @@
     border: none;
     height: 66.4%;
 }
+.login-div {
+    position: absolute;
+    font-family: "Sabo-Filled";
+    font-size: 100%;
+    margin: 0;
+    width: 100%;
+    top: 50%;
+    text-align: center;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    text-shadow: 5px 5px 0 #ddd;
+}
+.login-error-div {
+    font-family: "Sabo-Filled";
+    color: red;
+    text-shadow: 5px 5px 0 #ddd;
+}
 .NowPlaying {
     font-family: "Sabo-Regular";
     font-size: 100%;
@@ -159,6 +176,14 @@ ul, #eutherpeUL {
     overflow-y: auto;
 }
 input[type="text"] {
+    border-style: solid;
+    border-color: black;
+    background-color: #f1f1f1;
+    font-family: "Sabo-Regular";
+    font-size: 100%;
+    outline: none;
+}
+input[type="password"] {
     border-style: solid;
     border-color: black;
     background-color: #f1f1f1;

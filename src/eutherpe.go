@@ -5,8 +5,9 @@ import (
     "internal/mplayer"
     _ "internal/dj"
     _ "internal/storage"
+    "internal/auth"
     "fmt"
-    _ "time"
+    "time"
     "internal/vars"
     "internal/webui"
     "os"
@@ -51,6 +52,11 @@ func main() {
     eutherpeVars.HTTPd.IndexHTML = string(data)
     data, _ = os.ReadFile("web/html/error.html")
     eutherpeVars.HTTPd.ErrorHTML = string(data)
+    data, _ = os.ReadFile("web/html/eutherpe-gate.html")
+    eutherpeVars.HTTPd.LoginHTML = string(data)
+    eutherpeVars.HTTPd.Authenticated = true
+    eutherpeVars.HTTPd.HashKey = auth.HashKey("123mudar*")
+    eutherpeVars.HTTPd.AuthWatchdog = auth.NewAuthWatchdog(time.Duration(15 * time.Minute))
     eutherpeVars.RestoreSession()
     webui.RunWebUI(eutherpeVars)
     eutherpeVars.SaveSession()

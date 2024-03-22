@@ -12,9 +12,11 @@ import (
     "syscall"
     "net/http"
     "net/url"
+    "sync"
 )
 
 type EutherpeHTTPHandler struct {
+    requestTurnstile sync.Mutex
     eutherpeVars *vars.EutherpeVars
 }
 
@@ -28,7 +30,7 @@ func RunWebUI(eutherpeVars *vars.EutherpeVars) error {
     }
     var err error = nil
     sigintWatchdog := make(chan os.Signal, 1)
-    go eutherpeHTTPd(EutherpeHTTPHandler { eutherpeVars }, sigintWatchdog, &err)
+    go eutherpeHTTPd(EutherpeHTTPHandler { sync.Mutex{}, eutherpeVars }, sigintWatchdog, &err)
     signal.Notify(sigintWatchdog, os.Interrupt)
     signal.Notify(sigintWatchdog, syscall.SIGINT|syscall.SIGTERM)
     <-sigintWatchdog
@@ -45,25 +47,50 @@ func eutherpeHTTPd(eutherpeHTTPHandler EutherpeHTTPHandler, sigintWatchdog chan 
 }
 
 func (ehh *EutherpeHTTPHandler) handler(w http.ResponseWriter, r *http.Request) {
+    ehh.requestTurnstile.Lock()
+    defer ehh.requestTurnstile.Unlock()
     var templatedOutput string
     switch r.URL.Path {
         case "/eutherpe":
                 var contentType = "text/html"
                 if r.Method == "GET" {
-                    templatedOutput = ehh.eutherpeVars.HTTPd.IndexHTML
+                    if ehh.eutherpeVars.HTTPd.Authenticated &&
+                      !ehh.eutherpeVars.HTTPd.AuthWatchdog.IsAuthenticated(r.RemoteAddr) {
+                        templatedOutput = ehh.eutherpeVars.HTTPd.LoginHTML
+                    } else {
+                        templatedOutput = ehh.eutherpeVars.HTTPd.IndexHTML
+                    }
                     if len(ehh.eutherpeVars.CurrentConfig) == 0 {
                         ehh.eutherpeVars.CurrentConfig = vars.EutherpeWebUIConfigSheetDefault
                     }
                 } else if r.Method == "POST" {
                     r.ParseForm()
-                    actionHandler := actions.GetEutherpeActionHandler(&r.Form)
-                    templatedOutput = ehh.processAction(actionHandler, &r.Form)
+                    if ehh.eutherpeVars.HTTPd.Authenticated &&
+                       !ehh.eutherpeVars.HTTPd.AuthWatchdog.IsAuthenticated(r.RemoteAddr) {
+                        templatedOutput = ehh.eutherpeVars.HTTPd.LoginHTML
+                    } else {
+                        eutherpeVars.HTTPd.AuthWatchdog.RefreshAuthWindow(r.RemoteAddr)
+                        actionHandler := actions.GetEutherpeActionHandler(&r.Form)
+                        templatedOutput = ehh.processAction(actionHandler, &r.Form)
+                    }
                     contentType = actions.GetContentTypeByActionId(&r.Form)
                 } else {
                     templatedOutput = ehh.eutherpeVars.HTTPd.ErrorHTML
                     ehh.eutherpeVars.LastError = fmt.Errorf("501 Not Implemented")
                 }
                 w.Header().Set("content-type", contentType)
+            break
+        case "/eutherpe-auth":
+            if r.Method == "POST" {
+                r.ParseForm()
+                r.Form.Add(vars.EutherpePostFieldRemoteAddr, r.RemoteAddr)
+                templatedOutput = ehh.processAction(actions.Authenticate, &r.Form)
+                r.URL.Path = "/eutherpe"
+            } else {
+                templatedOutput = ehh.eutherpeVars.HTTPd.ErrorHTML
+                ehh.eutherpeVars.LastError = fmt.Errorf("501 Not Implemented")
+            }
+            w.Header().Set("content-type", "text/html")
             break
         default:
             templatedOutput = ehh.processGET(&w, r)

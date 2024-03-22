@@ -510,6 +510,11 @@ function setVolume() {
                                      "volume-level" : document.getElementById("volumeLevel").value }, "post", true);
 }
 
+function authenticate() {
+    doEutherpeRequest("/eutherpe-auth", { "action" : "authenticate",
+                                          "password" : document.getElementById("userPassword").value }, "post", true);
+}
+
 function doEutherpeRequest(vdoc, userData, method, noWaitBanner = false) {
     var form = document.createElement("form");
     form.method = method;

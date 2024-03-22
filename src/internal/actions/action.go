@@ -101,7 +101,8 @@ func CurrentConfigByActionId(userData *url.Values) string {
              vars.EutherpeMusicSetVolumeId,
              vars.EutherpePlaylistReproduceId,
              vars.EutherpePlaylistReproduceSelectedOnesId,
-             vars.EutherpeCollectionPlayByGivenTagsId:
+             vars.EutherpeCollectionPlayByGivenTagsId,
+             vars.EutherpeAuthenticateId:
             return vars.EutherpeWebUIConfigSheetMusic
 
         case vars.EutherpeCollectionAddSelectionToNextId,
@@ -173,7 +174,8 @@ func GetContentTypeByActionId(userData *url.Values) string {
              vars.EutherpeBluetoothUnpairId,
              vars.EutherpeBluetoothTrustId,
              vars.EutherpeBluetoothUntrustId,
-             vars.EutherpeGetCommonTagsId:
+             vars.EutherpeGetCommonTagsId,
+             vars.EutherpeAuthenticateId:
             return "text/html"
     }
     return "application/json"
@@ -219,8 +221,13 @@ func GetVDocByActionId(userData *url.Values, eutherpeVars *vars.EutherpeVars) st
              vars.EutherpeGetCommonTagsId:
             return eutherpeVars.HTTPd.IndexHTML
 
-        //case vars.EutherpeGetCommonTagsId:
-        //    return vars.EutherpeTemplateNeedleCommonTags
+        case vars.EutherpeAuthenticateId:
+            if eutherpeVars.LastError == nil {
+                return "<html><script>window.location=\"{{.URL-SCHEMA}}://{{.EUTHERPE-ADDR}}/eutherpe\"</script></html>"
+            } else {
+                return eutherpeVars.HTTPd.LoginHTML
+            }
+            break
 
         case vars.EutherpePlayerStatusId:
             return vars.EutherpeTemplateNeedlePlayerStatus

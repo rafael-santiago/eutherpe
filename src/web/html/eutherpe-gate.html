@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="{{.URL-SCHEMA}}://{{.EUTHERPE-ADDR}}/css/eutherpe.css">
+<script type="text/javascript" src="{{.URL-SCHEMA}}://{{.EUTHERPE-ADDR}}/js/eutherpe.js"></script>
+<title>[Eutherpe]</title>
+</head>
+<body>
+    <div class="login-div">
+        <div class="title-banner">
+            <center>{{.EUTHERPE}}</center>
+        </div>
+        <hr>
+        <b>&#x1F511;&nbsp;Enter your passphrase to continue&nbsp;&#x1F680;</b><br><br>
+        <input class="text" type="password" id="userPassword" size=10 onkeypress="clearLoginErrorDiv();" autofocus>
+        <input class="eutherpeBUTTON" type="button" value="Go!" onclick="authenticate();">
+        <hr>
+        <div class="login-error-div" id="LoginErrorDiv">
+        </div>
+        <input type="hidden" id="lastError" value="{{.LAST-ERROR}}">
+    </div>
+</body>
+
+<script language="javascript">
+    lastError = document.getElementById("lastError").value;
+    if (lastError.length > 0) {
+        LoginErrorDiv = document.getElementById("LoginErrorDiv");
+        LoginErrorDiv.innerHTML = "&#x1F989 " + lastError + " &#x1F9A7";
+    }
+    function clearLoginErrorDiv() {
+        document.getElementById("LoginErrorDiv").innerHTML = "";
+    }
+    document.getElementById("userPassword").onkeyup = function(e) {
+        if (e.which == 13) {
+            authenticate();
+        }
+    };
+</script>
+
+</html>
