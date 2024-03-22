@@ -69,7 +69,7 @@ func (ehh *EutherpeHTTPHandler) handler(w http.ResponseWriter, r *http.Request) 
                        !ehh.eutherpeVars.HTTPd.AuthWatchdog.IsAuthenticated(r.RemoteAddr) {
                         templatedOutput = ehh.eutherpeVars.HTTPd.LoginHTML
                     } else {
-                        eutherpeVars.HTTPd.AuthWatchdog.RefreshAuthWindow(r.RemoteAddr)
+                        ehh.eutherpeVars.HTTPd.AuthWatchdog.RefreshAuthWindow(r.RemoteAddr)
                         actionHandler := actions.GetEutherpeActionHandler(&r.Form)
                         templatedOutput = ehh.processAction(actionHandler, &r.Form)
                     }

@@ -15,16 +15,16 @@ func TestRemoveSongsFromPlaylist(t *testing.T) {
     eutherpeVars.Collection["Motorhead"] = make(map[string][]mplayer.SongInfo)
     eutherpeVars.Collection["The Cramps"] = make(map[string][]mplayer.SongInfo)
     eutherpeVars.Collection["Queens Of The Stone Age"]["Queens Of The Stone Age"] = []mplayer.SongInfo {
-        mplayer.SongInfo { "regular-john.mp3", "Regular John", "Queens Of The Stone Age", "Queens Of The Stone Age", "1", "1998", "", "Stoner Rock", },
+        mplayer.SongInfo { "/regular-john.mp3", "Regular John", "Queens Of The Stone Age", "Queens Of The Stone Age", "1", "1998", "", "Stoner Rock", },
     }
     eutherpeVars.Collection["Motorhead"]["Bomber"] = []mplayer.SongInfo {
-        mplayer.SongInfo { "dead_men_tell_no_tales.mp3", "Dead Men Tell No Tales", "Motorhead", "Bomber", "1", "1979", "", "Speed Metal", },
+        mplayer.SongInfo { "/dead_men_tell_no_tales.mp3", "Dead Men Tell No Tales", "Motorhead", "Bomber", "1", "1979", "", "Speed Metal", },
     }
     eutherpeVars.Collection["Motorhead"]["Overkill"] = []mplayer.SongInfo {
-        mplayer.SongInfo { "stay-clean.mp3", "Stay Clean", "Motorhead", "Overkill", "2", "1979", "", "Speed Metal", },
+        mplayer.SongInfo { "/stay-clean.mp3", "Stay Clean", "Motorhead", "Overkill", "2", "1979", "", "Speed Metal", },
     }
     eutherpeVars.Collection["The Cramps"]["Songs The Lord Taught Us"] = []mplayer.SongInfo {
-        mplayer.SongInfo { "fever.mp3", "Fever", "The Cramps", "Songs The Lord Taught Us", "13", "1980", "", "Psychobilly", },
+        mplayer.SongInfo { "/fever.mp3", "Fever", "The Cramps", "Songs The Lord Taught Us", "13", "1980", "", "Psychobilly", },
     }
     eutherpeVars.Playlists = make([]dj.Playlist, 0)
     eutherpeVars.Playlists = append(eutherpeVars.Playlists, dj.Playlist { Name: "speed-metal-e-psychobilly-do-bom" })
@@ -49,13 +49,13 @@ func TestRemoveSongsFromPlaylist(t *testing.T) {
         t.Errorf("RemoveSongsFromPlaylist() did return an unexpected error.\n")
     }
     userData.Del(vars.EutherpePostFieldSelection)
-    userData.Add(vars.EutherpePostFieldSelection, "[ \"speed-metal-e-psychobilly-do-bom:Queens Of The Stone Age/QUeens Of The Stone Age/Regular John:regular-john.mp3\", \"speed-metal-e-psychobilly-do-bom:Motorhead/Bomber:dead_men_tell_no_tales.mp3\" ]")
+    userData.Add(vars.EutherpePostFieldSelection, "[ \"speed-metal-e-psychobilly-do-bom:QUeens Of The Stone Age/Queens Of The Stone Age/Regular John:/regular-john.mp3\", \"speed-metal-e-psychobilly-do-bom:Motorhead/Bomber:/dead_men_tell_no_tales.mp3\" ]")
     err = RemoveSongsFromPlaylist(eutherpeVars, userData)
-    if eutherpeVars.Playlists[0].GetSongIndexByFilePath("stay-clean.mp3") != 0 ||
-       eutherpeVars.Playlists[0].GetSongIndexByFilePath("dead_men_tell_no_tales.mp3") != -1 ||
-       eutherpeVars.Playlists[0].GetSongIndexByFilePath("fever.mp3") != 1 ||
-       eutherpeVars.Playlists[0].GetSongIndexByFilePath("regular-john.mp3") != -1 ||
-       eutherpeVars.Playlists[1].GetSongIndexByFilePath("regular-john.mp3") != 0 {
+    if eutherpeVars.Playlists[0].GetSongIndexByFilePath("/stay-clean.mp3") != 0 ||
+       eutherpeVars.Playlists[0].GetSongIndexByFilePath("/dead_men_tell_no_tales.mp3") != -1 ||
+       eutherpeVars.Playlists[0].GetSongIndexByFilePath("/fever.mp3") != 1 ||
+       eutherpeVars.Playlists[0].GetSongIndexByFilePath("/regular-john.mp3") != -1 ||
+       eutherpeVars.Playlists[1].GetSongIndexByFilePath("/regular-john.mp3") != 0 {
         t.Errorf("RemoveSongsFromPlaylist() seems not to be manipulating the playlist as expected : '%v', '%v'\n", eutherpeVars.Playlists[0],
                                                                                                                    eutherpeVars.Playlists[1])
     }

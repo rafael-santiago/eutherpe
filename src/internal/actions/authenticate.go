@@ -21,7 +21,7 @@ func Authenticate(eutherpeVars *vars.EutherpeVars, userData *url.Values) error {
         return fmt.Errorf("Malformed authenticate request.")
     }
     if !auth.Validate(password[0], eutherpeVars.HTTPd.HashKey) {
-        return fmt.Errorf("Wrong passpharse!")
+        return fmt.Errorf("Wrong passphrase!")
     }
     eutherpeVars.HTTPd.AuthWatchdog.RefreshAuthWindow(remoteAddr[0])
     return nil

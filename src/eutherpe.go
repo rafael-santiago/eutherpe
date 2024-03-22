@@ -57,8 +57,10 @@ func main() {
     eutherpeVars.HTTPd.Authenticated = true
     eutherpeVars.HTTPd.HashKey = auth.HashKey("123mudar*")
     eutherpeVars.HTTPd.AuthWatchdog = auth.NewAuthWatchdog(time.Duration(15 * time.Minute))
+    eutherpeVars.HTTPd.AuthWatchdog.On()
     eutherpeVars.RestoreSession()
     webui.RunWebUI(eutherpeVars)
+    eutherpeVars.HTTPd.AuthWatchdog.Off()
     eutherpeVars.SaveSession()
 }
 
