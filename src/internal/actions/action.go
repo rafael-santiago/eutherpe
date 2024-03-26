@@ -81,6 +81,10 @@ func GetEutherpeActionHandler(userData *url.Values) EutherpeActionFunc {
             return TrustBluetoothDevice
         case vars.EutherpeBluetoothUntrustId:
             return UntrustBluetoothDevice
+        case vars.EutherpeSettingsFlickAuthModeId:
+            return FlickAuthMode
+        case vars.EutherpeSettingsChangePassphraseId:
+            return ChangePassphrase
     }
     return nil
 }
@@ -133,6 +137,10 @@ func CurrentConfigByActionId(userData *url.Values) string {
              vars.EutherpeBluetoothTrustId,
              vars.EutherpeBluetoothUntrustId:
             return vars.EutherpeWebUIConfigSheetBluetooth
+
+        case vars.EutherpeSettingsFlickAuthModeId,
+             vars.EutherpeSettingsChangePassphraseId:
+            return vars.EutherpeWebUIConfigSheetSettings
     }
     return vars.EutherpeWebUIConfigSheetDefault
 }
@@ -175,7 +183,9 @@ func GetContentTypeByActionId(userData *url.Values) string {
              vars.EutherpeBluetoothTrustId,
              vars.EutherpeBluetoothUntrustId,
              vars.EutherpeGetCommonTagsId,
-             vars.EutherpeAuthenticateId:
+             vars.EutherpeAuthenticateId,
+             vars.EutherpeSettingsFlickAuthModeId,
+             vars.EutherpeSettingsChangePassphraseId:
             return "text/html"
     }
     return "application/json"
@@ -218,7 +228,9 @@ func GetVDocByActionId(userData *url.Values, eutherpeVars *vars.EutherpeVars) st
              vars.EutherpeBluetoothUnpairId,
              vars.EutherpeBluetoothTrustId,
              vars.EutherpeBluetoothUntrustId,
-             vars.EutherpeGetCommonTagsId:
+             vars.EutherpeGetCommonTagsId,
+             vars.EutherpeSettingsFlickAuthModeId,
+             vars.EutherpeSettingsChangePassphraseId:
             return eutherpeVars.HTTPd.IndexHTML
 
         case vars.EutherpeAuthenticateId:

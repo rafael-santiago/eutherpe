@@ -14,6 +14,7 @@
         <button class="configtab" id="PlaylistsButton" onclick="openConfig('Playlists')"><script>setButtonLabel("&#x1F352;", "Playlists");</script></button>
         <button class="configtab" id="StorageButton" onclick="openConfig('Storage')"><script>setButtonLabel("&#x1f4be;", "Storage");</script></button>
         <button class="configtab" id="BluetoothButton" onclick="openConfig('Bluetooth')"><script>setButtonLabel("&#128264;", "Bluetooth");</script></button>
+        <button class="configtab" id="SettingsButton" onclick="openConfig('Settings')"><script>setButtonLabel("&#x1F528;", "Settings");</script></button>
     </div>
     <div id="Loading" class="configcontent" style="text-align: center; padding: 10%;">
         <h2 class="info-banner">&#x1F9A5 Wait... &#x23F3;</h2>
@@ -157,6 +158,35 @@
             <input class="eutherpeBUTTON" type="button" value="Pair..." onclick="pairDevice();"/>
             <input class="eutherpeBUTTON" type="button" value="Unpair..." onclick="unpairDevice();"/>
         </center>
+    </div>
+    <div id="Settings" class="configcontent">
+        <h3>&#x1F528; Settings</h3>
+        <hr>
+        <div style="text-align: center; padding: 10%;">
+            {{.AUTHENTICATION-MODE-SWITCH}}
+            <input class="eutherpeBUTTON" type="button" value="Change passphrase..." onclick="showChangePassphrase();"/>
+            <input class="eutherpeBUTTON" type="button" value="Wi-Fi credentials..." onclick="showWiFiCredentials();"/>
+        </div>
+    </div>
+    <div id="ChangePassphrase" class="configcontent" style="text-align: center; padding: 10%;">
+        <b>Current passphrase</b><br>
+        <input type="password" id="currPassphrase" size="60%"><br>
+        <b>New passphrase</b><br>
+        <input type="password" id="newPassphrase" size="60%"><br>
+        <b>New passphrase confirmation</b><br>
+        <input type="password" id="newPassphraseConfirmation" size="60%">
+        <hr>
+        <input class="eutherpeBUTTON" type="button" value="Change" onclick="changePassphrase();"/>
+        <input class="eutherpeBUTTON" type="button" value="Back" onclick="closeChangePassphrase();"/>
+    </div>
+    <div id="WiFiCredentials" class="configcontent" style="text-align: center; padding: 10%;">
+        <b>SSID</b><br>
+        <input type="text" id="wifiSSID" size="60%"><br>
+        <b>Password</b><br>
+        <input type="password" id="wifiPassword" size="60%"><br>
+        <hr>
+        <input class="eutherpeBUTTON" type="button" value="Save" onclick="saveWiFiCredentials();"/>
+        <input class="eutherpeBUTTON" type="button" value="Back" onclick="closeWiFiCredentials();"/>
     </div>
     <input type="hidden" id="lastSelection" name="lastSelection" value="{{.LAST-SELECTION}}"/>
     <input type="hidden" id="lastError" name="lastError" value="{{.LAST-ERROR}}"/>

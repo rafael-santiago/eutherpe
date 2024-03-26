@@ -30,7 +30,7 @@
     border: 1px solid #ccc;
     background-color: #f1f1f1;
     width: 25%;
-    max-height: 71.8%;
+    max-height: 80.8%;
     box-shadow: 5px 5px 0 #ddd;
 }
 .config button {
@@ -115,6 +115,7 @@ img {
 .eutherpeBUTTON:active {
     border: inset;
     box-shadow: 0 0px white;
+    font-size: 50%;
     transform: translanteY(4px);
     cursor: grab;
     background-color: orange;

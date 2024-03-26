@@ -324,6 +324,11 @@ const EutherpeBluetoothUnpairId = "bluetooth-unpair"
 const EutherpeBluetoothTrustId = "bluetooth-trust"
 const EutherpeBluetoothUntrustId = "bluetooth-untrust"
 
+// INFO(Rafael): Actions from "Settings" sheet.
+
+const EutherpeSettingsFlickAuthModeId = "settings-flickauthmode"
+const EutherpeSettingsChangePassphraseId = "settings-changepassphrase"
+
 const EutherpePlayerStatusId = "player-status"
 const EutherpeGetCommonTagsId = "get-commontags"
 
@@ -339,6 +344,7 @@ const EutherpePostFieldTags = "tags"
 const EutherpePostFieldAmount = "amount"
 const EutherpePostFieldRemoteAddr = "remote-addr"
 const EutherpePostFieldPassword = "password"
+const EutherpePostFieldNewPassword = "new-password"
 
 // INFO(Rafael): Template markers id.
 
@@ -364,12 +370,14 @@ const EutherpeTemplateNeedlePlayerStatus = "{{.PLAYER-STATUS}}"
 const EutherpeTemplateNeedleVolumeLevel = "{{.VOLUME-LEVEL}}"
 const EutherpeTemplateNeedleCommonTags = "{{.COMMON-TAGS}}"
 const EutherpeTemplateNeedleLastSelection = "{{.LAST-SELECTION}}"
+const EutherpeTemplateNeedleAuthenticationModeSwitch = "{{.AUTHENTICATION-MODE-SWITCH}}"
 
 const EutherpeWebUIConfigSheetMusic = "Music"
 const EutherpeWebUIConfigSheetCollection = "Collection"
 const EutherpeWebUIConfigSheetPlaylists = "Playlists"
 const EutherpeWebUIConfigSheetStorage = "Storage"
 const EutherpeWebUIConfigSheetBluetooth = "Bluetooth"
+const EutherpeWebUIConfigSheetSettings = "Settings"
 const EutherpeWebUIConfigSheetDefault = EutherpeWebUIConfigSheetMusic
 
 const EutherpeConfHome = "/etc/eutherpe"

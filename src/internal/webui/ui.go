@@ -81,7 +81,9 @@ func (ehh *EutherpeHTTPHandler) handler(w http.ResponseWriter, r *http.Request) 
                 w.Header().Set("content-type", contentType)
             break
         case "/eutherpe-auth":
-            if r.Method == "POST" {
+            if r.Method == "GET" {
+                templatedOutput = ehh.eutherpeVars.HTTPd.LoginHTML
+            } else if r.Method == "POST" {
                 r.ParseForm()
                 r.Form.Add(vars.EutherpePostFieldRemoteAddr, r.RemoteAddr)
                 templatedOutput = ehh.processAction(actions.Authenticate, &r.Form)

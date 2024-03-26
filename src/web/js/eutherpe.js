@@ -31,6 +31,25 @@ function showAddTags() {
     openConfig("AddTags");
 }
 
+function showChangePassphrase() {
+    openConfig("ChangePassphrase");
+}
+
+function closeChangePassphrase() {
+    document.getElementById("currPassphrase").value = "";
+    document.getElementById("newPassphrase").value = "";
+    document.getElementById("newPassphraseConfirmation").value = "";
+    openConfig("Settings");
+}
+
+function showWiFiCredentials() {
+    openConfig("WiFiCredentials");
+}
+
+function closeWiFiCredentials() {
+    openConfig("Settings");
+}
+
 function delTagsFromSelection() {
     unselectedOnes = getUnselectedElements("Tag");
     var tagsToDelete = "";
@@ -513,6 +532,24 @@ function setVolume() {
 function authenticate() {
     doEutherpeRequest("/eutherpe-auth", { "action" : "authenticate",
                                           "password" : document.getElementById("userPassword").value }, "post", true);
+}
+
+function flickAuthenticationModeSwitch() {
+    doEutherpeRequest("/eutherpe", { "action" : "settings-flickauthmode" }, "post");
+}
+
+function changePassphrase() {
+    currPassphrase = document.getElementById("currPassphrase").value;
+    newPassphrase = document.getElementById("newPassphrase").value;
+    newPassphraseConfirmation = document.getElementById("newPassphraseConfirmation").value;
+    if (newPassphrase != newPassphraseConfirmation) {
+        tip("Passphrases don't match", function() { openConfig("ChangePassphrase"); });
+    } else {
+        doEutherpeRequest("/eutherpe", { "action" : "settings-changepassphrase",
+                                         "password" : currPassphrase,
+                                         "new-password" : newPassphrase }, "post");
+        closeChangePassword();
+    }
 }
 
 function doEutherpeRequest(vdoc, userData, method, noWaitBanner = false) {
