@@ -54,8 +54,6 @@ func main() {
     eutherpeVars.HTTPd.ErrorHTML = string(data)
     data, _ = os.ReadFile("web/html/eutherpe-gate.html")
     eutherpeVars.HTTPd.LoginHTML = string(data)
-    eutherpeVars.HTTPd.Authenticated = true
-    eutherpeVars.HTTPd.HashKey = auth.HashKey("123mudar*")
     eutherpeVars.HTTPd.AuthWatchdog = auth.NewAuthWatchdog(time.Duration(15 * time.Minute))
     eutherpeVars.HTTPd.AuthWatchdog.On()
     eutherpeVars.RestoreSession()

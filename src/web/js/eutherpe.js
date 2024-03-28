@@ -33,6 +33,7 @@ function showAddTags() {
 
 function showChangePassphrase() {
     openConfig("ChangePassphrase");
+    document.getElementById("currPassphrase").focus();
 }
 
 function closeChangePassphrase() {

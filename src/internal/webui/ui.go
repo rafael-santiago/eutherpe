@@ -81,7 +81,10 @@ func (ehh *EutherpeHTTPHandler) handler(w http.ResponseWriter, r *http.Request) 
                 w.Header().Set("content-type", contentType)
             break
         case "/eutherpe-auth":
-            if r.Method == "GET" {
+            if !ehh.eutherpeVars.HTTPd.Authenticated {
+                templatedOutput = ehh.eutherpeVars.HTTPd.ErrorHTML
+                ehh.eutherpeVars.LastError = fmt.Errorf("303 See Other")
+            } else if r.Method == "GET" {
                 templatedOutput = ehh.eutherpeVars.HTTPd.LoginHTML
             } else if r.Method == "POST" {
                 r.ParseForm()

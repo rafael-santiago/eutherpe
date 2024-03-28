@@ -18,6 +18,9 @@ func ChangePassphrase(eutherpeVars *vars.EutherpeVars, userData *url.Values) err
     if !has {
         return fmt.Errorf("Malformed settings-changepassphrase request.")
     }
+    if len(newPassword[0]) == 0 {
+        return fmt.Errorf("Passphrase cannot be null.")
+    }
     if !auth.Validate(password[0], eutherpeVars.HTTPd.HashKey) {
         return fmt.Errorf("Wrong passphrase!")
     }

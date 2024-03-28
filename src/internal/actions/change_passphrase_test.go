@@ -24,6 +24,14 @@ func TestChangePassphrase(t *testing.T) {
     } else if err.Error() != "Malformed settings-changepassphrase request." {
         t.Errorf("ChangePassphrase() has failed with unexpected error : '%s'\n", err.Error())
     }
+    userData.Add(vars.EutherpePostFieldNewPassword, "")
+    err = ChangePassphrase(eutherpeVars, userData)
+    if err == nil {
+        t.Errorf("ChangePassphrase() has succeeded when it should fail.\n")
+    } else if err.Error() != "Passphrase cannot be null." {
+        t.Errorf("ChangePassphrase() has failed with unexpected error : '%s'\n", err.Error())
+    }
+    userData.Del(vars.EutherpePostFieldNewPassword)
     userData.Add(vars.EutherpePostFieldNewPassword, "123mudou")
     err = ChangePassphrase(eutherpeVars, userData)
     if err == nil {

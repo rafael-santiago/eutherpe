@@ -69,6 +69,8 @@ type eutherpeVarsCacheCtx struct {
     BlueDevId string
     MusicDevId string
     UpNextCurrentOffset int
+    Authenticated bool
+    HashKey string
 }
 
 func (e *EutherpeVars) Lock() {
@@ -87,7 +89,9 @@ func (e *EutherpeVars) toJSON() string {
                                          e.Player.RepeatAll,
                                          e.CachedDevices.BlueDevId,
                                          e.CachedDevices.MusicDevId,
-                                         e.Player.UpNextCurrentOffset, }
+                                         e.Player.UpNextCurrentOffset,
+                                         e.HTTPd.Authenticated,
+                                         e.HTTPd.HashKey, }
     if e.Player.Shuffle {
         cachedData.UpNext = e.Player.UpNextBkp
     }
@@ -130,6 +134,11 @@ func (e *EutherpeVars) fromJSON(filePath string) error {
     e.Player.UpNextCurrentOffset = cachedData.UpNextCurrentOffset
     e.CachedDevices.BlueDevId = cachedData.BlueDevId
     e.CachedDevices.MusicDevId = cachedData.MusicDevId
+    e.HTTPd.Authenticated = cachedData.Authenticated
+    e.HTTPd.HashKey = cachedData.HashKey
+    if len(e.HTTPd.HashKey) == 0 {
+        e.HTTPd.HashKey = auth.HashKey("music")
+    }
     return nil
 }
 

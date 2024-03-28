@@ -32,7 +32,7 @@ func hashKey(password, salt string) string {
     if err != nil {
         return ""
     }
-    return string(hashData)
+    return strings.Replace(string(hashData), "\n", "", -1)
 }
 
 func getSalt() string {
