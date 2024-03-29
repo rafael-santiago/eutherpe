@@ -23,10 +23,11 @@ func main() {
                 fmt.Println("  ", s.Title, s.TrackNumber)
             }
         }
-    }
-    //song, _ := mplayer.GetSongInfo("IDv1.mp3")
+    }*/
+    //song, _ := mplayer.GetSongInfo("i-hope.mp3")
     //fmt.Println(song.Title, song.Artist, song.Album, song.TrackNumber)
-    os.Exit(1)*/
+    //fmt.Printf("%d %d %d %d %d %d %d %d\n", song.AlbumCover[0], song.AlbumCover[1], song.AlbumCover[2], song.AlbumCover[3], song.AlbumCover[4], song.AlbumCover[5], song.AlbumCover[6], song.AlbumCover[7])
+    //os.Exit(1)
     fmt.Printf("info: Initializing bluetooth subsystem... wait...\n")
     err := bluebraces.Wear()
     if err != nil {

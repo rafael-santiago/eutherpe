@@ -134,11 +134,34 @@ func GetSongInfo(filePath string, coversCacheRootPath ...string) (SongInfo, erro
         }
         if field != nil {
             needle := string(hdrData[h:])
-            needleSize := (int(needle[4]) << 24) |
-                          (int(needle[5]) << 16) |
-                          (int(needle[6]) <<  8) |
-                          int(needle[7]) - 1
+            // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            // WARN(Rafael): Some MP3 that I messed with was ID3v2.4.0 (id3V == 4) BUT           !!
+            //               the APIC field was being recorded as ID3v2.3.0 (id3V should be 3!). !!
+            //               The most dumb folks in the UNIVERSE had designed MP3 ID3, what      !!
+            //               a mess!! How people can be so DUMB and UNFIT, Gosh!!!!!!!           !!
+            //               What a damn HELL! Go learn how to think before writing code and     !!
+            //               most critical: before creating standards! If you are unfit on       !!
+            //               thinking and/or designing, just follow, do not try to lead          !!
+            //               anyone or anything, please. It will be the greateast contribution   !!
+            //               you could do for the whole f_cking World! More than a lousy shitty  !!
+            //               standard, that endlessly haunt folks by propagating your dumbness   !!
+            //               and lousy naive decisions everywhere, really! Thank U and farewell! !!
+            // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            var needleSize int
+            if id3V == 4 {
+                needleSize = (int(needle[4]) << 21) |
+                             (int(needle[5]) << 14) |
+                             (int(needle[6]) <<  7) |
+                             int(needle[7])
+            } else {
+                needleSize = (int(needle[4]) << 24) |
+                             (int(needle[5]) << 16) |
+                             (int(needle[6]) <<  8) |
+                             int(needle[7])
+            }
+            needleSize -= 1
             if needleSize > len(needle) {
+                // INFO(Rafael): Ahhh this is a mess, cross your fingers for it at least reproducing!
                 continue
             }
             h += needleSize
@@ -158,13 +181,25 @@ func GetSongInfo(filePath string, coversCacheRootPath ...string) (SongInfo, erro
                 s.TrackNumber = subReg.ReplaceAllString(s.TrackNumber, "")
             } else if field == &s.AlbumCover && len(s.AlbumCover) > 0 {
                 a := 0
-                for skp := 0; skp < 2; skp++ {
+                mimeType := string(s.AlbumCover[0:20])
+                isJPEG := strings.HasPrefix(mimeType, "image/jpeg")
+                isPNG := !isJPEG && strings.HasPrefix(mimeType, "image/png")
+                for ; isPNG && a < len(s.AlbumCover) && s.AlbumCover[a] != 0x89; a++ {
+                }
+                for skp := 0; isJPEG && skp < 2; skp++ {
                     for ; a < len(s.AlbumCover); a++ {
-                        if (s.AlbumCover[a] == 0x00) {
+                        if s.AlbumCover[a] == 0x00 {
                             break
                         }
                     }
                     a++
+                }
+                if isJPEG && s.AlbumCover[0] != 0xFF && s.AlbumCover[1] != 0xD8 {
+                    for ; a < len(s.AlbumCover); a++ {
+                        if s.AlbumCover[a] == 0xFF {
+                            break
+                        }
+                    }
                 }
                 if a > len(s.AlbumCover) {
                     s.AlbumCover = ""
