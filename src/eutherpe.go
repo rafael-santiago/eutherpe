@@ -24,7 +24,7 @@ func main() {
             }
         }
     }*/
-    //song, _ := mplayer.GetSongInfo("i-hope.mp3")
+    //song, _ := mplayer.GetSongInfo("telegram-sam.m4a")
     //fmt.Println(song.Title, song.Artist, song.Album, song.TrackNumber)
     //fmt.Printf("%d %d %d %d %d %d %d %d\n", song.AlbumCover[0], song.AlbumCover[1], song.AlbumCover[2], song.AlbumCover[3], song.AlbumCover[4], song.AlbumCover[5], song.AlbumCover[6], song.AlbumCover[7])
     //os.Exit(1)

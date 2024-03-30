@@ -29,7 +29,7 @@ func ScanSongs(basePath string, coversCacheRootPath ...string) ([]SongInfo, erro
     songs := make([]SongInfo, 0)
     for _, file := range files {
         fileName := file.Name()
-        if path.Ext(fileName) == ".mp3" || path.Ext(fileName) == ".mp4" {
+        if path.Ext(fileName) == ".mp3" || path.Ext(fileName) == ".m4a" {
             songInfo, err := GetSongInfo(path.Join(basePath, fileName), coversCacheRootPath...)
             if err != nil {
                 continue
@@ -64,8 +64,17 @@ func GetSongInfo(filePath string, coversCacheRootPath ...string) (SongInfo, erro
         return SongInfo{}, err
     }
     defer file.Close()
-    id3Hdr := make([]byte, 6)
+    id3Hdr := make([]byte, 12)
     n, err := file.Read(id3Hdr)
+    if n < 12 {
+        err = fmt.Errorf("No enough bytes.")
+    }
+    if err != nil {
+        return  SongInfo{}, err
+    }
+    if string(id3Hdr[4:]) == "ftypM4A " {
+        return getSongInfoFromM4A(filePath)
+    }
     if id3Hdr[0] == 0xFF && id3Hdr[1] == 0xFB {
         return getSongInfoFromIDv1(filePath)
     }
@@ -75,6 +84,10 @@ func GetSongInfo(filePath string, coversCacheRootPath ...string) (SongInfo, erro
     id3V := id3Hdr[3]
     if id3V != 3 && id3V != 4 {
         return SongInfo{}, fmt.Errorf("Unsupported ID3 header.")
+    }
+    _, err = file.Seek(6, 0)
+    if err != nil {
+        return SongInfo{}, err
     }
     hdrLen := make([]byte, 4)
     n, err = file.Read(hdrLen)
@@ -228,6 +241,7 @@ func GetSongInfo(filePath string, coversCacheRootPath ...string) (SongInfo, erro
     if len(s.TrackNumber) == 0 {
         s.TrackNumber = getTrackNumberFromFileName(filePath)
     }
+    normalizeSongInfo(&s)
     return s, nil
 }
 
@@ -261,12 +275,100 @@ func getSongInfoFromIDv1(filePath string) (SongInfo, error) {
     copy(IDv1MetaData.Album, idv1Data[63:])
     IDv1MetaData.Year = make([]byte, 4)
     copy(IDv1MetaData.Year, idv1Data[93:])
-    return SongInfo{ Title: getStringFromNullTerminatedString(IDv1MetaData.Title),
-                     Album: getStringFromNullTerminatedString(IDv1MetaData.Album),
-                     Artist: getStringFromNullTerminatedString(IDv1MetaData.Artist),
-                     Year: getStringFromNullTerminatedString(IDv1MetaData.Year),
-                     FilePath: filePath,
-                     TrackNumber: getTrackNumberFromFileName(filePath), }, nil
+    songInfo := SongInfo{ Title: getStringFromNullTerminatedString(IDv1MetaData.Title),
+                          Album: getStringFromNullTerminatedString(IDv1MetaData.Album),
+                          Artist: getStringFromNullTerminatedString(IDv1MetaData.Artist),
+                          Year: getStringFromNullTerminatedString(IDv1MetaData.Year),
+                          FilePath: filePath,
+                          TrackNumber: getTrackNumberFromFileName(filePath), }
+    normalizeSongInfo(&songInfo)
+    return songInfo, nil
+}
+
+func getSongInfoFromM4A(filePath string) (SongInfo, error) {
+    data, err := os.ReadFile(filePath)
+    if err != nil {
+        return SongInfo{}, err
+    }
+    songInfo := SongInfo{}
+    type ParserProgram struct {
+        Tag string
+        Data *string
+    }
+    songInfo.FilePath = filePath
+    parserProgram := []ParserProgram {
+        { "nam", &songInfo.Title },
+        { "ART", &songInfo.Artist },
+        { "alb", &songInfo.Album },
+        { "trkn", &songInfo.TrackNumber },
+        { "day", &songInfo.Year },
+        { "covr", &songInfo.AlbumCover },
+    }
+    fileBuf := string(data)
+    for _, step := range parserProgram {
+        pos := strings.Index(fileBuf, step.Tag)
+        if pos == -1 {
+            continue
+        }
+        subBuf := fileBuf[pos:]
+        dataBuf := subBuf[len(step.Tag):]
+        dataSize := ((int(dataBuf[0]) << 24) |
+                     (int(dataBuf[1]) << 16) |
+                     (int(dataBuf[2]) <<  8) |
+                     int(dataBuf[3]))
+        if dataSize > len(dataBuf) {
+            continue
+        }
+        infoBuf := dataBuf[4:dataSize]
+        if !strings.HasPrefix(infoBuf, "data") {
+            continue
+        }
+        dataSize = len(infoBuf)
+        var d int
+        if step.Tag != "trkn" && step.Tag != "covr" {
+            d = dataSize - 1
+            for ; d >= 0 && infoBuf[d] != 0x00; d-- {
+            }
+            if d < 0 || (d + 1) >= dataSize {
+                continue
+            }
+            *step.Data = infoBuf[d+1:]
+        } else if step.Tag == "trkn" {
+            infoBuf = infoBuf[4:]
+            for d = 0 ; d < dataSize && infoBuf[d] == 0; d++ {
+            }
+            *step.Data = fmt.Sprintf("%d", infoBuf[d])
+        } else if step.Tag == "covr" {
+            infoBuf = infoBuf[4:]
+            pngPos := strings.Index(infoBuf, "PNG")
+            if pngPos == -1 {
+                continue
+            }
+            *step.Data = infoBuf[pngPos - 1:]
+        }
+    }
+    if len(songInfo.Artist) == 0 {
+        songInfo.Artist = "[Unknown Artist]"
+    }
+    if len(songInfo.Album) == 0 {
+        songInfo.Album = "[Unknown Album]"
+    }
+    if len(songInfo.Title) == 0 {
+        songInfo.Title = path.Base(filePath)
+    }
+    if len(songInfo.TrackNumber) == 0 {
+        songInfo.TrackNumber = getTrackNumberFromFileName(filePath)
+    }
+    normalizeSongInfo(&songInfo)
+    return songInfo, nil
+}
+
+func normalizeSongInfo(songInfo *SongInfo) {
+    songInfo.Artist = strings.Replace(songInfo.Artist, "/", "-", -1)
+    songInfo.Album = strings.Replace(songInfo.Album, "/", "-", -1)
+    songInfo.Artist = strings.ToLower(songInfo.Artist)
+    songInfo.Album = strings.ToLower(songInfo.Album)
+    songInfo.Title = strings.ToLower(songInfo.Title)
 }
 
 func getTrackNumberFromFileName(filePath string) string {
