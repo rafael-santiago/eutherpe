@@ -29,7 +29,7 @@ func ScanSongs(basePath string, coversCacheRootPath ...string) ([]SongInfo, erro
     songs := make([]SongInfo, 0)
     for _, file := range files {
         fileName := file.Name()
-        if path.Ext(fileName) == ".mp3" || path.Ext(fileName) == ".m4a" {
+        if path.Ext(fileName) == ".mp3" || path.Ext(fileName) == ".m4a" || path.Ext(fileName) == ".mp4" {
             songInfo, err := GetSongInfo(path.Join(basePath, fileName), coversCacheRootPath...)
             if err != nil {
                 continue
@@ -72,7 +72,8 @@ func GetSongInfo(filePath string, coversCacheRootPath ...string) (SongInfo, erro
     if err != nil {
         return  SongInfo{}, err
     }
-    if string(id3Hdr[4:]) == "ftypM4A " {
+    if string(id3Hdr[4:]) == "ftypM4A " ||
+       string(id3Hdr[4:]) == "ftypisom" {
         return getSongInfoFromM4A(filePath)
     }
     if id3Hdr[0] == 0xFF && id3Hdr[1] == 0xFB {
@@ -297,9 +298,9 @@ func getSongInfoFromM4A(filePath string) (SongInfo, error) {
     }
     songInfo.FilePath = filePath
     parserProgram := []ParserProgram {
-        { "nam", &songInfo.Title },
-        { "ART", &songInfo.Artist },
-        { "alb", &songInfo.Album },
+        { "\xA9nam", &songInfo.Title },
+        { "\xA9ART", &songInfo.Artist },
+        { "\xA9alb", &songInfo.Album },
         { "trkn", &songInfo.TrackNumber },
         { "day", &songInfo.Year },
         { "covr", &songInfo.AlbumCover },
