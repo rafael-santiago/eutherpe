@@ -86,7 +86,9 @@
 .NowPlaying {
     font-family: "Sabo-Regular";
     font-size: 100%;
+    color: orange;
     text-align: center;
+    text-shadow: 5px 5px 0 #ddd;
 }
 .AlbumCover {
     text-align: center;
@@ -97,28 +99,35 @@ img {
 }
 .eutherpeBUTTON {
     padding: .5% 3%;
-    font-size: 70%;
+    //font-size: 70%;
     font-family: "Sabo-Filled";
     text-align: center;
     cursor: pointer;
     outline: none;
     color: black;
     background-color: transparent;
-    border: 1px solid;
-    border-radius: 50%;
+    border: none;
+    //border: 1px solid;
+    //border-radius: 50%;
     max-height: 20%;
-    box-shadow: 5px 5px 0 #ddd;
+    //box-shadow: 5px 5px 0 #ddd;
+    text-shadow: 5px 5px 0 #ddd;
 }
 .eutherpeBUTTON:hover {
-    background-color: rgb(201, 184, 246);
+    font-family: "Sabo-Regular";
+    text-shadow: 5px 5px 0 orange;
+    //background-color: rgb(201, 184, 246);
 }
 .eutherpeBUTTON:active {
-    border: inset;
+    font-family: "Sabo-Filled";
+    //border: inset;
     box-shadow: 0 0px white;
-    font-size: 50%;
+    //font-size: 50%;
     transform: translanteY(4px);
-    cursor: grab;
-    background-color: orange;
+    //cursor: grab;
+    //background-color: orange;
+    color: orange;
+    text-shadow: none;
 }
 .eutherpeRANGE {
     cursor: pointer;
@@ -129,6 +138,26 @@ ul, #eutherpeUL {
 #eutherpeUL {
     margin: 0;
     padding: 0;
+}
+a:link {
+    color: black;
+    text-decoration: none;
+    text-shadow: 5px 5px 0 #ddd;
+}
+a:visited {
+    color: black;
+    text-decoration: none;
+    text-shadow: 5px 5px 0 #ddd;
+}
+a:hover {
+    font-family: "Sabo-Regular";
+    text-decoration: none;
+    text-shadow: 5px 5px 0 #ddd;
+}
+a:active {
+    color: orange;
+    text-decoration: none;
+    text-shadow: 5px 5px 0 #ddd;
 }
 .caret:hover {
     text-decoration: underline rgb(201, 184, 246) 2px;
@@ -200,6 +229,10 @@ input[type="number"] {
     font-size: 100%;
     outline: none;
     text-align: right;
+}
+input[type="checkbox"] {
+    cursor: pointer;
+    box-shadow: 5px 5px 0 #ddd;
 }
 .hugescrollbox {
     background-color: white;

@@ -11,6 +11,7 @@ import (
     "internal/vars"
     "internal/webui"
     "os"
+    _ "os/exec"
 )
 
 func main() {
@@ -27,6 +28,11 @@ func main() {
     //song, _ := mplayer.GetSongInfo("carry.mp4")
     //fmt.Println(song.Title, song.Artist, song.Album, song.TrackNumber)
     //fmt.Printf("%d %d %d %d %d %d %d %d\n", song.AlbumCover[0], song.AlbumCover[1], song.AlbumCover[2], song.AlbumCover[3], song.AlbumCover[4], song.AlbumCover[5], song.AlbumCover[6], song.AlbumCover[7])
+    //os.Exit(1)
+    //cmd := exec.Command("openssl",
+    //                    "req", "-new", "-newkey", "rsa:2048", "-days", "3650", "-nodes", "-x509", "-keyout", "test.priv", "-out", "test.cer", "-subj", "/CN=127.0.0.1")
+    //err1 := cmd.Run()
+    //fmt.Println(err1.Error())
     //os.Exit(1)
     fmt.Printf("info: Initializing bluetooth subsystem... wait...\n")
     err := bluebraces.Wear()
@@ -49,6 +55,7 @@ func main() {
     eutherpeVars.HTTPd.PubFiles = append(eutherpeVars.HTTPd.PubFiles, "/css/eutherpe.css")
     eutherpeVars.HTTPd.PubFiles = append(eutherpeVars.HTTPd.PubFiles, "/fonts/Sabo-Filled.otf")
     eutherpeVars.HTTPd.PubFiles = append(eutherpeVars.HTTPd.PubFiles, "/fonts/Sabo-Regular.otf")
+    eutherpeVars.HTTPd.PubFiles = append(eutherpeVars.HTTPd.PubFiles, "/cert/eutherpe.cer")
     data, _ := os.ReadFile("web/html/eutherpe.html")
     eutherpeVars.HTTPd.IndexHTML = string(data)
     data, _ = os.ReadFile("web/html/error.html")

@@ -16,5 +16,6 @@ func GetMIMEType(filePath string) string {
 func supportedMIMETypes() map[string]string {
     return map[string]string { ".html": "text/html",
                                ".css": "text/css",
-                               ".js": "text/javascript" }
+                               ".js": "text/javascript",
+                               ".cer": "application/pkix-cert", }
 }

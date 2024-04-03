@@ -21,6 +21,7 @@ type EutherpeVars struct {
     ConfHome string
     HTTPd struct {
         Authenticated bool
+        TLS bool
         AuthWatchdog *auth.AuthWatchdog
         HashKey string
         URLSchema string
@@ -71,6 +72,7 @@ type eutherpeVarsCacheCtx struct {
     UpNextCurrentOffset int
     Authenticated bool
     HashKey string
+    TLS bool
 }
 
 func (e *EutherpeVars) Lock() {
@@ -91,7 +93,8 @@ func (e *EutherpeVars) toJSON() string {
                                          e.CachedDevices.MusicDevId,
                                          e.Player.UpNextCurrentOffset,
                                          e.HTTPd.Authenticated,
-                                         e.HTTPd.HashKey, }
+                                         e.HTTPd.HashKey,
+                                         e.HTTPd.TLS, }
     if e.Player.Shuffle {
         cachedData.UpNext = e.Player.UpNextBkp
     }
@@ -139,6 +142,7 @@ func (e *EutherpeVars) fromJSON(filePath string) error {
     if len(e.HTTPd.HashKey) == 0 {
         e.HTTPd.HashKey = auth.HashKey("music")
     }
+    e.HTTPd.TLS = cachedData.TLS
     return nil
 }
 
@@ -337,6 +341,8 @@ const EutherpeBluetoothUntrustId = "bluetooth-untrust"
 
 const EutherpeSettingsFlickAuthModeId = "settings-flickauthmode"
 const EutherpeSettingsChangePassphraseId = "settings-changepassphrase"
+const EutherpeSettingsFlickHTTPSModeId = "settings-flickhttpsmode"
+const EutherpeSettingsGenerateCertificateId = "settings-generatecertificate"
 
 const EutherpePlayerStatusId = "player-status"
 const EutherpeGetCommonTagsId = "get-commontags"
@@ -380,6 +386,7 @@ const EutherpeTemplateNeedleVolumeLevel = "{{.VOLUME-LEVEL}}"
 const EutherpeTemplateNeedleCommonTags = "{{.COMMON-TAGS}}"
 const EutherpeTemplateNeedleLastSelection = "{{.LAST-SELECTION}}"
 const EutherpeTemplateNeedleAuthenticationModeSwitch = "{{.AUTHENTICATION-MODE-SWITCH}}"
+const EutherpeTemplateNeedleHTTPSModeSwitch = "{{.HTTPS-MODE-SWITCH}}"
 const EutherpeTemplateNeedleUpNextCount = "{{.UP-NEXT-COUNT}}"
 const EutherpeTemplateNeedleFoundStorageDevicesCount = "{{.FOUND-STORAGE-DEVICES-COUNT}}"
 const EutherpeTemplateNeedleFoundBluetoothDevicesCount = "{{.FOUND-BLUETOOTH-DEVICES-COUNT}}"

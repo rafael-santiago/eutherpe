@@ -539,6 +539,14 @@ function flickAuthenticationModeSwitch() {
     doEutherpeRequest("/eutherpe", { "action" : "settings-flickauthmode" }, "post");
 }
 
+function flickHTTPSModeSwitch() {
+    doEutherpeRequest("/eutherpe", { "action" : "settings-flickhttpsmode" }, "post");
+}
+
+function generateCertificate() {
+    doEutherpeRequest("/eutherpe", { "action" : "settings-generatecertificate" }, "post");
+}
+
 function changePassphrase() {
     currPassphrase = document.getElementById("currPassphrase").value;
     newPassphrase = document.getElementById("newPassphrase").value;

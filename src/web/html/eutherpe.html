@@ -169,6 +169,10 @@
             {{.AUTHENTICATION-MODE-SWITCH}}
             <input class="eutherpeBUTTON" type="button" value="Change passphrase..." onclick="showChangePassphrase();"/>
             <input class="eutherpeBUTTON" type="button" value="Wi-Fi credentials..." onclick="showWiFiCredentials();"/>
+            <hr>
+            {{.HTTPS-MODE-SWITCH}}
+            <input class="eutherpeBUTTON" type="button" value="Generate certificate" onclick="generateCertificate();"/>
+            <a href="{{.URL-SCHEMA}}://{{.EUTHERPE-ADDR}}/cert/eutherpe.cer">Download certificate</a>
         </div>
     </div>
     <div id="ChangePassphrase" class="configcontent" style="text-align: center; padding: 10%;">
