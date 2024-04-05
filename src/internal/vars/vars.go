@@ -143,6 +143,11 @@ func (e *EutherpeVars) fromJSON(filePath string) error {
         e.HTTPd.HashKey = auth.HashKey("music")
     }
     e.HTTPd.TLS = cachedData.TLS
+    if cachedData.TLS {
+        e.HTTPd.URLSchema = "https"
+    } else {
+        e.HTTPd.URLSchema = "http"
+    }
     return nil
 }
 

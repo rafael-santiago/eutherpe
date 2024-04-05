@@ -110,7 +110,7 @@ img {
     //border: 1px solid;
     //border-radius: 50%;
     max-height: 20%;
-    //box-shadow: 5px 5px 0 #ddd;
+    box-shadow: 5px 5px 0 #ddd;
     text-shadow: 5px 5px 0 #ddd;
 }
 .eutherpeBUTTON:hover {
@@ -121,13 +121,14 @@ img {
 .eutherpeBUTTON:active {
     font-family: "Sabo-Filled";
     //border: inset;
-    box-shadow: 0 0px white;
+    //box-shadow: 0 0px white;
     //font-size: 50%;
     transform: translanteY(4px);
     //cursor: grab;
     //background-color: orange;
     color: orange;
     text-shadow: none;
+    box-shadow: 1px 1px 0 orange;
 }
 .eutherpeRANGE {
     cursor: pointer;

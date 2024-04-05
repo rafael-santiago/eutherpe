@@ -28,8 +28,8 @@ func RunWebUI(eutherpeVars *vars.EutherpeVars) error {
         eutherpeVars.Player.Shuffle = false
         actions.MusicShuffle(eutherpeVars, nil)
     }
-    var err error = nil
     sigintWatchdog := make(chan os.Signal, 1)
+    var err error = nil
     go eutherpeHTTPd(EutherpeHTTPHandler { sync.Mutex{}, eutherpeVars }, sigintWatchdog, &err)
     signal.Notify(sigintWatchdog, os.Interrupt)
     signal.Notify(sigintWatchdog, syscall.SIGINT|syscall.SIGTERM)
@@ -39,8 +39,13 @@ func RunWebUI(eutherpeVars *vars.EutherpeVars) error {
 
 func eutherpeHTTPd(eutherpeHTTPHandler EutherpeHTTPHandler, sigintWatchdog chan os.Signal, err *error) {
     http.HandleFunc("/", eutherpeHTTPHandler.handler)
-    (*err) = http.ListenAndServe(eutherpeHTTPHandler.eutherpeVars.HTTPd.Addr, nil)
-    // TODO(Rafael): Setup TLS server possibility.
+    if !eutherpeHTTPHandler.eutherpeVars.HTTPd.TLS {
+        (*err) = http.ListenAndServe(eutherpeHTTPHandler.eutherpeVars.HTTPd.Addr, nil)
+    } else {
+        cerFilePath := path.Join(eutherpeHTTPHandler.eutherpeVars.HTTPd.PubRoot, "cert/eutherpe.cer")
+        privKeyFilePath := path.Join(eutherpeHTTPHandler.eutherpeVars.ConfHome, "eutherpe.priv")
+        (*err) = http.ListenAndServeTLS(eutherpeHTTPHandler.eutherpeVars.HTTPd.Addr, cerFilePath, privKeyFilePath, nil)
+    }
     if (*err) != nil {
         sigintWatchdog <- syscall.SIGINT
     }
