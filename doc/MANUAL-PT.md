@@ -12,7 +12,7 @@
 capaz de ouvir suas `MP3` sem necessidade de se logar em nenhum serviço de `stream` externo
 a sua rede local. Aqui é você quem `100%` manda.
 
-A ideia básica é você ter suas músicas gravadas em um `pendrive`, conectar esse `pendrive`
+A ideia básica é você ter suas músicas gravadas em um `pendrive`, plugar esse `pendrive`
 ao computador rodando `Eutherpe`, conectar `Eutherpe` a uma caixa de som ou `headphone`
 `Bluetooth` e pronto! Vai escutar sua música e acabou.
 
@@ -32,7 +32,7 @@ músicas. Você tem sua coleção de `MP3` quer ouvir suas músicas e pronto.
 As principais características de `Eutherpe` são:
 
 - Minimalismo na interface `Web`. Nada de `frameworks` faraônicos etc. `HTML`, `javascript`,
-  `Golang` no `backend` e acabou. Não troxe e nem quero trazer o `Desktop` para dentro de seu
+  `Golang` no `backend` e acabou. Não trouxe e nem quero trazer o `Desktop` para dentro de seu
   navegador `Web`.
 - Conexão à interface `web` pode ser autenticada por senha ou não. Tudo isso facilmente
   configurável via a própria interface `Web`.
@@ -41,10 +41,10 @@ As principais características de `Eutherpe` são:
 - Você consegue dar organização para sua coleção mesmo estando ela armazenada de forma
   desorganizada. Ao escanear o `pendrive` em busca de músicas, `Eutherpe` é capaz de ler
   as `metatags` das suas `MP3` e listá-las automagicamente organizadas por `Artista/Álbum` e
-  organizados ainda dos lançamentos mais recentes para o mais antigos.
+  organizados ainda dos lançamentos mais recentes para os mais antigos.
 - No `Eutherpe` você consegue criar `playlists`.
 - As `playlists` ficam associadas ao `pendrive`, se você puser outro no lugar elas sumirão,
-  mas se você voltar a conectar o `pendriver` associado a sua `playlist` elas reaparecerão.
+  mas se você voltar a conectar o `pendrive` associado a sua `playlist` elas reaparecerão.
 - Cada música pode ser marcada com `tags`.
 - `Tags` são basicamente palavras-chave: `80s`, `solos favoritos`, `stoner rock`, `mojo`,
   `blues`, `jazz`, `soul` etc.
