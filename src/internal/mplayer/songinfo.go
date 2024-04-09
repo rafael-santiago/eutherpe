@@ -73,7 +73,8 @@ func GetSongInfo(filePath string, coversCacheRootPath ...string) (SongInfo, erro
         return  SongInfo{}, err
     }
     if string(id3Hdr[4:]) == "ftypM4A " ||
-       string(id3Hdr[4:]) == "ftypisom" {
+       string(id3Hdr[4:]) == "ftypisom" ||
+       string(id3Hdr[4:]) == "ftypiso2" {
         return getSongInfoFromM4A(filePath)
     }
     if id3Hdr[0] == 0xFF && id3Hdr[1] == 0xFB {
