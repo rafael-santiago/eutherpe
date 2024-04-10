@@ -17,9 +17,9 @@ func TestGetSongInfo(t *testing.T) {
         { "test-data/dharma_for_one.id3",
           SongInfo {
             "test-data/dharma_for_one.id3",
-            "Dharma for One",
-            "Jethro Tull",
-            "This Was",
+            "dharma for one",
+            "jethro tull",
+            "this was",
             "6",
             "1968",
             "...",
@@ -29,9 +29,9 @@ func TestGetSongInfo(t *testing.T) {
         { "test-data/venus_in_force.id3",
           SongInfo {
             "test-data/venus_in_force.id3",
-            "Venus In Force",
-            "The Hellacopters",
-            "Peel Session Live At Maida Vale 04-09-2003",
+            "venus in force",
+            "the hellacopters",
+            "peel session live at maida vale 04-09-2003",
             "6",
             "2003",
             "",
@@ -41,9 +41,9 @@ func TestGetSongInfo(t *testing.T) {
         { "test-data/the_electric_index_eel.id3",
           SongInfo {
             "test-data/the_electric_index_eel.id3",
-            "The Electric Index Eel",
-            "Hellacopters",
-            "Grande Rock",
+            "the electric index eel",
+            "hellacopters",
+            "grande rock",
             "5",
             "1999",
             "",
@@ -53,9 +53,9 @@ func TestGetSongInfo(t *testing.T) {
         { "test-data/07_dont_stand_so_close_to_me.id3v1",
           SongInfo {
             "test-data/07_dont_stand_so_close_to_me.id3v1",
-            "Don't Stand So Close To Me",
-            "Police",
-            "Greatest Hits",
+            "don't stand so close to me",
+            "police",
+            "greatest hits",
             "07",
             "",
             "",
@@ -66,8 +66,8 @@ func TestGetSongInfo(t *testing.T) {
           SongInfo {
             "test-data/radar_on.id3v23",
             "radar on",
-            "Hoboken Division",
-            "Hoboken Division",
+            "hoboken division",
+            "hoboken division",
             "3",
             "",
             "",
@@ -77,9 +77,9 @@ func TestGetSongInfo(t *testing.T) {
         { "test-data/no_song_unheard.id3v24",
           SongInfo {
             "test-data/no_song_unheard.id3v24",
-            "No Song Unheard",
-            "The Hellacopters",
-            "High Visibility",
+            "no song unheard",
+            "the hellacopters",
+            "high visibility",
             "7",
             "",
             "",
@@ -89,13 +89,49 @@ func TestGetSongInfo(t *testing.T) {
         { "test-data/so_sorry.id3v24",
           SongInfo {
             "test-data/so_sorry.id3v24",
-            "So Sorry",
-            "Feist",
-            "The Reminder",
+            "so sorry",
+            "feist",
+            "the reminder",
             "1",
             "",
             "",
             "Indie; Acoustic; Indie Pop; Alternative; Guitar",
+          },
+        },
+        { "test-data/telegram_sam.m4a",
+          SongInfo {
+            "test-data/telegram_sam.m4a",
+            "telegram sam",
+            "t.rex",
+            "the slider",
+            "8",
+            "1972",
+            "",
+            "",
+          },
+        },
+        { "test-data/let_the_truth_be_known.m4a",
+          SongInfo {
+            "test-data/let_the_truth_be_known.m4a",
+            "let the truth be known",
+            "brant bjork",
+            "live at fabrique club sp-brazil [bootleg - 10-17-2019]",
+            "10",
+            "2019",
+            "",
+            "",
+          },
+        },
+        { "test-data/carry_me_home.mp4",
+          SongInfo {
+            "test-data/carry_me_home.mp4",
+            "carry me home",
+            "the hellacopters",
+            "south america tour 2020 a.k.a. covid-19 tour [03-14-2020 - carioca club-sao paulo-brazil - bootleg]",
+            "3",
+            "2020",
+            "",
+            "",
           },
         },
     }
@@ -160,7 +196,7 @@ func TestGetSongInfo(t *testing.T) {
 }
 
 func TestScanSongs(t *testing.T) {
-    songs, err := ScanSongs("test-data")
+    songs, err := ScanSongs("/tmp")
     if err != nil {
         t.Errorf("ScanSongs() has returned an error while it should not.\n")
     }
@@ -173,13 +209,13 @@ func TestScanSongs(t *testing.T) {
     }
     for _, f := range entries {
         if strings.HasSuffix(f.Name(), ".id3") {
-            destFilePath := path.Join("test-data", strings.Replace(f.Name(), ".id3", ".mp3", -1))
+            destFilePath := path.Join("/tmp", strings.Replace(f.Name(), ".id3", ".mp3", -1))
             data, _ := ioutil.ReadFile(path.Join("test-data", f.Name()))
             ioutil.WriteFile(destFilePath, data, 0644)
             defer os.Remove(destFilePath)
         }
     }
-    songs, err = ScanSongs("test-data")
+    songs, err = ScanSongs("/tmp")
     if err != nil {
         t.Errorf("ScanSongs() has returned an error while it should not.\n")
     }

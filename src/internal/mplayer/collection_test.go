@@ -9,7 +9,7 @@ import (
 )
 
 func TestLoadMusicCollection(t *testing.T) {
-    collection, err := LoadMusicCollection(".")
+    collection, err := LoadMusicCollection("/tmp")
     if err != nil {
         t.Errorf("LoadMusicCollection() has returned an error : '%s'\n", err.Error())
     }
@@ -22,13 +22,13 @@ func TestLoadMusicCollection(t *testing.T) {
     }
     for _, f := range entries {
         if strings.HasSuffix(f.Name(), ".id3") {
-            destFilePath := path.Join("test-data", strings.Replace(f.Name(), ".id3", ".mp3", -1))
+            destFilePath := path.Join("/tmp", strings.Replace(f.Name(), ".id3", ".mp3", -1))
             data, _ := ioutil.ReadFile(path.Join("test-data", f.Name()))
             ioutil.WriteFile(destFilePath, data, 0644)
             defer os.Remove(destFilePath)
         }
     }
-    collection, err = LoadMusicCollection(".")
+    collection, err = LoadMusicCollection("/tmp")
     if len(collection) != 3 {
         t.Errorf("LoadMusicCollection() has returned a wrong total of items.\n")
     }
