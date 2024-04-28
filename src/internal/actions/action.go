@@ -89,6 +89,10 @@ func GetEutherpeActionHandler(userData *url.Values) EutherpeActionFunc {
             return FlickHTTPSMode
         case vars.EutherpeSettingsGenerateCertificateId:
             return GenerateCertificate
+        case vars.EutherpeSettingsSetWLANCredentialsId:
+            return SetWLANCredentials
+        case vars.EutherpeSettingsSetHostNameId:
+            return SetHostName
     }
     return nil
 }
@@ -145,7 +149,9 @@ func CurrentConfigByActionId(userData *url.Values) string {
         case vars.EutherpeSettingsFlickAuthModeId,
              vars.EutherpeSettingsChangePassphraseId,
              vars.EutherpeSettingsFlickHTTPSModeId,
-             vars.EutherpeSettingsGenerateCertificateId:
+             vars.EutherpeSettingsGenerateCertificateId,
+             vars.EutherpeSettingsSetWLANCredentialsId,
+             vars.EutherpeSettingsSetHostNameId:
             return vars.EutherpeWebUIConfigSheetSettings
     }
     return vars.EutherpeWebUIConfigSheetDefault
@@ -193,7 +199,9 @@ func GetContentTypeByActionId(userData *url.Values) string {
              vars.EutherpeSettingsFlickAuthModeId,
              vars.EutherpeSettingsChangePassphraseId,
              vars.EutherpeSettingsFlickHTTPSModeId,
-             vars.EutherpeSettingsGenerateCertificateId:
+             vars.EutherpeSettingsGenerateCertificateId,
+             vars.EutherpeSettingsSetWLANCredentialsId,
+             vars.EutherpeSettingsSetHostNameId:
             return "text/html"
     }
     return "application/json"
@@ -240,7 +248,9 @@ func GetVDocByActionId(userData *url.Values, eutherpeVars *vars.EutherpeVars) st
              vars.EutherpeSettingsFlickAuthModeId,
              vars.EutherpeSettingsChangePassphraseId,
              vars.EutherpeSettingsFlickHTTPSModeId,
-             vars.EutherpeSettingsGenerateCertificateId:
+             vars.EutherpeSettingsGenerateCertificateId,
+             vars.EutherpeSettingsSetWLANCredentialsId,
+             vars.EutherpeSettingsSetHostNameId:
             return eutherpeVars.HTTPd.IndexHTML
 
         case vars.EutherpeAuthenticateId:

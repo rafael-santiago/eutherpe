@@ -40,11 +40,14 @@ func RunWebUI(eutherpeVars *vars.EutherpeVars) error {
 func eutherpeHTTPd(eutherpeHTTPHandler EutherpeHTTPHandler, sigintWatchdog chan os.Signal, err *error) {
     http.HandleFunc("/", eutherpeHTTPHandler.handler)
     if !eutherpeHTTPHandler.eutherpeVars.HTTPd.TLS {
-        (*err) = http.ListenAndServe(eutherpeHTTPHandler.eutherpeVars.HTTPd.Addr, nil)
+        (*err) = http.ListenAndServe(eutherpeHTTPHandler.eutherpeVars.HTTPd.Addr + ":" +
+                                     eutherpeHTTPHandler.eutherpeVars.HTTPd.Port, nil)
     } else {
         cerFilePath := path.Join(eutherpeHTTPHandler.eutherpeVars.HTTPd.PubRoot, "cert/eutherpe.cer")
         privKeyFilePath := path.Join(eutherpeHTTPHandler.eutherpeVars.ConfHome, "eutherpe.priv")
-        (*err) = http.ListenAndServeTLS(eutherpeHTTPHandler.eutherpeVars.HTTPd.Addr, cerFilePath, privKeyFilePath, nil)
+        (*err) = http.ListenAndServeTLS(eutherpeHTTPHandler.eutherpeVars.HTTPd.Addr + ":" +
+                                        eutherpeHTTPHandler.eutherpeVars.HTTPd.Port,
+                                        cerFilePath, privKeyFilePath, nil)
     }
     if (*err) != nil {
         sigintWatchdog <- syscall.SIGINT

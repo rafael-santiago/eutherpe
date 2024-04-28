@@ -20,3 +20,7 @@ require internal/webui v1.0.0
 replace internal/webui => ./internal/webui
 require internal/auth v1.0.0
 replace internal/auth => ./internal/auth
+require internal/wifi v1.0.0
+replace internal/wifi => ./internal/wifi
+require internal/mdns v1.0.0
+replace internal/mdns => ./internal/mdns

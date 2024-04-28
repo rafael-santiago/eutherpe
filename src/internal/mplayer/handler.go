@@ -21,12 +21,18 @@ func Stop(handle *exec.Cmd) error {
 }
 
 func SetVolume(percentage int, customPath ...string) {
-    var pactlPath string = "pactl"
+    /*var pactlPath string = "pactl"
     if len(customPath) > 0 {
         pactlPath = path.Join(customPath[0], pactlPath)
     }
     exec.Command(pactlPath, "--", "set-sink-volume", "0", "-100%").Run()
-    exec.Command(pactlPath, "--", "set-sink-volume", "0", "+" + strconv.Itoa(percentage) + "%").Run()
+    exec.Command(pactlPath, "--", "set-sink-volume", "0", "+" + strconv.Itoa(percentage) + "%").Run()*/
+    var amixerPath string = "amixer"
+    if len(customPath) > 0 {
+        amixerPath = path.Join(customPath[0], amixerPath)
+    }
+    exec.Command(amixerPath, "-q", "sset", "Master", "100%-").Run()
+    exec.Command(amixerPath, "-q", "sset", "Master", strconv.Itoa(percentage) + "%+").Run()
 }
 
 func GetVolumeLevel(customPath ...string) uint {

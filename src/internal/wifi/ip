@@ -1,0 +1,10 @@
+#!/bin/bash
+
+DATA="1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN mode DEFAULT group default qlen 1000\n
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00\n
+2: enp0s3: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP mode DEFAULT group default qlen 1000\n
+    link/ether 08:00:27:96:1a:99 brd ff:ff:ff:ff:ff:ff\n
+3: wlxf0a7314a4543: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN mode DEFAULT group default qlen 1000\n
+    link/ether f0:a7:31:4a:45:43 brd ff:ff:ff:ff:ff:ff\n"
+
+[[ -z $IP_MUST_FAIL ]] && (echo -e $DATA; exit 0) || exit 1

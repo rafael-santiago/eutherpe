@@ -6,6 +6,8 @@ import (
     "internal/bluebraces"
     "internal/storage"
     "internal/auth"
+    "internal/wifi"
+    "internal/mdns"
     "sync"
     "os/exec"
     "encoding/json"
@@ -14,10 +16,12 @@ import (
     "path"
     "fmt"
     "strings"
+    "net"
 )
 
 type EutherpeVars struct {
     APPName string
+    HostName string
     ConfHome string
     HTTPd struct {
         Authenticated bool
@@ -26,11 +30,16 @@ type EutherpeVars struct {
         HashKey string
         URLSchema string
         Addr string
+        Port string
         PubRoot string
         PubFiles []string
         IndexHTML string
         ErrorHTML string
         LoginHTML string
+    }
+    MDNS struct {
+        Hosts []mdns.MDNSHost
+        GoinHome chan bool
     }
     BluetoothDevices []bluebraces.BluetoothDevice
     StorageDevices []string
@@ -58,6 +67,12 @@ type EutherpeVars struct {
     CurrentConfig string
     LastCommonTags []string
     LastSelection string
+    WLAN struct {
+        ESSID string
+        Iface string
+        ConnSession *exec.Cmd
+        Addr string
+    }
     mtx sync.Mutex
 }
 
@@ -73,6 +88,8 @@ type eutherpeVarsCacheCtx struct {
     Authenticated bool
     HashKey string
     TLS bool
+    ESSID string
+    HostName string
 }
 
 func (e *EutherpeVars) Lock() {
@@ -94,7 +111,9 @@ func (e *EutherpeVars) toJSON() string {
                                          e.Player.UpNextCurrentOffset,
                                          e.HTTPd.Authenticated,
                                          e.HTTPd.HashKey,
-                                         e.HTTPd.TLS, }
+                                         e.HTTPd.TLS,
+                                         e.WLAN.ESSID,
+                                         e.HostName, }
     if e.Player.Shuffle {
         cachedData.UpNext = e.Player.UpNextBkp
     }
@@ -148,6 +167,8 @@ func (e *EutherpeVars) fromJSON(filePath string) error {
     } else {
         e.HTTPd.URLSchema = "http"
     }
+    e.WLAN.ESSID = cachedData.ESSID
+    e.HostName = cachedData.HostName
     return nil
 }
 
@@ -170,7 +191,6 @@ func (e *EutherpeVars) SaveSession() error {
     }
     return e.SaveTags()
 }
-
 
 func (e *EutherpeVars) RestoreSession() error {
     err := e.fromJSON(path.Join(e.ConfHome, EutherpePlayerCache))
@@ -290,6 +310,56 @@ func (e *EutherpeVars) GetCoversCacheRootPath() string {
     return path.Join(e.ConfHome, EutherpeCoversHome)
 }
 
+func (e *EutherpeVars) SetAddr() error {
+    ifaces, err := net.Interfaces()
+    if err != nil {
+        return err
+    }
+    for _, iface := range ifaces {
+        if (iface.Flags & net.FlagLoopback) == 0 {
+            addrs, err := iface.Addrs()
+            if err != nil {
+                continue
+            }
+            for _, addr := range addrs {
+                ip, _, err := net.ParseCIDR(addr.String())
+                if err == nil {
+                    e.HTTPd.Addr = ip.String()
+                    break
+                }
+            }
+            if len(e.HTTPd.Addr) > 0 {
+                break
+            }
+        }
+    }
+    if len(e.WLAN.ESSID) > 0 {
+        fmt.Printf("info: WLAN is configured, trying to acquire a WLAN connection... wait...\n")
+        wlanIfaces := wifi.GetIfaces()
+        if len(wlanIfaces) == 0 {
+            fmt.Printf("warn: No WLAN interface was found.\n")
+        } else {
+            wifi.SetIfaceUp(wlanIfaces[0])
+            e.WLAN.ConnSession, err = wifi.Start(wlanIfaces[0])
+            if err == nil {
+                e.WLAN.Iface = wlanIfaces[0]
+                ipAddr, _ := wifi.LeaseAddr(wlanIfaces[0])
+                if len(ipAddr) == 0 {
+                    wifi.Stop(e.WLAN.ConnSession)
+                    e.WLAN.ConnSession = nil
+                } else {
+                    e.HTTPd.Addr = ipAddr
+                    fmt.Printf("info: Eutherpe has ingressed to the WLAN %s.\n", e.WLAN.ESSID);
+                }
+            }
+        }
+    }
+    if len(e.HTTPd.Addr) == 0 {
+        return fmt.Errorf("Unable to set a valid IP")
+    }
+    return nil
+}
+
 const EutherpeActionId = "action"
 
 // INFO(Rafael): Actions from "Music" sheet.
@@ -348,6 +418,8 @@ const EutherpeSettingsFlickAuthModeId = "settings-flickauthmode"
 const EutherpeSettingsChangePassphraseId = "settings-changepassphrase"
 const EutherpeSettingsFlickHTTPSModeId = "settings-flickhttpsmode"
 const EutherpeSettingsGenerateCertificateId = "settings-generatecertificate"
+const EutherpeSettingsSetWLANCredentialsId = "settings-setwlancredentials"
+const EutherpeSettingsSetHostNameId = "settings-sethostname"
 
 const EutherpePlayerStatusId = "player-status"
 const EutherpeGetCommonTagsId = "get-commontags"
@@ -365,6 +437,8 @@ const EutherpePostFieldAmount = "amount"
 const EutherpePostFieldRemoteAddr = "remote-addr"
 const EutherpePostFieldPassword = "password"
 const EutherpePostFieldNewPassword = "new-password"
+const EutherpePostFieldESSID = "essid"
+const EutherpePostFieldHostName = "hostname"
 
 // INFO(Rafael): Template markers id.
 
@@ -395,6 +469,8 @@ const EutherpeTemplateNeedleHTTPSModeSwitch = "{{.HTTPS-MODE-SWITCH}}"
 const EutherpeTemplateNeedleUpNextCount = "{{.UP-NEXT-COUNT}}"
 const EutherpeTemplateNeedleFoundStorageDevicesCount = "{{.FOUND-STORAGE-DEVICES-COUNT}}"
 const EutherpeTemplateNeedleFoundBluetoothDevicesCount = "{{.FOUND-BLUETOOTH-DEVICES-COUNT}}"
+const EutherpeTemplateNeedleESSID = "{{.ESSID}}"
+const EutherpeTemplateNeedleHostName = "{{.HOSTNAME}}"
 
 const EutherpeWebUIConfigSheetMusic = "Music"
 const EutherpeWebUIConfigSheetCollection = "Collection"

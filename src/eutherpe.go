@@ -12,9 +12,26 @@ import (
     "internal/webui"
     "os"
     _ "os/exec"
+    "internal/wifi"
+    "net"
+    "internal/mdns"
+    "strings"
 )
 
 func main() {
+/*
+    ifaces, _ := net.Interfaces()
+    for _, iface := range ifaces {
+        if (iface.Flags & net.FlagLoopback) == 0 {
+            addrs, _ := iface.Addrs()
+            for _, addr := range addrs {
+                ip, _, _ := net.ParseCIDR(addr.String())
+                fmt.Println(ip)
+            }
+        }
+    }
+    os.Exit(1)
+*/
     /*collection, _ := mplayer.LoadMusicCollection("/media/rs/624B-F629/")
     for artist, albums := range collection {
         fmt.Println(artist)
@@ -49,7 +66,6 @@ func main() {
     eutherpeVars.Player.Stopped = true
     eutherpeVars.Player.VolumeLevel = mplayer.GetVolumeLevel()
     eutherpeVars.HTTPd.URLSchema = "http"
-    eutherpeVars.HTTPd.Addr = "192.168.0.133:8080"
     eutherpeVars.HTTPd.PubRoot = "/home/rs/src/eutherpe/src/web"
     eutherpeVars.HTTPd.PubFiles = append(eutherpeVars.HTTPd.PubFiles, "/js/eutherpe.js")
     eutherpeVars.HTTPd.PubFiles = append(eutherpeVars.HTTPd.PubFiles, "/css/eutherpe.css")
@@ -65,9 +81,30 @@ func main() {
     eutherpeVars.HTTPd.AuthWatchdog = auth.NewAuthWatchdog(time.Duration(15 * time.Minute))
     eutherpeVars.HTTPd.AuthWatchdog.On()
     eutherpeVars.RestoreSession()
+    eutherpeVars.SetAddr()
+    if eutherpeVars.WLAN.ConnSession != nil {
+        defer wifi.ReleaseAddr(eutherpeVars.WLAN.Iface)
+        defer wifi.Stop(eutherpeVars.WLAN.ConnSession)
+        defer wifi.SetIfaceDown(eutherpeVars.WLAN.Iface)
+    }
+    if len(eutherpeVars.HostName) > 0 {
+        eutherpeVars.MDNS.GoinHome = make(chan bool)
+        eutherpeVars.MDNS.Hosts = make([]mdns.MDNSHost, 0)
+        ipAddr := net.ParseIP(eutherpeVars.HTTPd.Addr)
+        if strings.Index(eutherpeVars.HTTPd.Addr, ".") > - 1 {
+            ipAddr = ipAddr[12:16]
+        }
+        eutherpeVars.MDNS.Hosts = append(eutherpeVars.MDNS.Hosts, mdns.MDNSHost { eutherpeVars.HostName, ipAddr, 300, })
+        go mdns.MDNSServerStart(eutherpeVars.MDNS.Hosts, eutherpeVars.MDNS.GoinHome)
+    }
+    eutherpeVars.HTTPd.Port = "8080"
+    fmt.Printf("info: Listen at %s:%s\n", eutherpeVars.HTTPd.Addr, eutherpeVars.HTTPd.Port)
     webui.RunWebUI(eutherpeVars)
     eutherpeVars.HTTPd.AuthWatchdog.Off()
     eutherpeVars.SaveSession()
+    if len(eutherpeVars.HostName) > 0 {
+        eutherpeVars.MDNS.GoinHome <- true
+    }
 }
 
 /*

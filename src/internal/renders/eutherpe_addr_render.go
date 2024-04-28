@@ -6,5 +6,12 @@ import (
 )
 
 func EutherpeAddrRender(templatedInput string, eutherpeVars *vars.EutherpeVars) string {
-    return strings.Replace(templatedInput, vars.EutherpeTemplateNeedleEutherpeAddr, eutherpeVars.HTTPd.Addr, -1)
+    var addr string
+    if len(eutherpeVars.HostName) == 0 {
+        addr = eutherpeVars.HTTPd.Addr
+    } else {
+        addr = eutherpeVars.HostName
+    }
+    addr += ":" + eutherpeVars.HTTPd.Port
+    return strings.Replace(templatedInput, vars.EutherpeTemplateNeedleEutherpeAddr, addr, -1)
 }

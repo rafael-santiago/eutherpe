@@ -166,6 +166,9 @@
         <h3>&#x1F528; Settings</h3>
         <hr>
         <div style="text-align: center; padding: 10%;">
+            <b>Define a host name to access your Eutherpe device</b>
+            <input type="text" id="hostName" size="34.5%" value="{{.HOSTNAME}}"><input class="eutherpeBUTTON" type="button" value="Set host name" onclick="setHostName();"/>
+            <hr>
             {{.AUTHENTICATION-MODE-SWITCH}}
             <input class="eutherpeBUTTON" type="button" value="Change passphrase..." onclick="showChangePassphrase();"/>
             <input class="eutherpeBUTTON" type="button" value="Wi-Fi credentials..." onclick="showWiFiCredentials();"/>
@@ -187,8 +190,8 @@
         <input class="eutherpeBUTTON" type="button" value="Back" onclick="closeChangePassphrase();"/>
     </div>
     <div id="WiFiCredentials" class="configcontent" style="text-align: center; padding: 10%;">
-        <b>SSID</b><br>
-        <input type="text" id="wifiSSID" size="60%"><br>
+        <b>ESSID</b><br>
+        <input type="text" id="wifiESSID" size="60%" value="{{.ESSID}}"><br>
         <b>Password</b><br>
         <input type="password" id="wifiPassword" size="60%"><br>
         <hr>

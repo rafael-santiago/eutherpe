@@ -561,6 +561,22 @@ function changePassphrase() {
     }
 }
 
+function saveWiFiCredentials() {
+    essid = document.getElementById("wifiESSID").value;
+    doEutherpeRequest("/eutherpe", { "action" : "settings-setwlancredentials",
+                                     "essid" : document.getElementById("wifiESSID").value,
+                                     "password" : document.getElementById("wifiPassword").value },
+                      "post");
+    document.getElementById("wifiPassword").value = "";
+}
+
+function setHostName() {
+    hostName = document.getElementById("hostName").value;
+    doEutherpeRequest("/eutherpe", { "action" : "settings-sethostname",
+                                     "hostname": hostName },
+                      "post");
+}
+
 function doEutherpeRequest(vdoc, userData, method, noWaitBanner = false) {
     var form = document.createElement("form");
     form.method = method;
