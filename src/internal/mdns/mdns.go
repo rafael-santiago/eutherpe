@@ -176,6 +176,10 @@ func parseMDNSPacket(wireBytes []byte) (MDNSPacket, error) {
         MDNSPkt.Questions[q].QClass = qclass
         w += 3
     }
+    // WARN(Rafael): This package only works as mDNS solver we do not give a shit
+    //               for answers. We answer. Anyway the idea follows commented but
+    //               you need to handle compression stuff "c0 blauZ....".
+    /*
     w += 1
     for a := uint16(0) ; w < wireBytesAmount && a < MDNSPkt.Ancount; a++ {
         wStart := w
@@ -205,6 +209,7 @@ func parseMDNSPacket(wireBytes []byte) (MDNSPacket, error) {
         MDNSPkt.Answers[a].RData = wireBytes[w:w + nextOff]
         w += nextOff
     }
+    */
     return MDNSPkt, nil
 }
 
@@ -212,21 +217,28 @@ func makeMDNSAnswer(MDNSPkt *MDNSPacket, ip []byte, TTL uint32) error {
     if MDNSPkt.Qdcount == 0 || len(MDNSPkt.Questions) == 0 {
         return fmt.Errorf("MDNS packet has no questions.")
     }
+    // INFO(Rafael): On Apple stuff, I observed that it includes
+    //               in one packet more than one question and
+    //               the requestor only accepts the response
+    //               when it has the same count of answers.
+    MDNSPkt.Ancount = MDNSPkt.Qdcount
     MDNSPkt.Qdcount = 0
-    MDNSPkt.Ancount = 1
     MDNSPkt.Flags = 0x8400
-    MDNSPkt.Answers = make([]MDNSResourceRecord, 1)
-    MDNSPkt.Answers[0].QName = MDNSPkt.Questions[0].QName
-    MDNSPkt.Questions = make([]MDNSQuestion, 0)
-    if len(ip) == 4 {
-        MDNSPkt.Answers[0].QType = MDNSQTypeA
-    } else {
-        MDNSPkt.Answers[0].QType = MDNSQTypeAAAA
+    MDNSPkt.Answers = make([]MDNSResourceRecord, MDNSPkt.Ancount)
+    for a := uint16(0); a < MDNSPkt.Ancount; a++ {
+        MDNSPkt.Answers[a].QName = MDNSPkt.Questions[0].QName
+        if len(ip) == 4 {
+            MDNSPkt.Answers[a].QType = MDNSQTypeA
+        } else {
+            MDNSPkt.Answers[a].QType = MDNSQTypeAAAA
+        }
+        // WARN(Rafael): Windows boxes accepts cache-flush flag, on apple stuff it rejects
+        MDNSPkt.Answers[a].QClass = /*0x80 |*/ MDNSQClassIN 
+        MDNSPkt.Answers[a].RDLength = uint16(len(ip))
+        MDNSPkt.Answers[a].RData = ip
+        MDNSPkt.Answers[a].TTL = TTL
     }
-    MDNSPkt.Answers[0].QClass = 0x80 | MDNSQClassIN
-    MDNSPkt.Answers[0].RDLength = uint16(len(ip))
-    MDNSPkt.Answers[0].RData = ip
-    MDNSPkt.Answers[0].TTL = TTL
+    MDNSPkt.Questions = make([]MDNSQuestion, 0)
     return nil
 }
 
@@ -276,6 +288,7 @@ func makeMDNSPacket(MDNSPkt MDNSPacket) []byte {
         datagram[d + 9] = byte(answer.RDLength & 0xFF)
         d += 10
         copy(datagram[d:], answer.RData)
+        d += int(answer.RDLength)
     }
     return datagram
 }

@@ -3,6 +3,7 @@ package auth
 import (
     "time"
     "sync"
+    "strings"
 )
 
 type AuthWatchdog struct {
@@ -28,7 +29,14 @@ func (aw *AuthWatchdog) RefreshAuthWindow(remoteAddr string) {
 func (aw *AuthWatchdog) IsAuthenticated(remoteAddr string) bool {
     aw.mtx.Lock()
     defer aw.mtx.Unlock()
-    _, has := aw.bestBefore[remoteAddr]
+    var addr string
+    p := strings.Index(remoteAddr, ":")
+    if p > -1 {
+        addr = remoteAddr[0:p]
+    } else {
+        addr = remoteAddr
+    }
+    _, has := aw.bestBefore[addr]
     return has
 }
 

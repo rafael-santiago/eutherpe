@@ -5,6 +5,7 @@ import (
     "internal/auth"
     "net/url"
     "fmt"
+    "strings"
 )
 
 func Authenticate(eutherpeVars *vars.EutherpeVars, userData *url.Values) error {
@@ -22,6 +23,10 @@ func Authenticate(eutherpeVars *vars.EutherpeVars, userData *url.Values) error {
     }
     if !auth.Validate(password[0], eutherpeVars.HTTPd.HashKey) {
         return fmt.Errorf("Wrong passphrase!")
+    }
+    p := strings.Index(remoteAddr[0], ":")
+    if p > -1 {
+        remoteAddr[0] = remoteAddr[0][0:p]
     }
     eutherpeVars.HTTPd.AuthWatchdog.RefreshAuthWindow(remoteAddr[0])
     return nil
