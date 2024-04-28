@@ -251,9 +251,14 @@ hr {
 @media only screen and (orientation: landscape) and (max-width: 926px) {
     .config {
         width: 20%;
+        max-height: 95%;
+    }
+    .config button {
+        font-size: 70%;
+        padding: 8% 5%;
     }
     .configcontent {
-        font-size: 90%;
+        font-size: 30%;
         left: 21%;
         width: 70%;
         height: 63%;
@@ -296,5 +301,11 @@ hr {
     .eutherpeBUTTON {
         font-size: 60%;
         max-height: 30%;
+    }
+    input[type="text"] {
+        font-size: 30%;
+    }
+    input[type="password"] {
+        font-size:30%;
     }
 }
