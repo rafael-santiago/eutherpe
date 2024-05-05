@@ -13,6 +13,7 @@ import (
     "net/http"
     "net/url"
     "sync"
+    "strings"
 )
 
 type EutherpeHTTPHandler struct {
@@ -58,6 +59,12 @@ func (ehh *EutherpeHTTPHandler) handler(w http.ResponseWriter, r *http.Request) 
     ehh.requestTurnstile.Lock()
     defer ehh.requestTurnstile.Unlock()
     var templatedOutput string
+    if len(ehh.eutherpeVars.HostName) > 0 &&
+       strings.HasPrefix(r.Host, ehh.eutherpeVars.HostName) {
+        ehh.eutherpeVars.HTTPd.RequestedByHostName = true
+    } else {
+        ehh.eutherpeVars.HTTPd.RequestedByHostName = false
+    }
     switch r.URL.Path {
         case "/eutherpe":
                 var contentType = "text/html"

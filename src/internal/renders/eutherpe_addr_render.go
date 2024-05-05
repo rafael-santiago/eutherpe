@@ -7,7 +7,8 @@ import (
 
 func EutherpeAddrRender(templatedInput string, eutherpeVars *vars.EutherpeVars) string {
     var addr string
-    if len(eutherpeVars.HostName) == 0 {
+    if !eutherpeVars.HTTPd.RequestedByHostName ||
+       len(eutherpeVars.HostName) == 0 {
         addr = eutherpeVars.HTTPd.Addr
     } else {
         addr = eutherpeVars.HostName

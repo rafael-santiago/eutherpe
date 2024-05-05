@@ -17,6 +17,7 @@ import (
     "fmt"
     "strings"
     "net"
+    "time"
 )
 
 type EutherpeVars struct {
@@ -36,6 +37,7 @@ type EutherpeVars struct {
         IndexHTML string
         ErrorHTML string
         LoginHTML string
+        RequestedByHostName bool
     }
     MDNS struct {
         Hosts []mdns.MDNSHost
@@ -358,6 +360,105 @@ func (e *EutherpeVars) SetAddr() error {
         return fmt.Errorf("Unable to set a valid IP")
     }
     return nil
+}
+
+func (e *EutherpeVars) getConfHome() string {
+    st, err := os.Stat("/etc/eutherpe")
+    if err == nil && st.IsDir() {
+        return "/etc/eutherpe"
+    }
+    cwd, err := os.Getwd()
+    if err != nil {
+        return ""
+    }
+    localEtcEutherpe := path.Join(cwd, "etc", "eutherpe")
+    st, err = os.Stat(localEtcEutherpe)
+    if err == nil && st.IsDir() {
+        return localEtcEutherpe
+    }
+    return ""
+}
+
+func (e *EutherpeVars) getPubRoot() string {
+    pubRootDirPath := path.Join(e.ConfHome, "web")
+    st, err := os.Stat(pubRootDirPath)
+    if err == nil && st.IsDir() {
+        return pubRootDirPath
+    }
+    pubRootDirPath, err = os.Getwd()
+    if err != nil {
+        return ""
+    }
+    pubRootDirPath = path.Join(pubRootDirPath, "web")
+    st, err = os.Stat(pubRootDirPath)
+    if err == nil && st.IsDir() {
+        return pubRootDirPath
+    }
+    return ""
+}
+
+func (e *EutherpeVars) setEutherpePubTrinket() []string {
+    pubFiles := make([]string, 0)
+    pubFiles = append(pubFiles, "/js/eutherpe.js")
+    pubFiles = append(pubFiles, "/css/eutherpe.css")
+    pubFiles = append(pubFiles, "/fonts/Sabo-Filled.otf")
+    pubFiles = append(pubFiles, "/fonts/Sabo-Regular.otf")
+    pubFiles = append(pubFiles, "/cert/eutherpe.cer")
+    return pubFiles
+}
+
+func (e *EutherpeVars) TuneUp() {
+    e.ConfHome = e.getConfHome()
+    if len(e.ConfHome) == 0 {
+        fmt.Fprintf(os.Stderr, "error: unable to found out Eutherpe's config folder.\n")
+        os.Exit(1)
+    }
+    e.Player.RepeatAll = false
+    e.Player.RepeatOne = false
+    e.Player.Stopped = true
+    e.Player.VolumeLevel = mplayer.GetVolumeLevel()
+    e.HTTPd.URLSchema = "http"
+    e.HTTPd.PubRoot = e.getPubRoot()
+    fmt.Println(e.HTTPd.PubRoot)
+    e.HTTPd.PubFiles = e.setEutherpePubTrinket()
+    data, err := os.ReadFile(path.Join(e.HTTPd.PubRoot, "html", "eutherpe.html"))
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "i/o error: '%s'\n", err.Error())
+        os.Exit(1)
+    }
+    e.HTTPd.IndexHTML = string(data)
+    data, err = os.ReadFile(path.Join(e.HTTPd.PubRoot, "html", "error.html"))
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "i/o error: '%s'\n", err.Error())
+        os.Exit(1)
+    }
+    e.HTTPd.ErrorHTML = string(data)
+    data, err = os.ReadFile(path.Join(e.HTTPd.PubRoot, "html", "eutherpe-gate.html"))
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "i/o error: '%s'\n", err.Error())
+        os.Exit(1)
+    }
+    e.HTTPd.LoginHTML = string(data)
+    e.HTTPd.AuthWatchdog = auth.NewAuthWatchdog(time.Duration(15 * time.Minute))
+    e.HTTPd.AuthWatchdog.On()
+    e.RestoreSession()
+    e.SetAddr()
+    if e.WLAN.ConnSession != nil {
+        defer wifi.ReleaseAddr(e.WLAN.Iface)
+        defer wifi.Stop(e.WLAN.ConnSession)
+        defer wifi.SetIfaceDown(e.WLAN.Iface)
+    }
+    if len(e.HostName) > 0 {
+        e.MDNS.GoinHome = make(chan bool)
+        e.MDNS.Hosts = make([]mdns.MDNSHost, 0)
+        ipAddr := net.ParseIP(e.HTTPd.Addr)
+        if strings.Index(e.HTTPd.Addr, ".") > - 1 {
+            ipAddr = ipAddr[12:16]
+        }
+        e.MDNS.Hosts = append(e.MDNS.Hosts, mdns.MDNSHost { e.HostName, ipAddr, 300, })
+        go mdns.MDNSServerStart(e.MDNS.Hosts, e.MDNS.GoinHome)
+    }
+    e.HTTPd.Port = "8080"
 }
 
 const EutherpeActionId = "action"
