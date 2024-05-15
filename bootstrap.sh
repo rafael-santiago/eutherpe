@@ -158,6 +158,22 @@ build_eutherpe() {
     echo $?
 }
 
+install_eutherpe() {
+    mkdir -p /etc/eutherpe >/dev/null 2>&1
+    if [[ ! -f /etc/eutherpe/player.cache ]] ; then
+        echo "{\"HostName\":\"eutherpe.local\"}" > /etc/eutherpe/player.cache
+        chmod 755 /etc/eutherpe/player.cache
+    fi
+    cp -rf src/web /etc/eutherpe/web >/dev/null 2>&1
+    chmod -R 755 /etc/eutherpe
+    cp src/eutherpe /usr/local/bin/ >/dev/null 2>&1
+    cp src/usr/sbin/* /usr/sbin >/dev/null 2>&1
+    chmod 777 /usr/sbin/eutherpe-usb-watchdog.sh
+    chmod 777 /usr/sbin/run-eutherpe.sh
+    cp src/etc/systemd/system/*.service /etc/systemd/system/ >/dev/null 2>&1
+    echo $?
+}
+
 `bootstrap_banner`
 
 answer="i"
@@ -241,7 +257,13 @@ if [[ `build_eutherpe` != 0 ]] ; then
 fi
 
 echo "=== bootstrap info: Done."
+echo "=== bootstrap info: Now installing Eutherpe..."
 
-# TODO(Rafael): Install.
+if [[ `install_eutherpe` != 0 ]] ; then
+    echo "error: Unable to install Eutherpe." >&2
+    exit 1
+fi
+
+echo "=== bootstrap info: Done."
 
 exit 0

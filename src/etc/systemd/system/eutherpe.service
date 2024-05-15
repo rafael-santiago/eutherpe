@@ -1,0 +1,13 @@
+[Unit]
+Description=Eutherpe an ethereal music player
+After=network.target
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=1
+ExecStart=/usr/sbin/run-eutherpe.sh
+
+[Install]
+WantedBy=multi-user.target
