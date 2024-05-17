@@ -8,6 +8,7 @@ Type=simple
 Restart=always
 RestartSec=1
 ExecStart=/usr/sbin/run-eutherpe.sh
+ExecStop=/usr/bin/bash -c "kill -SIGINT $(ps -ax | grep eutherpe | grep -v 'grep\|su' | awk '{ print $1 }')"
 
 [Install]
 WantedBy=multi-user.target
