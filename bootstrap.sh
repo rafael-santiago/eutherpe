@@ -171,6 +171,9 @@ install_eutherpe() {
     chmod 777 /usr/sbin/eutherpe-usb-watchdog.sh
     chmod 777 /usr/sbin/run-eutherpe.sh
     cp src/etc/systemd/system/*.service /etc/systemd/system/ >/dev/null 2>&1
+    systemctl start eutherpe-usb-watchdog eutherpe >/dev/null 2>&1
+    systemctl enable eutherpe-usb-watchdog >/dev/null 2>&1
+    systemctl enable eutherpe >/dev/null 2>&1
     echo $?
 }
 
