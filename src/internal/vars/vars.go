@@ -351,7 +351,7 @@ func (e *EutherpeVars) SetAddr() error {
                     e.WLAN.ConnSession = nil
                 } else {
                     e.HTTPd.Addr = ipAddr
-                    fmt.Printf("info: Eutherpe has ingressed to the WLAN %s.\n", e.WLAN.ESSID);
+                    fmt.Printf("info: Eutherpe has ingressed to the WLAN %s.\n", e.WLAN.ESSID)
                 }
             }
         }
@@ -419,7 +419,6 @@ func (e *EutherpeVars) TuneUp() {
     e.Player.VolumeLevel = mplayer.GetVolumeLevel()
     e.HTTPd.URLSchema = "http"
     e.HTTPd.PubRoot = e.getPubRoot()
-    fmt.Println(e.HTTPd.PubRoot)
     e.HTTPd.PubFiles = e.setEutherpePubTrinket()
     data, err := os.ReadFile(path.Join(e.HTTPd.PubRoot, "html", "eutherpe.html"))
     if err != nil {

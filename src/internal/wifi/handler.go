@@ -28,11 +28,11 @@ func GetIfaces(customPath ...string) []string {
 }
 
 func SetIfaceUp(ifaceName string, customPath ...string) error {
-    return exec.Command(path.Join(getToolPath(customPath...), "ip"), "link", "set", "dev", ifaceName, "up").Run()
+    return exec.Command("sudo", path.Join(getToolPath(customPath...), "ip"), "link", "set", "dev", ifaceName, "up").Run()
 }
 
 func SetIfaceDown(ifaceName string, customPath ...string) error {
-    return exec.Command(path.Join(getToolPath(customPath...), "ip"), "link", "set", "dev", ifaceName, "down").Run()
+    return exec.Command("sudo", path.Join(getToolPath(customPath...), "ip"), "link", "set", "dev", ifaceName, "down").Run()
 }
 
 func SetWPAPassphrase(ESSID, passphrase string, customPath ...string) error {
@@ -60,7 +60,7 @@ network={
 }
 
 func Start(ifaceName string, customPath ...string) (*exec.Cmd, error) {
-    procHandle := exec.Command(path.Join(getToolPath(customPath...), "wpa_supplicant"), "-c", "/etc/wpa_supplicant/wpa_supplicant.conf", "-i", ifaceName)
+    procHandle := exec.Command("sudo", path.Join(getToolPath(customPath...), "wpa_supplicant"), "-c", "/etc/wpa_supplicant/wpa_supplicant.conf", "-i", ifaceName)
     return procHandle, procHandle.Start()
 }
 
@@ -72,7 +72,7 @@ func Stop(handle *exec.Cmd) error {
 }
 
 func LeaseAddr(ifaceName string, customPath... string) (string, error) {
-    out, err := exec.Command(path.Join(getToolPath(customPath...), "dhclient"), "-v", ifaceName).CombinedOutput()
+    out, err := exec.Command("sudo", path.Join(getToolPath(customPath...), "dhclient"), "-v", ifaceName).CombinedOutput()
     if err != nil {
         return "", err
     }

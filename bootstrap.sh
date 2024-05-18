@@ -51,8 +51,16 @@ EOF
     echo $?
 }
 
-add_current_user_to_sudo_group() {
+add_eutherpe_user_to_sudo_group() {
     usermod -aG sudo $EUTHERPE_USER
+    echo $?
+}
+
+grant_eutherpe_user_nopasswd_privileges() {
+    echo -e "$(cat /etc/sudoers | grep -v ^eutherpe)" > /etc/sudoers
+    echo "$EUTHERPE_USER        ALL=(ALL:ALL)   NOPASSWD: $(which ip)">>/etc/sudoers &&\
+    echo "$EUTHERPE_USER        ALL=(ALL:ALL)   NOPASSWD: $(which wpa_supplicant)">>/etc/sudoers &&\
+    echo "$EUTHERPE_USER        ALL=(ALL:ALL)   NOPASSWD: $(which dhclient)">>/etc/sudoers
     echo $?
 }
 
@@ -204,8 +212,15 @@ fi
 
 echo "=== bootstrap info: Adding $EUTHERPE_USER to sudo group..."
 
-if [[ `add_current_user_to_sudo_group` != 0 ]] ; then
-    echo "error: Unable to add user $USER to sudo group." >&2
+if [[ `add_eutherpe_user_to_sudo_group` != 0 ]] ; then
+    echo "error: Unable to add user $EUTHERPE_USER to sudo group." >&2
+    exit 1
+fi
+
+echo "=== bootstrap info: granting $EUTHERPE_USER some nopasswd privileges..."
+
+if [[ `grant_eutherpe_user_nopasswd_privileges` != 0 ]] ; then
+    echo "error: Unable to grant nopasswd privileges to $EUTHERPE_USER." >&2
     exit 1
 fi
 
