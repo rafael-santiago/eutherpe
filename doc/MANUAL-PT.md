@@ -4,7 +4,16 @@
 
 - [O que é?](#o-que-é)
 - [Características](#características)
-- Conhecendo as telas
+- [Bootstrapping](#bootstrapping)
+    - [Ãh?!](#ãhm)
+    - [...e não é que jukebox etérea brotou na minha LAN!](#e-não-é-que-uma-jukebox-etérea-brotou-na-minha-lan)
+- [Conhecendo as telas](#conhecendo-as-telas)
+    - [A tela Music](#a-tela-music)
+    - [A tela Collection](#a-tela-collection)
+    - [A tela Playlists](#a-tela-playlists)
+    - [A tela Storage](#a-tela-storage)
+    - [A tela Bluetooth](#a-tela-bluetooth)
+    - [A tela Settings](#a-tela-settings)
 
 ## O que é?
 
@@ -14,7 +23,7 @@ a sua rede local. Aqui é você quem `100%` manda.
 
 A ideia básica é você ter suas músicas gravadas em um `pendrive`, plugar esse `pendrive`
 ao computador rodando `Eutherpe`, conectar `Eutherpe` a uma caixa de som ou `headphone`
-`Bluetooth` e pronto! Vai escutar sua música e acabou.
+`Bluetooth` e pronto! Vá escutar sua música e acabou.
 
 Você consegue controlar `Eutherpe` a partir de qualquer `web browser` bastando se conectar
 ao endereço do computador que está servindo `Eutherpe` em sua rede.
@@ -32,12 +41,14 @@ músicas. Você tem sua coleção de `MP3` quer ouvir suas músicas e pronto.
 As principais características de `Eutherpe` são:
 
 - Minimalismo na interface `Web`. Nada de `frameworks` faraônicos etc. `HTML`, `javascript`,
-  `Golang` no `backend` e acabou. Não trouxe e nem quero trazer o `Desktop` para dentro de seu
-  navegador `Web`.
+  `Golang` e acabou. Não trouxe e nem quero trazer o `Desktop` para dentro de seu navegador `Web`.
 - Conexão à interface `web` pode ser autenticada por senha ou não. Tudo isso facilmente
   configurável via a própria interface `Web`.
 - Conexão ao `player` via `web browser` pode ser `HTTP` ou `HTTPS`. Tudo isso facilmente
   configurável via a própria interface `Web`.
+- Você consegue se conectar ao seu dispositivo `Eutherpe` facilmente, sem precisar ficar
+  rodando comandos malucos *- que nada realmente tem a ver com o que você quer fazer: ouvir
+  a f_cking p_rra da sua música -* para descobrir o endereço `IP` da sua `jukebox` etérea :wink:!
 - Você consegue dar organização para sua coleção mesmo estando ela armazenada de forma
   desorganizada. Ao escanear o `pendrive` em busca de músicas, `Eutherpe` é capaz de ler
   as `metatags` das suas `MP3` e listá-las automagicamente organizadas por `Artista/Álbum` e
@@ -61,5 +72,216 @@ As principais características de `Eutherpe` são:
 - No `Windows` você pode utilizar `Eutherpe` a partir de uma `máquina virtual`.
 - Você ainda pode usar `Eutherpe` dentro de um `raspberry-pi` e nesse caso ele será carinhosamente
   chamado de `Euther-PI`.
+
+[`Voltar`](#tópicos)
+
+## Bootstrapping
+
+### Ãhm?!
+
+Se você não é do bonde dos malucos (leia-se gente que programa computadores), talvez seja legal
+entender o que cargas d'água significa `bootstrapping`.
+
+Bem é um termo que utilizamos para indicar que vamos provisionar todo o necessário para começar
+de fato a brincadeira. Seria um escalar sem corda colocando os grampos, para que posteriores
+escaladas sejam mais fáceis. Ao que parece esse termo veio de uma história de
+"As supreendentes Aventuras do Barão Munchausen" (tradução livre), escrito por Rudolf Erich
+Raspe. Onde nessa história o barão teria saído de um pântano puxando a si mesmo pelos cabelos
+e seu cavalo pelo rabo (é vdd esse bilete [sic]...). Há controvérsias mas o sentido se mantém:
+no `bootstrapping`, o objetivo é passar por uma parte complicada, pantanosa, árida em recursos
+para então chegar do outro lado onde tudo está mais sólido sob os nossos pés, usando praticamente
+nada ou parcos recursos.
+
+No caso do `Eutherpe`, a `jukebox` utiliza algumas dependências para compor todo o seu
+ecossistema. Essas dependências no caso são aplicativos e recursos que ele usa por baixo dos
+panos para prover toda a infraestrutura necessária para você bater cabeça, dançar pelada(o)
+na sala ou simplesmente pôr uma música na conversa.
+
+`Eutherpe` foi desenvolvido tendo como contrapartida a distribuição `Linux` `Debian`. Então
+o `bootstrapping` **precisa ser feito a partir de uma instalação `Debian`**.
+
+O ideal é você fazer uma instalação `Debian` mínima (sem recursos para `desktop`). Apenas
+console mesmo. Por que? Bem, o que acontece é que quando você coloca muita coisa desnecessária
+o sistema vai começar perder tempo e recursos tomando conta desses elefantes brancos e, esse
+desperdício pode impactar na audição das suas amadas músicas.
+
+Te indico instalar o `Debian 11` (somente console, com a rede configurada, pois o `bootstrapping`
+irá baixar pacotes específicos da Internet para deixar o seu `Debian` no jeito para rodar
+`Eutherpe`).
+
+O `Debian 11` foi o meu sistema de escolha para desenvolver `Eutherpe`, tentei o `12` mas ficou
+bem ruim e estava utilizando um sistema com `Gnome` e todas aquelas tranqueiras, que para o
+objetivo do `Eutherpe` são essencialmente inúteis.
+
+Você deve estar pensando: "- Poxa fazer esse tal boostrapping deve ser difícil...", não é!
+
+[`Voltar`](#tópicos)
+
+### ...e não é que uma jukebox etérea brotou na minha LAN!
+
+Após você preparar uma versão mínima `Debian` é necessário que você faça login como usuário `ROOT`.
+
+Uma vez a sessão `root` iniciada, você precisa baixar o código-fonte do `Eutherpe` e para isso você
+precisará do aplicativo `git`.
+
+Então vamos instalá-lo, emitindo o seguinte comando:
+
+```
+# apt install git -y
+```
+
+Com o `git` instalado é hora de baixar o código-fonte do `Eutherpe`, usando o seguinte comando:
+
+```
+# git clone https://github.com/rafael-santiago/eutherpe -b v1
+```
+
+Um diretório chamado `eutherpe` será criado, vamos acessá-lo usando o seguinte comando:
+
+```
+# cd eutherpe
+```
+
+Pronto! Agora é só fazer o `bootstrapping` :boot: emitindo o seguinte comando:
+
+```
+# ./bootstrapping.sh
+```
+
+Você precisa confirmar com `y` ou `Y` e tudo será feito. As dependências instaladas, ajustes
+finos no sistema serão feitos. Você terá uma saída similar a essa:
+
+```
+#########################
+       ,|_|,   ,|_|,
+       |===|   |===|
+       |   |   |   |
+       /  &|   |&  \
+  _.-'`  , )* *( ,  `'-._ [ Eutherpe's Bootstrap ]
+   `"""""`"`   `"`"""""`
+#########################
+
+Hi there! I am the Eutherpe's bootstrap! What I am intending to do: 
+
+- Create an user "eutherpe";
+- Add it to sudo's group;
+- Install some system dependencies required to you play your beloved tunes;
+- Install Golang to actually build Eutherpe's app;
+- Install kernel headers to make easy any specific system tune that you may want to do;
+- Create the default's USB mount point in /media/USB;
+- Build up Eutherpe's app;
+- Install whole Eutherpe's package it;
+
+
+=== Okay, you are root user :) let's start...
+=== Nice, eutherpe user already exists.
+=== bootstrap info: Adding eutherpe to sudo group...
+=== bootstrap info: granting eutherpe some nopasswd privileges...
+=== bootstrap info: Done.
+=== bootstrap info: Installing system dependencies...
+*-- sudo already installed.
+*-- git already installed.
+*-- mc already installed.
+*-- pulseaudio already installed.
+*-- bluez already installed.
+*-- pulseaudio-module-bluetooth already installed.
+*-- ffmpeg already installed.
+*-- alsa-utils already installed.
+*-- wpasupplicant already installed.
+*-- wireless-tools already installed.
+=== bootstrap info: Done.
+=== bootstrap info: Installing golang...
+=== bootstrap info: Done.
+=== bootstrap info: Setting up golang environment...
+=== bootstrap info: Done.
+=== bootstrap info: Installing kernel headers...
++-- linux-headers-5.10.0-27-amd64 installed.
++-- gcc installed.
++-- make installed.
++-- perl installed.
+=== bootstrap info: Done.
+=== bootstrap info: Creating USB storage mount point...
+=== bootstrap info: Done.
+=== bootstrap info: Now building Eutherpe...
+=== bootstrap info: Done.
+=== bootstrap info: Now installing Eutherpe...
+=== bootstrap info: Done.
+```
+
+Uma vez o `bootstrapping` feito você poderá acessar sua `jukebox` etérea a partir
+de um `web browser` mais próximo via o endereço: [`http://eutherpe.local:8080/eutherpe`](http://eutherpe.local:8080/eutherpe).
+
+*Voi lá!* :sunglasses:
+
+É hora de conhecer a sua `juke` minimalista e sem frescuras!
+
+[`Voltar`](#tópicos)
+
+## Conhecendo as telas
+
+A configuração inicial da sua `jukebox` `Eutherpe` vai ser bem básica:
+
+- Conexão `HTTP`;
+- Sem autenticação por senha;
+
+Ao se conectar em `http://eutherpe.local:8080/eutherpe` você verá a tela ilustrada pela **Figura 1**.
+
+Note que se trata de uma tela bem direta ao assunto, possuindo um menu do lado esquerdo onde
+você acessa as funções e configurações da sua `juke` etérea.
+
+[`Voltar`](#tópicos)
+
+### A tela Music
+
+Na **Figura 2** você confere o *layout* da tela do `player`. Ela é bem autoexplicativa. Basicamente
+a tela te oferece funções básicas como tocar, parar a música, ir para próxima da lista de
+reprodução, ir para a anterior, mover música(s) para cima ou para baixo da lista de reprodução,
+ativar o `shuffle` (que vai misturar a sua lista de reprodução), remover músicas selecionadas da
+sua lista de reprodução e limpar toda a lista de reprodução.
+
+Você ainda tem um `slider` para controlar o volume e a possibilidade de ativar os modos de
+repetição geral ou repetição de apenas uma música (da que estiver atualmente em reprodução).
+
+Para acessar a lista de reprodução, você precisa clicar sobre `UP NEXT`. Vou aproveitar e já
+te ensinar sobre uma convenção que adotei, se você é realmente um ser musicófilo, já deve ter
+notado, caso não, agora vai notar: tudo que estiver precedido pelo símbolo de *sustenido*, significa
+que se você clicar sobre, lhe será exibido mais. Uma vez esse conteúdo exibido, do lado dele o
+sustenido se tornará um *bemol*, o que indica que se você clicar novamente, o conteúdo será
+ocultado. A relação aqui entre sustenido-bemol é idêntico a `+` e `-`, :wink:!
+
+Confira na **Figura 3** uma lista de reprodução em modo de detalhamento. Note que do lado de
+cada música existe uma caixa de checagem que você poderá marcar para aplicar sobre ela certas
+funções como remover e também movê-la para cima ou para baixo da lista de reprodução.
+
+Sendo `Eutherpe` uma `jukebox` sem frescura, você já sabe tudo sobre como pilotar o seu `player`.
+Entretanto, você deve ter ficado com uma pulga atrás da orelha: como eu seleciono o que quero
+tocar?
+
+[`Voltar`](#tópicos)
+
+## A tela Collection
+
+Nessa tela você tem todo acesso às músicas que `Eutherpe` conseguiu escanear de seu dispositivo
+de armazenamento. Entenda essa tela como a sua *estante* onde todos seus álbuns seguem organizados.
+Organizados, mesmo se você for uma criatura desorganizada! :wink:
+
+Dá uma conferida na **Figura 4** no `layout` dessa tela. Note que aqui eu também lancei mão daquela
+convenção pirada *sustenido-bemol*...
+
+Ainda em relação à tela ilustrada na **Figura 4**, perceba que a coleção fica organizada seguindo
+`Artista/Álbum/Músicas` e os álbuns mais recentes vão sendo listados antes. Artistas, álbums e
+músicas podem ser usados para compor uma seleção.
+
+Na parte inferior da tela você vai notar que existem botões bem autoexplicativos:
+
+- `ADD TO NEXT` (adiciona a sua seleção ao final da fila de reprodução)
+- `ADD TO UP NEXT` (fura a fila de reprodução e adicionar sua seleção atrás da posição atual de reprodução)
+- `ADD TO PLAYLIST...` (adiciona a sua seleção a uma nova `playlist` ou a uma prévia)
+- `ADD TAGS...` (marca sua seleção com `tags` fornecidas por você)
+- `DEL TAGS...` (remove tags previamente adicionadas da seleção)
+- `PLAY TAGGED...` (toca uma quantidade de músicas levando em conta `tags` fornecidas por você)
+
+Aqui temos uma outra convenção, tudo que for botão com reticências significa que ao clicar
+uma tela te pedindo mais info vai ser apresentada, `DON'T PANIC`! :wink:
 
 [`Voltar`](#tópicos)
