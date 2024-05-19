@@ -270,18 +270,33 @@ convenção pirada *sustenido-bemol*...
 
 Ainda em relação à tela ilustrada na **Figura 4**, perceba que a coleção fica organizada seguindo
 `Artista/Álbum/Músicas` e os álbuns mais recentes vão sendo listados antes. Artistas, álbums e
-músicas podem ser usados para compor uma seleção.
+músicas podem ser usados para compor uma seleção (pois eles possuem caixas de checagem ao lado
+dos nomes, eu tenho absoluta certeza que você entendeu!).
 
 Na parte inferior da tela você vai notar que existem botões bem autoexplicativos:
 
 - `ADD TO NEXT` (adiciona a sua seleção ao final da fila de reprodução)
-- `ADD TO UP NEXT` (fura a fila de reprodução e adicionar sua seleção atrás da posição atual de reprodução)
+- `ADD TO UP NEXT` (fura a fila de reprodução e adiciona sua seleção atrás da posição atual de reprodução)
 - `ADD TO PLAYLIST...` (adiciona a sua seleção a uma nova `playlist` ou a uma prévia)
 - `ADD TAGS...` (marca sua seleção com `tags` fornecidas por você)
 - `DEL TAGS...` (remove tags previamente adicionadas da seleção)
 - `PLAY TAGGED...` (toca uma quantidade de músicas levando em conta `tags` fornecidas por você)
 
-Aqui temos uma outra convenção, tudo que for botão com reticências significa que ao clicar
+Aqui temos uma outra convenção, tudo que for botão com reticências significa que ao clicar,
 uma tela te pedindo mais info vai ser apresentada, `DON'T PANIC`! :wink:
+
+A **Figura 5** exibe a tela que é apresentada ao você clicar em `ADD TO PLAYLIST...`, você precisa
+fornecer o nome da `playlist` a qual deseja adicionar a seleção e clicar em `ADD`. Se quiser
+desistir da ideia, apenas clique em `BACK`.
+
+A **Figura 6** exibe uma tela similar a da **Figura 5**, porém aqui é para taguear a seleção.
+
+Na **Figura 7** você confere a tela para remover `tags` previamente adicionadas à seleção. A ideia
+geral é que você desmarca as `tags` que deseja remover e clica em `SAVE`. Se mudou de ideia e
+não quiser remover nada, clica em `BACK`.
+
+A **Figura 8** ilustra o que você encontra ao clicar em `PLAY TAGGED...`. Você precisa fornecer
+uma lista de `tags` separada por vírgula e ainda indicar o total de músicas que deseja escutar.
+Para confirmar você clica em `PLAY` ou se desistiu e não quer mais clica em `BACK`.
 
 [`Voltar`](#tópicos)
