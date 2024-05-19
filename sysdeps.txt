@@ -1,0 +1,9 @@
+git
+mc
+pulseaudio
+bluez
+pulseaudio-module-bluetooth
+ffmpeg
+alsa-utils
+wpasupplicant
+wireless-tools
