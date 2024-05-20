@@ -51,6 +51,7 @@ func eutherpeHTTPd(eutherpeHTTPHandler EutherpeHTTPHandler, sigintWatchdog chan 
                                         cerFilePath, privKeyFilePath, nil)
     }
     if (*err) != nil {
+        fmt.Fprintf(os.Stderr, "panic: %s\n", (*err).Error())
         sigintWatchdog <- syscall.SIGINT
     }
 }

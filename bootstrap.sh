@@ -33,7 +33,7 @@ areUroot() {
     yeah=1
     if [[ $USER != "root" ]] ; then
         echo "error: You must be root to bootstrap Eutherpe." >&2
-        $yeah=0
+        yeah=0
     fi
     echo $yeah
 }
@@ -48,6 +48,9 @@ add_eutherpe_user() {
 $EUTHERPE_PASSWD
 $EUTHERPE_PASSWD
 EOF
+    mkdir -p /home/$EUTHERPE_USER
+    chown $EUTHERPE_USER:$EUTHERPE_USER /home/$EUTHERPE_USER >/dev/null 2>&1
+    usermod -aG audio $EUTHERPE_USER
     echo $?
 }
 
@@ -172,6 +175,7 @@ install_eutherpe() {
         echo "{\"HostName\":\"eutherpe.local\"}" > /etc/eutherpe/player.cache
         chmod 755 /etc/eutherpe/player.cache
     fi
+    chown -R $EUTHERPE_USER:$EUTHERPE_USER /etc/eutherpe >/dev/null 2>&1
     cp -rf src/web /etc/eutherpe/web >/dev/null 2>&1
     chmod -R 755 /etc/eutherpe
     cp src/eutherpe /usr/local/bin/ >/dev/null 2>&1
@@ -198,7 +202,7 @@ do
     echo
 done
 
-if [[ ! `areUroot` ]] ; then
+if [[ `areUroot` == 0 ]] ; then
     exit 1
 else
     echo "=== Okay, you are root user :) let's start..."
