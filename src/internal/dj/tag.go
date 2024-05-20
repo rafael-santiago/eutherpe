@@ -114,7 +114,7 @@ func (t *TagEntry) IsTaggedAlready(filePath string) bool {
 
 func (t *TagEntry) Del(filePath string) {
     for f, currFilePath := range t.FilePaths {
-        if currFilePath == filePath {
+        if strings.HasSuffix(currFilePath, filePath) {
             t.FilePaths = append(t.FilePaths[:f], t.FilePaths[(f+1):]...)
             break
         }
