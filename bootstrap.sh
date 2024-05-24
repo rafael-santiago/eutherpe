@@ -140,7 +140,7 @@ install_golang() {
 
 setup_goenv() {
     goenv_sh="/etc/profile.d/goenv.sh"
-    echo -e "#!/usr/bin/bash\n\nexport GOROOT=/usr/local/go\nexport GOPATH=$HOME/go\nexport PATH=$GOPATH/bin:$GOROOT/bin:$PATH\n" > $goenv_sh
+    echo -e "#!/usr/bin/bash\n\nexport GOROOT=/usr/local/go\nexport GOPATH=\$HOME/go\nexport PATH=\$GOPATH/bin:\$GOROOT/bin:\$PATH\n" > $goenv_sh
     chmod ugo+x $goenv_sh >/dev/null 2>&1
     echo $?
 }
@@ -221,18 +221,19 @@ if [[ `add_eutherpe_user_to_sudo_group` != 0 ]] ; then
     exit 1
 fi
 
-echo "=== bootstrap info: granting $EUTHERPE_USER some nopasswd privileges..."
-
-if [[ `grant_eutherpe_user_nopasswd_privileges` != 0 ]] ; then
-    echo "error: Unable to grant nopasswd privileges to $EUTHERPE_USER." >&2
-    exit 1
-fi
-
 echo "=== bootstrap info: Done."
 echo "=== bootstrap info: Installing system dependencies..."
 
 if [[ `install_sysdeps` != 0 ]] ; then
     echo "error: Unable to install system dependencies." >&2
+    exit 1
+fi
+
+echo "=== bootstrap info: Done."
+echo "=== bootstrap info: granting $EUTHERPE_USER some nopasswd privileges..."
+
+if [[ `grant_eutherpe_user_nopasswd_privileges` != 0 ]] ; then
+    echo "error: Unable to grant nopasswd privileges to $EUTHERPE_USER." >&2
     exit 1
 fi
 
