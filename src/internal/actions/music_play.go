@@ -9,7 +9,7 @@ import (
     "io/ioutil"
 )
 
-func MusicPlay(eutherpeVars *vars.EutherpeVars, _ *url.Values) error {
+func MusicPlay(eutherpeVars *vars.EutherpeVars, userData *url.Values) error {
     var customPath string
     if flag.Lookup("test.v") != nil {
         customPath = "../mplayer"
@@ -32,6 +32,21 @@ func MusicPlay(eutherpeVars *vars.EutherpeVars, _ *url.Values) error {
     }
     if eutherpeVars.Player.UpNextCurrentOffset < 0 {
         eutherpeVars.Player.UpNextCurrentOffset = 0
+    }
+    if userData != nil {
+        data, has := (*userData)[vars.EutherpePostFieldSelection]
+        if has && len(data) == 1 {
+            selection := ParseSelection(data[0])
+            if len(selection) == 1 {
+                songFilePath := GetSongFilePathFromSelectionId(selection[0])
+                for u, currSong := range eutherpeVars.Player.UpNext {
+                    if currSong.FilePath == songFilePath {
+                            eutherpeVars.Player.UpNextCurrentOffset = u
+                            break
+                    }
+                }
+            }
+        }
     }
     var err error
     eutherpeVars.Player.NowPlaying = eutherpeVars.Player.UpNext[eutherpeVars.Player.UpNextCurrentOffset]
@@ -59,7 +74,7 @@ func MusicPlay(eutherpeVars *vars.EutherpeVars, _ *url.Values) error {
         }
         eutherpeVars.Player.Handle = nil
         eutherpeVars.Unlock()
-        MusicPlay(eutherpeVars, nil)
+        go MusicPlay(eutherpeVars, nil)
     }()
     return nil
 }

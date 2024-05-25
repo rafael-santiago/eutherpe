@@ -204,6 +204,36 @@ function unpairDevice() {
     );
 }
 
+function reloadCountDown(interval) {
+    var i = interval;
+    countDown = setInterval(function() { document.body.innerHTML = "<body>You will be redirected within " + i + " seconds... wait..."; i--; }, 1000);
+    setTimeout(function() { clearTimeout(countDown); document.location = document.location }, interval * 1000);
+}
+
+function powerOff() {
+    query("Are you sure you want to power-off Eutherpe",
+          function() {
+                document.body.innerHTML = "<body>That's all! See ya soon! :)</body>";
+                doMinimalEutherpeRequest("/eutherpe", "settings-poweroff");
+          },
+          function() {
+                openConfig("Settings");
+          }
+    );
+}
+
+function reboot() {
+    query("Are you sure you want to reboot Eutherpe",
+          function() {
+                reloadCountDown(90);
+                doMinimalEutherpeRequest("/eutherpe", "settings-reboot");
+          },
+          function() {
+                openConfig("Settings");
+          }
+    );
+}
+
 function trustDevice() {
     blueDev = getSelectedBluetoothDevice();
     if (blueDev === null) {
@@ -364,7 +394,16 @@ function shuffleUpNext() {
 
 function musicPlayOrStop(sender) {
     var action = (sender.value != "\u25A0") ? "music-play" : "music-stop";
-    doEutherpeRequest("/eutherpe", { "action" : action }, "post");
+    var reqParams = {};
+    reqParams.action = action;
+    if (action == "music-play") {
+        songSelection = document.getElementsByClassName("UpNext");
+        selectedOne = getSelectedSongs(songSelection);
+        if (selectedOne.length == 1) {
+            reqParams.selection = JSON.stringify(selectedOne);
+        }
+    }
+    doEutherpeRequest("/eutherpe", reqParams, "post");
 }
 
 function musicNext() {
@@ -595,4 +634,11 @@ function doEutherpeRequest(vdoc, userData, method, noWaitBanner = false) {
         openConfig("Loading");
     }
     form.submit();
+}
+
+function doMinimalEutherpeRequest(vdoc, action) {
+    var http = new XMLHttpRequest();
+    http.open("POST", vdoc, true);
+    http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    http.send("action=" + action);
 }

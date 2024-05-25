@@ -93,6 +93,10 @@ func GetEutherpeActionHandler(userData *url.Values) EutherpeActionFunc {
             return SetWLANCredentials
         case vars.EutherpeSettingsSetHostNameId:
             return SetHostName
+        case vars.EutherpeSettingsPowerOffId:
+            return PowerOff
+        case vars.EutherpeSettingsRebootId:
+            return Reboot
     }
     return nil
 }
@@ -151,7 +155,9 @@ func CurrentConfigByActionId(userData *url.Values) string {
              vars.EutherpeSettingsFlickHTTPSModeId,
              vars.EutherpeSettingsGenerateCertificateId,
              vars.EutherpeSettingsSetWLANCredentialsId,
-             vars.EutherpeSettingsSetHostNameId:
+             vars.EutherpeSettingsSetHostNameId,
+             vars.EutherpeSettingsPowerOffId,
+             vars.EutherpeSettingsRebootId:
             return vars.EutherpeWebUIConfigSheetSettings
     }
     return vars.EutherpeWebUIConfigSheetDefault
@@ -201,7 +207,9 @@ func GetContentTypeByActionId(userData *url.Values) string {
              vars.EutherpeSettingsFlickHTTPSModeId,
              vars.EutherpeSettingsGenerateCertificateId,
              vars.EutherpeSettingsSetWLANCredentialsId,
-             vars.EutherpeSettingsSetHostNameId:
+             vars.EutherpeSettingsSetHostNameId,
+             vars.EutherpeSettingsPowerOffId,
+             vars.EutherpeSettingsRebootId:
             return "text/html"
     }
     return "application/json"
@@ -250,7 +258,9 @@ func GetVDocByActionId(userData *url.Values, eutherpeVars *vars.EutherpeVars) st
              vars.EutherpeSettingsFlickHTTPSModeId,
              vars.EutherpeSettingsGenerateCertificateId,
              vars.EutherpeSettingsSetWLANCredentialsId,
-             vars.EutherpeSettingsSetHostNameId:
+             vars.EutherpeSettingsSetHostNameId,
+             vars.EutherpeSettingsPowerOffId,
+             vars.EutherpeSettingsRebootId:
             return eutherpeVars.HTTPd.IndexHTML
 
         case vars.EutherpeAuthenticateId:

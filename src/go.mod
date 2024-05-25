@@ -24,3 +24,5 @@ require internal/wifi v1.0.0
 replace internal/wifi => ./internal/wifi
 require internal/mdns v1.0.0
 replace internal/mdns => ./internal/mdns
+require internal/system v1.0.0
+replace internal/system => ./internal/system

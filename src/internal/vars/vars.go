@@ -520,6 +520,8 @@ const EutherpeSettingsFlickHTTPSModeId = "settings-flickhttpsmode"
 const EutherpeSettingsGenerateCertificateId = "settings-generatecertificate"
 const EutherpeSettingsSetWLANCredentialsId = "settings-setwlancredentials"
 const EutherpeSettingsSetHostNameId = "settings-sethostname"
+const EutherpeSettingsPowerOffId = "settings-poweroff"
+const EutherpeSettingsRebootId = "settings-reboot"
 
 const EutherpePlayerStatusId = "player-status"
 const EutherpeGetCommonTagsId = "get-commontags"

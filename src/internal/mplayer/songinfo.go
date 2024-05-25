@@ -108,7 +108,8 @@ func GetSongInfo(filePath string, coversCacheRootPath ...string) (SongInfo, erro
     kWantedInfo := []string {
         "TIT2",
         "TALB",
-        "TPE",
+        "TPE1",
+        "TPE2",
         "TRCK",
         "TCON",
         "TYER",
@@ -129,7 +130,7 @@ func GetSongInfo(filePath string, coversCacheRootPath ...string) (SongInfo, erro
             case "TALB":
                 field = &s.Album
                 break
-            case "TPE":
+            case "TPE1", "TPE2":
                 field = &s.Artist
                 break
             case "TRCK":
@@ -147,7 +148,7 @@ func GetSongInfo(filePath string, coversCacheRootPath ...string) (SongInfo, erro
             default:
                 continue
         }
-        if field != nil {
+        if field != nil && len(*field) == 0 {
             needle := string(hdrData[h:])
             // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             // WARN(Rafael): Some MP3 that I messed with was ID3v2.4.0 (id3V == 4) BUT           !!
@@ -190,6 +191,14 @@ func GetSongInfo(filePath string, coversCacheRootPath ...string) (SongInfo, erro
                     *field = utfToAscii(*field)
                 }
                 h += 3
+            } else if field == &s.AlbumCover && strings.HasPrefix(needle[11:17], "image/") {
+                blobData := needle[17:]
+                if strings.HasPrefix(blobData, "jpeg") {
+                    startOff := strings.Index(blobData, "\xFF\xD8\xFF\xE0")
+                    if startOff > -1 {
+                        *field = blobData[startOff:]
+                    }
+                }
             }
             if field == &s.TrackNumber {
                 subReg := regexp.MustCompile("(^0|/.*)")

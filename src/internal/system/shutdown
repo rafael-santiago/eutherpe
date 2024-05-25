@@ -1,0 +1,3 @@
+#!/usr/bin/bash
+
+[[ -z $SHUTDOWN_MUST_FAIL ]] && exit 0 || exit 1
