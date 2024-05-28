@@ -417,6 +417,7 @@ func (e *EutherpeVars) TuneUp() {
     e.Player.RepeatOne = false
     e.Player.Stopped = true
     e.Player.VolumeLevel = mplayer.GetVolumeLevel()
+    mplayer.SetVolume(int(e.Player.VolumeLevel))
     e.HTTPd.URLSchema = "http"
     e.HTTPd.PubRoot = e.getPubRoot()
     e.HTTPd.PubFiles = e.setEutherpePubTrinket()
