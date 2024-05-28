@@ -331,3 +331,69 @@ As funções oferecidas por essa tela são:
 Pronto! Você já se formou na escola de `DJs Eutherpe`, congrats!
 
 [`Voltar`](#tópicos)
+
+## A tela Storage
+
+A tela `Storage` é onde você sinaliza à `Eutherpe` a partir de onde tentar ler suas músicas.
+A **Figura 11** ilustra o que você encontra nessa tela. A tela oferece três operações:
+
+- `LIST` (todos os dispositivos `USB` encontrados são listados, se você plugou um USB é necessário
+clicar nesse botão para ter acesso ao seu novo dispositivo).
+- `SET` (o dispositivo selecionado na lista de dispositvos encontrados é de fato selecionado para
+uso).
+- `SCAN` (o dispositivo é escaneado e a coleção extraída e organizada é listada na tela
+`Collection`, no primeiro escaneamento o processo pode demorar um pouco mais, isso é por conta de
+como o dispositivos de armazenamento `USB` funcionam no `Linux`).
+
+Uma vez o dispositivo escolhido e escaneado. Na próxima sessão, caso `Eutherpe` detecte que o
+dispositivo `USB` já esteja plugado, a sua `juke` etérea é esperta o suficiente para já te
+apresentar a coleção escaneada da última vez. Se você adicionou ou removeu mais músicas ou
+alterou a localização delas, vai precisar clicar em `SCAN` de novo.
+
+[`Voltar`](#tópicos)
+
+## A tela Bluetooth
+
+A **Figura 12** traz a tela `Bluetooth`. Na linha das outras telas é bem direta ao assunto.
+Possui três funções disparadas por três botões:
+
+- `PROBE` (você clica nele para sondar o local e ver se encontra o dispositivo bluetooth de saída
+de áudio do seu interesse).
+- `PAIR...` (você clica nele para parear com o dispositivo que você selecionou da lista que a
+sondagem te retornou, vai te exibir a tela da **Figura 13**).
+- `UNPAIR..` (você clica nele para desparear o pareamento prévio, o som vai parar de emanar via o
+dispositivo `Bluetooth` que você havia pareado antes).
+
+Após parear com um dispositivo de saída, o `ID` desse dispositivo é indicado, dê uma olhada
+na **Figura 14**.
+
+[`Voltar`](#tópicos)
+
+## A tela Settings
+
+A tela `Settings` é onde você pode deixar a sua `juke` no jeito que mais lhe aprouver (Uau hein?
+Sound portuguese babe, I love my mother tongue). A cara geral dessa tela pode ser conferida via
+**Figura 15**.
+
+A tela possui várias funcionalidades mas todas são bem diretas de configurar:
+
+- a. Quando marcado uma tela pedindo senha de acesso será apresentada. A senha `default` é `music`.
+- b. Quando marcado a conexão da interface `Web` será via `HTTPS`.
+- c. Clique aqui e você gera um certificado autoassinado para ser utilizado com o `HTTPS`.
+- d. Clique aqui e você faz o download do certificado, caso queira instalá-lo no dispositivo que
+acessará a interface `Web`.
+- e. Aqui você abre a interface para configurar a conexão `Wi-Fi/WLAN` para o `Eutherpe` se a rede
+na sua casa é sem-fio (quase certo), você precisa indicar o nome da sua rede (`SSID`) e a senha.
+Relaxa, a senha ficará guardada encriptada, do jeito que deve ser :wink:
+- f. Você confirma o nome para acessar a interface `Web Eutherpe`. É importante que seja nos moldes
+`<algo>.local`, se voce digitar apenas `<algo>` `Eutherpe` vai completar isso com `.local` para
+terminal de configurar.
+- g. Clique aqui e você desliga o dispositivo que está rodando `Eutherpe` (isso é bom para quando
+você estiver rodando `Eutherpe` embarcada [na verdade essa é a ideia base] e não quiser colocar
+um botão liga/desliga na sua placa).
+- h. Clique aqui e você reinicia o dispositivo que está rodando `Eutherpe`, você sabe, em computação
+sempre tem momentos em que acabamos precisando de um `reboot`. Embora procure deixar `Eutherpe`
+o mais estável possível para você :wink:!
+- i. Se você quiser alterar a senha de acesso à interface `Web` clica aqui.
+
+[`Voltar`](#tópicos)
