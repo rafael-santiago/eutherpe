@@ -64,6 +64,21 @@ func LoadMusicCollection(basePath string, coversCacheRootPath ...string) (MusicC
     for _, albums := range collection {
         for album, tracks := range albums {
             albums[album] = sortTracksFromAlbum(tracks)
+            albumCover := ""
+            for _, song := range tracks {
+                if len(albumCover) == 0 && len(song.AlbumCover) > 0 {
+                    albumCover = song.AlbumCover
+                    break
+                }
+            }
+            if len(albumCover) == 0 {
+                continue
+            }
+            for t, _ := range albums[album] {
+                if len(albums[album][t].AlbumCover) == 0 {
+                    albums[album][t].AlbumCover = albumCover
+                }
+            }
         }
     }
     return collection, nil
