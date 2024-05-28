@@ -3,6 +3,24 @@
 EUTHERPE_USER=eutherpe
 EUTHERPE_PASSWD=eutherpe
 
+has_internet_conectivity() {
+    result=0
+    ping -4 google.com -c 3 >/dev/null 2>&1
+    if [[ $? == 0 ]] ; then
+        result=1
+    fi
+    echo $result
+}
+
+is_active() {
+    service=$1
+    is=0
+    if [[ $(systemctl is-active $service | grep ^active | wc -l) == 1 ]] ; then
+        is=1
+    fi
+    echo $is
+}
+
 bootstrap_banner() {
     read -d '' data << "EOF"
 #########################
@@ -192,6 +210,15 @@ install_eutherpe() {
 
 `bootstrap_banner`
 
+echo "=== Checking on your Internet conectivity..."
+
+if [[ `has_internet_conectivity` != 1 ]] ; then
+    echo "error: you are not connected to the Internet." >&2
+    exit 1
+fi
+
+echo -e "=== Nice, you are connected to the Internet.\n"
+
 answer="i"
 while [[ ! $answer =~ ^[yYnN]$ ]]
 do
@@ -287,6 +314,20 @@ if [[ `install_eutherpe` != 0 ]] ; then
     echo "error: Unable to install Eutherpe." >&2
     exit 1
 fi
+
+if [[ `is_active eutherpe` == 0 ]] ; then
+    echo "error: eutherpe.service seems not to be active." >&2
+    exit 1
+fi
+
+echo "=== bootstrap info: Nice, eutherpe.service is running."
+
+if [[ `is_active eutherpe-usb-watchdog` == 0 ]] ; then
+    echo "error: eutherpe-usb-watchdog.service seems not to be active." >&2
+    exit 1
+fi
+
+echo "=== bootstrap info: Nice, eutherpe-usb-watchdog.service is running."
 
 echo "=== bootstrap info: Done."
 
