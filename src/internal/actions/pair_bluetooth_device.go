@@ -3,6 +3,7 @@ package actions
 import (
     "internal/vars"
     "internal/bluebraces"
+    "internal/mplayer"
     "net/url"
     "flag"
     "fmt"
@@ -33,6 +34,9 @@ func PairBluetoothDevice(eutherpeVars *vars.EutherpeVars,
     err = bluebraces.ConnectDevice(bluetoothDevice[0], customPath)
     if err == nil {
         eutherpeVars.CachedDevices.BlueDevId = bluetoothDevice[0]
+        // TIP(Santiago): It is necessary to prevent that annoyant behavior
+        //                of overflown volume level just after pairing!
+        mplayer.SetVolume(int(eutherpeVars.Player.VolumeLevel))
     }
     return err
 }
