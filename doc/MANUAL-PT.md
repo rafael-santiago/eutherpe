@@ -49,12 +49,12 @@ As principais características de `Eutherpe` são:
 - Você consegue se conectar ao seu dispositivo `Eutherpe` facilmente, sem precisar ficar
   rodando comandos malucos para descobrir o endereço `IP` da sua `jukebox` etérea,
   pois isso nada realmente tem a ver com o que você quer fazer: *ouvir a f_cking p_rra da
-  sua música, ora! :wink:!*
+  sua música, ora!* :notes:!
 - Você consegue dar organização para sua coleção mesmo estando ela armazenada de forma
   desorganizada. Ao escanear o `pendrive` em busca de músicas, `Eutherpe` é capaz de ler
   as `metatags` das suas `MP3` e listá-las automagicamente organizadas por `Artista/Álbum` e
   organizados ainda dos lançamentos mais recentes para os mais antigos.
-- No `Eutherpe` você consegue criar `playlists`.
+- Com `Eutherpe` você consegue criar `playlists`.
 - As `playlists` ficam associadas ao `pendrive`, se você puser outro no lugar, elas sumirão,
   mas se você voltar a conectar o `pendrive` associado as suas `playlists`, elas reaparecerão.
 - Cada música pode ser marcada com `tags`.
@@ -62,7 +62,7 @@ As principais características de `Eutherpe` são:
   `blues`, `jazz`, `soul`, `sextou`, `segundou que tédio` etc.
 - Você pode pedir para o `Eutherpe` tocar `n` músicas que se encaixem numa lista de `tags`
   que você passar.
-- A dinâmica essencial do `player` do `Eutherpe` é de uma `jukebox`, então você seleciona
+- A dinâmica essencial do `player Eutherpe` é de uma `jukebox`, então você seleciona
   o que quer ouvir.
 - Você pode se conectar a um dispositivo de saída `Bluetooth` (caixas de som ou `headphones`).
 - `Eutherpe` dá suporte para `MP3`, `MP4` e `M4A`.
@@ -226,6 +226,7 @@ A configuração inicial da sua `jukebox` `Eutherpe` vai ser bem básica:
 
 - Conexão `HTTP`;
 - Sem autenticação por senha;
+- `Jukesona` raíz `ready-to-go`;
 
 Ao se conectar em `http://eutherpe.local:8080/eutherpe` você verá a tela ilustrada pela **Figura 1**.
 
@@ -315,7 +316,8 @@ A **Figura 9** traz a tela `Playlists`. A partir dessa tela você poderá pôr u
 apenas algumas músicas dela para tocar, além de editá-la.
 
 Note que cada `playlist` listada esconde suas músicas e que quando você clica sobre o nome dela
-as músicas são listadas, confira a **Figura 10** onde a lista `HOW-LOU` está sendo detalhada.
+as músicas são listadas, confira a **Figura 10** onde a lista `HOW-LOU` (sim, eu curto
+`Lou Rawls`!) está sendo detalhada.
 
 As funções oferecidas por essa tela são:
 
@@ -377,23 +379,26 @@ Sound portuguese babe, I love my mother tongue). A cara geral dessa tela pode se
 
 A tela possui várias funcionalidades mas todas são bem diretas de configurar:
 
-- a. Quando marcado uma tela pedindo senha de acesso será apresentada. A senha `default` é `music`.
-- b. Quando marcado a conexão da interface `Web` será via `HTTPS`.
-- c. Clique aqui e você gera um certificado autoassinado para ser utilizado com o `HTTPS`.
-- d. Clique aqui e você faz o download do certificado, caso queira instalá-lo no dispositivo que
+- **a.** Quando marcado uma tela pedindo senha de acesso será apresentada. A senha `default` é `music` (essa eu tenho certeza que você nem eu esquecemos!!!).
+- **b.** Quando marcado, a conexão da interface `Web` será via `HTTPS`.
+- **c.** Clique aqui e você gera um certificado autoassinado para ser utilizado com o `HTTPS`.
+- **d.** Clique aqui e você faz o download do certificado, caso queira instalá-lo no dispositivo que
 acessará a interface `Web`.
-- e. Aqui você abre a interface para configurar a conexão `Wi-Fi/WLAN` para o `Eutherpe` se a rede
-na sua casa é sem-fio (quase certo), você precisa indicar o nome da sua rede (`SSID`) e a senha.
-Relaxa, a senha ficará guardada encriptada, do jeito que deve ser :wink:
-- f. Você confirma o nome para acessar a interface `Web Eutherpe`. É importante que seja nos moldes
-`<algo>.local`, se voce digitar apenas `<algo>` `Eutherpe` vai completar isso com `.local` para
-terminal de configurar.
-- g. Clique aqui e você desliga o dispositivo que está rodando `Eutherpe` (isso é bom para quando
+- **e.** Aqui você abre a interface para configurar a conexão `Wi-Fi/WLAN` para `Eutherpe` ingressar
+no seu `Wi-Fi` e você poder controlar o `player` via `cel`, `tablet` ou mesmo `desktop`. Se a rede
+da sua casa for sem-fio (quase certo que é), você precisa indicar o nome da sua rede (`SSID`) e a
+senha. Relaxa, a senha ficará guardada encriptada, do jeito que deve ser :wink: Eu sou o chato
+militante/ilitante da criptografia (e com orgulho!) :smile:
+- **f.** Você confirma o nome para acessar a interface `Web Eutherpe`. É importante que seja nos moldes
+`<algo>.local`, se você digitar apenas `<algo>` `Eutherpe` vai completar isso com `.local` para
+terminar de configurar.
+- **g.** Clique aqui e você desliga o dispositivo que está rodando `Eutherpe` (isso é bom para quando
 você estiver rodando `Eutherpe` embarcada [na verdade essa é a ideia base] e não quiser colocar
 um botão liga/desliga na sua placa).
-- h. Clique aqui e você reinicia o dispositivo que está rodando `Eutherpe`, você sabe, em computação
+- **h.** Clique aqui e você reinicia o dispositivo que está rodando `Eutherpe`, você sabe, em computação
 sempre tem momentos em que acabamos precisando de um `reboot`. Embora procure deixar `Eutherpe`
 o mais estável possível para você :wink:!
-- i. Se você quiser alterar a senha de acesso à interface `Web` clica aqui.
+- **i.** Se você quiser alterar a senha de acesso à interface `Web` clica aqui. Se esquecer a
+senha vai ter que fazer umas madracarias para resetar. Mais para frente te mostro!
 
 [`Voltar`](#tópicos)
