@@ -41,8 +41,8 @@ func MusicPlay(eutherpeVars *vars.EutherpeVars, userData *url.Values) error {
                 songFilePath := GetSongFilePathFromSelectionId(selection[0])
                 for u, currSong := range eutherpeVars.Player.UpNext {
                     if currSong.FilePath == songFilePath {
-                            eutherpeVars.Player.UpNextCurrentOffset = u
-                            break
+                        eutherpeVars.Player.UpNextCurrentOffset = u
+                        break
                     }
                 }
             }

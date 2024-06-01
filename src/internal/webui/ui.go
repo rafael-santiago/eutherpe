@@ -35,6 +35,9 @@ func RunWebUI(eutherpeVars *vars.EutherpeVars) error {
     signal.Notify(sigintWatchdog, os.Interrupt)
     signal.Notify(sigintWatchdog, syscall.SIGINT|syscall.SIGTERM)
     <-sigintWatchdog
+    // INFO(Rafael): It is important otherwise Eutherpe can exits by letting music playing
+    //               sometimes.
+    actions.MusicStop(eutherpeVars, nil)
     return err
 }
 
