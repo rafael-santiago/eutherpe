@@ -188,15 +188,9 @@ function pairDevice() {
 }
 
 function unpairDevice() {
-    blueDev = getSelectedBluetoothDevice();
-    if (blueDev === null) {
-        tip("You must pick up one device", function() { openConfig("Bluetooth"); });
-        return;
-    }
     query("Are you sure you want to unpair with this device",
           function() {
-                doEutherpeRequest("/eutherpe", { "action" : "bluetooth-unpair",
-                                  "bluetooth-device" : blueDev.id }, "post");
+                doEutherpeRequest("/eutherpe", { "action" : "bluetooth-unpair" }, "post");
           },
           function() {
                 openConfig("Bluetooth");
