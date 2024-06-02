@@ -5,5 +5,4 @@
 
 su - eutherpe <<EOF
 eutherpe
-/usr/local/bin/eutherpe
 EOF
