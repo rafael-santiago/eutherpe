@@ -1,4 +1,4 @@
-# Eutherpe Manual
+# Manual Eutherpe
 
 ## Tópicos
 
@@ -33,7 +33,8 @@ ao endereço do computador que está servindo `Eutherpe` em sua rede.
 ## Características
 
 Ao escrever `Eutherpe` minha principal preocupação foi `minimalismo`. A ideia é deixar você
-o máximo possível longe de telas e mais imerso na audição da sua música.
+o máximo possível longe de telas e mais imerso na audição da sua música. Foda-se o `FOMO` eu
+só quero desacelerar cercado pelo o que eu já previamente amo.
 
 Então com `Eutherpe` você não tem propagandas, nem sugestões, nada disso. É só você e suas
 músicas. Você tem sua coleção de `MP3` quer ouvir suas músicas e só.
