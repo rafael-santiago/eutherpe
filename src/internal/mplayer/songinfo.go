@@ -84,7 +84,7 @@ func GetSongInfo(filePath string, coversCacheRootPath ...string) (SongInfo, erro
         return SongInfo{}, fmt.Errorf("Invalid ID3 header.")
     }
     id3V := id3Hdr[3]
-    if id3V != 3 && id3V != 4 {
+    if id3V != 2 && id3V != 3 && id3V != 4 {
         return SongInfo{}, fmt.Errorf("Unsupported ID3 header.")
     }
     _, err = file.Seek(6, 0)
@@ -107,13 +107,20 @@ func GetSongInfo(filePath string, coversCacheRootPath ...string) (SongInfo, erro
     }
     kWantedInfo := []string {
         "TIT2",
+        "TT2",
         "TALB",
+        "TAL",
         "TPE1",
         "TPE2",
+        "TP1",
         "TRCK",
+        "TRK",
         "TCON",
+        "TCO",
         "TYER",
+        "TYE",
         "APIC",
+        "PIC",
     }
     strHdrData := string(hdrData)
     shouldUseCachedCovers := (len(coversCacheRootPath) > 0 && len(coversCacheRootPath[0]) > 0)
@@ -124,25 +131,25 @@ func GetSongInfo(filePath string, coversCacheRootPath ...string) (SongInfo, erro
         }
         var field *string = nil
         switch info {
-            case "TIT2":
+            case "TIT2", "TT2":
                 field = &s.Title
                 break
-            case "TALB":
+            case "TALB", "TAL":
                 field = &s.Album
                 break
-            case "TPE1", "TPE2":
+            case "TPE1", "TPE2", "TP1":
                 field = &s.Artist
                 break
-            case "TRCK":
+            case "TRCK", "TRK":
                 field = &s.TrackNumber
                 break
-            case "TCON":
+            case "TCON", "TCO":
                 field = &s.Genre
                 break
-            case "TYER":
+            case "TYER", "TYE":
                 field = &s.Year
                 break
-            case "APIC":
+            case "APIC", "PIC":
                 field = &s.AlbumCover
                 break
             default:
@@ -164,18 +171,30 @@ func GetSongInfo(filePath string, coversCacheRootPath ...string) (SongInfo, erro
             //               and lousy naive decisions everywhere, really! Thank U and farewell! !!
             // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             var needleSize int
-            if id3V == 4 {
-                needleSize = (int(needle[4]) << 21) |
-                             (int(needle[5]) << 14) |
-                             (int(needle[6]) <<  7) |
-                             int(needle[7])
-            } else {
-                needleSize = (int(needle[4]) << 24) |
-                             (int(needle[5]) << 16) |
-                             (int(needle[6]) <<  8) |
-                             int(needle[7])
+            //var startOff int
+            switch id3V {
+                case 4:
+                    needleSize = (int(needle[4]) << 21) |
+                                 (int(needle[5]) << 14) |
+                                 (int(needle[6]) <<  7) |
+                                 int(needle[7])
+                    //startOff = 11
+                    break
+                case 3:
+                    needleSize = (int(needle[4]) << 24) |
+                                 (int(needle[5]) << 16) |
+                                 (int(needle[6]) <<  8) |
+                                 int(needle[7])
+                    //startOff = 13
+                    break
+                case 2:
+                    needleSize = (int(needle[3]) << 16) |
+                                 (int(needle[4]) <<  8) |
+                                 int(needle[5])
+                    break
             }
             needleSize -= 1
+            //fmt.Println("needleSize = ", needleSize)
             if needleSize > len(needle) {
                 // INFO(Rafael): Ahhh this is a mess, cross your fingers for it at least reproducing!
                 continue
@@ -185,7 +204,7 @@ func GetSongInfo(filePath string, coversCacheRootPath ...string) (SongInfo, erro
                 *field = string(needle[11:])[:needleSize]
                 h += 1
                 *field = strings.Trim(*field, "\x00 ")
-            } else if (needle[11] == 0xFF && needle[12] == 0xFE) || (needle[11] == 0xFE && needle[12] == 0xFF) {
+            } else if id3V != 2 && (needle[11] == 0xFF && needle[12] == 0xFE) || (needle[11] == 0xFE && needle[12] == 0xFF) {
                 *field = string(needle[13:])[:needleSize - 2]
                 if field != &s.AlbumCover {
                     *field = utfToAscii(*field)
@@ -198,6 +217,12 @@ func GetSongInfo(filePath string, coversCacheRootPath ...string) (SongInfo, erro
                     if startOff > -1 {
                         *field = blobData[startOff:]
                     }
+                }
+            } else if id3V == 2 {
+                *field = string(needle[7:])[:needleSize]
+                nullByteIndex := strings.Index(*field, "\x00")
+                if nullByteIndex > -1 {
+                    *field = (*field)[:nullByteIndex]
                 }
             }
             if field == &s.TrackNumber {

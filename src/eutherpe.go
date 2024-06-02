@@ -6,13 +6,12 @@ import (
     "internal/vars"
     "internal/webui"
     "os"
-
     _ "internal/mplayer"
 )
 
 func main() {
-    //songInfo, _ := mplayer.GetSongInfo("001q.mp3")
-    //fmt.Println(len(songInfo.AlbumCover))
+    //songInfo, err1 := mplayer.GetSongInfo("001.mp3")
+    //fmt.Println(songInfo.Artist, songInfo.Album, songInfo.Title, songInfo.FilePath, len(songInfo.AlbumCover), err1)
     //os.Exit(1)
     fmt.Printf("info: Initializing bluetooth subsystem... wait...\n")
     err := bluebraces.Wear()
