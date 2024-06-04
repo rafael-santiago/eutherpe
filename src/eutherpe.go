@@ -10,7 +10,7 @@ import (
 )
 
 func main() {
-    //songInfo, err1 := mplayer.GetSongInfo("001.mp3")
+    //songInfo, err1 := mplayer.GetSongInfo("soup.mp3")
     //fmt.Println(songInfo.Artist, songInfo.Album, songInfo.Title, songInfo.FilePath, len(songInfo.AlbumCover), err1)
     //os.Exit(1)
     fmt.Printf("info: Initializing bluetooth subsystem... wait...\n")

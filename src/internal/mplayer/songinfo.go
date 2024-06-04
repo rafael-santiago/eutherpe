@@ -212,11 +212,14 @@ func GetSongInfo(filePath string, coversCacheRootPath ...string) (SongInfo, erro
                 h += 3
             } else if field == &s.AlbumCover && strings.HasPrefix(needle[11:17], "image/") {
                 blobData := needle[17:]
+                startOff := -1
                 if strings.HasPrefix(blobData, "jpeg") {
-                    startOff := strings.Index(blobData, "\xFF\xD8\xFF\xE0")
-                    if startOff > -1 {
-                        *field = blobData[startOff:]
-                    }
+                    startOff = strings.Index(blobData, "\xFF\xD8\xFF\xE0")
+                }
+                if startOff > -1 {
+                    *field = blobData[startOff:]
+                } else {
+                    *field = needle[11:]
                 }
             } else if id3V == 2 {
                 *field = string(needle[7:])[:needleSize]
