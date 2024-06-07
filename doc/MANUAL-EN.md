@@ -263,49 +263,51 @@ to pilot its `player`. Nonetheless, you may have be intrigued: **how can I selec
 
 [`Back`](#topics)
 
-## A tela Collection
+## The Collection screen
 
-Nessa tela você tem todo acesso às músicas que `Eutherpe` conseguiu escanear de seu dispositivo
-de armazenamento. Entenda essa tela como a sua *estante*, onde todos seus álbuns seguem organizados.
-Note, organizados. E isso mesmo se você for uma criatura desorganizada! :wink:
+In this screen you have all access to the songs that `Eutherpe` could be able to find out in
+your storage device. Undestand it as your shelf, where all your albums follows tidied up.
+Notice: tidied up. Tidied, even you being an untidy creature! :wink:
 
-Dá uma conferida na **Figura 4** no `layout` dessa tela. Note que aqui eu também lancei mão daquela
-convenção pirada *sustenido/bemol*...
+Take a look at the screen's `layout` in **Figure 4**. In this screen I also have been using
+that crazy *sharp/flat* convention...
 
-Ainda em relação à tela ilustrada na **Figura 4**, perceba que a coleção fica organizada seguindo
-`Artista/Álbum/Músicas` e os álbuns mais recentes vão sendo listados antes. Artistas, álbums e
-músicas podem ser usados para compor uma seleção (pois eles possuem caixas de checagem ao lado
-dos nomes, eu tenho certeza absoluta que você entendeu!).
+Still related to the screen depicted in **Figure 4**, notice that the collection is sorted
+following `Artist/Album/Song` and that the newest ablbums are listed before the old ones.
+Artists, albums and songs can be used to compose a selection (because they have check boxes
+at their side, I am pretty sure that you figured it out!).
 
-Na parte inferior da tela você vai notar que existem botões bem autoexplicativos:
+At the bottom side of the screen you will see the following autoexplaining buttons:
 
-- `ADD TO NEXT` (adiciona a sua seleção ao final da fila de reprodução)
-- `ADD TO UP NEXT` (fura a fila de reprodução e adiciona sua seleção atrás da posição atual de reprodução)
-- `ADD TO PLAYLIST...` (adiciona a sua seleção a uma nova `playlist` ou a uma prévia)
-- `ADD TAGS...` (marca sua seleção com `tags` fornecidas por você)
-- `DEL TAGS...` (remove tags previamente adicionadas da seleção)
-- `PLAY TAGGED...` (toca uma quantidade de músicas levando em conta `tags` fornecidas por você)
+- `ADD TO NEXT` (adds your selection to the end of the reproduction queue)
+- `ADD TO UP NEXT` (adds your selection just after the current reproduction position)
+- `ADD TO PLAYLIST...` (adds the selection to a new or previous existent `playlist`)
+- `ADD TAGS...` (tags up the selection using tags provided by you)
+- `DEL TAGS...` (removes previous added tags from the selection)
+- `PLAY TAGGED...` (play a certain quantity of songs taking into consideration `tags` provided by you)
 
-Aqui temos uma outra convenção. Tudo que for botão com reticências significa que ao clicar,
-uma tela te pedindo mais info vai ser apresentada, nesse ponto lembre do `Guia do mochileiro
-das galáxias`: `DON'T PANIC`! :wink:
+Here we have another convention. All that is about a button containing ellipsis means that when
+clicked, another screen asking from more info will be presented. At this point, remember
+`The Hitchhiker's Guide to the Galaxy`: `DON'T PANIC`! :wink:
 
-A **Figura 5** exibe a tela que é apresentada ao clicar em `ADD TO PLAYLIST...`, você precisa
-fornecer o nome da `playlist` a qual deseja adicionar a seleção e clicar em `ADD`. Se quiser
-desistir da ideia, apenas clique em `BACK` que está tudo certo `Eutherpe` não brigará com você...
+The **Figure 5** depicts the screen presented when you click `ADD TO PLAYLIST...`, you need to
+provide the `playlist` name that you want to add to. If you gave up adding anything, just click
+`BACK`, `Eutherpe` is easy going.
 
-A **Figura 6** exibe uma tela similar a da **Figura 5**, porém aqui é para taguear a seleção.
+The **Figure 6** shows a screen similar to shown in **Figure 5** but it is used to tag up
+a song selection.
 
-Na **Figura 7** você confere a tela para remover `tags` previamente adicionadas à seleção. A ideia
-geral é que você desmarque as `tags` que deseja remover e clique em `SAVE`. Se mudou de ideia e
-não quiser remover nada, clica em `BACK`, `Eutherpe` é compreensiva...
+In **Figure 7** you see a screen dedicated to remove `tags` from a selection. The general idea
+is that you uncheck all `tags` that you want to remove and finally confirm it by clicking in
+`SAVE`. If you have changed your mind and you do not want to remove tags anymore, click `BACK`,
+`Eutherpe` will not fight you.
 
-A **Figura 8** ilustra o que você encontra ao clicar em `PLAY TAGGED...`. Você precisa fornecer
-uma lista de `tags` separada por vírgula e ainda indicar o total de músicas que deseja escutar.
-Para confirmar você clica em `PLAY` ou se desistiu e não quer mais clica em `BACK`, `Eutherpe`
-vai entender e não reclamar...
+The **Figure 8** illustrates what you see when clicking on `PLAY TAGGED...`. You need to provide
+a list of `tags` separated by comma, besides indicating the total of songs you want to listen to.
+By clicking on `PLAY` you confirm it, by clicking on `BACK` means that you give up playing
+random songs that follows some tagging, that's ok, `Eutherpe` will not complain...
 
-[`Voltar`](#tópicos)
+[`Back`](#topics)
 
 ## A tela Playlists
 
