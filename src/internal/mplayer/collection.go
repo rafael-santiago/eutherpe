@@ -58,8 +58,17 @@ func LoadMusicCollection(basePath string, coversCacheRootPath ...string) (MusicC
         if !has {
             albums = make(map[string][]SongInfo)
         }
-        albums[song.Album] = append(albums[song.Album], song)
-        collection[song.Artist] = albums
+        found := false
+        for _, previousSong := range albums[song.Album] {
+            found = (previousSong.Title == song.Title)
+            if found {
+                break
+            }
+        }
+        if !found {
+            albums[song.Album] = append(albums[song.Album], song)
+            collection[song.Artist] = albums
+        }
     }
     for _, albums := range collection {
         for album, tracks := range albums {
