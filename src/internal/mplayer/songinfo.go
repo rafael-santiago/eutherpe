@@ -6,7 +6,6 @@ import (
     "strings"
     "regexp"
     "path"
-    "unicode/utf8"
     "crypto/sha256"
 )
 
@@ -402,12 +401,51 @@ func getSongInfoFromM4A(filePath string) (SongInfo, error) {
     return songInfo, nil
 }
 
+func normalizeStr(str string) string {
+    var normStr string
+    for _, annoyingRune := range str {
+        switch annoyingRune {
+            case 226, 224,225,227, 228:
+                normStr += "a"
+                break
+            case 194, 192, 193, 195, 196:
+                normStr += "A"
+                break
+            case 242, 243, 244, 245, 246, 210, 211, 212, 213, 214:
+                normStr += "O"
+                break
+            case 232, 233, 235, 234:
+                normStr += "e"
+                break
+            case 200, 201, 203, 202:
+                normStr += "E"
+                break
+            case 236, 237, 239:
+                normStr += "i"
+                break
+            case 204, 205, 207:
+                normStr += "I"
+                break
+            case 231:
+                normStr += "c"
+                break
+            case 199:
+                normStr += "C"
+                break
+            default:
+                normStr += string(annoyingRune)
+                break
+        }
+    }
+    return normStr
+}
+
 func normalizeSongInfo(songInfo *SongInfo) {
     songInfo.Artist = strings.Replace(songInfo.Artist, "/", "-", -1)
     songInfo.Album = strings.Replace(songInfo.Album, "/", "-", -1)
-    songInfo.Artist = strings.ToLower(songInfo.Artist)
-    songInfo.Album = strings.ToLower(songInfo.Album)
-    songInfo.Title = strings.ToLower(songInfo.Title)
+    songInfo.Artist = strings.ToLower(normalizeStr(songInfo.Artist))
+    songInfo.Album = strings.ToLower(normalizeStr(songInfo.Album))
+    songInfo.Title = strings.ToLower(normalizeStr(songInfo.Title))
 }
 
 func getTrackNumberFromFileName(filePath string) string {
@@ -442,20 +480,13 @@ func utfToAscii(utfStr string) string {
     if utfStrLen == 0 {
         return ""
     }
-    mbStr := make([]byte, utf8.RuneCountInString(utfStr) >> 1)
-    m := 0
     u := 0
-    for u < utfStrLen && utfStr[u] != 0x00 {
-        mbStr[m] = byte(utfStr[u])
-        m += 1
+    var mbStr string
+    for  u  < utfStrLen && utfStr[u] != 0x00 {
+        mbStr += string(utfStr[u])
         u += 2
     }
-    for m = 0; m < len(mbStr); m++ {
-        if mbStr[m] == 0x00 {
-            break
-        }
-    }
-    return strings.Trim(string(mbStr), "\x00 ")
+    return strings.Trim(mbStr, "\x00 ")
 }
 
 func getAlbumCoverId(blob []byte) string {
