@@ -113,8 +113,8 @@ get_arch() {
     arch_tag=$(uname -m)
     if [[ $(echo $arch_tag | grep x86_64 | wc -l)  == 1 ]] ; then
         arch_tag="amd64"
-    elif [[ $(echo $arc_tag | grep ^arm | wc - l) == 1 ]] ; then
-        arch_tag="amd64"
+    elif [[ $(echo $arch_tag | grep ^aarch64 | wc -l) == 1 ]] ; then
+        arch_tag="arm64"
     elif [[ $(echo $arch_tag | grep i686 | wc -l) == 1 ]] ; then
         arch_tag="386"
     else
