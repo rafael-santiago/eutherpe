@@ -8,6 +8,7 @@ import (
     "os"
     "time"
     _ "internal/mplayer"
+    "strings"
 )
 
 func main() {
@@ -24,6 +25,16 @@ func main() {
     fmt.Printf("info: Bluetooth subsystem initialized!\n")
     eutherpeVars := &vars.EutherpeVars{}
     eutherpeVars.TuneUp()
+    if len(eutherpeVars.HTTPd.Addr) == 0 ||
+       strings.HasPrefix(eutherpeVars.HTTPd.Addr, "169.") {
+        // TIP(Rafael): This is necessary to prevent Eutherpe listening to
+        //              an invalid (or APIPA, dummy) address. It would isolate
+        //              server and no one would be able to reach it.
+        //              It is also useful in scenarios where you are running
+        //              Eutherpe embedded and the address network is about a WLAN.
+        fmt.Printf("panic: Unable to get a valid IP address.")
+        os.Exit(1)
+    }
     if len(eutherpeVars.CachedDevices.BlueDevId) > 0 {
         go tryToPairWithPreviousBluetoothDevice(eutherpeVars,
                                                 eutherpeVars.CachedDevices.BlueDevId)
