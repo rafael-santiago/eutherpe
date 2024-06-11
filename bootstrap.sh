@@ -182,6 +182,14 @@ create_usb_sto_mount_point() {
     echo $?
 }
 
+patch_out_etc_bluetooth_main_conf() {
+    # TIP(Rafael): With it I got rid of cases when I could connect to a bluetooth device
+    #              but no sound emanated from it.
+    sed -i 's/.*ControllerMode.*=.*$/ControllerMode = bredr/g' /etc/bluetooth/main.conf &&
+        systemctl restart bluetooth >/dev/null 2>&1
+    echo 0
+}
+
 build_eutherpe() {
     cd src
     go build -buildvcs=false >/dev/null 2>&1
@@ -254,6 +262,14 @@ echo "=== bootstrap info: Installing system dependencies..."
 
 if [[ `install_sysdeps` != 0 ]] ; then
     echo "error: Unable to install system dependencies." >&2
+    exit 1
+fi
+
+echo "=== bootstrap info: Done."
+echo "=== bootstrap info: Patching out bluetooth stuff for keeping it up more stable."
+
+if [[ `patch_out_etc_bluetooth_main_conf` != 0 ]] ; then
+    echo "error: Unable to patch out /etc/bluetooth/main.conf." >&2
     exit 1
 fi
 
