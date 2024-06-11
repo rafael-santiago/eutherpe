@@ -233,7 +233,8 @@ func GetSongInfo(filePath string, coversCacheRootPath ...string) (SongInfo, erro
             } else if field == &s.AlbumCover && len(s.AlbumCover) > 0 {
                 a := 0
                 mimeType := string(s.AlbumCover[0:20])
-                isJPEG := strings.HasPrefix(mimeType, "image/jpeg")
+                isJPEG := strings.HasPrefix(mimeType, "image/jpeg") ||
+                          strings.HasPrefix(mimeType, "image/jpg")
                 isPNG := !isJPEG && strings.HasPrefix(mimeType, "image/png")
                 for ; isPNG && a < len(s.AlbumCover) && s.AlbumCover[a] != 0x89; a++ {
                 }
