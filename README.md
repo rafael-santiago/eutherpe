@@ -12,7 +12,7 @@ Você não precisa pôr `Eutherpe` dentro de um `Raspberry Pi` mas isso é uma t
 você iria adorar ter esse "dispositivo de jukebox etérea" (`não grampeada`) em casa. Se você ficou interessada(o), você pode
 seguir todos os passos de como fazer isso no repo do `Euther-Pi`.
 
-Contudo, para início de conversa, eu sugeriria você conhecer todos os detalhes sobre `Eutherpe` começando por [aqui]().
+Contudo, para início de conversa, eu sugeriria você conhecer todos os detalhes sobre `Eutherpe` começando por [aqui](doc/MANUAL-PT.md).
 
 Divirta-se! :wink:
 
@@ -33,7 +33,7 @@ You do not need to build up `Eutherpe` into a `Raspberry Pi` but it is a very ne
 this nice little `ethereal` jukebox (not tapped) device at your home. If you are interested, you can follow up all steps to do it
 at `Euther-Pi` repo.
 
-However, firstly I would suggest you to know all single thing about `Eutherpe` by starting from [here]().
+However, firstly I would suggest you to know all single thing about `Eutherpe` by starting from [here](doc/MANUAL-EN.md).
 
 Enjoy! :wink:
 
