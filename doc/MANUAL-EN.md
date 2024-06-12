@@ -10,7 +10,7 @@
 - [Knowing the screens](#knowing-the-screens)
     - [The Music screen](#the-music-screen)
     - [The Collection screen](#the-collection-screen)
-    - [The Playlist screen](#the-playlist-screen)
+    - [The Playlists screen](#the-playlists-screen)
     - [The Storage screen](#the-storage-screen)
     - [The Bluetooth screen](#the-bluetooth-screen)
     - [The Settings screen](#the-settings-screen)
@@ -309,95 +309,89 @@ random songs that follows some tagging, that's ok, `Eutherpe` will not complain.
 
 [`Back`](#topics)
 
-## A tela Playlists
+## The Playlists screen
 
-A **Figura 9** traz a tela `Playlists`. A partir dessa tela você poderá pôr uma `playlist` ou
-apenas algumas músicas dela para tocar, além de editá-la.
+The **Figure 9** depicts `Playlists` screen. From this screen you are able to play an entire
+`playlist` or some song picked from it. Besides edit playlists, too.
 
-Note que cada `playlist` listada esconde suas músicas e que quando você clica sobre o nome dela
-as músicas são listadas, confira a **Figura 10** onde a lista `HOW-LOU` (sim, eu curto
-`Lou Rawls`!) está sendo detalhada.
+Notice that each `playlist` shown hide their songs. When you click on the name of a `playlist` all
+songs will be listed. Take a look at **Figure 10** that shows the playlist named `HOW-LOU`
+(yes, I like `Lou Rawls`!) being detailed.
 
-As funções oferecidas por essa tela são:
+The functions offered by this screen are:
 
-- `REMOVE...` (você seleciona a playlist que deseja remover).
-- `CLEAR...` (você seleciona a playlist que deseja limpar).
-- `SONGS UP` (você moverá um ponto para cima dentro da listagem as músicas selecionadas).
-- `SONGS DOWN` (você moverá um ponto para baixo dentro da listagem as músicas selecionadas).
-- `REMOVE SONGS...` (você seleciona a(s) música(s) que deseja remover).
-- `REPRODUCE` (você colocará para tocar a `playlist` selecionada).
-- `REPRODUCE SELECTION` (você colocará para tocar as músicas específicas que escolheu a partir da
-   listagem geral de uma playlist).
+- `REMOVE...` (you select a playlist you want to remove).
+- `CLEAR...` (you select a playlist you want to clear).
+- `SONGS UP` (you will move up all selected songs).
+- `SONGS DOWN` (you will move down all selected songs).
+- `REMOVE SONGS...` (you select the song(s) you want to remove).
+- `REPRODUCE` (you will play the selected `playlist`).
+- `REPRODUCE SELECTION` (you will play only the specific songs selected from a playlist).
 
-Pronto! Você já se formou na escola de `DJs Eutherpe`, congrats!
+Done! You have just graduated at the `Eutherpe DJs` school, congrats!
 
-[`Voltar`](#tópicos)
+[`Back`](#topics)
 
-## A tela Storage
+## The Storage screen
 
-A tela `Storage` é onde você sinaliza à `Eutherpe` a partir de onde tentar ler suas músicas.
-A **Figura 11** ilustra o que você encontra nessa tela. A tela oferece três operações:
+The `Storage` screen is where you tell to `Eutherpe` the source of your songs.
 
-- `LIST` (todos os dispositivos `USB` encontrados são listados, se você plugou um USB é necessário
-clicar nesse botão para ter acesso ao seu novo dispositivo).
-- `SET` (o dispositivo selecionado na lista de dispositvos encontrados é de fato selecionado para
-uso).
-- `SCAN` (o dispositivo é escaneado e a coleção extraída e organizada é listada na tela
-`Collection`, no primeiro escaneamento o processo pode demorar um pouco mais, isso é por conta de
-como o dispositivos de armazenamento `USB` funcionam no `Linux`).
+The **Figure 11** depicts what you will get on this screen. This screen offers three operations:
 
-Uma vez o dispositivo escolhido e escaneado. Na próxima sessão, caso `Eutherpe` detecte que o
-dispositivo `USB` já esteja plugado, a sua `juke` etérea é esperta o suficiente para já te
-apresentar a coleção escaneada da última vez. Se você adicionou ou removeu mais músicas ou
-alterou a localização delas, vai precisar clicar em `SCAN` de novo.
+- `LIST` (all `USB` devices found are listed, if you have just plugged a USB stick, it is necessary
+to click on this button to access you new device).
+- `SET` (confirms the selected device from the found devices listed).
+- `SCAN` (the selected device is scanned and the collection is extracted, organized and shown at
+the Collection screen, the first scanning tends to take longer, this is because the way of
+`USB` devices work on `Linux`).
 
-[`Voltar`](#tópicos)
+Once the device chosen and scanned, at the next session, if `Eutherpe` detects that the `USB`
+device is plugged, your ethereal `juke` is smart enough to show you the last scanning result
+since the last time. If you added or removed some songs or even relocated them, you will need
+to click on `SCAN` again.
 
-## A tela Bluetooth
+[`Back`](#topics)
 
-A **Figura 12** traz a tela `Bluetooth`. Na linha das outras telas é bem direta ao assunto.
-Possui três funções disparadas por três botões:
+## The Bluetooth screen
 
-- `PROBE` (você clica nele para sondar o local e ver se encontra o dispositivo bluetooth de saída
-de áudio do seu interesse).
-- `PAIR...` (você clica nele para parear com o dispositivo que você selecionou da lista que a
-sondagem te retornou, vai te exibir a tela da **Figura 13**).
-- `UNPAIR..` (você clica nele para desparear o pareamento prévio, o som vai parar de emanar via o
-dispositivo `Bluetooth` que você havia pareado antes).
+The **Figure 12** brings the screen `Bluetooth`. In the similar way of other screens, it is
+very straightforward. It has three functions triggered by three buttons:
 
-Após parear com um dispositivo de saída, o `ID` desse dispositivo é indicado, dê uma olhada
-na **Figura 14**.
+- `PROBE` (you click on it to probe the surroundings trying to find the `Bluetooth` device
+that you are looking for).
+- `PAIR...` (you click on it to pair with the found device that you selected from the probing
+result list, according to the **Figure 13**).
+- `UNPAIR..` (you click on it to unpair the previous paired device).
 
-[`Voltar`](#tópicos)
+After pairing with a output device, the `ID` of this device is indicated, take a look at
+**Figure 14**.
 
-## A tela Settings
+[`Back`](#topics)
 
-A tela `Settings` é onde você pode deixar a sua `juke` no jeito que mais lhe aprouver (Uau hein?
-Sound portuguese babe, I love my mother tongue). A cara geral dessa tela pode ser conferida via
-**Figura 15**.
+## The Settings screen
 
-A tela possui várias funcionalidades mas todas são bem diretas de configurar:
+The `Settings` screen is the place where you can put your `juke` in the way you want. The general
+look of this screen can be seen in **Figure 15**.
 
-- **a.** Quando marcado uma tela pedindo senha de acesso será apresentada. A senha `default` é `music` (essa eu tenho certeza que você nem eu esquecemos!!!).
-- **b.** Quando marcado, a conexão da interface `Web` será via `HTTPS`.
-- **c.** Clique aqui e você gera um certificado autoassinado para ser utilizado com o `HTTPS`.
-- **d.** Clique aqui e você faz o download do certificado, caso queira instalá-lo no dispositivo que
-acessará a interface `Web`.
-- **e.** Aqui você abre a interface para configurar a conexão `Wi-Fi/WLAN` para `Eutherpe` ingressar
-no seu `Wi-Fi` e você poder controlar o `player` via `cel`, `tablet` ou mesmo `desktop`. Se a rede
-da sua casa for sem-fio (quase certo que é), você precisa indicar o nome da sua rede (`SSID`) e a
-senha. Relaxa, a senha ficará guardada encriptada, do jeito que deve ser :wink: Eu sou o chato
-militante/ilitante da criptografia (e com orgulho!) :smile:
-- **f.** Você confirma o nome para acessar a interface `Web Eutherpe`. É importante que seja nos moldes
-`<algo>.local`, se você digitar apenas `<algo>` `Eutherpe` vai completar isso com `.local` para
-terminar de configurar.
-- **g.** Clique aqui e você desliga o dispositivo que está rodando `Eutherpe` (isso é bom para quando
-você estiver rodando `Eutherpe` embarcada [na verdade essa é a ideia base] e não quiser colocar
-um botão liga/desliga na sua placa).
-- **h.** Clique aqui e você reinicia o dispositivo que está rodando `Eutherpe`, você sabe, em computação
-sempre tem momentos em que acabamos precisando de um `reboot`. Embora procure deixar `Eutherpe`
-o mais estável possível para você :wink:!
-- **i.** Se você quiser alterar a senha de acesso à interface `Web` clica aqui. Se esquecer a
-senha vai ter que fazer umas madracarias para resetar. Mais para frente te mostro!
+The screen has plenty of functionalities but all are pretty straightforward on configuring:
 
-[`Voltar`](#tópicos)
+- **a.** When checked a screen asking for access password will be presented. The default password is hard to remember: `music`.
+- **b.** When checked, the connection to the `Web` interface will be `HTTPS`.
+- **c.** Click here and you generate a self-signed certificate to be used with `HTTPS`.
+- **d.** Click here and you download the certificate, if you want to install it in the `Eutherpe`'s
+client host.
+- **e.** Here you open an interface to configure `WLAN`, so `Eutherpe` will be able to ingress
+in you `Wi-Fi` by picking an `IP` that you can access via your smartphone, desktop, whatever.
+- **f.** You confirm the local name to access the `Web` interface. It is important to follow the
+form `<something>.local`, it you just define `<something>` `Eutherpe` you complete it with
+`.local` in order to finish up configuring.
+- **g.** Click here and you shut down the device running `Eutherpe` (this is useful when you are
+running `Eutherpe` embedded [actually, this is the basic idea] but you do not want to put
+pushdown on/off button on your board).
+- **h.** Click here and you restart the device running `Eutherpe`, you know, in computing
+sometimes we need to `reboot` to troubleshoot. Although I seek to make `Eutherpe` as stable
+as possible to you :wiki:!
+- **i.** If you want to change the access passowrd to the `Web` interface, click here.
+If you forget the password you will have to do some incantations to reset it. More on over!
+
+[`Back`](#topics)
