@@ -1,6 +1,6 @@
 [Unit]
 Description=Eutherpe an ethereal music player
-After=network.target
+After=network.target bluetooth.service eutherpe-usb-watchdog.service
 StartLimitIntervalSec=0
 
 [Service]
@@ -8,7 +8,7 @@ Type=simple
 Restart=always
 RestartSec=1
 ExecStart=/usr/sbin/run-eutherpe.sh
-ExecStop=/usr/bin/bash -c "kill -SIGINT $(ps -ax | grep eutherpe | grep -v 'grep\|su' | awk '{ print $1 }')"
+ExecStop=/usr/bin/bash -c "kill -SIGINT $(ps -ax | grep eutherpe | grep -v 'grep\\|su' | awk '{ print $1 }')"
 
 [Install]
 WantedBy=multi-user.target
