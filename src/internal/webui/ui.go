@@ -14,6 +14,7 @@ import (
     "net/url"
     "sync"
     "strings"
+    "time"
 )
 
 type EutherpeHTTPHandler struct {
@@ -32,9 +33,29 @@ func RunWebUI(eutherpeVars *vars.EutherpeVars) error {
     sigintWatchdog := make(chan os.Signal, 1)
     var err error = nil
     go eutherpeHTTPd(EutherpeHTTPHandler { sync.Mutex{}, eutherpeVars }, sigintWatchdog, &err)
+    goinHome := make(chan bool, 1)
+    go func() {
+        const kSavingWindow = 42
+        timeToSave := time.Now().Unix() + kSavingWindow
+        for {
+            select {
+                case <-goinHome:
+                    break
+                default:
+                    if (time.Now().Unix() >= timeToSave) {
+                        eutherpeVars.Lock()
+                        eutherpeVars.SaveSession()
+                        eutherpeVars.Unlock()
+                        timeToSave = time.Now().Unix() + kSavingWindow
+                    }
+                    time.Sleep(1 * time.Second)
+            }
+        }
+    }()
     signal.Notify(sigintWatchdog, os.Interrupt)
     signal.Notify(sigintWatchdog, syscall.SIGINT|syscall.SIGTERM)
     <-sigintWatchdog
+    goinHome <- true
     // INFO(Rafael): It is important otherwise Eutherpe can exits by letting music playing
     //               sometimes.
     actions.MusicStop(eutherpeVars, nil)
