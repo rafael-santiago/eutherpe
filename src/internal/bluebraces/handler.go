@@ -14,13 +14,26 @@ const (
     kAliasNeedle = "Alias: "
 )
 
+var g_HasSystemCtlCallNr int
+var g_HasSystemCtl bool
+
 func Wear(customPath ...string) error {
     cp := getToolPath(customPath...)
-    err := exec.Command(cp + "pulseaudio", "--start").Run()
+    err := exec.Command(cp + "pulseaudio", "--kill").Run()
+    err = exec.Command(cp + "pulseaudio", "--start").Run()
+    if (err == nil && hasSystemCtl()) {
+        err = exec.Command("systemctl", "restart", "bluetooth").Run()
+    }
     if err != nil {
         return err
     }
     err = exec.Command(cp + "bluetoothctl", "power", "on").Run()
+    //if err == nil {
+    //    err = exec.Command(cp + "bluetoothctl", "discoverable", "on").Run()
+    //    if err == nil {
+    //        err = exec.Command(cp + "bluetoothctl", "pairable", "on").Run()
+    //    }
+    //}
     return err
 }
 
@@ -30,7 +43,7 @@ func Unwear(customPath ...string) error {
     if err != nil {
         return err
     }
-    err = exec.Command(cp + "pulseaudio", "--stop").Run()
+    err = exec.Command(cp + "pulseaudio", "--kill").Run()
     return err
 }
 
@@ -130,4 +143,13 @@ func getDeviceAlias(devId string, customPath ...string) string {
         alias += string(sOut[a])
     }
     return alias
+}
+
+func hasSystemCtl() bool {
+    if g_HasSystemCtlCallNr == 0 {
+        err := exec.Command("systemctl", "status").Run()
+        g_HasSystemCtl = (err == nil)
+        g_HasSystemCtlCallNr++
+    }
+    return g_HasSystemCtl
 }
