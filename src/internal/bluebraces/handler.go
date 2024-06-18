@@ -19,21 +19,10 @@ var g_HasSystemCtl bool
 
 func Wear(customPath ...string) error {
     cp := getToolPath(customPath...)
-    err := exec.Command(cp + "pulseaudio", "--kill").Run()
-    err = exec.Command(cp + "pulseaudio", "--start").Run()
-    if (err == nil && hasSystemCtl()) {
-        err = exec.Command("systemctl", "restart", "bluetooth").Run()
+    err := exec.Command(cp + "bluetoothctl", "power", "on").Run()
+    if err == nil {
+        err = exec.Command(cp + "bluetoothctl", "discoverable", "on").Run()
     }
-    if err != nil {
-        return err
-    }
-    err = exec.Command(cp + "bluetoothctl", "power", "on").Run()
-    //if err == nil {
-    //    err = exec.Command(cp + "bluetoothctl", "discoverable", "on").Run()
-    //    if err == nil {
-    //        err = exec.Command(cp + "bluetoothctl", "pairable", "on").Run()
-    //    }
-    //}
     return err
 }
 
@@ -43,7 +32,6 @@ func Unwear(customPath ...string) error {
     if err != nil {
         return err
     }
-    err = exec.Command(cp + "pulseaudio", "--kill").Run()
     return err
 }
 
