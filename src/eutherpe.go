@@ -12,8 +12,17 @@ import (
 )
 
 func main() {
-    //songInfo, err1 := mplayer.GetSongInfo("ace.mp3")
-    //fmt.Println(songInfo.Artist, songInfo.Album, songInfo.Title, songInfo.FilePath, len(songInfo.AlbumCover), err1)
+    //str := []rune("")
+    //for r, s := range str {
+    //    fmt.Println(r, s)
+    //}
+    //os.Exit(1)
+    //songInfo, err1 := mplayer.GetSongInfo("3.m4a")
+    //fmt.Println(songInfo.Artist, songInfo.Album, songInfo.TrackNumber, songInfo.Title, songInfo.FilePath, len(songInfo.AlbumCover), err1)
+    //rn := []rune(songInfo.Title)
+    //for r, s := range rn {
+    //    fmt.Println(r, s)
+    //}
     //os.Exit(1)
     fmt.Printf("info: Initializing bluetooth subsystem... wait...\n")
     err := bluebraces.Wear()

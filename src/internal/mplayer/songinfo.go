@@ -199,7 +199,7 @@ func GetSongInfo(filePath string, coversCacheRootPath ...string) (SongInfo, erro
                 continue
             }
             h += needleSize
-            if needle[10] == 0 || (needle[9] == 0 &&  id3V == 4 && needle[11] != 0xFF && needle[12] != 0xFE) {
+            if (needle[10] == 0 && id3V != 2) || (needle[9] == 0 &&  id3V == 4 && needle[11] != 0xFF && needle[12] != 0xFE) {
                 *field = string(needle[11:])[:needleSize]
                 h += 1
                 *field = strings.Trim(*field, "\x00 ")
@@ -222,9 +222,11 @@ func GetSongInfo(filePath string, coversCacheRootPath ...string) (SongInfo, erro
                 }
             } else if id3V == 2 {
                 *field = string(needle[7:])[:needleSize]
-                nullByteIndex := strings.Index(*field, "\x00")
-                if nullByteIndex > -1 {
-                    *field = (*field)[:nullByteIndex]
+                if field != &s.AlbumCover {
+                    nullByteIndex := strings.Index(*field, "\x00")
+                    if nullByteIndex > -1 {
+                        *field = (*field)[:nullByteIndex]
+                    }
                 }
             }
             if field == &s.TrackNumber {
@@ -234,8 +236,10 @@ func GetSongInfo(filePath string, coversCacheRootPath ...string) (SongInfo, erro
                 a := 0
                 mimeType := string(s.AlbumCover[0:20])
                 isJPEG := strings.HasPrefix(mimeType, "image/jpeg") ||
-                          strings.HasPrefix(mimeType, "image/jpg")
-                isPNG := !isJPEG && strings.HasPrefix(mimeType, "image/png")
+                          strings.HasPrefix(mimeType, "image/jpg") ||
+                          strings.HasPrefix(s.AlbumCover, "JPG")
+                isPNG := !isJPEG && (strings.HasPrefix(mimeType, "image/png") ||
+                                     strings.HasPrefix(s.AlbumCover, "PNG"))
                 for ; isPNG && a < len(s.AlbumCover) && s.AlbumCover[a] != 0x89; a++ {
                 }
                 for skp := 0; isJPEG && skp < 2; skp++ {
@@ -406,10 +410,10 @@ func normalizeStr(str string) string {
     var normStr string
     for _, annoyingRune := range str {
         switch annoyingRune {
-            case 226, 224,225,227, 228:
+            case 226, 224, 225, 227, 228, 229, 65533:
                 normStr += "a"
                 break
-            case 194, 192, 193, 195, 196:
+            case 194, 192, 193, 195, 196, 197:
                 normStr += "A"
                 break
             case 242, 243, 244, 245, 246, 210, 211, 212, 213, 214:
@@ -432,6 +436,21 @@ func normalizeStr(str string) string {
                 break
             case 199:
                 normStr += "C"
+                break
+            case 152:
+                normStr += "y"
+                break
+            case 241:
+                normStr += "n"
+                break
+            case 209:
+                normStr += "N"
+                break
+            case 176:
+                normStr += "*"
+                break
+            case 39, 8217:
+                normStr += "_"
                 break
             default:
                 normStr += string(annoyingRune)
