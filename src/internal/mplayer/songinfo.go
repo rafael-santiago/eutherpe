@@ -27,9 +27,9 @@ func ScanSongs(basePath string, coversCacheRootPath ...string) ([]SongInfo, erro
     }
     songs := make([]SongInfo, 0)
     for _, file := range files {
-        fileName := file.Name()
+        fileName := strings.ToLower(file.Name())
         if path.Ext(fileName) == ".mp3" || path.Ext(fileName) == ".m4a" || path.Ext(fileName) == ".mp4" {
-            songInfo, err := GetSongInfo(path.Join(basePath, fileName), coversCacheRootPath...)
+            songInfo, err := GetSongInfo(path.Join(basePath, file.Name()), coversCacheRootPath...)
             if err != nil {
                 continue
             }
@@ -74,10 +74,10 @@ func GetSongInfo(filePath string, coversCacheRootPath ...string) (SongInfo, erro
     if string(id3Hdr[4:]) == "ftypM4A " ||
        string(id3Hdr[4:]) == "ftypisom" ||
        string(id3Hdr[4:]) == "ftypiso2" {
-        return getSongInfoFromM4A(filePath)
+        return getSongInfoFromM4A(filePath, coversCacheRootPath...)
     }
     if id3Hdr[0] == 0xFF && id3Hdr[1] == 0xFB {
-        return getSongInfoFromIDv1(filePath)
+        return getSongInfoFromIDv1(filePath, coversCacheRootPath...)
     }
     if err != nil || n < len(id3Hdr) || (id3Hdr[0] != 'I' && id3Hdr[1] != 'D' && id3Hdr[2] != '3') {
         return SongInfo{}, fmt.Errorf("Invalid ID3 header.")
@@ -284,11 +284,14 @@ func GetSongInfo(filePath string, coversCacheRootPath ...string) (SongInfo, erro
     if len(s.TrackNumber) == 0 {
         s.TrackNumber = getTrackNumberFromFileName(filePath)
     }
+    if len(s.AlbumCover) == 0 {
+        s.AlbumCover = getAlbumCoverFromRootPath(filePath, coversCacheRootPath...)
+    }
     normalizeSongInfo(&s)
     return s, nil
 }
 
-func getSongInfoFromIDv1(filePath string) (SongInfo, error) {
+func getSongInfoFromIDv1(filePath string, coversCacheRootPath ...string) (SongInfo, error) {
     data, err := os.ReadFile(filePath)
     if err != nil {
         return SongInfo{}, err
@@ -325,10 +328,11 @@ func getSongInfoFromIDv1(filePath string) (SongInfo, error) {
                           FilePath: filePath,
                           TrackNumber: getTrackNumberFromFileName(filePath), }
     normalizeSongInfo(&songInfo)
+    songInfo.AlbumCover = getAlbumCoverFromRootPath(filePath, coversCacheRootPath...)
     return songInfo, nil
 }
 
-func getSongInfoFromM4A(filePath string) (SongInfo, error) {
+func getSongInfoFromM4A(filePath string, coversCacheRootPath ...string) (SongInfo, error) {
     data, err := os.ReadFile(filePath)
     if err != nil {
         return SongInfo{}, err
@@ -401,6 +405,9 @@ func getSongInfoFromM4A(filePath string) (SongInfo, error) {
     }
     if len(songInfo.TrackNumber) == 0 {
         songInfo.TrackNumber = getTrackNumberFromFileName(filePath)
+    }
+    if len(songInfo.AlbumCover) == 0 {
+        songInfo.AlbumCover = getAlbumCoverFromRootPath(filePath, coversCacheRootPath...)
     }
     normalizeSongInfo(&songInfo)
     return songInfo, nil
@@ -550,4 +557,33 @@ func cleanUpUnusedCovers(coversCacheRootPath string, songs []SongInfo) {
             os.Remove(path.Join(coversCacheRootPath, coverId))
         }
     }
+}
+
+func getAlbumCoverFromRootPath(filePath string, coversCacheRootPath ...string) string {
+    dirPath := path.Dir(filePath)
+    files, err := os.ReadDir(dirPath)
+    if err != nil {
+        return ""
+    }
+    coverBlob := make([]byte, 0)
+    for _, file := range files {
+        fileName := strings.ToLower(file.Name())
+        if path.Ext(fileName) == ".jpg" ||
+           path.Ext(fileName) == ".jpeg" ||
+           path.Ext(fileName) == ".png" {
+            coverBlob, err = os.ReadFile(path.Join(dirPath, file.Name()))
+            if err != nil {
+                break
+            }
+        }
+    }
+    shouldUseCachedCovers := (len(coversCacheRootPath) > 0 && len(coversCacheRootPath[0]) > 0)
+    if !shouldUseCachedCovers {
+        return string(coverBlob)
+    }
+    var coverId string
+    if !isAlbumCoverCached(coverBlob, coversCacheRootPath[0], &coverId) {
+        makeAlbumCoverCache(coversCacheRootPath[0], coverId, coverBlob)
+    }
+    return ("blob-id=" + coverId)
 }
