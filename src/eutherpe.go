@@ -17,7 +17,7 @@ func main() {
     //    fmt.Println(r, s)
     //}
     //os.Exit(1)
-    //songInfo, err1 := mplayer.GetSongInfo("100C.m4a")
+    //songInfo, err1 := mplayer.GetSongInfo("100C.m4A")
     //fmt.Println(songInfo.Artist, songInfo.Album, songInfo.TrackNumber, songInfo.Title, songInfo.FilePath, len(songInfo.AlbumCover), err1)
     //rn := []rune(songInfo.Title)
     //for r, s := range rn {

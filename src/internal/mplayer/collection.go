@@ -184,7 +184,8 @@ func (m *MusicCollection) FromJSON(filePath string) error {
 func sortTracksFromAlbum(trackList []SongInfo) []SongInfo {
     trackNumber := len(trackList) + 1
     for t, _ := range trackList {
-        if len(trackList[t].TrackNumber) == 0 {
+        if trackList[t].TrackNumber == "0" ||
+           len(trackList[t].TrackNumber) == 0 {
             trackList[t].TrackNumber = fmt.Sprintf("%s", trackNumber)
             trackNumber++
         }
