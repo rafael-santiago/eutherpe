@@ -10,6 +10,7 @@ import (
     "internal/mdns"
     "sync"
     "os/exec"
+    "runtime"
     "encoding/json"
     "encoding/base64"
     "os"
@@ -447,6 +448,11 @@ func (e *EutherpeVars) TuneUp() {
         defer wifi.ReleaseAddr(e.WLAN.Iface)
         defer wifi.Stop(e.WLAN.ConnSession)
         defer wifi.SetIfaceDown(e.WLAN.Iface)
+    }
+    if strings.HasPrefix(runtime.GOARCH, "arm") && len(e.HostName) == 0 {
+        // INFO(Rafael): It is convenient because find out ip address of a
+        //               raspberry pi it is a pain in the neck.
+        e.HostName = "eutherpe.local"
     }
     if len(e.HostName) > 0 {
         e.MDNS.GoinHome = make(chan bool)
