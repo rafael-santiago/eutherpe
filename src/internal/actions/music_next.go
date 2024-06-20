@@ -6,7 +6,7 @@ import (
     "fmt"
 )
 
-func MusicNext(eutherpeVars *vars.EutherpeVars, _ *url.Values) error {
+func MusicNext(eutherpeVars *vars.EutherpeVars, userData *url.Values) error {
     eutherpeVars.Lock()
     if eutherpeVars.Player.Stopped ||
        eutherpeVars.Player.Handle == nil  {
@@ -22,7 +22,27 @@ func MusicNext(eutherpeVars *vars.EutherpeVars, _ *url.Values) error {
         return err
     }
     eutherpeVars.Lock()
-    eutherpeVars.Player.UpNextCurrentOffset++
+    var jumpIndex int = -1
+    if userData != nil {
+        data, has := (*userData)[vars.EutherpePostFieldSelection]
+        if has && len(data) == 1 {
+            selection := ParseSelection(data[0])
+            if len(selection) == 1 {
+                songFilePath := GetSongFilePathFromSelectionId(selection[0])
+                for u, currSong := range eutherpeVars.Player.UpNext {
+                    if currSong.FilePath == songFilePath {
+                        jumpIndex = u
+                        break
+                    }
+                }
+            }
+        }
+    }
+    if jumpIndex == -1 {
+        eutherpeVars.Player.UpNextCurrentOffset++
+    } else if jumpIndex > eutherpeVars.Player.UpNextCurrentOffset {
+        eutherpeVars.Player.UpNextCurrentOffset = jumpIndex
+    }
     eutherpeVars.Unlock()
     return MusicPlay(eutherpeVars, nil)
 }

@@ -401,11 +401,25 @@ function musicPlayOrStop(sender) {
 }
 
 function musicNext() {
-    doEutherpeRequest("/eutherpe", { "action" : "music-next" }, "post");
+    var reqParams = {};
+    reqParams.action = "music-next";
+    songSelection = document.getElementsByClassName("UpNext");
+    selectedOne = getSelectedSongs(songSelection);
+    if (selectedOne.length == 1) {
+        reqParams.selection = JSON.stringify(selectedOne);
+    }
+    doEutherpeRequest("/eutherpe", reqParams, "post");
 }
 
 function musicLast() {
-    doEutherpeRequest("/eutherpe", { "action" : "music-last" }, "post");
+    var reqParams = {};
+    reqParams.action = "music-last";
+    songSelection = document.getElementsByClassName("UpNext");
+    selectedOne = getSelectedSongs(songSelection);
+    if (selectedOne.length == 1) {
+        reqParams.selection = JSON.stringify(selectedOne);
+    }
+    doEutherpeRequest("/eutherpe", reqParams, "post");
 }
 
 function musicRepeatAll() {
