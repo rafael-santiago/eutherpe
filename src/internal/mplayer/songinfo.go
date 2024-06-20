@@ -9,6 +9,11 @@ import (
     "crypto/sha256"
 )
 
+// QUESTION(Rafael): Shall we fix a maximum cover size?
+//const (
+//    kMaximumCoverSize = 1<<20
+//)
+
 type SongInfo struct {
     FilePath string
     Title string
@@ -337,6 +342,7 @@ func getSongInfoFromM4A(filePath string, coversCacheRootPath ...string) (SongInf
     if err != nil {
         return SongInfo{}, err
     }
+    shouldUseCachedCovers := (len(coversCacheRootPath) > 0 && len(coversCacheRootPath[0]) > 0)
     songInfo := SongInfo{}
     type ParserProgram struct {
         Tag string
@@ -391,7 +397,20 @@ func getSongInfoFromM4A(filePath string, coversCacheRootPath ...string) (SongInf
             if pngPos == -1 {
                 continue
             }
-            *step.Data = infoBuf[pngPos - 1:]
+            coverBlob := []byte(infoBuf[pngPos - 1:])
+            //if (len(coverBlob) > kMaximumCoverSize) {
+            //    coverBlob = nil
+            //    continue
+            //}
+            if !shouldUseCachedCovers {
+                *step.Data = string(coverBlob)
+            } else {
+                var coverId string
+                if !isAlbumCoverCached(coverBlob, coversCacheRootPath[0], &coverId) {
+                    makeAlbumCoverCache(coversCacheRootPath[0], coverId, coverBlob)
+                }
+                *step.Data = "blob-id=" + coverId
+            }
         }
     }
     if len(songInfo.Artist) == 0 {
@@ -454,7 +473,7 @@ func normalizeStr(str string) string {
                 normStr += "N"
                 break
             case 176:
-                normStr += "*"
+                normStr += "c"
                 break
             case 39, 8217:
                 normStr += "_"
