@@ -7,7 +7,7 @@ import (
     "internal/webui"
     "os"
     "time"
-    _ "internal/mplayer"
+    "internal/mplayer"
     "strings"
 )
 
@@ -75,6 +75,9 @@ func tryToPairWithPreviousBluetoothDevice(eutherpeVars *vars.EutherpeVars,
     err := bluebraces.PairDevice(previousDevice)
     if err == nil {
         err = bluebraces.ConnectDevice(previousDevice)
+        if err == nil {
+            mplayer.SetVolume(int(eutherpeVars.Player.VolumeLevel))
+        }
     }
     shouldTryAgain :=  (err != nil && eutherpeVars.CachedDevices.BlueDevId == previousDevice)
     eutherpeVars.Unlock()
