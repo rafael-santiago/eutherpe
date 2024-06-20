@@ -33,6 +33,14 @@ func MusicRemove(eutherpeVars *vars.EutherpeVars, userData *url.Values) error {
                 break
             }
         }
+        if !eutherpeVars.Player.Stopped {
+            for currOff, song := range eutherpeVars.Player.UpNext {
+                if eutherpeVars.Player.NowPlaying.FilePath == song.FilePath {
+                    eutherpeVars.Player.UpNextCurrentOffset = currOff
+                    break
+                }
+            }
+        }
     }
     return nil
 }
