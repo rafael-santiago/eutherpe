@@ -14,11 +14,12 @@
     - [A tela Storage](#a-tela-storage)
     - [A tela Bluetooth](#a-tela-bluetooth)
     - [A tela Settings](#a-tela-settings)
+- [Uma preguiça simpática](#uma-preguiça-simpática)
 
 ## O que é?
 
 `Eutherpe` é uma espécie de fiação etérea para `jukebox`. Utilizando `Eutherpe` você será
-capaz de ouvir suas `MP3` sem necessidade de se logar em nenhum serviço de `stream` externo
+capaz de ouvir suas `MP3` sem necessidade de se logar em nenhum serviço de `streaming` externo
 a sua rede local. Aqui é você quem `100%` manda.
 
 A ideia básica é você ter suas músicas gravadas em um `pendrive`, plugar esse `pendrive`
@@ -231,6 +232,9 @@ A configuração inicial da sua `jukebox` `Eutherpe` vai ser bem básica:
 
 Ao se conectar em `http://eutherpe.local:8080/eutherpe` você verá a tela ilustrada pela **Figura 1**.
 
+![Screenshot da tela principal do Eutherpe](figures/eus-pt-br-after-login.png)
+**Figura 1**: A tela principal da sua juke etérea, o player direto ao assunto.
+
 Note que se trata de uma tela bem direta ao assunto, possuindo um menu do lado esquerdo onde
 você acessa as funções e configurações da sua `juke` etérea.
 
@@ -243,6 +247,9 @@ a tela te oferece funções básicas como tocar, parar a música, ir para próxi
 reprodução, ir para a anterior, mover música(s) para cima ou para baixo da lista de reprodução,
 ativar o `shuffle` (que vai misturar a sua lista de reprodução), remover músicas selecionadas da
 sua lista de reprodução e limpar toda a lista de reprodução.
+
+![Screenshot da tela Music](figures/eus-pt-br-music-screen.png)
+**Figura 2**: A tela `Music`, simples e direta ao assunto.
 
 Você ainda tem um `slider` para controlar o volume e a possibilidade de ativar os modos de
 repetição geral ou repetição de apenas uma música (da que estiver atualmente em reprodução).
@@ -261,6 +268,9 @@ cada música existe uma caixa de checagem que você poderá marcar para aplicar 
 funções como remover e também movê-la para cima ou para baixo da lista de reprodução. Caso
 queira tocar uma música específica, selecione ela e dê um `play`.
 
+![Lista de repodução em modo de detalhamento](figures/eus-pt-br-music-screen-up-next-listing.png)
+**Figura 3**: Lista de repodução em modo de detalhamento.
+
 Pronto! Sendo `Eutherpe` uma `jukebox` sem frescura, você já sabe tudo sobre como pilotar o
 seu `player`. Entretanto, você deve ter ficado com uma pulga atrás da orelha: *como eu seleciono
 o que quero tocar?*
@@ -275,6 +285,9 @@ Note, organizados. E isso mesmo se você for uma criatura desorganizada! :wink:
 
 Dá uma conferida na **Figura 4** no `layout` dessa tela. Note que aqui eu também lancei mão daquela
 convenção pirada *sustenido/bemol*...
+
+![A tela Collection](figures/eus-pt-br-collection-screen.png)
+**Figure 4**: A tela `Collection`, onde sua bagunça ganha uma organização :satisfied:!
 
 Ainda em relação à tela ilustrada na **Figura 4**, perceba que a coleção fica organizada seguindo
 `Artista/Álbum/Músicas` e os álbuns mais recentes vão sendo listados antes. Artistas, álbums e
@@ -298,16 +311,28 @@ A **Figura 5** exibe a tela que é apresentada ao clicar em `ADD TO PLAYLIST...`
 fornecer o nome da `playlist` a qual deseja adicionar a seleção e clicar em `ADD`. Se quiser
 desistir da ideia, apenas clique em `BACK` que está tudo certo `Eutherpe` não brigará com você...
 
+![Screenshot add to playlist](figures/eus-pt-br-collection-add-to-playlist.png)
+**Figura 5**: Gosta de criar listas de músicas?
+
 A **Figura 6** exibe uma tela similar a da **Figura 5**, porém aqui é para taguear a seleção.
+
+![Screenshot add tags](figures/eus-pt-br-collection-add-tags.png)
+**Figura 6**: Que tal adicionar tags a suas músicas favoritas?
 
 Na **Figura 7** você confere a tela para remover `tags` previamente adicionadas à seleção. A ideia
 geral é que você desmarque as `tags` que deseja remover e clique em `SAVE`. Se mudou de ideia e
 não quiser remover nada, clica em `BACK`, `Eutherpe` é compreensiva...
 
+![Screenshot del tags](figures/eus-pt-br-collection-del-tags.png)
+**Figura 7**: Decidiu remover uma tag?
+
 A **Figura 8** ilustra o que você encontra ao clicar em `PLAY TAGGED...`. Você precisa fornecer
 uma lista de `tags` separada por vírgula e ainda indicar o total de músicas que deseja escutar.
 Para confirmar você clica em `PLAY` ou se desistiu e não quer mais clica em `BACK`, `Eutherpe`
 vai entender e não reclamar...
+
+![Screenshot play tagged](figures/eus-pt-br-collection-play-tagged.png)
+**Figura 8**: Uma vez tagueadas as músicas podem ser tocadas via suas tags.
 
 [`Voltar`](#tópicos)
 
@@ -316,9 +341,15 @@ vai entender e não reclamar...
 A **Figura 9** traz a tela `Playlists`. A partir dessa tela você poderá pôr uma `playlist` ou
 apenas algumas músicas dela para tocar, além de editá-la.
 
+![A tela playlists](figures/eus-pt-br-playlists-screen.png)
+**Figure 9**: Aqui você pode selecionar suas listas para reprodução/edição.
+
 Note que cada `playlist` listada esconde suas músicas e que quando você clica sobre o nome dela
 as músicas são listadas, confira a **Figura 10** onde a lista `HOW-LOU` (sim, eu curto
 `Lou Rawls`!) está sendo detalhada.
+
+![Uma playlist em modo de detalhamento](figures/eus-pt-br-playlists-listing.png)
+**Figure 10**: Playlist "HOW-LOU" sendo detalhada.
 
 As funções oferecidas por essa tela são:
 
@@ -348,6 +379,9 @@ uso).
 `Collection`, no primeiro escaneamento o processo pode demorar um pouco mais, isso é por conta de
 como o dispositivos de armazenamento `USB` funcionam no `Linux`).
 
+![A tela storage](figures/eus-pt-br-storage-screen.png)
+**Figure 11**: A tela `Storage`.
+
 Uma vez o dispositivo escolhido e escaneado. Na próxima sessão, caso `Eutherpe` detecte que o
 dispositivo `USB` já esteja plugado, a sua `juke` etérea é esperta o suficiente para já te
 apresentar a coleção escaneada da última vez. Se você adicionou ou removeu mais músicas ou
@@ -367,8 +401,17 @@ sondagem te retornou, vai te exibir a tela da **Figura 13**).
 - `UNPAIR..` (você clica nele para desparear o pareamento prévio, o som vai parar de emanar via o
 dispositivo `Bluetooth` que você havia pareado antes).
 
+![Screenshot tela Bluetooth](figures/eus-pt-br-bluetooth-screen.png)
+**Figura 12**: A tela `Bluetooth`.
+
+![Confirmação de pareamento Bluetooth](figures/eus-pt-br-bluetooth-pairing-confirmation.png)
+**Figura 13**: Confirmando pareamento.
+
 Após parear com um dispositivo de saída, o `ID` desse dispositivo é indicado, dê uma olhada
 na **Figura 14**.
+
+![Após pareamento](figures/eus-pt-br-bluetooth-paired.png)
+**Figura 14**: Dispositivo pareado.
 
 [`Voltar`](#tópicos)
 
@@ -377,6 +420,9 @@ na **Figura 14**.
 A tela `Settings` é onde você pode deixar a sua `juke` no jeito que mais lhe aprouver (Uau hein?
 Sound portuguese babe, I love my mother tongue). A cara geral dessa tela pode ser conferida via
 **Figura 15**.
+
+![A tela Settings](figures/eus-pt-br-settings-screen.png)
+**Figura 15**: A tela `Settings`.
 
 A tela possui várias funcionalidades mas todas são bem diretas de configurar:
 
@@ -401,5 +447,15 @@ sempre tem momentos em que acabamos precisando de um `reboot`. Embora procure de
 o mais estável possível para você :wink:!
 - **i.** Se você quiser alterar a senha de acesso à interface `Web` clica aqui. Se esquecer a
 senha vai ter que fazer umas madracarias para resetar. Mais para frente te mostro!
+
+[`Voltar`](#tópicos)
+
+## Uma preguiça simpática
+
+Em diversas operações você se deparará com uma simpática preguiça te pedindo para esperar. Não
+se assuste e apenas espere-a :sleeping:. Dê uma olhada na **Figura 16** :sweat_smile:!
+
+![A preguiça simpática](figures/eus-pt-br-sympathetic-wait-slooth.png)
+**Figura 16**: Espera aí cara...
 
 [`Voltar`](#tópicos)

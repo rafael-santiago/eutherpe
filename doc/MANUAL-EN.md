@@ -14,11 +14,12 @@
     - [The Storage screen](#the-storage-screen)
     - [The Bluetooth screen](#the-bluetooth-screen)
     - [The Settings screen](#the-settings-screen)
+- [A sympathetic slooth](#a-sympathetic-slooth)
 
 ## What is it?
 
 `Eutherpe` is a kind of jukebox ethereal wiring. Using `Eutherpe` you will be able to
-listen to your `MP3` without needing to log on in a `stream` service external to your `LAN`.
+listen to your `MP3` without needing to log on in a `streaming` service external to your `LAN`.
 Here you are who `100%` rules.
 
 The basic idea is about having your tunes recored in a `pendrive`, so you plug this `pendrive`
@@ -229,6 +230,9 @@ The initial `Eutherpe's` configuration it will be pretty basic:
 
 When connecting to `http://eutherpe.local:8080/eutherpe` you will see the screen illustrated by **Figure 1**.
 
+![Main screen](figures/eus-pt-br-after-login.png)
+**Figure 1**: The main screen of your ethereal juke.
+
 Notice that it is about a straightforward screen. By having a left-sided menu where you access
 the functions and configurations from your ethereal `juke`.
 
@@ -240,6 +244,9 @@ In the **Figure 2** you can see the `player` screen layout. It is pretty self ex
 Basically the screen offers the basic functions such as play, stop the music, go to next,
 go to prior, move songs up/down in the repoduction list, activate `shuffle`, remove selected
 songs from reproduction list and clear all reproduction list.
+
+![Music screen](figures/eus-pt-br-music-screen.png)
+**Figure 2**: The straightforward `Music` screen.
 
 You still have a `slider` to control the volume and the possibility of activating the repetion
 modes (all or one song).
@@ -253,10 +260,13 @@ will be shown. Once it shown, by its side the flat symbol will turn into a flat 
 when clickin on this sharp symbol, the information will be hidden. The relationship between
 `sharp/flat` is equals to `+/-`, :wink:!
 
-Take a look at **Figura 3** a reproduction list shown in detailing mode. Noticed each song
+Take a look at **Figure 3** a reproduction list shown in detailing mode. Noticed each song
 have by their side a checkbox that you will check to apply some functions over those songs.
 Functions like: remove and move. If you want to play a specific song just select it and
 click `play`.
+
+![Detailed up next](figures/eus-pt-br-music-screen-up-next-listing.png)
+**Figure 3**: Up next list in detailed mode.
 
 Done! Being `Eutherpe` a no-frills `jukebox`, you already know every single thing about how
 to pilot its `player`. Nonetheless, you may have be intrigued: **how can I select songs to play?*
@@ -271,6 +281,9 @@ Notice: tidied up. Tidied, even you being an untidy creature! :wink:
 
 Take a look at the screen's `layout` in **Figure 4**. In this screen I also have been using
 that crazy *sharp/flat* convention...
+
+![Collection screen](figures/eus-pt-br-collection-screen.png)
+**Figure 4**: The `Collection` screen.
 
 Still related to the screen depicted in **Figure 4**, notice that the collection is sorted
 following `Artist/Album/Song` and that the newest ablbums are listed before the old ones.
@@ -294,18 +307,30 @@ The **Figure 5** depicts the screen presented when you click `ADD TO PLAYLIST...
 provide the `playlist` name that you want to add to. If you gave up adding anything, just click
 `BACK`, `Eutherpe` is easy going.
 
+![Add to playlist](figures/eus-pt-br-collection-add-to-playlist.png)
+**Figure 5**: Do you like creating music lists?
+
 The **Figure 6** shows a screen similar to shown in **Figure 5** but it is used to tag up
 a song selection.
+
+![Add tags](figures/eus-pt-br-collection-add-tags.png)
+**Figure 6**: What about adding tags to your favorite songs?
 
 In **Figure 7** you see a screen dedicated to remove `tags` from a selection. The general idea
 is that you uncheck all `tags` that you want to remove and finally confirm it by clicking in
 `SAVE`. If you have changed your mind and you do not want to remove tags anymore, click `BACK`,
 `Eutherpe` will not fight you.
 
+![Del tags](figures/eus-pt-br-collection-del-tags.png)
+**Figure 7**: Do you want to remove tags?
+
 The **Figure 8** illustrates what you see when clicking on `PLAY TAGGED...`. You need to provide
 a list of `tags` separated by comma, besides indicating the total of songs you want to listen to.
 By clicking on `PLAY` you confirm it, by clicking on `BACK` means that you give up playing
 random songs that follows some tagging, that's ok, `Eutherpe` will not complain...
+
+![Play tagged](figures/eus-pt-br-collection-play-tagged.png)
+**Figure 8**: Once tagged you can play your songs by referencing their tags.
 
 [`Back`](#topics)
 
@@ -314,9 +339,15 @@ random songs that follows some tagging, that's ok, `Eutherpe` will not complain.
 The **Figure 9** depicts `Playlists` screen. From this screen you are able to play an entire
 `playlist` or some song picked from it. Besides edit playlists, too.
 
+![Playlists screen](figures/eus-pt-br-playlists-screen.png)
+**Figure 9**: Here you select/edit your playlists.
+
 Notice that each `playlist` shown hide their songs. When you click on the name of a `playlist` all
 songs will be listed. Take a look at **Figure 10** that shows the playlist named `HOW-LOU`
 (yes, I like `Lou Rawls`!) being detailed.
+
+![Detailing a playlist)(figures/eus-pt-br-playlists-listing.png)
+**Figure 10**: Playlist "HOW-LOU" being detailed.
 
 The functions offered by this screen are:
 
@@ -345,6 +376,9 @@ to click on this button to access you new device).
 the Collection screen, the first scanning tends to take longer, this is because the way of
 `USB` devices work on `Linux`).
 
+![Storage screen](figures/eus-pt-br-storage-screen.png)
+**Figure 11**: The `Storage` screen.
+
 Once the device chosen and scanned, at the next session, if `Eutherpe` detects that the `USB`
 device is plugged, your ethereal `juke` is smart enough to show you the last scanning result
 since the last time. If you added or removed some songs or even relocated them, you will need
@@ -363,8 +397,17 @@ that you are looking for).
 result list, according to the **Figure 13**).
 - `UNPAIR..` (you click on it to unpair the previous paired device).
 
+![Bluetooth screen](figures/eus-pt-br-bluetooth-screen.png)
+**Figure 12**: The `Bluetooth` screen.
+
+![Bluetooth pairing confirmation](figures/eus-pt-br-bluetooth-pairing-confirmation.png)
+**Figure 13**: Confirming bluetooth pairing attempt.
+
 After pairing with a output device, the `ID` of this device is indicated, take a look at
 **Figure 14**.
+
+![After pairing](figures/eus-pt-br-bluetooth-paired.png)
+**Figure 14**: Paired device.
 
 [`Back`](#topics)
 
@@ -372,6 +415,9 @@ After pairing with a output device, the `ID` of this device is indicated, take a
 
 The `Settings` screen is the place where you can put your `juke` in the way you want. The general
 look of this screen can be seen in **Figure 15**.
+
+![Settings screen](figures/eus-pt-br-settings-screen.png)
+**Figure 15**: The `Settings` screen.
 
 The screen has plenty of functionalities but all are pretty straightforward on configuring:
 
@@ -393,5 +439,15 @@ sometimes we need to `reboot` to troubleshoot. Although I seek to make `Eutherpe
 as possible to you :wiki:!
 - **i.** If you want to change the access passowrd to the `Web` interface, click here.
 If you forget the password you will have to do some incantations to reset it. More on over!
+
+[`Back`](#topics)
+
+## A sympathetic slooth
+
+In plenty of operations you will face a sympathetic slooth ask you to wait. Do not be afraid of
+and just wait it :sleeping:. Take a look at **Figure 16** :sweat_smile:!
+
+![The sympathetic slooth](figures/eus-pt-br-sympathetic-wait-slooth.png)
+**Figure 16**: Wait bro!
 
 [`Back`](#topics)
