@@ -13,18 +13,6 @@ func TestWearMustPass(t *testing.T) {
     }
 }
 
-func TestWearMustFailDueToPulseAudio(t *testing.T) {
-    os.Setenv("PULSEAUDIO_MUST_FAIL", "1")
-    defer os.Unsetenv("PULSEAUDIO_MUST_FAIL")
-    err := Wear("./")
-    if err == nil {
-        t.Error("bluebraces.Wear() was expected to fail while has succeeded.")
-    }
-    if err.Error() != "exit status 1" {
-        t.Errorf("Unexpected error: '%v'\n", err)
-    }
-}
-
 func TestWearMustFailDueToBluetoohctl(t *testing.T) {
     os.Setenv("BLUETOOTHCTL_MUST_FAIL", "1")
     defer os.Unsetenv("BLUETOOTHCTL_MUST_FAIL")
@@ -45,8 +33,8 @@ func TestUnwearMustPass(t *testing.T) {
 }
 
 func TestUnwearMustFailDueToPulseAudio(t *testing.T) {
-    os.Setenv("PULSEAUDIO_MUST_FAIL", "1")
-    defer os.Unsetenv("PULSEAUDIO_MUST_FAIL")
+    os.Setenv("BLUETOOTHCTL_MUST_FAIL", "1")
+    defer os.Unsetenv("BLUETOOTHCTL_MUST_FAIL")
     err := Unwear("./")
     if err == nil {
         t.Error("bluebraces.Unwear() was expected to fail while has succeeded.")

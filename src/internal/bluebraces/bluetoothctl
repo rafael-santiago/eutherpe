@@ -15,6 +15,11 @@ power() {
     [[ $1 == "on" || $1 == "off" ]] && return `eval_exit_code` || return 1
 }
 
+discoverable() {
+    printf "[discoverable $1]\n" >&2
+    [[ $1 == "on" || $1 == "off" ]] && return `eval_exit_code` || return 1
+}
+
 pair() {
     printf "[pair $1]\n" >&2
     [[ ! -z $1 ]] && return `eval_exit_code` || return 1
@@ -98,6 +103,7 @@ info() {
 
 case $1 in
     power) exit `power $2` ;;
+    discoverable) exit `discoverable $2` ;;
     pair) exit `pair $2` ;;
     remove) exit `remove $2` ;;
     connect) exit `connect $2` ;;

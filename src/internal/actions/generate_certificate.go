@@ -15,7 +15,7 @@ func GenerateCertificate(eutherpeVars *vars.EutherpeVars, _ *url.Values) error {
     if err != nil {
         err = os.MkdirAll(certRootPath, 0777)
         if err != nil {
-            return fmt.Errorf("Unable to create '%s' directory : '%s'", err.Error())
+            return fmt.Errorf("Unable to create '%s' directory : '%s'", certRootPath, err.Error())
         }
     }
     cmd := exec.Command("openssl",

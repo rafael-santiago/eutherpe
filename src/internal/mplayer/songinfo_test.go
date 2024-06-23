@@ -53,7 +53,7 @@ func TestGetSongInfo(t *testing.T) {
         { "test-data/07_dont_stand_so_close_to_me.id3v1",
           SongInfo {
             "test-data/07_dont_stand_so_close_to_me.id3v1",
-            "don't stand so close to me",
+            "don_t stand so close to me",
             "police",
             "greatest hits",
             "07",

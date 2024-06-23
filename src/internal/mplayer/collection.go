@@ -186,7 +186,7 @@ func sortTracksFromAlbum(trackList []SongInfo) []SongInfo {
     for t, _ := range trackList {
         if trackList[t].TrackNumber == "0" ||
            len(trackList[t].TrackNumber) == 0 {
-            trackList[t].TrackNumber = fmt.Sprintf("%s", trackNumber)
+            trackList[t].TrackNumber = fmt.Sprintf("%d", trackNumber)
             trackNumber++
         }
     }

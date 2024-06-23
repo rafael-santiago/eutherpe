@@ -62,7 +62,6 @@ func TestRenderData(t *testing.T) {
     if err != nil {
         t.Errorf("Error when trying to read 'expected-eutherpe.html'.\n")
     }
-
     if output != string(expectedEutherpeHTML) {
         t.Errorf("RenderData() seems not to be rendering accordingly.\n")
     }
