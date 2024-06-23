@@ -214,7 +214,7 @@ Hi there! I am the Eutherpe's bootstrap! What I am intending to do:
 Once the `bootstrapping` done you will be able to acces your ethereal `jukebox`
 by using a nearest `web browser` at [`http://eutherpe.local:8080/eutherpe`](http://eutherpe.local:8080/eutherpe).
 
-*Voi lá!* :sunglasses:
+*Voilà!* :sunglasses:
 
 Now it is time to know your no-frills-minimalist `juke`!
 

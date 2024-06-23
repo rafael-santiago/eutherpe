@@ -129,7 +129,7 @@ Uma vez a sessão `root` iniciada, você precisa baixar o código-fonte do `Euth
 precisará do aplicativo `git`.
 
 Então vamos instalá-lo, emitindo o seguinte comando (se você instalou o `Debian 11` vai precisar
-inserir o `CD-ROM` ou imagem do .iso dele):
+inserir o `CD-ROM` ou imagem `.iso` dele):
 
 ```
 # apt install git -y
@@ -216,7 +216,7 @@ Hi there! I am the Eutherpe's bootstrap! What I am intending to do:
 Uma vez o `bootstrapping` feito você poderá acessar sua `jukebox` etérea a partir
 de um `web browser` mais próximo via o endereço: [`http://eutherpe.local:8080/eutherpe`](http://eutherpe.local:8080/eutherpe).
 
-*Voi lá!* :sunglasses:
+*Voilà!* :sunglasses:
 
 É hora de conhecer a sua `juke` minimalista e sem frescuras!
 
