@@ -76,6 +76,7 @@ func tryToPairWithPreviousBluetoothDevice(eutherpeVars *vars.EutherpeVars,
     if err == nil {
         err = bluebraces.ConnectDevice(previousDevice)
         if err == nil {
+            time.Sleep(3 * time.Second)
             mplayer.SetVolume(int(eutherpeVars.Player.VolumeLevel))
         }
     }
