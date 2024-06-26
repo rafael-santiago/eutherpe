@@ -13,7 +13,7 @@ func MusicNext(eutherpeVars *vars.EutherpeVars, userData *url.Values) error {
         eutherpeVars.Unlock()
         return fmt.Errorf("Not playing anything by now.")
     }
-    if eutherpeVars.Player.UpNextCurrentOffset >= len(eutherpeVars.Player.UpNext) - 1 {
+    if eutherpeVars.Player.UpNextCurrentOffset > len(eutherpeVars.Player.UpNext) - 1 {
         eutherpeVars.Player.UpNextCurrentOffset = len(eutherpeVars.Player.UpNext) - 2
     }
     eutherpeVars.Unlock()
@@ -39,7 +39,9 @@ func MusicNext(eutherpeVars *vars.EutherpeVars, userData *url.Values) error {
         }
     }
     if jumpIndex == -1 {
-        eutherpeVars.Player.UpNextCurrentOffset++
+        if eutherpeVars.Player.UpNextCurrentOffset < len(eutherpeVars.Player.UpNext) - 1 {
+            eutherpeVars.Player.UpNextCurrentOffset++
+        }
     } else if jumpIndex > eutherpeVars.Player.UpNextCurrentOffset {
         eutherpeVars.Player.UpNextCurrentOffset = jumpIndex
     }
