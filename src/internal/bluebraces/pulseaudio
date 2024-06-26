@@ -1,3 +1,9 @@
 #!/bin/bash
 
+# Copyright (c) 2024, Rafael Santiago
+# All rights reserved.
+#
+# This source code is licensed under the GPLv2 license found in the
+# COPYING.GPLv2 file in the root directory of Eutherpe's source tree.
+
 [[ ($1 == "--start" || $1 == "--stop") && -z $PULSEAUDIO_MUST_FAIL ]] && exit 0 || exit 1
