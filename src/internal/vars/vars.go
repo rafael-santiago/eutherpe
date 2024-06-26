@@ -58,6 +58,7 @@ type EutherpeVars struct {
         MusicDevId string
     }
     Collection mplayer.MusicCollection
+    CollectionHTML string
     Playlists []dj.Playlist
     Tags dj.Tags
     RenderedPlaylist string
@@ -427,7 +428,6 @@ func (e *EutherpeVars) TuneUp() {
     if e.Player.VolumeLevel == 0 {
         e.Player.VolumeLevel = mplayer.GetVolumeLevel()
     }
-    mplayer.SetVolume(int(e.Player.VolumeLevel))
     e.HTTPd.URLSchema = "http"
     e.HTTPd.PubRoot = e.getPubRoot()
     e.HTTPd.PubFiles = e.setEutherpePubTrinket()

@@ -57,6 +57,7 @@ func MusicPlay(eutherpeVars *vars.EutherpeVars, userData *url.Values) error {
     }
     var err error
     eutherpeVars.Player.NowPlaying = eutherpeVars.Player.UpNext[eutherpeVars.Player.UpNextCurrentOffset]
+    mplayer.SetVolume(int(eutherpeVars.Player.VolumeLevel))
     createCache(eutherpeVars.Player.NowPlaying.FilePath, "/tmp/cache.mp3")
     eutherpeVars.Player.Handle, err = mplayer.Play("/tmp/cache.mp3"/*eutherpeVars.Player.NowPlaying.FilePath*/, customPath)
     eutherpeVars.Player.Stopped = (err != nil)

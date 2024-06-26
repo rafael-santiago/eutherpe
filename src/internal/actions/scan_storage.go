@@ -31,5 +31,6 @@ func ScanStorage(eutherpeVars *vars.EutherpeVars, _ *url.Values) error {
     if len(eutherpeVars.Collection) > 0 {
         eutherpeVars.SaveCollection()
     }
+    eutherpeVars.CollectionHTML = ""
     return nil
 }

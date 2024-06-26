@@ -24,7 +24,7 @@ func MusicStop(eutherpeVars *vars.EutherpeVars, _ *url.Values) error {
         eutherpeVars.Player.Stopped = true
         mplayer.Stop(eutherpeVars.Player.Handle)
         eutherpeVars.Player.Handle = nil
-        time.Sleep(1 * time.Second)
+        time.Sleep(10 * time.Nanosecond)
         eutherpeVars.Player.NowPlaying = mplayer.SongInfo{}
     }
     return nil
