@@ -16,35 +16,35 @@
         <button class="configtab" id="BluetoothButton" onclick="openConfig('Bluetooth')"><script>setButtonLabel("&#128264;", "Bluetooth");</script></button>
         <button class="configtab" id="SettingsButton" onclick="openConfig('Settings')"><script>setButtonLabel("&#x1F528;", "Settings");</script></button>
     </div>
-    <div id="Loading" class="configcontent" style="text-align: center; padding: 10%;">
+    <div id="Loading" class="configcontent" style="text-align: center; padding: 10%; display:block;">
         <h2 class="info-banner">&#x1F9A5 Wait... &#x23F3;</h2>
     </div>
-    <div id="ErrorDialog" class="configcontent" style="text-align: center; padding: 5%;">
+    <div id="ErrorDialog" class="configcontent" style="text-align: center; padding: 5%; display:none;">
         <p class="info-banner" id="messageBuffer" style="font-size: 20px;"></p><br><br>
         <input class="eutherpeBUTTON" type="button" value="Ok" onclick="openConfig('{{.CURRENT-CONFIG}}');">
     </div>
-    <div id="QueryDialog" class="configcontent" style="text-align: center; padding: 5%;">
+    <div id="QueryDialog" class="configcontent" style="text-align: center; padding: 5%; display:none;">
         <p class="info-banner" id="queryBuffer" style="font-size: 20px;"></p><br><br>
         <input class="eutherpeBUTTON" id="doYesBtn" type="button" value="Yes">
         <input class="eutherpeBUTTON" id="doNoBtn" type="button" value="No">
     </div>
-    <div id="TipDialog" class="configcontent" style="text-align: center; padding: 5%;">
+    <div id="TipDialog" class="configcontent" style="text-align: center; padding: 5%; display:none;">
         <p class="info-banner" id="tipBuffer" style="font-size: 20px;"></p><br><br>
         <input class="eutherpeBUTTON" type="button" id="doGotItBtn" value="I got it!">
     </div>
-    <div id="AddToPlaylist" class="configcontent" style="text-align: center; padding: 10%;">
+    <div id="AddToPlaylist" class="configcontent" style="text-align: center; padding: 10%; display:none;">
         <b>Give me the name of an existing or new playlist...</b><br><br>
         <input type="text" id="playlistName" size="15%">
         <input class="eutherpeBUTTON" type="button" value="Add" onclick="addToPlaylist();">
         <input class="eutherpeBUTTON" type="button" value="Back" onclick="closeAddToPlaylist();">
     </div>
-    <div id="AddTags" class="configcontent" style="text-align: center; padding: 10%;">
+    <div id="AddTags" class="configcontent" style="text-align: center; padding: 10%; display:none;">
         <b>Give me the tag or a bunch separated by commas...</b><br><br>
         <input type="text" id="tagsSet" size="15%">
         <input class="eutherpeBUTTON" type="button" value="Add" onclick="addTagsToSelection();">
         <input class="eutherpeBUTTON" type="button" value="Back" onclick="closeAddTags();">
     </div>
-    <div id="RemoveTags" class="configcontent" style="text-align: center; padding: 1%;">
+    <div id="RemoveTags" class="configcontent" style="text-align: center; padding: 1%; display:none;">
         <b>Uncheck the tags you want to remove from your song selection...</b><br><br>
         <div class="hugescrollbox" style="text-align: left;">
             <ul id="eutherpeUL">
@@ -57,7 +57,7 @@
         <input class="eutherpeBUTTON" type="button" value="Save" onclick="delTagsFromSelection();">
         <input class="eutherpeBUTTON" type="button" value="Back" onclick="closeRemoveTags();">
     </div>
-    <div id="PlayByTags" class="configcontent" style="text-align: center; padding: 5%;">
+    <div id="PlayByTags" class="configcontent" style="text-align: center; padding: 5%; display:none;">
         <b>Give me a tag or a bunch separated by commas and I will find it to play...</b><br><br>
         <input type="text" id="tagsCtx" size="60%"><br><br>
         <b>Now, how many songs are you intending to listen?</b><br><br>
@@ -65,7 +65,7 @@
         <input class="eutherpeBUTTON" type="button" value="Play" onclick="playByGivenTags();">
         <input class="eutherpeBUTTON" type="button" value="Back" onclick="closePlayByTags();">
     </div>
-    <div id="Music" class="configcontent">
+    <div id="Music" class="configcontent" style="display:none;">
         <div class="AlbumCover" id="AlbumCoverDiv">{{.ALBUM-ART-THUMBNAIL}}</div>
         <div class="NowPlaying" id="NowPlayingDiv">{{.NOW-PLAYING}}</div>
         <div class="tinyscrollbox">
@@ -90,7 +90,7 @@
             <input class="eutherpeRANGE" type="range" id="volumeLevel" min="0" max="100" step="1" value="{{.VOLUME-LEVEL}}" onclick="setVolume();"/>{{.REPEAT-ALL}}{{.REPEAT-ONE}}
         </center>
     </div>
-    <div id="Collection" class="configcontent">
+    <div id="Collection" class="configcontent" style="display:none;">
         <h3>&#x1F3B6; Collection</h3>
         <hr>
         <div class="scrollbox">
@@ -107,7 +107,7 @@
             <input class="eutherpeBUTTON" type="button" value="Play tagged..." onclick="showPlayByTags();"/>
         </center>
     </div>
-    <div id="Playlists" class="configcontent">
+    <div id="Playlists" class="configcontent" style="display:none;">
         <h3>&#x1F352; Playlists</h3>
         <hr>
         <div class="scrollbox">
@@ -125,7 +125,7 @@
         <input class="eutherpeBUTTON" type="button" value="Reproduce selection" onclick="reproduceSelectedOnesFromPlaylist();"/>
         </center>
     </div>
-    <div id="Storage" class="configcontent">
+    <div id="Storage" class="configcontent" style="display:none;">
         <h3>&#x1f4be; You are reading your music collection from: {{.SELECTED-STORAGE-DEVICE}}</h3>
         <hr>
         <div class="hugescrollbox">
@@ -144,7 +144,7 @@
         </center>
     </div>
     </div>
-    <div id="Bluetooth" class="configcontent">
+    <div id="Bluetooth" class="configcontent" style="display:none;">
         <h3>&#128264; You are connected to device: {{.SELECTED-BLUETOOTH-DEVICE}}</h3>
         <hr>
         <div class="hugescrollbox">
@@ -162,7 +162,7 @@
             <input class="eutherpeBUTTON" type="button" value="Unpair..." onclick="unpairDevice();"/>
         </center>
     </div>
-    <div id="Settings" class="configcontent">
+    <div id="Settings" class="configcontent" style="display:none;">
         <h3>&#x1F528; Settings</h3></td><td>
         <div align="right">
             <input class="eutherpeBUTTON" type="button" value="&#x1F97E Reboot" onclick="reboot();"/>
@@ -182,7 +182,7 @@
             <a href="{{.URL-SCHEMA}}://{{.EUTHERPE-ADDR}}/cert/eutherpe.cer">Download certificate</a>
         </div>
     </div>
-    <div id="ChangePassphrase" class="configcontent" style="text-align: center; padding: 10%;">
+    <div id="ChangePassphrase" class="configcontent" style="text-align: center; padding: 10%; display:none;">
         <b>Current passphrase</b><br>
         <input type="password" id="currPassphrase" size="34.5%"><br>
         <b>New passphrase</b><br>
@@ -193,7 +193,7 @@
         <input class="eutherpeBUTTON" type="button" value="Change" onclick="changePassphrase();"/>
         <input class="eutherpeBUTTON" type="button" value="Back" onclick="closeChangePassphrase();"/>
     </div>
-    <div id="WiFiCredentials" class="configcontent" style="text-align: center; padding: 10%;">
+    <div id="WiFiCredentials" class="configcontent" style="text-align: center; padding: 10%; display:none;">
         <b>ESSID</b><br>
         <input type="text" id="wifiESSID" size="34.5%" value="{{.ESSID}}"><br>
         <b>Password</b><br>
@@ -274,7 +274,7 @@ showError();
 
 setInterval(() => {
     requestPlayerStatus();
-}, 3000);
+}, 1000);
 
 document.getElementById("currPassphrase").onkeyup = function(e) {
     if (e.which == 13) {
