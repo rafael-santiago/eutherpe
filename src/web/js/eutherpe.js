@@ -200,14 +200,14 @@ function unpairDevice() {
 
 function reloadCountDown(interval) {
     var i = interval;
-    countDown = setInterval(function() { document.body.innerHTML = "<body>You will be redirected within " + i + " seconds... wait..."; i--; }, 1000);
+    countDown = setInterval(function() { document.body.innerHTML = "<body>&#x1F9A5; You will be redirected &#x1F680; within " + i + " seconds... wait... &#x23F3;"; i--; }, 1000);
     setTimeout(function() { clearTimeout(countDown); document.location = document.location }, interval * 1000);
 }
 
 function powerOff() {
     query("Are you sure you want to power-off Eutherpe",
           function() {
-                document.body.innerHTML = "<body>That's all! See ya soon! :)</body>";
+                document.body.innerHTML = "<body>&#x1F50C; That's all! See ya soon! &#x1F44B; &#x1F642;</body>";
                 doMinimalEutherpeRequest("/eutherpe", "settings-poweroff");
           },
           function() {
