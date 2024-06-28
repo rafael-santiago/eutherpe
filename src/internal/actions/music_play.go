@@ -14,6 +14,7 @@ import (
     "fmt"
     "flag"
     "io/ioutil"
+    "time"
 )
 
 func MusicPlay(eutherpeVars *vars.EutherpeVars, userData *url.Values) error {
@@ -57,12 +58,20 @@ func MusicPlay(eutherpeVars *vars.EutherpeVars, userData *url.Values) error {
     }
     var err error
     eutherpeVars.Player.NowPlaying = eutherpeVars.Player.UpNext[eutherpeVars.Player.UpNextCurrentOffset]
-    mplayer.SetVolume(int(eutherpeVars.Player.VolumeLevel))
+    // WARN(Rafael): The necessity of len(customPath) is because during tests
+    //               the closure seemed not be running well. Without mplayer.SetVolume
+    //               I believe that some nosy compiler "optimzation" was causing the
+    //               inconsistence, not sure. I have been facing this issue on Go 1.19. :S
+    shouldSetVolume := eutherpeVars.Player.Stopped || len(customPath) > 0
     createCache(eutherpeVars.Player.NowPlaying.FilePath, "/tmp/cache.mp3")
     eutherpeVars.Player.Handle, err = mplayer.Play("/tmp/cache.mp3"/*eutherpeVars.Player.NowPlaying.FilePath*/, customPath)
     eutherpeVars.Player.Stopped = (err != nil)
     if eutherpeVars.Player.Stopped {
         return err
+    }
+    if shouldSetVolume {
+        time.Sleep(10 * time.Nanosecond)
+        mplayer.SetVolume(int(eutherpeVars.Player.VolumeLevel))
     }
     go func() {
         if eutherpeVars.Player.Handle == nil {

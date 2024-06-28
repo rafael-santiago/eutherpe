@@ -10,6 +10,7 @@ package mplayer
 import (
     "os/exec"
     "path"
+    "fmt"
     "strconv"
     "strings"
 )
@@ -39,7 +40,8 @@ func SetVolume(percentage int, customPath ...string) {
         amixerPath = path.Join(customPath[0], amixerPath)
     }
     exec.Command(amixerPath, "-q", "sset", "Master", "100%-").Run()
-    exec.Command(amixerPath, "-q", "sset", "Master", strconv.Itoa(percentage) + "%+").Run()
+    sPerc := fmt.Sprintf("%d", percentage)
+    exec.Command(amixerPath, "-q", "sset", "Master", sPerc + "%+").Run()
 }
 
 func GetVolumeLevel(customPath ...string) uint {
