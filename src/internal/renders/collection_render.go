@@ -11,6 +11,7 @@ import (
     "internal/vars"
     "internal/mplayer"
     "strings"
+    "fmt"
 )
 
 func CollectionRender(templatedInput string, eutherpeVars *vars.EutherpeVars) string {
@@ -23,6 +24,7 @@ func CollectionRender(templatedInput string, eutherpeVars *vars.EutherpeVars) st
 }
 
 func renderCollectionListing(collection mplayer.MusicCollection) string {
+    var idNr uint64
     collectionHTML := "<ul id=\"eutherpeUL\">"
     artists := mplayer.GetArtistsFromCollection(collection)
     for _, artist := range artists {
@@ -31,12 +33,16 @@ func renderCollectionListing(collection mplayer.MusicCollection) string {
         collectionHTML += "<ul class=\"nested\">"
         albums := mplayer.GetAlbumsFromArtist(artist, collection)
         for _, album := range albums {
+            albumId := fmt.Sprintf("%s/%s-eutpid_%d", artist, album, idNr)
+            idNr++
             collectionHTML += "<li>"
-            collectionHTML += "<input type=\"checkbox\" onclick=\"flush_child(this);\" id=\"" + artist + "/" + album + "\" class=\"CollectionAlbum\"><span class=\"caret\">" + album + "</span>"
+            collectionHTML += "<input type=\"checkbox\" onclick=\"flush_child(this);\" id=\"" + albumId + "\" class=\"CollectionAlbum\"><span class=\"caret\">" + album + "</span>"
             collectionHTML += "<ul class=\"nested\">"
             tracks := collection[artist][album]
             for _, track := range tracks {
-                collectionHTML += "<li><input type=\"checkbox\" onclick=\"flush_child(this);\" id=\"" + artist + "/" + album + "/" + track.Title + ":" + track.FilePath + "\" class=\"CollectionSong\">" + track.Title + "</li>"
+                trackId := fmt.Sprintf("%s-eutpid_%d", track.Title, idNr)
+                idNr++
+                collectionHTML += "<li><input type=\"checkbox\" onclick=\"flush_child(this);\" id=\"" + albumId + "/" + trackId + ":" + track.FilePath + "\" class=\"CollectionSong\">" + track.Title + "</li>"
             }
             collectionHTML += "</ul></li>"
         }

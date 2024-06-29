@@ -54,6 +54,11 @@ func getMetaRecordInfoFromSelectionId(selectionId string, offset int) string {
             startOff += endOff + 1
         }
     }
-    return selectionId[startOff:endOff]
+    info := selectionId[startOff:endOff]
+    eutpidIndex := strings.Index(info, "-eutpid_")
+    if eutpidIndex > -1 {
+        info = info[:eutpidIndex]
+    }
+    return info
 }
 

@@ -495,7 +495,11 @@ func normalizeStr(str string) string {
 
 func normalizeSongInfo(songInfo *SongInfo) {
     songInfo.Artist = strings.Replace(songInfo.Artist, "/", "-", -1)
+    songInfo.Artist = strings.Replace(songInfo.Artist, "\"", "'", -1)
     songInfo.Album = strings.Replace(songInfo.Album, "/", "-", -1)
+    songInfo.Album = strings.Replace(songInfo.Album, "\"", "'", -1)
+    songInfo.Title = strings.Replace(songInfo.Title, "/", "-", -1)
+    songInfo.Title = strings.Replace(songInfo.Title, "\"", "'", -1)
     songInfo.Artist = strings.ToLower(normalizeStr(songInfo.Artist))
     songInfo.Album = strings.ToLower(normalizeStr(songInfo.Album))
     songInfo.Title = strings.ToLower(normalizeStr(songInfo.Title))
