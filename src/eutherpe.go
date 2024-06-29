@@ -78,12 +78,24 @@ func tryToPairWithPreviousBluetoothDevice(eutherpeVars *vars.EutherpeVars,
         eutherpeVars.Unlock()
         return
     }
-    bluebraces.ScanDevices(3 * time.Second)
-    err := bluebraces.PairDevice(previousDevice)
-    if err == nil {
-        err = bluebraces.ConnectDevice(previousDevice)
+    blueDevs, _ := bluebraces.ScanDevices(3 * time.Second)
+    found := false
+    for _, blueDev := range blueDevs {
+        found = (blueDev.Id == previousDevice)
+        if found {
+            break
+        }
     }
-    shouldTryAgain :=  (err != nil && eutherpeVars.CachedDevices.BlueDevId == previousDevice)
+    var err error
+    if found {
+        err = bluebraces.PairDevice(previousDevice)
+        if err == nil {
+            err = bluebraces.ConnectDevice(previousDevice)
+        }
+    } else {
+        err = fmt.Errorf("Previous device powered off.")
+    }
+    shouldTryAgain :=  (err != nil)
     eutherpeVars.Unlock()
     if shouldTryAgain  {
         time.Sleep(3 * time.Second)

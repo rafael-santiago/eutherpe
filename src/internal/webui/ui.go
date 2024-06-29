@@ -11,6 +11,7 @@ import (
     "internal/vars"
     "internal/actions"
     "internal/renders"
+    "internal/bluebraces"
     "fmt"
     "os"
     "path"
@@ -66,6 +67,10 @@ func RunWebUI(eutherpeVars *vars.EutherpeVars) error {
     // INFO(Rafael): It is important otherwise Eutherpe can exits by letting music playing
     //               sometimes.
     actions.MusicStop(eutherpeVars, nil)
+    if len(eutherpeVars.CachedDevices.BlueDevId) > 0 {
+        bluebraces.DisconnectDevice(eutherpeVars.CachedDevices.BlueDevId)
+        bluebraces.UnpairDevice(eutherpeVars.CachedDevices.BlueDevId)
+    }
     return err
 }
 
