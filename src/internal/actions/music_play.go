@@ -36,6 +36,9 @@ func MusicPlay(eutherpeVars *vars.EutherpeVars, userData *url.Values) error {
         eutherpeVars.Player.UpNextCurrentOffset = -1
         eutherpeVars.Player.Stopped = true
         eutherpeVars.Player.NowPlaying = mplayer.SongInfo{}
+        if flag.Lookup("test.v") != nil {
+            eutherpeVars.SaveSession()
+        }
         return nil
     }
     if eutherpeVars.Player.UpNextCurrentOffset < 0 {
