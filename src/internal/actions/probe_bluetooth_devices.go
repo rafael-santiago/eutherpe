@@ -30,5 +30,21 @@ func ProbeBluetoothDevices(eutherpeVars *vars.EutherpeVars,
         return err
     }
     eutherpeVars.BluetoothDevices = blueDevs
+    if len(eutherpeVars.CachedDevices.BlueDevId) == 0 {
+        pairedDevices := bluebraces.GetPairedDevices()
+        pairedDevicesLen := len(pairedDevices)
+        if pairedDevicesLen > 1 {
+            unpairNosyDevices(pairedDevices)
+        } else if pairedDevicesLen == 1 {
+            eutherpeVars.CachedDevices.BlueDevId = pairedDevices[0].Id
+        }
+    }
     return nil
+}
+
+func unpairNosyDevices(pairedDevices []bluebraces.BluetoothDevice) {
+    for _, nosyDevice := range pairedDevices {
+        bluebraces.DisconnectDevice(nosyDevice.Id)
+        bluebraces.UnpairDevice(nosyDevice.Id)
+    }
 }

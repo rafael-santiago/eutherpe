@@ -24,6 +24,35 @@ const (
 var g_HasSystemCtlCallNr int
 var g_HasSystemCtl bool
 
+func GetPairedDevices(customPath ...string) []BluetoothDevice {
+    cp := getToolPath(customPath...)
+    out, err := exec.Command(cp + "bluetoothctl", "paired-devices").CombinedOutput()
+    pairedDevices := make([]BluetoothDevice, 0)
+    if err != nil {
+        return pairedDevices
+    }
+    foundDevices := strings.Split(string(out), "\n")
+    for _, device := range foundDevices {
+        off := strings.Index(device, "Device ")
+        if off == -1 {
+            continue
+        }
+        off = strings.Index(device[7:], " ")
+        if off == -1 {
+            continue
+        }
+        off += 7
+        newDevice := BluetoothDevice{}
+        newDevice.Id = device[7:off]
+        if len(device) < off + 1 {
+            continue
+        }
+        newDevice.Alias = device[off+1:]
+        pairedDevices = append(pairedDevices, newDevice)
+    }
+    return pairedDevices
+}
+
 func Wear(customPath ...string) error {
     cp := getToolPath(customPath...)
     err := exec.Command(cp + "bluetoothctl", "power", "on").Run()

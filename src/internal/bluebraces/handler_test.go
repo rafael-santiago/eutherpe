@@ -195,3 +195,18 @@ func TestUntrustDeviceMustFail(t *testing.T) {
         t.Error("bluebrances.UntrustDevice() has succeeded.")
     }
 }
+
+func TestGetPairedDevicesMustPass(t *testing.T) {
+    pairedDevices := GetPairedDevices("../bluebraces/")
+    if len(pairedDevices) != 2 {
+        t.Errorf("pairedDevices does not have length two. %v", pairedDevices)
+    } else if pairedDevices[0].Id != "DE:AD:BE:EF:FF:FF" {
+        t.Error("Returned a device with unexpected id.")
+    } else if pairedDevices[0].Alias != "Philips TAT1235" {
+        t.Error("Returned a device with unexpected alias.")
+    } else if pairedDevices[1].Id != "BA:BA:CA:BA:BA:CA" {
+        t.Error("Returned a device with unexpected id.")
+    } else if pairedDevices[1].Alias != "Babaca Sound Pinico's" {
+        t.Error("Returned a device with unexpected alias.")
+    }
+}

@@ -107,6 +107,14 @@ info() {
     return $retval
 }
 
+paired_devices() {
+    exit_code=`eval_exit_code`
+    if [[ $exit_code == 0 ]] ; then
+        printf "Device DE:AD:BE:EF:FF:FF Philips TAT1235\nDevice BA:BA:CA:BA:BA:CA Babaca Sound Pinico's\n" >&2
+    fi
+    return $exit_code
+}
+
 case $1 in
     power) exit `power $2` ;;
     discoverable) exit `discoverable $2` ;;
@@ -118,5 +126,6 @@ case $1 in
     untrust) exit `untrust $2` ;;
     scan) exit `scan $2` ;;
     info) exit `info $2` ;;
+    paired-devices) exit `paired_devices $2` ;;
     *) exit 1 ;;
 esac

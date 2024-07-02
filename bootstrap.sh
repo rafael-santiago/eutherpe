@@ -189,10 +189,12 @@ create_usb_sto_mount_point() {
 }
 
 patch_out_etc_bluetooth_main_conf() {
-    # TIP(Rafael): With it I got rid of cases when I could connect to a bluetooth device
-    #              but no sound emanated from it.
+    # TIP(Rafael): With bredr stuff I got rid of cases when I could connect to a
+    #              bluetooth device but no sound emanated from it.
+    #              With multiple stuff I got rid of low quality sound connection cases.
     sed -i 's/.*ControllerMode.*=.*$/ControllerMode = bredr/g' /etc/bluetooth/main.conf &&
-        systemctl restart bluetooth >/dev/null 2>&1
+        sed -i 's/.*MultiProfile.*=.*$/MultiProfile = multiple/g' /etc/bluetooth/main.conf &&
+            systemctl restart bluetooth >/dev/null 2>&1
     echo 0
 }
 
