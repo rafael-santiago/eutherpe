@@ -165,9 +165,13 @@ Feito isso, está pronto! Acesse o `miniplayer Eutherpe` via
 
 **Figura 12**: :sunglasses:!
 
-**Observação**: Sempre que você ligar a `VM` é necessário mapear o `Bluetooth` e o `Pen-drive`
+**Observações**:
+
+- Sempre que você ligar a `VM` é necessário mapear o `Bluetooth` e o `Pen-drive`
 `USB`. Enquanto o `Bluetooth` não for iniciado, você não conseguirá acessar o `miniplayer`
 via `Web`.
+
+- Caso precise se logar nessa máquina como usuário `root` a senha é `music`.
 
 Divirta-se! :wink:
 
