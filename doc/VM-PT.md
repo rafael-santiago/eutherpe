@@ -37,28 +37,29 @@ criar uma máquina virtual baseada numa `OVA` que eu previamente preparei, dispo
 Pronto! Se você instalou o `Virtualbox` e baixou a `OVA` já tem tudo para ir adiante.
 
 **Dica e observação**: Não vou me aprofundar no conceito de virtualização e máquinas virtuais.
-Porém é algo bem bacana e que com certeza você pode encontrar muitas ideias e utilidades para
+Porém, é algo bem bacana e que com certeza você pode encontrar muitas ideias e utilidades para
 resolver suas necessidades do dia a dia, eu te sugeriria utilizar o ensejo do `Eutherpe` e dar
-uma aprofundada.
+uma aprofundada no assunto. :dart:
 
 [`Voltar`](#tópicos)
 
 ### A ideia geral do que faremos
 
 Entenda uma `OVA` como um arquivo `zip` ou um programa de instalação. Esse arquivo contém todos
-os arquivos que compõem a máquina virtual. É como se a máquina estivesse empacotada dentro de
-uma caixa e você apenas precisa abrir a caixa e ligar na tomada e pronto!
+os arquivos que compõem a máquina virtual. É como se um computador estivesse embrulhado dentro de
+uma caixa e você apenas precisasse tirá-lo da caixa, conectar uns cabos, o ligar na tomada e
+pronto!
 
 No caso da `OVA Eutherpe` o que eu fiz foi criar uma máquina virtual baseada em `Debian 11` onde
 cuidei de instalar apenas os aplicativos mais básicos para subir um sistema operacional no
 qual pudesse ser possível executar `Eutherpe`. Sim, depois que acabei a instalação mínima do
-`Debian 11` eu baixei os fontes do `Eutherpe`, rodei o `bootstrap` (se você não leu o manual
+`Debian 11` eu baixei os fontes do `Eutherpe` e rodei o `bootstrap` (se você não leu o manual
 ainda, [leia-o](MANUAL-PT.md) e *voilá*, desliguei a máquina virtual e criei a `OVA` (até rimou).
 
 Com essa `OVA`, o que você fará (rimou de novo...) vai ser importá-la a partir do seu
 `Virtualbox` e você terá exatamente a máquina que preparei, precisando apenas fazer um pequeno
 ajuste para que então você possa acessar o `miniplayer Eutherpe` a partir do seu `web browser`
-e então começar bater cabeça ou dançar peladão na sala, ou ainda, os dois!
+e então começar bater cabeça ou dançar peladão na sala, ou ainda, os dois! :notes: :headphones: :guitar: :microphone: :dancer: :notes:
 
 [`Voltar`](#tópicos)
 
@@ -72,8 +73,8 @@ uma olhada na **Figura 1** para você se situar melhor.
 **Figura 1**: Importando a `OVA`.
 
 Ao clicar em `Importar Appliance...` lhe será apresentada a tela ilustrada pela **Figura 2**.
-Clique no botão ao lado esquedo da caixa de texto `Arquivo` e escolha o arquivo `.ova` que
-você fez download. Uma vez que você escolheu o arquivo clique em `Próximo`.
+Clique no botão ao lado direito da caixa de texto `Arquivo` e escolha o arquivo `.ova` que
+você fez `download`. Uma vez que você escolheu o arquivo clique em `Próximo`.
 
 ![SelecionandoAOVA](figures/eus-vm-002.png)
 
@@ -86,14 +87,14 @@ os valores sugeridos. Para finalmente ter a sua `VM Eutherpe` clique em `Finaliz
 
 ![DefindoAsConfiguraçõesDoAppliance](figures/eus-vm-003.png)
 
-**Figura 3**: Definindo/confirmando as últimas infos antes da importação.
+**Figura 3**: Definindo/confirmando as últimas informações antes da importação.
 
 Agora você precisa ter um pouco de paciência pois pode demorar um pouco. Uma tela com progresso
 conforme a **Figura 4** vai ser apresentada.
 
 ![SóEsperar](figures/eus-vm-004.png)
 
-**Figura 4**: Aguenta aí...
+**Figura 4**: :snail: Aguenta aí...
 
 Depois disso a sua máquina vai brotar no canto esquerdo da sua tela, algo similar à **Figura 5**.
 
@@ -114,19 +115,19 @@ placa de rede estão ok. Para estarem ok é preciso que:
 
 - A opção `Habilitar placa de rede` esteja marcada.
 - A configuração `Conectado a` deve estar `Placa em modo Bridge`.
-- Nome precisa estar o nome da placa que sua máquina física (o seu computador mesmo)
-  usa para acessar a rede. No caso do exemplo, o computador usa uma conexão Wi-Fi, logo, a placa
+- `Nome` precisa estar o nome da placa que sua máquina física (o seu computador mesmo)
+  usa para acessar a rede. No caso do exemplo, o computador acessa uma rede `Wi-Fi`, logo, a placa
   `Wireless` foi selecionada. Se você usa uma conexão cabeada, precisa escolher a placa
-  `Ethernet`. Enfim, as placas possíveis estaram na lista, ajuste para o seu estado de coisas.
+  `Ethernet`. Enfim, as placas possíveis estarão na lista, ajuste para o seu estado de coisas.
 
-Com as configurações ok, se você mudou algo, clique `OK`.
+Com as configurações ok, se você mudou algo (bem provável que sim), clique `OK`.
 
 ![ConfiguraçõesDeRedeDaVM](figures/eus-vm-007.png)
 
 **Figura 7**: Verificando as configurações de rede da `VM`.
 
-Pronto! Agora você só tem que ligar a sua `VM` e depois disso mapear nela a sua controladora
-`Bluetooth` e o `USB` contendo suas músicas. Para ligar a `VM` deixe ela marcada e vá no menu
+Pronto! Agora você só tem que ligar a sua `VM` e depois disso mapear nela a sua placa `Bluetooth` e
+o `Pen-drive USB` contendo suas músicas. Para ligar a `VM` deixe ela marcada e vá no menu
 `Máquina|Iniciar|Início Normal`. Vide **Figura 8**. Vai demorar um tempinho e depois do `boot`
 você vai ver uma tela igual a ilustrada pela **Figura 9**.
 
@@ -136,12 +137,12 @@ você vai ver uma tela igual a ilustrada pela **Figura 9**.
 
 ![AVMEutherpeSubiu](figures/eus-vm-009.png)
 
-**Figura 8**: A `VM Eutherpe` subiu.
+**Figura 9**: A `VM Eutherpe` subiu.
 
 Após isso é necessário deixar a `VM` acessar sua controladora `Bluetooth` e o `USB` com as suas
 músicas. Espete o `USB` com as músicas no seu computador. Vá ao menu `Dispositivos|USB`.
-Vão ser listados todos os dispositivos que ele encontrou. No caso do exemplo a controladora
-`Bluetooth` é o `Intel Corp [0002]` e o  `Pen-drive USB` é o `SanDisk Corp. Cruzer Blade [0100]`.
+Vão ser listados todos os dispositivos que o `Virtualbox` encontrou. No caso do exemplo a
+placa `Bluetooth` é a `Intel Corp [0002]` e o `Pen-drive USB` é o `SanDisk Corp. Cruzer Blade [0100]`.
 Dê uma olhada na **Figura 10**.
 
 ![VirtualboxListandoOsDispositivosUSB](figures/eus-vm-010.png)
@@ -165,7 +166,8 @@ Feito isso, está pronto! Acesse o `miniplayer Eutherpe` via
 **Figura 12**: :sunglasses:!
 
 **Observação**: Sempre que você ligar a `VM` é necessário mapear o `Bluetooth` e o `Pen-drive`
-`USB`.
+`USB`. Enquanto o `Bluetooth` não for iniciado, você não conseguirá acessar o `miniplayer`
+via `Web`.
 
 Divirta-se! :wink:
 
