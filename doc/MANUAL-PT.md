@@ -72,7 +72,7 @@ As principais características de `Eutherpe` são:
   Você pode continuar a audição do ponto que parou.
 - Interface `Web` renderiza bem tanto no `Desktop` quanto em dispositivos móveis.
 - Funciona baseado na plataforma `Linux`.
-- No `Windows` você pode utilizar `Eutherpe` a partir de uma `máquina virtual`.
+- No `Windows` você pode utilizar `Eutherpe` a partir de uma [`máquina virtual`](VM-PT.md).
 - Você ainda pode usar `Eutherpe` dentro de um `raspberry-pi` e nesse caso ele será carinhosamente
   chamado de `Euther-PI`.
 
