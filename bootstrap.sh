@@ -194,7 +194,18 @@ patch_out_etc_bluetooth_main_conf() {
     #              With multiple stuff I got rid of low quality sound connection cases.
     sed -i 's/.*ControllerMode.*=.*$/ControllerMode = bredr/g' /etc/bluetooth/main.conf &&
         sed -i 's/.*MultiProfile.*=.*$/MultiProfile = multiple/g' /etc/bluetooth/main.conf &&
+            sed -i 's/\[General\]$/[General]\n\nDisable=Headset/g' /etc/bluetooth/main.conf
             systemctl restart bluetooth >/dev/null 2>&1
+    echo 0
+}
+
+patch_out_etc_pulse_default_pa_conf() {
+    # TIP(Rafael): I was having trouble with my JBL TUNE 720 BT. Pulseaudio was switching
+    #              it to HFP and as a result my JBL was not outputing sound because it
+    #              was not having a sink (pacmd list-sinks was not showing nothing related to).
+    #              Since Eutherpe is intended to listening to music I believe that users of it
+    #              do not give a sh_t to hands-free trinket, let's disable it! :P
+    sed -i 's/load-module module-bluetooth-policy.*$/load-module module-bluetooth-policy auto_switch=false/g' /etc/pulse/default.pa >/dev/null 2>&1
     echo 0
 }
 
@@ -278,6 +289,14 @@ echo "=== bootstrap info: Patching out bluetooth stuff for keeping it up more st
 
 if [[ `patch_out_etc_bluetooth_main_conf` != 0 ]] ; then
     echo "error: Unable to patch out '/etc/bluetooth/main.conf'." >&2
+    exit 1
+fi
+
+echo "=== bootstrap info: Done."
+echo "=== bootstrap info: Patching out pulseaudio stuff for supporting headset devices."
+
+if [[ `patch_out_etc_pulse_default_pa_conf` != 0 ]] ; then
+    echo "error: Unable to patch out '/etc/pulse/default.pa'." >&2
     exit 1
 fi
 
