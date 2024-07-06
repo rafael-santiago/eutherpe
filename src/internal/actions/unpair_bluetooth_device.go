@@ -31,6 +31,17 @@ func UnpairBluetoothDevice(eutherpeVars *vars.EutherpeVars,
     if err == nil {
         removeBluetoothDevice(&eutherpeVars.BluetoothDevices, eutherpeVars.CachedDevices.BlueDevId)
         eutherpeVars.CachedDevices.BlueDevId = ""
+        if len(customPath) == 0 {
+            // INFO(Rafael): Since user has chosen unpair the device let's save it asap. It can be
+            //               meaningful when user is wanting to power-off her/his device
+            //               but wants to unpair the bluetooth first. Withoout saving the session
+            //               here, when power-on back again the device will try to pair with the
+            //               recently unpaired bluetooth device. Because in normal situations the
+            //               session is saved at each 42 secs. I believe that unpair is a special
+            //               case that the decision must be saved just after to forwadly reflect
+            //               the user intentions accordingly.
+            eutherpeVars.SaveSession()
+        }
     }
     return err
 }
