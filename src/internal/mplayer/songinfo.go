@@ -450,9 +450,9 @@ func getSongInfoFromM4A(filePath string, coversCacheRootPath ...string) (SongInf
 
 func normalizeStr(str string) string {
     var normStr string
-    for _, annoyingRune := range str {
+    for s, annoyingRune := range str {
         switch annoyingRune {
-            case 226, 224, 225, 227, 228, 229, 65533:
+            case 226, 224, 225, 227, 228, 229:
                 normStr += "a"
                 break
             case 194, 192, 193, 195, 196, 197:
@@ -495,7 +495,55 @@ func normalizeStr(str string) string {
                 normStr += "_"
                 break
             default:
-                normStr += string(annoyingRune)
+                // TODO(Rafael): Find a way of improve it on, it is totally clumsy.
+                //               BUT it works!
+                switch str[s] {
+                    case 226, 224, 225, 227, 228, 229:
+                        normStr += "a"
+                        break
+                    case 194, 192, 193, 195, 196, 197:
+                        normStr += "A"
+                        break
+                    case 242, 243, 244, 245, 246, 210, 211, 212, 213, 214:
+                        normStr += "O"
+                        break
+                    case 232, 233, 235, 234:
+                        normStr += "e"
+                        break
+                    case 200, 201, 203, 202:
+                        normStr += "E"
+                        break
+                    case 236, 237, 239:
+                        normStr += "i"
+                        break
+                    case 204, 205, 207:
+                        normStr += "I"
+                        break
+                    case 231:
+                        normStr += "c"
+                        break
+                    case 199:
+                        normStr += "C"
+                        break
+                    case 152:
+                        normStr += "y"
+                        break
+                    case 241:
+                        normStr += "n"
+                        break
+                    case 209:
+                        normStr += "N"
+                        break
+                    case 176:
+                        normStr += "c"
+                        break
+                    case 39:
+                        normStr += "_"
+                        break
+                    default:
+                        normStr += string(annoyingRune)
+                        break
+                }
                 break
         }
     }
