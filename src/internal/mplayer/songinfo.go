@@ -205,32 +205,41 @@ func GetSongInfo(filePath string, coversCacheRootPath ...string) (SongInfo, erro
                     break
             }
             needleSize -= 1
+            //fmt.Println("info: ", info)
             //fmt.Println("needleSize = ", needleSize)
             if needleSize > len(needle) {
                 // INFO(Rafael): Ahhh this is a mess, cross your fingers for it at least reproducing!
                 continue
             }
             h += needleSize
-            if (needle[10] == 0 && id3V != 2) || (needle[9] == 0 &&  id3V == 4 && needle[11] != 0xFF && needle[12] != 0xFE) {
+            if field != &s.AlbumCover && (needle[10] == 0 && id3V != 2) || (needle[9] == 0 &&  id3V == 4 && needle[11] != 0xFF && needle[12] != 0xFE) {
                 *field = string(needle[11:])[:needleSize]
                 h += 1
                 *field = strings.Trim(*field, "\x00 ")
-            } else if id3V != 2 && (needle[11] == 0xFF && needle[12] == 0xFE) || (needle[11] == 0xFE && needle[12] == 0xFF) {
+            } else if field != &s.AlbumCover && id3V != 2 && (needle[11] == 0xFF && needle[12] == 0xFE) || (needle[11] == 0xFE && needle[12] == 0xFF) {
                 *field = string(needle[13:])[:needleSize - 2]
                 if field != &s.AlbumCover {
                     *field = utfToAscii(*field)
                 }
                 h += 3
-            } else if field == &s.AlbumCover && strings.HasPrefix(needle[11:17], "image/") {
-                blobData := needle[17:]
-                startOff := -1
-                if strings.HasPrefix(blobData, "jpeg") {
-                    startOff = strings.Index(blobData, "\xFF\xD8\xFF\xE0")
-                }
-                if startOff > -1 {
-                    *field = blobData[startOff:]
-                } else {
-                    *field = needle[11:]
+            } else if field == &s.AlbumCover {
+                if mimeTypeIndex := strings.Index(needle[:20], "image/"); mimeTypeIndex > -1 {
+                    blobData := needle[mimeTypeIndex + 6:]
+                    startOff := -1
+                    if strings.HasPrefix(blobData, "jpeg") {
+                        startOff = strings.Index(blobData[:20], "\xFF\xD8\xFF\xE0")
+                        if startOff == -1 {
+                            startOff = strings.Index(blobData[:20], "\xFF\xD8\xFF\x00\xE0")
+                        }
+                    }
+                    if startOff > -1 {
+                        *field = blobData[startOff:]
+                    } else {
+                        // INFO(Rafael): We will still give it a try a little more further...
+                        *field = needle[mimeTypeIndex:]
+                    }
+                } else if id3V == 2 {
+                    *field = string(needle[7:])[:needleSize]
                 }
             } else if id3V == 2 {
                 *field = string(needle[7:])[:needleSize]
