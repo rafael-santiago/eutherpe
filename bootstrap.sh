@@ -206,6 +206,7 @@ patch_out_etc_pulse_default_pa_conf() {
     #              Since Eutherpe is intended to listening to music I believe that users of it
     #              do not give a sh_t to hands-free trinket, let's disable it! :P
     sed -i 's/load-module module-bluetooth-policy.*$/load-module module-bluetooth-policy auto_switch=false/g' /etc/pulse/default.pa >/dev/null 2>&1
+    echo "load-module module-switch-on-connect" >> /etc/pulse/default.pa
     echo 0
 }
 
