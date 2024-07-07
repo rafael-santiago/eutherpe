@@ -476,6 +476,9 @@ func (e *EutherpeVars) TuneUp() {
     e.HTTPd.Port = "8080"
 }
 
+const EutherpeVersion = "v1"
+const EutherpeCopyrightDisclaimer = "Eutherpe is Copyright (c) 2024 by Rafael Santiago<br><br>You can redistribute it and/or modify under the terms of the GNU General Public License version 2.<br><br>Bug reports, feedback etc: <a href=\"mailto:voidbrainvoid@tutanota.com\"?subject=\"[Eutherpe] <here goes the subject>\"><u>mail me</u></a> or open an <a href=\"https://github.com/rafael-santiago/eutherpe/issues\"><u>issue</u></a> at Eutherpe's project repository. Thanks in advance! &#x1F609"
+
 const EutherpeActionId = "action"
 
 // INFO(Rafael): Actions from "Music" sheet.
@@ -589,6 +592,8 @@ const EutherpeTemplateNeedleFoundStorageDevicesCount = "{{.FOUND-STORAGE-DEVICES
 const EutherpeTemplateNeedleFoundBluetoothDevicesCount = "{{.FOUND-BLUETOOTH-DEVICES-COUNT}}"
 const EutherpeTemplateNeedleESSID = "{{.ESSID}}"
 const EutherpeTemplateNeedleHostName = "{{.HOSTNAME}}"
+const EutherpeTemplateNeedleVersion = "{{.EUTHERPE-VERSION}}"
+const EutherpeTemplateNeedleCopyrightDisclaimer = "{{.EUTHERPE-COPYRIGHT-DISCLAIMER}}"
 
 const EutherpeWebUIConfigSheetMusic = "Music"
 const EutherpeWebUIConfigSheetCollection = "Collection"

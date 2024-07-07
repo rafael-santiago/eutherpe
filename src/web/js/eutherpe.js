@@ -29,6 +29,14 @@ function showPlayByTags() {
     openConfig("PlayByTags");
 }
 
+function closeAbout() {
+    openConfig("Settings");
+}
+
+function showAboutDiv() {
+    openConfig("About");
+}
+
 function showAddTags() {
     songSelection = document.getElementsByClassName("CollectionSong");
     selectedOnes = getSelectedSongs(songSelection);

@@ -170,10 +170,11 @@ COPYING.GPLv2 file in the root directory of Eutherpe's source tree.
         </center>
     </div>
     <div id="Settings" class="configcontent" style="display:none;">
-        <h3>&#x1F528; Settings</h3></td><td>
+        <h3>&#x1F528; Settings</h3>
         <div align="right">
             <input class="eutherpeBUTTON" type="button" value="&#x1F97E Reboot" onclick="reboot();"/>
             <input class="eutherpeBUTTON" type="button" value="&#x1F50C Power-off" onclick="powerOff();"/>
+            <input class="eutherpeBUTTON" type="button" value="&#x1F989 About..." onclick="showAboutDiv();"/>
         </div>
         <hr>
         <div style="text-align: center; padding: 10%;">
@@ -208,6 +209,16 @@ COPYING.GPLv2 file in the root directory of Eutherpe's source tree.
         <hr>
         <input class="eutherpeBUTTON" type="button" value="Save" onclick="saveWiFiCredentials();"/>
         <input class="eutherpeBUTTON" type="button" value="Back" onclick="closeWiFiCredentials();"/>
+    </div>
+    <div id="About" class="configcontent" style="text-align: left; padding: 1%; display: none;">
+        <h3>&#x1F4CC; About &#x1F3BC &#x1F3B5 &#x1F50A &#x1F3A7 &#x1F483 &#x1F57A &#x1F3B7 &#x1F3B9 &#x1F3A4 &#x1F3BA &#x1F3BB &#x1F941 &#x1F3B8 &#x1F3B6 &#x1F918</h3>
+        <hr>
+        You are using Eutherpe-{{.EUTHERPE-VERSION}}<br><br>
+        {{.EUTHERPE-COPYRIGHT-DISCLAIMER}}
+        <hr>
+        <center>
+            <input class="eutherpeBUTTON" type="button" value="Back" onclick="closeAbout();"/>
+        </center>
     </div>
     <input type="hidden" id="lastSelection" name="lastSelection" value="{{.LAST-SELECTION}}"/>
     <input type="hidden" id="lastError" name="lastError" value="{{.LAST-ERROR}}"/>

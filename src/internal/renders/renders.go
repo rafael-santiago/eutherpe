@@ -23,7 +23,7 @@ func RenderData(templatedInput string, eutherpeVars *vars.EutherpeVars) string {
         ShuffleModeRender, PlayModeRender, PlayerStatusRender, VolumeLevelRender,
         CommonTagsRender, LastSelectionRender, AuthenticationModeSwitchRender,
         UpNextCountRender, FoundStorageDevicesCountRender, FoundBluetoothDevicesCountRender,
-        HTTPSModeSwitchRender, ESSIDRender, HostNameRender,
+        HTTPSModeSwitchRender, ESSIDRender, HostNameRender, VersionRender, CopyrightRender,
     }
     var output string = templatedInput
     eutherpeVars.Lock()
