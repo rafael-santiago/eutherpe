@@ -16,6 +16,7 @@
 }
 .html, .body {
     width: 100%;
+    font-size: 100%;
     max-width: 100vw;
     height: 100%;
     padding: 0;
@@ -23,7 +24,7 @@
 }
 .title-banner {
     font-family: "Sabo-Filled";
-    font-size: 360%;
+    font-size: calc(2.2vw + 2.2vh + 2vmin);
     text-shadow: 5px 5px 0 #ddd;
 }
 .info-banner {
