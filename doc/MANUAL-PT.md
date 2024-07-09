@@ -108,12 +108,12 @@ console mesmo. Por que? Bem, o que acontece é que quando você coloca muita coi
 o sistema vai começar perder tempo e recursos tomando conta desses elefantes brancos e, esse
 desperdício pode impactar na audição das suas amadas músicas.
 
-Te indico instalar o `Debian 11` (somente console, com a rede configurada, pois o `bootstrapping`
+Te indico instalar o `Debian 12` (somente console, com a rede configurada, pois o `bootstrapping`
 irá baixar pacotes específicos da Internet para deixar o seu `Debian` no jeito para rodar
 `Eutherpe`).
 
-O `Debian 11` foi o meu sistema de escolha para desenvolver `Eutherpe`, tentei o `12` mas ficou
-bem ruim e estava utilizando um sistema com `Gnome` e todas aquelas tranqueiras *- que para o
+O `Debian 12` foi o meu sistema de escolha para desenvolver `Eutherpe`, tentei o `12` completo mas
+ficou bem ruim e estava utilizando um sistema com `Gnome` e todas aquelas tranqueiras *- que para o
 objetivo do `Eutherpe` são essencialmente inúteis*.
 
 Você deve estar pensando: *"- Poxa fazer esse tal 'boostrapping' deve ser difícil bagarai..."*.
@@ -187,9 +187,8 @@ Hi there! I am the Eutherpe's bootstrap! What I am intending to do:
 *-- sudo already installed.
 *-- git already installed.
 *-- mc already installed.
-*-- pulseaudio already installed.
+*-- pipewire already installed.
 *-- bluez already installed.
-*-- pulseaudio-module-bluetooth already installed.
 *-- ffmpeg already installed.
 *-- alsa-utils already installed.
 *-- wpasupplicant already installed.

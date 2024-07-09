@@ -108,10 +108,10 @@ a shell based environment. Why? Well, what happens is that when you install so m
 things, the whole system will start be busy by taking care of those white elephants and,
 this waste of resources can impact the listening of your beloved tunes.
 
-I indicate `Debian 11` (only `text-based`, with networking, because when `bootstraping` we
+I indicate `Debian 12` (only `text-based`, with networking, because when `bootstraping` we
 need to download and install some specific packages).
 
-The `Debian 11` was my distro of choice to develop `Eutherpe`. Previously I tried `12` but
+The `Debian 12` was my distro of choice to develop `Eutherpe`. Previously I tried full `12` but
 it sucked as hell and I was also using `Gnome` and all those trinkets *- that for `Eutherpe`'s
 goal are essentially pointless*.
 
@@ -186,9 +186,8 @@ Hi there! I am the Eutherpe's bootstrap! What I am intending to do:
 *-- sudo already installed.
 *-- git already installed.
 *-- mc already installed.
-*-- pulseaudio already installed.
+*-- pipewire already installed.
 *-- bluez already installed.
-*-- pulseaudio-module-bluetooth already installed.
 *-- ffmpeg already installed.
 *-- alsa-utils already installed.
 *-- wpasupplicant already installed.

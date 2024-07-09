@@ -49,7 +49,7 @@ EOF
     echo "- Install kernel headers to make easy any specific system tune that you may want to do;" >&2
     echo "- Create the default's USB mount point in /media/USB;" >&2
     echo "- Build up Eutherpe's app;" >&2
-    echo "- Install whole Eutherpe's package it;" >&2
+    echo "- Install whole Eutherpe's subsystem;" >&2
     echo >&2
 }
 
@@ -199,15 +199,29 @@ patch_out_etc_bluetooth_main_conf() {
     echo 0
 }
 
-patch_out_etc_pulse_default_pa_conf() {
-    # TIP(Rafael): I was having trouble with my JBL TUNE 720 BT. Pulseaudio was switching
-    #              it to HFP and as a result my JBL was not outputing sound because it
-    #              was not having a sink (pacmd list-sinks was not showing nothing related to).
-    #              Since Eutherpe is intended to listening to music I believe that users of it
-    #              do not give a sh_t to hands-free trinket, let's disable it! :P
-    sed -i 's/load-module module-bluetooth-policy.*$/load-module module-bluetooth-policy auto_switch=false/g' /etc/pulse/default.pa >/dev/null 2>&1
-    echo "load-module module-switch-on-connect" >> /etc/pulse/default.pa
+should_upgrade_pipewire() {
+    echo $(pipewire --version | grep "libpipewire 0." | head -1 | wc -l)
+}
+
+upgrade_pipewire() {
+    if [[ $(cat /etc/apt/sources.list | grep "https://deb.debian.org/debian bookworm-backports" | wc -l) == 0 ]] ; then
+        echo "https://deb.debian.org/debian bookworm-backports main contrib non-free" >> /etc/apt/sources.list
+        apt-get update >/dev/null 2>&1
+    fi
+    apt-get install -t bookworm-backports pipewire -y >/dev/null 2>&1
     echo 0
+}
+
+patch_out_wireplumber_conf() {
+    # TIP(Rafael): I was having trouble with my JBL TUNE 720 BT. Wireplumber/pipewire was switching
+    #              it to HFP and as a result my JBL was not outputing sound sometimes, because it
+    #              was not having a "sink". Since Eutherpe is intended to listening to music
+    #              I believe that users of it do not give a sh_t to hands-free trinket,
+    #              let's disable it! :P
+    cp src/usr/share/wireplumber/bluetooth.lua.d/51-mitigate-annoying-profile-switch.conf /usr/share/wireplumber/bluetooth.lua.d/51-mitigate-annoying-profile-switch.conf &&
+        chmod ugo+rw /usr/share/wireplumber/bluetooth.lua.d/51-mitigate-annoying-profile-switch.conf
+    echo 0
+
 }
 
 build_eutherpe() {
@@ -286,18 +300,31 @@ if [[ `install_sysdeps` != 0 ]] ; then
 fi
 
 echo "=== bootstrap info: Done."
-echo "=== bootstrap info: Patching out bluetooth stuff for keeping it up more stable."
 
-if [[ `patch_out_etc_bluetooth_main_conf` != 0 ]] ; then
-    echo "error: Unable to patch out '/etc/bluetooth/main.conf'." >&2
-    exit 1
+if [[ `should_upgrade_pipewire` == 1 ]] ; then
+    echo "=== bootstrap info: Upgrading your pipewire subsystem to the latest one..."
+    if [[ `upgrade_pipewire` != 0 ]] ; then
+        echo "error: Unable to upgrade pipewire." >&2
+        exit 1
+    else
+        echo "=== bootstrap info: Done."
+    fi
+else
+    echo "=== bootstrap info: Nice, your pipewire subsystem is latest already."
 fi
 
-echo "=== bootstrap info: Done."
-echo "=== bootstrap info: Patching out pulseaudio stuff for supporting headset devices."
+#echo "=== bootstrap info: Patching out bluetooth stuff for keeping it up more stable."
 
-if [[ `patch_out_etc_pulse_default_pa_conf` != 0 ]] ; then
-    echo "error: Unable to patch out '/etc/pulse/default.pa'." >&2
+#if [[ `patch_out_etc_bluetooth_main_conf` != 0 ]] ; then
+#    echo "error: Unable to patch out '/etc/bluetooth/main.conf'." >&2
+#    exit 1
+#fi
+
+#echo "=== bootstrap info: Done."
+echo "=== bootstrap info: Patching out wireplumber stuff for supporting headset devices."
+
+if [[ `patch_out_etc_wireplumber_conf` != 0 ]] ; then
+    echo "error: Unable to patch out wireplumber to avoid HFP switching." >&2
     exit 1
 fi
 

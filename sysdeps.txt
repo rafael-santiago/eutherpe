@@ -1,9 +1,12 @@
 sudo
 git
 mc
-pulseaudio
+pipewire-audio
+wireplumber
+pipewire-pulse
+pipewire-alsa
+libspa-0.2.bluetooth
 bluez
-pulseaudio-module-bluetooth
 ffmpeg
 alsa-utils
 wpasupplicant
