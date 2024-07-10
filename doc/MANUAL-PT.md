@@ -1,5 +1,8 @@
 # Manual Eutherpe
 
+**Resumo**: Esse texto reúne todas as informações sobre `Eutherpe`: minhas motivações, decisões
+de projeto, como instalar e usar.
+
 ## Tópicos
 
 - [O que é?](#o-que-é)
@@ -82,8 +85,9 @@ As principais características de `Eutherpe` são:
 
 ### Ãhm?!
 
-Se você não é do bonde dos malucos (leia-se gente que programa computadores), talvez seja legal
-entender o que cargas d'água significa `bootstrapping`.
+> [!IMPORTANT]
+> Se você não é do bonde dos malucos (leia-se gente que programa computadores), talvez seja legal
+> entender o que cargas d'água significa `bootstrapping`.
 
 Bem, isso é um termo que utilizamos para indicar que vamos provisionar todo o necessário para
 começar de fato a brincadeira. Seria um escalar sem corda colocando os grampos, para que
@@ -100,17 +104,19 @@ ecossistema. Essas dependências no caso são aplicativos e recursos que ele usa
 panos para prover toda a infraestrutura necessária para você bater cabeça, dançar pelada(o)
 na sala ou simplesmente pôr uma música na conversa.
 
-`Eutherpe` foi desenvolvido tendo como contrapartida a distribuição `Linux` `Debian`. Então
-o `bootstrapping` **precisa ser feito a partir de uma instalação `Debian` (eu aconselho)**.
+> [!IMPORTANT]
+> `Eutherpe` foi desenvolvido tendo como contrapartida a distribuição `Linux` `Debian`. Então
+> o `bootstrapping` **precisa ser feito a partir de uma instalação `Debian` (eu aconselho)**.
 
 O ideal é você fazer uma instalação `Debian` mínima (sem recursos para `desktop`). Apenas
 console mesmo. Por que? Bem, o que acontece é que quando você coloca muita coisa desnecessária,
 o sistema vai começar perder tempo e recursos tomando conta desses elefantes brancos e, esse
 desperdício pode impactar na audição das suas amadas músicas.
 
-Te indico instalar o `Debian 12` (somente console, com a rede configurada, pois o `bootstrapping`
-irá baixar pacotes específicos da Internet para deixar o seu `Debian` no jeito para rodar
-`Eutherpe`).
+> [!TIP]
+> Te indico instalar o `Debian 12` (somente console, com a rede configurada, pois o `bootstrapping`
+> irá baixar pacotes específicos da Internet para deixar o seu `Debian` no jeito para rodar
+> `Eutherpe`).
 
 O `Debian 12` foi o meu sistema de escolha para desenvolver `Eutherpe`, tentei o `12` completo mas
 ficou bem ruim e estava utilizando um sistema com `Gnome` e todas aquelas tranqueiras *- que para o
@@ -256,11 +262,12 @@ repetição geral ou repetição de apenas uma música (da que estiver atualment
 Para acessar a lista de reprodução, você precisa clicar sobre `UP NEXT`. Vou aproveitar e já
 te ensinar sobre uma convenção que adotei.
 
-Se você é realmente um ser musicófilo, já deve ter notado, caso não, agora vai notar:
-tudo que estiver precedido pelo símbolo de *sustenido*, significa que se você clicar sobre
-lhe será exibido mais. Uma vez esse conteúdo exibido, do lado dele o sustenido se tornará um
-*bemol*, o que indica que se você clicar novamente, o conteúdo será ocultado. A relação aqui
-entre `sustenido/bemol` é idêntico a entre `+/-`, :wink:!
+> [!TIP]
+> Se você é realmente um ser musicófilo, já deve ter notado, caso não, agora vai notar:
+> tudo que estiver precedido pelo símbolo de *sustenido*, significa que se você clicar sobre
+> lhe será exibido mais. Uma vez esse conteúdo exibido, do lado dele o sustenido se tornará um
+> *bemol*, o que indica que se você clicar novamente, o conteúdo será ocultado. A relação aqui
+> entre `sustenido/bemol` é idêntico a entre `+/-`, :wink:!
 
 Confira na **Figura 3** uma lista de reprodução em modo de detalhamento. Note que do lado de
 cada música existe uma caixa de checagem que você poderá marcar para aplicar sobre ela certas
@@ -302,9 +309,10 @@ Na parte inferior da tela você vai notar que existem botões bem autoexplicativ
 - `DEL TAGS...` (remove tags previamente adicionadas da seleção)
 - `PLAY TAGGED...` (toca uma quantidade de músicas levando em conta `tags` fornecidas por você)
 
-Aqui temos uma outra convenção. Tudo que for botão com reticências significa que ao clicar,
-uma tela te pedindo mais info vai ser apresentada, nesse ponto lembre do `Guia do mochileiro
-das galáxias`: `DON'T PANIC`! :wink:
+> [!TIP]
+> Aqui temos uma outra convenção. Tudo que for botão com reticências significa que ao clicar,
+> uma tela te pedindo mais info vai ser apresentada, nesse ponto lembre do `Guia do mochileiro
+> das galáxias`: `DON'T PANIC`! :wink:
 
 A **Figura 5** exibe a tela que é apresentada ao clicar em `ADD TO PLAYLIST...`, você precisa
 fornecer o nome da `playlist` a qual deseja adicionar a seleção e clicar em `ADD`. Se quiser

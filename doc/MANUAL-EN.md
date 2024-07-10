@@ -1,5 +1,8 @@
 # Eutherpe Manual
 
+**Summary**: This document gathers all information about `Eutherpe`: my motivations, project
+decisions, how to install and using it.
+
 # Topics
 
 - [What is it?](#what-is-it)
@@ -82,8 +85,9 @@ The main `Eutherpe` features are:
 
 ### Bootstrap who?
 
-If you are not from the crazy flying gang of people that program computers, maybe it will be
-nice to understand what a hell means `bootstrapping`.
+> [!IMPORTANT]
+> If you are not from the crazy flying gang of people that program computers, maybe it will be
+> nice to understand what a hell means `bootstrapping`.
 
 Well, it is a term that we use to indicate that we will provide all necessary to start playing.
 It would be similar to `free solo` on climbing by fixing all crampons by making easy and safer
@@ -100,16 +104,18 @@ dependencies are applications and resources that `Eutherpe` uses under the hood 
 all infrastructure to you nod your head, dance naked at your living room or simply having an
 ambient music.
 
-`Eutherpe` was developed based on `Debian Linux` distribution. So the `bootstrapping`
-**needs to be done from a `Debian` installation (I advise)**.
+> [!IMPORTANT]
+> `Eutherpe` was developed based on `Debian Linux` distribution. So the `bootstrapping`
+> **needs to be done from a `Debian` installation (I advise)**.
 
 The indicated is you make a `minimal` installation (without `desktop` resources). Just
 a shell based environment. Why? Well, what happens is that when you install so much unecessary
 things, the whole system will start be busy by taking care of those white elephants and,
 this waste of resources can impact the listening of your beloved tunes.
 
-I indicate `Debian 12` (only `text-based`, with networking, because when `bootstraping` we
-need to download and install some specific packages).
+> [!TIP]
+> I indicate `Debian 12` (only `text-based`, with networking, because when `bootstraping` we
+> need to download and install some specific packages).
 
 The `Debian 12` was my distro of choice to develop `Eutherpe`. Previously I tried full `12` but
 it sucked as hell and I was also using `Gnome` and all those trinkets *- that for `Eutherpe`'s
@@ -253,11 +259,12 @@ modes (all or one song).
 In order to access the reproduction list, you need to click on `UP NEXT`. By the way, it is
 time to teach you about a convention that I decided to follow.
 
-If you are really crazy about music, maybe you have already noticed that, if not yet, now
-you will go: all that is preceded by the sharp symbol, means that when you click it, more info
-will be shown. Once it shown, by its side the flat symbol will turn into a flat symbol. Now
-when clickin on this sharp symbol, the information will be hidden. The relationship between
-`sharp/flat` is equals to `+/-`, :wink:!
+> [!TIP]
+> If you are really crazy about music, maybe you have already noticed that, if not yet, now
+> you will go: all that is preceded by the sharp symbol, means that when you click it, more info
+> will be shown. Once it shown, by its side the flat symbol will turn into a flat symbol. Now
+> when clickin on this sharp symbol, the information will be hidden. The relationship between
+> `sharp/flat` is equals to `+/-`, :wink:!
 
 Take a look at **Figure 3** a reproduction list shown in detailing mode. Noticed each song
 have by their side a checkbox that you will check to apply some functions over those songs.
@@ -298,9 +305,10 @@ At the bottom side of the screen you will see the following autoexplaining butto
 - `DEL TAGS...` (removes previous added tags from the selection)
 - `PLAY TAGGED...` (play a certain quantity of songs taking into consideration `tags` provided by you)
 
-Here we have another convention. All that is about a button containing ellipsis means that when
-clicked, another screen asking from more info will be presented. At this point, remember
-`The Hitchhiker's Guide to the Galaxy`: `DON'T PANIC`! :wink:
+> [!TIP]
+> Here we have another convention. All that is about a button containing ellipsis means that when
+> clicked, another screen asking from more info will be presented. At this point, remember
+> `The Hitchhiker's Guide to the Galaxy`: `DON'T PANIC`! :wink:
 
 The **Figure 5** depicts the screen presented when you click `ADD TO PLAYLIST...`, you need to
 provide the `playlist` name that you want to add to. If you gave up adding anything, just click
