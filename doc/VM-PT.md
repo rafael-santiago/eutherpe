@@ -18,10 +18,11 @@ nativamente e mesmo assim desejam rodar `Eutherpe`. Em geral usuários `Windows`
 dele, pois até o momento `Eutherpe` não é compatível com `Windows`. Penso que usuários `OSX`
 também.
 
-Se você já sabe sobre máquina virtuais, já as usa, muito certo que esse texto não irá te
-acrescentar nada. A ideia geral é criar uma máquina virtual baseada em `Debian Linux` e rodar o
-`bootstrapping Eutherpe`. Se você já sabe fazer isso por conta própria, esse texto não é para
-você. :wink:
+> [!NOTE]
+> Se você já sabe sobre máquina virtuais, já as usa, muito certo que esse texto não irá te
+> acrescentar nada. A ideia geral é criar uma máquina virtual baseada em `Debian Linux` e rodar o
+> `bootstrapping Eutherpe`. Se você já sabe fazer isso por conta própria, esse texto não é para
+> você. :wink:
 
 [`Voltar`](#tópicos)
 
@@ -36,10 +37,11 @@ criar uma máquina virtual baseada numa `OVA` que eu previamente preparei, dispo
 
 Pronto! Se você instalou o `Virtualbox` e baixou a `OVA` já tem tudo para ir adiante.
 
-**Dica e observação**: Não vou me aprofundar no conceito de virtualização e máquinas virtuais.
-Porém, é algo bem bacana e que com certeza você pode encontrar muitas ideias e utilidades para
-resolver suas necessidades do dia a dia, eu te sugeriria utilizar o ensejo do `Eutherpe` e dar
-uma aprofundada no assunto. :dart:
+> [!TIP]
+> **Dica e observação**: Não vou me aprofundar no conceito de virtualização e máquinas virtuais.
+> Porém, é algo bem bacana e que com certeza você pode encontrar muitas ideias e utilidades para
+> resolver suas necessidades do dia a dia, eu te sugeriria utilizar o ensejo do `Eutherpe` e dar
+> uma aprofundada no assunto. :dart:
 
 [`Voltar`](#tópicos)
 
@@ -165,13 +167,14 @@ Feito isso, está pronto! Acesse o `miniplayer Eutherpe` via
 
 **Figura 12**: :sunglasses:!
 
-**Observações**:
-
-- Sempre que você ligar a `VM` é necessário mapear o `Bluetooth` e o `Pen-drive`
-`USB`. Enquanto o `Bluetooth` não for iniciado, você não conseguirá acessar o `miniplayer`
-via `Web`.
-
-- Caso precise se logar nessa máquina como usuário `root` a senha é `music`.
+> [!IMPORTANT]
+> **Observações**:
+>
+> - Sempre que você ligar a `VM` é necessário mapear o `Bluetooth` e o `Pen-drive`
+> `USB`. Enquanto o `Bluetooth` não for iniciado, você não conseguirá acessar o `miniplayer`
+> via `Web`.
+>
+> - Caso precise se logar nessa máquina como usuário `root` a senha é `music`.
 
 Divirta-se! :wink:
 
