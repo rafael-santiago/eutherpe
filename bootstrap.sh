@@ -218,10 +218,16 @@ patch_out_wireplumber_conf() {
     #              was not having a "sink". Since Eutherpe is intended to listening to music
     #              I believe that users of it do not give a sh_t to hands-free trinket,
     #              let's disable it! :P
-    cp src/usr/share/wireplumber/bluetooth.lua.d/51-mitigate-annoying-profile-switch.conf /usr/share/wireplumber/bluetooth.lua.d/51-mitigate-annoying-profile-switch.conf &&
-        chmod ugo+rw /usr/share/wireplumber/bluetooth.lua.d/51-mitigate-annoying-profile-switch.conf
+    mkdir -p /home/eutherpe/.config/wireplumber/wireplumber.conf.d &&
+        cp src/usr/share/wireplumber/wireplumber.conf.d/90-eutherpe-tunings.conf /home/eutherpe/.config/wireplumber/wireplumber.conf.d/90-eutherpe-tunings.conf &&
+            chmod ugo+rw /home/eutherpe/.config/wireplumber/wireplumber.conf.d/90-eutherpe-tunings.conf
     echo 0
 
+}
+
+enable_wireplumber_session_manager() {
+    systemctl --user -M $EUTHERPE_USER@ --now enable wireplumber.service >/dev/null 1>&2
+    echo 0
 }
 
 build_eutherpe() {
@@ -325,6 +331,15 @@ echo "=== bootstrap info: Patching out wireplumber stuff for supporting headset 
 
 if [[ `patch_out_etc_wireplumber_conf` != 0 ]] ; then
     echo "error: Unable to patch out wireplumber to avoid HFP switching." >&2
+    exit 1
+fi
+
+echo "=== bootstrap info: Done."
+
+echo "=== bootstrap info: Enabling wireplumber session manager for $EUTHERPE_USER..."
+
+if [[ `enable_wireplumber_session_manager` != 0 ]] ; then
+    echo "error: Unable to enable wireplumber session manager." >&2
     exit 1
 fi
 
