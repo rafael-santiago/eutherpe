@@ -1,6 +1,6 @@
 # Eutherpe Manual
 
-**Summary**: This document gathers all information about `Eutherpe`: my motivations, project
+**Abstract**: This document gathers all information about `Eutherpe`: my motivations, project
 decisions, how to install and using it.
 
 # Topics
@@ -75,7 +75,7 @@ The main `Eutherpe` features are:
   It does mean that you can continue your audition from the point that you previously stopped.
 - The `web` interface renders pretty well in `desktop` or `mobile` devices.
 - It works based on `Linux`.
-- On `Windows` you can use `Eutherpe` from a `virtual machine`.
+- On `Windows` you can use `Eutherpe` from a [`virtual machine`](VM-EN.md).
 - You still can use `Eutherpe` embedded in a `raspeberry-pi` and in this case it will be called
   `Euther-PI`.
 

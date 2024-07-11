@@ -1,6 +1,6 @@
 # Eutherpe
 
-`Eutherpe` é um tipo de fiação etérea para jukebox. Isso é a base do `Euther Pi` que é um projeto `faça-você-mesmo` para
+`Eutherpe` é um tipo de fiação etérea para jukebox. Isso é a base do `Euther-Pi` que é um projeto `faça-você-mesmo` para
 trazer de volta o ritual prazeroso de escutar música longe de um super comportado, óbvio e sem-graça sistema computacional.
 A essência aqui é evitar ficar atrelado à telas e botões, subscrições, propaganda, sugestões enxeridas e blá-blá-blá. Vamos
 parar com todo esse ruído de merda e ouvir as músicas que amamos. Esse é o convite que `Eutherpe` e `Euther-Pi` fazem
@@ -23,7 +23,7 @@ Divirta-se! :wink:
 
 "- Oh! Huh! English please..." Okay...
 
-`Eutherpe` is a kind of `ethereal` jukebox wiring. This is the base of `Euther Pi` what is a `diy` project for bringing back
+`Eutherpe` is a kind of `ethereal` jukebox wiring. This is the base of `Euther-Pi` what is a `diy` project for bringing back
 the pleasant ritual of listening to music outside from a flat well-behaved computer system. The essence here is avoid being
 attached to screens and buttons, subscriptions, advertisements, nosy suggestions and, blah-blah-blah. Let's stop all this shitty
 noise and listening to the tunes that we love. This is the invite of `Eutherpe` and `Euther Pi`  do for you. With `Eutherpe` we are

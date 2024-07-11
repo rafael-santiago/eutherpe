@@ -52,10 +52,10 @@ os arquivos que compõem a máquina virtual. É como se um computador estivesse 
 uma caixa e você apenas precisasse tirá-lo da caixa, conectar uns cabos, o ligar na tomada e
 pronto!
 
-No caso da `OVA Eutherpe` o que eu fiz foi criar uma máquina virtual baseada em `Debian 11` onde
+No caso da `OVA Eutherpe` o que eu fiz foi criar uma máquina virtual baseada em `Debian 12` onde
 cuidei de instalar apenas os aplicativos mais básicos para subir um sistema operacional no
 qual pudesse ser possível executar `Eutherpe`. Sim, depois que acabei a instalação mínima do
-`Debian 11` eu baixei os fontes do `Eutherpe` e rodei o `bootstrap` (se você não leu o manual
+`Debian 12` eu baixei os fontes do `Eutherpe` e rodei o `bootstrap` (se você não leu o manual
 ainda, [leia-o](MANUAL-PT.md) e *voilá*, desliguei a máquina virtual e criei a `OVA` (até rimou).
 
 Com essa `OVA`, o que você fará (rimou de novo...) vai ser importá-la a partir do seu
