@@ -14,7 +14,7 @@ import (
 )
 
 func TestWearMustPass(t *testing.T) {
-    err := Wear("./")
+    err := Wear("../bluebraces")
     if err != nil {
         t.Errorf("bluebraces.Wear() has failed : %v\n", err)
     }
@@ -23,7 +23,7 @@ func TestWearMustPass(t *testing.T) {
 func TestWearMustFailDueToBluetoohctl(t *testing.T) {
     os.Setenv("BLUETOOTHCTL_MUST_FAIL", "1")
     defer os.Unsetenv("BLUETOOTHCTL_MUST_FAIL")
-    err := Wear("./")
+    err := Wear("../bluebraces")
     if err == nil {
         t.Error("bluebraces.Wear() was expected to fail while has succeeded.")
     }
@@ -33,7 +33,7 @@ func TestWearMustFailDueToBluetoohctl(t *testing.T) {
 }
 
 func TestUnwearMustPass(t *testing.T) {
-    err := Unwear("./")
+    err := Unwear("../bluebraces")
     if err != nil {
         t.Errorf("bluebraces.Unwear() has failed : %v\n", err)
     }
@@ -42,7 +42,7 @@ func TestUnwearMustPass(t *testing.T) {
 func TestUnwearMustFailDueToPulseAudio(t *testing.T) {
     os.Setenv("BLUETOOTHCTL_MUST_FAIL", "1")
     defer os.Unsetenv("BLUETOOTHCTL_MUST_FAIL")
-    err := Unwear("./")
+    err := Unwear("../bluebraces")
     if err == nil {
         t.Error("bluebraces.Unwear() was expected to fail while has succeeded.")
     }
@@ -54,7 +54,7 @@ func TestUnwearMustFailDueToPulseAudio(t *testing.T) {
 func TestUnwearMustFailDueToBluetoohctl(t *testing.T) {
     os.Setenv("BLUETOOTHCTL_MUST_FAIL", "1")
     defer os.Unsetenv("BLUETOOTHCTL_MUST_FAIL")
-    err := Unwear("./")
+    err := Unwear("../bluebraces")
     if err == nil {
         t.Error("bluebraces.Wear() was expected to fail while has succeeded.")
     }
@@ -208,5 +208,25 @@ func TestGetPairedDevicesMustPass(t *testing.T) {
         t.Error("Returned a device with unexpected id.")
     } else if pairedDevices[1].Alias != "Babaca Sound Pinico's" {
         t.Error("Returned a device with unexpected alias.")
+    }
+}
+
+func TestGetBlueAlsaMixerControlNameMustPass(t *testing.T) {
+    mixerName, err := GetBlueAlsaMixerControlName("../bluebraces")
+    if err != nil {
+        t.Errorf("GetBlueAlsaMixerControlName() has failed when it should succeed.\n")
+    } else if mixerName != "JBL TUNE720BT A2DP" {
+        t.Errorf("GetBlueAlsaMixerControlName() is returning unexpected mixer name.\n")
+    }
+}
+
+func TestGetBlueAlsaMixerControlNameMustFail(t *testing.T) {
+    os.Setenv("AMIXER_MUST_FAIL", "1")
+    defer os.Unsetenv("AMIXER_MUST_FAIL")
+    mixerName, err := GetBlueAlsaMixerControlName("../bluebraces")
+    if err == nil {
+        t.Errorf("GetBlueAlsaMixerControlName() has not failed when it should.\n")
+    } else if len(mixerName) > 0 {
+        t.Errorf("GetBlueAlsaMixerControlName() is not returning an empty string.\n")
     }
 }

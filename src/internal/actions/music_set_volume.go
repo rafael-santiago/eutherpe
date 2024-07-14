@@ -31,7 +31,7 @@ func MusicSetVolume(eutherpeVars *vars.EutherpeVars, userData *url.Values) error
     if err != nil {
         return err
     }
-    mplayer.SetVolume(value, customPath)
+    mplayer.SetVolume(value, eutherpeVars.CachedDevices.MixerControlName, customPath)
     eutherpeVars.Player.VolumeLevel = uint(value)
     return nil
 }

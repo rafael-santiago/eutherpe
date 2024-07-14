@@ -48,8 +48,10 @@ EOF
     echo "- Install Golang to actually build Eutherpe's app;" >&2
     echo "- Install kernel headers to make easy any specific system tune that you may want to do;" >&2
     echo "- Create the default's USB mount point in /media/USB;" >&2
+    echo "- Build bluez-alsa from scratch and install it;" >&2
     echo "- Build up Eutherpe's app;" >&2
     echo "- Install whole Eutherpe's subsystem;" >&2
+    echo "- Finally, reboot your system to finish applying all changes;" >&2
     echo >&2
 }
 
@@ -87,8 +89,11 @@ grant_eutherpe_user_nopasswd_privileges() {
     echo -e "$(cat /etc/sudoers | grep -v ^eutherpe)" > /etc/sudoers
     echo "$EUTHERPE_USER        ALL=(ALL:ALL)   NOPASSWD: $(which ip)">>/etc/sudoers &&\
     echo "$EUTHERPE_USER        ALL=(ALL:ALL)   NOPASSWD: $(which wpa_supplicant)">>/etc/sudoers &&\
-    echo "$EUTHERPE_USER        ALL=(ALL:ALL)   NOPASSWD: $(which dhclient)">>/etc/sudoers
-    echo "$EUTHERPE_USER        ALL=(ALL:ALL)   NOPASSWD: $(which shutdown)">>/etc/sudoers
+    echo "$EUTHERPE_USER        ALL=(ALL:ALL)   NOPASSWD: $(which dhclient)">>/etc/sudoers &&\
+    echo "$EUTHERPE_USER        ALL=(ALL:ALL)   NOPASSWD: $(which shutdown)">>/etc/sudoers &&\
+    echo "$EUTHERPE_USER        ALL=(ALL:ALL)   NOPASSWD: $(which systemctl) start bluealsa">>/etc/sudoers &&\
+    echo "$EUTHERPE_USER        ALL=(ALL:ALL)   NOPASSWD: $(which systemctl) stop bluealsa">>/etc/sudoers &&\
+    echo "$EUTHERPE_USER        ALL=(ALL:ALL)   NOPASSWD: $(which systemctl) restart bluealsa">>/etc/sudoers
     echo $?
 }
 
@@ -150,13 +155,13 @@ install_golang() {
         echo "error: Golang's download has failed." >&2
         exit 1
     fi
-    echo "*-- unpacking..." >&2
+    echo "+-- unpacking..." >&2
     tar -xvzf $filename -C /usr/local >/dev/null 2>&1
     exit_code=$?
     if [[ $exit_code == 0 ]] ; then
-        echo "+-- unpacked." >&2
+        echo "   *-- unpacked." >&2
     else
-        echo "x-- error during unpacking." >&2
+        echo "   x-- error during unpacking." >&2
     fi
     rm -f $filename >/dev/null 2>&1
     cd $old_dir >/dev/null 2>&1
@@ -171,14 +176,15 @@ setup_goenv() {
 }
 
 install_kernel_headers() {
+    echo "+-- installing kernel headers..." >&2
     apt-get install linux-headers-$(uname -r) -y >/dev/null 2>&1
-    echo "+-- linux-headers-$(uname -r) installed." >&2
+    echo "*-- linux-headers-$(uname -r) installed." >&2
     apt-get install gcc -y >/dev/null 2>&1
-    echo "+-- gcc installed." >&2
+    echo "*-- gcc installed." >&2
     apt-get install make -y >/dev/null 2>&1
-    echo "+-- make installed." >&2
+    echo "*-- make installed." >&2
     apt-get install perl -y >/dev/null 2>&1
-    echo "+-- perl installed." >&2
+    echo "*-- perl installed." >&2
     echo $?
 }
 
@@ -188,47 +194,16 @@ create_usb_sto_mount_point() {
     echo $?
 }
 
-patch_out_etc_bluetooth_main_conf() {
-    # TIP(Rafael): With bredr stuff I got rid of cases when I could connect to a
-    #              bluetooth device but no sound emanated from it.
-    #              With multiple stuff I got rid of low quality sound connection cases.
-    sed -i 's/.*ControllerMode.*=.*$/ControllerMode = bredr/g' /etc/bluetooth/main.conf &&
-        sed -i 's/.*MultiProfile.*=.*$/MultiProfile = multiple/g' /etc/bluetooth/main.conf &&
-            sed -i 's/\[General\]$/[General]\n\nDisable=Headset/g' /etc/bluetooth/main.conf
-            systemctl restart bluetooth >/dev/null 2>&1
-    echo 0
-}
-
-should_upgrade_pipewire() {
-    echo $(pipewire --version | grep "libpipewire 0." | head -1 | wc -l)
-}
-
-upgrade_pipewire() {
-    if [[ $(cat /etc/apt/sources.list | grep "https://deb.debian.org/debian bookworm-backports" | wc -l) == 0 ]] ; then
-        echo "https://deb.debian.org/debian bookworm-backports main contrib non-free" >> /etc/apt/sources.list
-        apt-get update >/dev/null 2>&1
-    fi
-    apt-get install -t bookworm-backports pipewire -y >/dev/null 2>&1
-    echo 0
-}
-
-patch_out_wireplumber_conf() {
-    # TIP(Rafael): I was having trouble with my JBL TUNE 720 BT. Wireplumber/pipewire was switching
-    #              it to HFP and as a result my JBL was not outputing sound sometimes, because it
-    #              was not having a "sink". Since Eutherpe is intended to listening to music
-    #              I believe that users of it do not give a sh_t to hands-free trinket,
-    #              let's disable it! :P
-    mkdir -p /home/eutherpe/.config/wireplumber/wireplumber.conf.d &&
-        cp src/usr/share/wireplumber/wireplumber.conf.d/90-eutherpe-tunings.conf /home/eutherpe/.config/wireplumber/wireplumber.conf.d/90-eutherpe-tunings.conf &&
-            chmod ugo+rw /home/eutherpe/.config/wireplumber/wireplumber.conf.d/90-eutherpe-tunings.conf
-    echo 0
-
-}
-
-enable_wireplumber_session_manager() {
-    systemctl --user -M $EUTHERPE_USER@ --now enable wireplumber.service >/dev/null 1>&2
-    echo 0
-}
+#patch_out_etc_bluetooth_main_conf() {
+#    # TIP(Rafael): With bredr stuff I got rid of cases when I could connect to a
+#    #              bluetooth device but no sound emanated from it.
+#    #              With multiple stuff I got rid of low quality sound connection cases.
+#    sed -i 's/.*ControllerMode.*=.*$/ControllerMode = bredr/g' /etc/bluetooth/main.conf &&
+#        sed -i 's/.*MultiProfile.*=.*$/MultiProfile = multiple/g' /etc/bluetooth/main.conf &&
+#            sed -i 's/\[General\]$/[General]\n\nDisable=Headset/g' /etc/bluetooth/main.conf
+#            systemctl restart bluetooth >/dev/null 2>&1
+#    echo 0
+#}
 
 build_eutherpe() {
     cd src
@@ -254,6 +229,66 @@ install_eutherpe() {
     systemctl enable eutherpe-usb-watchdog >/dev/null 2>&1
     systemctl enable eutherpe >/dev/null 2>&1
     echo $?
+}
+
+build_and_install_bluez_alsa() {
+    echo "+-- cloning santiago's bluez-alsa fork..." >&2
+    git clone https://github.com/rafael-santiago/bluez-alsa -b v4.2.0 bluez-alsa >/dev/null 2>&1
+    if [[ $? != 0 ]] ; then
+        echo "error: while cloning bluez-alsa." >&2
+        return 1
+    fi
+    echo "*-- cloned." >&2
+    echo "+-- generating configure script..." >&2
+    cd bluez-alsa >/dev/null 2>&1
+    autoreconf --install >/dev/null 2>&1
+    if [[ $? != 0 ]] ; then
+        echo "error: while generating configure script." >&2
+        return 1
+    fi
+    echo "*-- generated." >&2
+    echo "+-- configuring build..." >&2
+    mkdir build >/dev/null 2>&1
+    cd build >/dev/null 2>&1
+    ../configure --enable-mp3lame --enable-mpg123 --enable-rfcomm --enable-hcitop --enable-systemd --with-bluealsauser=$EUTHERPE_USER >/dev/null 2>&1
+    if [[ $? != 0 ]] ; then
+        echo "error: while configuring build." >&2
+        return 1
+    fi
+    echo "*-- build configured." >&2
+    echo "+-- building bluez-alsa..." >&2
+    make >/dev/null 2>&1
+    if [[ $? != 0 ]] ; then
+        echo "error: while building bluez-alsa." >&2
+        return 1
+    fi
+    echo "*-- built." >&2
+    echo "+-- installing bluez-alsa..." >&2
+    make install >/dev/null 2>&1
+    if [[ $? != 0 ]] ; then
+        echo "error: while installing bluez-alsa." >&2
+        return 1
+    fi
+    echo "*-- installed." >&2
+    echo "+-- configuring /var/lib directory and its permissions..." >&2
+    mkdir /var/lib/bluealsa >/dev/null 2>&1
+    chown $EUTHERPE_USER /var/lib/bluealsa >/dev/null 2>&1
+    chmod 0700 /var/lib/bluealsa >/dev/null 2>&1
+    if [[ $? != 0 ]] ; then
+        echo "error: while configuring /var/lib directory." >&2
+        return 1
+    fi
+    echo "*-- configured." >&2
+    echo "+-- creating /etc/dbus-1/system.dbus/bluealsa.conf police file..." >&2
+    mkdir -p /etc/dbus-1/system.dbus >/dev/null 2>&1
+    cp src/etc/dbus-1/system.dbus/bluealsa.conf /etc/dbus-1/system.dbus/bluealsa.conf >/dev/null 2>&1
+    if [[ $? != 0 ]] ; then
+        echo "error: while creating /etc/dbus-1/system.dbus/bluealsa.conf policy file." >&2
+        return 1
+    fi
+    chmod ugo+rw /etc/dbus-1/system.dbus/bluealsa.conf >/dev/null 2>&1
+    echo "*-- policy file created." >&2
+    return 0
 }
 
 `bootstrap_banner`
@@ -307,18 +342,6 @@ fi
 
 echo "=== bootstrap info: Done."
 
-if [[ `should_upgrade_pipewire` == 1 ]] ; then
-    echo "=== bootstrap info: Upgrading your pipewire subsystem to the latest one..."
-    if [[ `upgrade_pipewire` != 0 ]] ; then
-        echo "error: Unable to upgrade pipewire." >&2
-        exit 1
-    else
-        echo "=== bootstrap info: Done."
-    fi
-else
-    echo "=== bootstrap info: Nice, your pipewire subsystem is latest already."
-fi
-
 #echo "=== bootstrap info: Patching out bluetooth stuff for keeping it up more stable."
 
 #if [[ `patch_out_etc_bluetooth_main_conf` != 0 ]] ; then
@@ -327,23 +350,7 @@ fi
 #fi
 
 #echo "=== bootstrap info: Done."
-echo "=== bootstrap info: Patching out wireplumber stuff for supporting headset devices."
 
-if [[ `patch_out_etc_wireplumber_conf` != 0 ]] ; then
-    echo "error: Unable to patch out wireplumber to avoid HFP switching." >&2
-    exit 1
-fi
-
-echo "=== bootstrap info: Done."
-
-echo "=== bootstrap info: Enabling wireplumber session manager for $EUTHERPE_USER..."
-
-if [[ `enable_wireplumber_session_manager` != 0 ]] ; then
-    echo "error: Unable to enable wireplumber session manager." >&2
-    exit 1
-fi
-
-echo "=== bootstrap info: Done."
 echo "=== bootstrap info: granting $EUTHERPE_USER some nopasswd privileges..."
 
 if [[ `grant_eutherpe_user_nopasswd_privileges` != 0 ]] ; then
@@ -386,6 +393,16 @@ if [[ `create_usb_sto_mount_point` != 0 ]] ; then
 fi
 
 echo "=== bootstrap info: Done."
+echo "=== bootstrap info: Building and installing bluez-alsa..."
+
+`build_and_install_bluez_alsa`
+
+if [[ $? != 0 ]] ; then
+    echo "error: Unable to install bluez-alsa." >&2
+    exit 1
+fi
+
+echo "=== bootstrap info: Done."
 echo "=== bootstrap info: Now building Eutherpe..."
 
 if [[ `build_eutherpe` != 0 ]] ; then
@@ -414,7 +431,6 @@ if [[ `is_active eutherpe-usb-watchdog` == 0 ]] ; then
 fi
 
 echo "=== bootstrap info: Nice, eutherpe-usb-watchdog.service is running."
+echo "=== bootstrap info: Done. Reboot within 3 seconds..."
 
-echo "=== bootstrap info: Done."
-
-exit 0
+sleep 3 && shutdown -r now

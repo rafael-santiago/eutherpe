@@ -14,6 +14,10 @@ som/`headphone` `bluetooth` e ir se divertir.
 > seguir todos os passos de como fazer isso no repo do `Euther-Pi`.
 >
 > Entretanto, para início de conversa, eu sugeriria você conhecer todos os detalhes sobre `Eutherpe` começando por [aqui](doc/MANUAL-PT.md).
+>
+> Se você vomita ao ouvir a palavra `PulseAudio` (desculpa!) ou se você treme ao ouvir `PipeWire` ou `WirePlumber`,
+> relaxe! Aqui o negócio é ficar com o simples, pois o simples é menos problemático:
+> `ALSA`, `Bluez-ALSA` e acabou!
 
 Divirta-se! :wink:
 
@@ -36,6 +40,9 @@ able to make an equivalent of a personal `self-hosted` music streaming service t
 > at `Euther-Pi` repo.
 >
 > However, firstly I would suggest you to know all single thing about `Eutherpe` by starting from [here](doc/MANUAL-EN.md).
+>
+> If you throw up when hearing someone saying `PulseAudio` (sorry!) or you cringe when hearing `PipeWire` or `Wireplumber`,
+> relax! Here the business is to be simple, because simple is less buggy: `ALSA`, `Bluez-ALSA` and period!
 
 Enjoy! :wink:
 

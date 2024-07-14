@@ -296,6 +296,10 @@ function setStorageDevice() {
                                      "storage-device" : storageDev.id }, "post");
 }
 
+function convertSongsFromDevice() {
+    doEutherpeRequest("/eutherpe", { "action" : "convert-2mp3" }, "post");
+}
+
 function removePlaylist() {
     playlist = getSelectedPlaylist();
     if (playlist === null) {

@@ -234,3 +234,27 @@ func TestScanSongs(t *testing.T) {
         t.Errorf("ScanSongs() has not returned an error as it should.\n")
     }
 }
+
+func TestConvertSongs(t *testing.T) {
+    _ = os.Mkdir("/tmp/test", 0777)
+    _ = os.WriteFile("/tmp/abc.mp4", []byte("abc"), 0777)
+    _ = os.WriteFile("/tmp/test/yyz.m4a", []byte("yyz"), 0777)
+    os.Remove("/tmp/abc.mp3")
+    os.Remove("/tmp/test/yyz.mp3")
+    defer os.Remove("/tmp/abc.mp4")
+    defer os.Remove("/tmp/abc.mp3")
+    defer os.RemoveAll("/tmp/test/")
+    err := ConvertSongs("/tmp", "../mplayer")
+    if err != nil {
+        t.Errorf("ConvertSongs() is failing. %v\n", err)
+    } else {
+        _, err = os.Stat("/tmp/abc.mp3")
+        if err != nil {
+            t.Errorf("/tmp/abc.mp3 not found.\n")
+        }
+        _, err = os.Stat("/tmp/test/yyz.mp3")
+        if err != nil {
+            t.Errorf("/tmp/test/yyz.mp3 not found.\n")
+        }
+    }
+}

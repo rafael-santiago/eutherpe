@@ -32,6 +32,30 @@ type SongInfo struct {
     Genre string
 }
 
+func ConvertSongs(basePath string, customPath... string) error {
+    files, err := os.ReadDir(basePath)
+    if err != nil {
+        return err
+    }
+    for _, file := range files {
+        fileName := file.Name()
+        filePath := path.Join(basePath, fileName)
+        ext := path.Ext(strings.ToLower(fileName))
+        if ext == ".m4a" || ext == ".mp4" {
+            err = ConvertToMP3(filePath, customPath...)
+        } else {
+            stat, err := os.Stat(filePath)
+            if err == nil && stat.IsDir() {
+                err = ConvertSongs(filePath, customPath...)
+            }
+        }
+        if err != nil {
+            return fmt.Errorf("Error while converting '%s'.\n", filePath)
+        }
+    }
+    return nil
+}
+
 func ScanSongs(basePath string, coversCacheRootPath ...string) ([]SongInfo, error) {
     files, err := os.ReadDir(basePath)
     if err != nil {

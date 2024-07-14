@@ -56,6 +56,7 @@ type EutherpeVars struct {
     CachedDevices struct {
         BlueDevId string
         MusicDevId string
+        MixerControlName string
     }
     Collection mplayer.MusicCollection
     CollectionHTML string
@@ -426,7 +427,7 @@ func (e *EutherpeVars) TuneUp() {
     e.Player.RepeatOne = false
     e.Player.Stopped = true
     if e.Player.VolumeLevel == 0 {
-        e.Player.VolumeLevel = mplayer.GetVolumeLevel()
+        e.Player.VolumeLevel = mplayer.GetVolumeLevel(false)
     }
     e.HTTPd.URLSchema = "http"
     e.HTTPd.PubRoot = e.getPubRoot()
@@ -522,6 +523,7 @@ const EutherpePlaylistReproduceSelectedOnesId = "playlist-reproduceselectedones"
 const EutherpeStorageListId = "storage-list"
 const EutherpeStorageScanId = "storage-scan"
 const EutherpeStorageSetId = "storage-set"
+const EutherpeStorageConvert2MP3Id = "convert-2mp3"
 
 // INFO(Rafael): Actions from "Bluetooth" sheet.
 

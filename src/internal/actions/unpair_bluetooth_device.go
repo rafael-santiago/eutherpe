@@ -31,6 +31,7 @@ func UnpairBluetoothDevice(eutherpeVars *vars.EutherpeVars,
     if err == nil {
         removeBluetoothDevice(&eutherpeVars.BluetoothDevices, eutherpeVars.CachedDevices.BlueDevId)
         eutherpeVars.CachedDevices.BlueDevId = ""
+        eutherpeVars.CachedDevices.MixerControlName = ""
         if len(customPath) == 0 {
             // INFO(Rafael): Since user has chosen unpair the device let's save it asap. It can be
             //               meaningful when user is wanting to power-off her/his device

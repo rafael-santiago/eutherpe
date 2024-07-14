@@ -13,6 +13,7 @@ import(
     "time"
     "strings"
     "path"
+    "fmt"
 )
 
 const (
@@ -24,9 +25,33 @@ const (
 var g_HasSystemCtlCallNr int
 var g_HasSystemCtl bool
 
+func StartBlueAlsa(customPath ...string) error {
+    return exec.Command(path.Join(getToolPath(customPath...), "sudo"),
+                        "systemctl", "start", "bluealsa").Run()
+}
+
+func StopBlueAlsa(customPath ...string) error {
+    return exec.Command(path.Join(getToolPath(customPath...), "sudo"),
+                        "systemctl", "stop", "bluealsa").Run()
+}
+
+func GetBlueAlsaMixerControlName(customPath ...string) (string, error) {
+    out, err := exec.Command(path.Join(getToolPath(customPath...), "amixer"), "-D", "bluealsa", "scontrols").CombinedOutput()
+    if err != nil {
+        return "", err
+    }
+    sOut := string(out)
+    startOff := strings.Index(sOut, "'")
+    if startOff == - 1 || (startOff + 1) >= len(sOut) {
+        return "", fmt.Errorf("No mixer name was found.")
+    }
+    endOff := strings.Index(sOut[startOff + 1:], "'")
+    startOff += 1
+    return sOut[startOff:startOff + endOff], nil
+}
+
 func GetPairedDevices(customPath ...string) []BluetoothDevice {
-    cp := getToolPath(customPath...)
-    out, err := exec.Command(cp + "bluetoothctl", "paired-devices").CombinedOutput()
+    out, err := exec.Command(path.Join(getToolPath(customPath...), "bluetoothctl"), "paired-devices").CombinedOutput()
     pairedDevices := make([]BluetoothDevice, 0)
     if err != nil {
         return pairedDevices
@@ -54,17 +79,15 @@ func GetPairedDevices(customPath ...string) []BluetoothDevice {
 }
 
 func Wear(customPath ...string) error {
-    cp := getToolPath(customPath...)
-    err := exec.Command(cp + "bluetoothctl", "power", "on").Run()
+    err := exec.Command(path.Join(getToolPath(customPath...), "bluetoothctl"), "power", "on").Run()
     if err == nil {
-        err = exec.Command(cp + "bluetoothctl", "discoverable", "on").Run()
+        err = exec.Command(path.Join(getToolPath(customPath...), "bluetoothctl"), "discoverable", "on").Run()
     }
     return err
 }
 
 func Unwear(customPath ...string) error {
-    cp := getToolPath(customPath...)
-    err := exec.Command(cp + "bluetoothctl", "power", "off").Run()
+    err := exec.Command(path.Join(getToolPath(customPath...), "bluetoothctl"), "power", "off").Run()
     if err != nil {
         return err
     }

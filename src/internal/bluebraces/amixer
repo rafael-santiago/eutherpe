@@ -1,0 +1,15 @@
+#!/usr/bin/bash
+
+eval_exit_code() {
+    [[ -z $AMIXER_MUST_FAIL ]] && echo 0 || echo 1
+}
+
+Dbluealsa() {
+    echo -e "Simple mixer control 'JBL TUNE720BT A2DP',0\n" >&2
+    echo `eval_exit_code`
+}
+
+case $1 in
+    -D) exit `Dbluealsa $*` ;;
+    *) exit 1 ;;
+esac

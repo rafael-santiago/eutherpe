@@ -41,9 +41,14 @@ func PairBluetoothDevice(eutherpeVars *vars.EutherpeVars,
     err = bluebraces.ConnectDevice(bluetoothDevice[0], customPath)
     if err == nil {
         eutherpeVars.CachedDevices.BlueDevId = bluetoothDevice[0]
+        eutherpeVars.CachedDevices.MixerControlName, err = bluebraces.GetBlueAlsaMixerControlName(customPath)
+        if err != nil {
+            return err
+        }
         // TIP(Santiago): It is necessary to prevent that annoyant behavior
         //                of overflown volume level just after pairing!
-        mplayer.SetVolume(int(eutherpeVars.Player.VolumeLevel))
+        mplayer.SetVolume(int(eutherpeVars.Player.VolumeLevel),
+                          eutherpeVars.CachedDevices.MixerControlName)
     }
     return err
 }

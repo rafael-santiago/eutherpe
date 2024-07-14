@@ -31,8 +31,15 @@ func main() {
     //    fmt.Println(r, s)
     //}
     //os.Exit(1)
+    fmt.Printf("info: Initializing bluealsa subsystem... wait...\n")
+    err := bluebraces.StartBlueAlsa()
+    if err != nil {
+        fmt.Printf("panic: Unable to start out bluealsa service: '%s'\n", err.Error())
+        os.Exit(1)
+    }
+    defer bluebraces.StopBlueAlsa()
     fmt.Printf("info: Initializing bluetooth subsystem... wait...\n")
-    err := bluebraces.Wear()
+    err = bluebraces.Wear()
     if err != nil {
         fmt.Printf("panic: Unable to power on bluetooth subsystem : '%s'\n", err.Error())
         os.Exit(1)

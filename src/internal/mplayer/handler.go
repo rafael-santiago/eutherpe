@@ -8,6 +8,7 @@
 package mplayer
 
 import (
+    "os"
     "os/exec"
     "path"
     "fmt"
@@ -15,12 +16,33 @@ import (
     "strings"
 )
 
-func Play(filePath string, customPath ...string) (*exec.Cmd, error) {
-    var ffplayPath string = "ffplay"
+func ConvertToMP3(inputPath string, customPath ...string) error {
+    var ffmpegPath string = "ffmpeg"
     if len(customPath) > 0 {
-        ffplayPath = path.Join(customPath[0], ffplayPath)
+        ffmpegPath = path.Join(customPath[0], ffmpegPath)
     }
-    cmd := exec.Command(ffplayPath, filePath, "-nodisp", "-autoexit")
+    ext := path.Ext(inputPath)
+    outputPath := strings.Replace(inputPath, ext, ".mp3", -1)
+    _, err := os.Stat(outputPath)
+    if err == nil {
+        // INFO(Rafael): By design we will not re-do a time consuming task if the output
+        //               already appears to be there.
+        return nil
+    }
+    return exec.Command(ffmpegPath, "-i", inputPath, outputPath).Run()
+}
+
+func Play(filePath string, hasBlueAlsaSink bool, customPath ...string) (*exec.Cmd, error) {
+    var mpg123Path string = "mpg123"
+    if len(customPath) > 0 {
+        mpg123Path = path.Join(customPath[0], mpg123Path)
+    }
+    var cmd *exec.Cmd
+    if hasBlueAlsaSink {
+        cmd = exec.Command(mpg123Path, "-o", "alsa:bluealsa", filePath)
+    } else {
+        cmd = exec.Command(mpg123Path, filePath)
+    }
     return cmd, cmd.Start()
 }
 
@@ -28,28 +50,31 @@ func Stop(handle *exec.Cmd) error {
     return handle.Process.Kill()
 }
 
-func SetVolume(percentage int, customPath ...string) {
-    /*var pactlPath string = "pactl"
-    if len(customPath) > 0 {
-        pactlPath = path.Join(customPath[0], pactlPath)
-    }
-    exec.Command(pactlPath, "--", "set-sink-volume", "0", "-100%").Run()
-    exec.Command(pactlPath, "--", "set-sink-volume", "0", "+" + strconv.Itoa(percentage) + "%").Run()*/
+func SetVolume(percentage int, mixerControlName string, customPath ...string) {
     var amixerPath string = "amixer"
     if len(customPath) > 0 {
         amixerPath = path.Join(customPath[0], amixerPath)
     }
-    exec.Command(amixerPath, "-q", "sset", "Master", "100%-").Run()
     sPerc := fmt.Sprintf("%d", percentage)
-    exec.Command(amixerPath, "-q", "sset", "Master", sPerc + "%+").Run()
+    if len(mixerControlName) > 0 {
+        exec.Command(amixerPath, "-D", "bluealsa", "set", "'" + mixerControlName + "'", sPerc + "%").Run()
+    } else {
+        exec.Command(amixerPath, "set", "'PCM'", sPerc + "%").Run()
+    }
 }
 
-func GetVolumeLevel(customPath ...string) uint {
+func GetVolumeLevel(hasBlueAlsaSink bool, customPath ...string) uint {
     var amixerPath string = "amixer"
     if len(customPath) > 0 {
         amixerPath = path.Join(customPath[0], amixerPath)
     }
-    out, err := exec.Command(amixerPath).CombinedOutput()
+    var cmd *exec.Cmd
+    if hasBlueAlsaSink {
+        cmd = exec.Command(amixerPath, "-D", "bluealsa")
+    } else {
+        cmd = exec.Command(amixerPath)
+    }
+    out, err := cmd.CombinedOutput()
     if err != nil {
         return 0
     }
