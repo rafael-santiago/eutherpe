@@ -44,7 +44,7 @@ func TestMusicNext(t *testing.T) {
     if eutherpeVars.Player.NowPlaying != fever {
         t.Errorf("Player seems not to be playing the beginning of the reproduction list.\n")
     } else {
-        for u := 1; u < len(eutherpeVars.Player.UpNext); u++ {
+        for u := 1; u <= len(eutherpeVars.Player.UpNext); u++ {
             if u < len(eutherpeVars.Player.UpNext) {
                 fmt.Printf("=== now playing ['%s'] going to play ['%s']\n", eutherpeVars.Player.NowPlaying.Title,
                                                                             eutherpeVars.Player.UpNext[u].Title)
@@ -62,7 +62,7 @@ func TestMusicNext(t *testing.T) {
                     t.Errorf("MusicNext() did return an error when it should not.\n")
                 }
             }
-            time.Sleep(1 * time.Second)
+            time.Sleep(5 * time.Second)
         }
     }
     err = MusicStop(eutherpeVars, userData)
