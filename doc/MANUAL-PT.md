@@ -163,6 +163,7 @@ Você precisa confirmar com `y` ou `Y` e tudo será feito. As dependências inst
 finos no sistema serão feitos. Você terá uma saída similar a essa:
 
 ```
+
 #########################
        ,|_|,   ,|_|,
        |===|   |===|
@@ -180,44 +181,14 @@ Hi there! I am the Eutherpe's bootstrap! What I am intending to do:
 - Install Golang to actually build Eutherpe's app;
 - Install kernel headers to make easy any specific system tune that you may want to do;
 - Create the default's USB mount point in /media/USB;
+- Build bluez-alsa from scratch and install it;
 - Build up Eutherpe's app;
-- Install whole Eutherpe's package it;
+- Install whole Eutherpe's subsystem;
+- Finally, reboot your system to finish applying all changes;
 
-
-=== Okay, you are root user :) let's start...
-=== Nice, eutherpe user already exists.
-=== bootstrap info: Adding eutherpe to sudo group...
-=== bootstrap info: granting eutherpe some nopasswd privileges...
-=== bootstrap info: Done.
-=== bootstrap info: Installing system dependencies...
-*-- sudo already installed.
-*-- git already installed.
-*-- mc already installed.
-*-- pipewire already installed.
-*-- bluez already installed.
-*-- ffmpeg already installed.
-*-- alsa-utils already installed.
-*-- wpasupplicant already installed.
-*-- wireless-tools already installed.
-=== bootstrap info: Done.
-=== bootstrap info: Installing golang...
-=== bootstrap info: Done.
-=== bootstrap info: Setting up golang environment...
-=== bootstrap info: Done.
-=== bootstrap info: Installing kernel headers...
-+-- linux-headers-5.10.0-27-amd64 installed.
-+-- gcc installed.
-+-- make installed.
-+-- perl installed.
-=== bootstrap info: Done.
-=== bootstrap info: Creating USB storage mount point...
-=== bootstrap info: Done.
-=== bootstrap info: Now building Eutherpe...
-=== bootstrap info: Done.
-=== bootstrap info: Now installing Eutherpe...
-=== bootstrap info: Done.
+Do you want to bootstrap your system? [y/n]
+(...)
 ```
-
 Uma vez o `bootstrapping` feito você poderá acessar sua `jukebox` etérea a partir
 de um `web browser` mais próximo via o endereço: [`http://eutherpe.local:8080/eutherpe`](http://eutherpe.local:8080/eutherpe).
 
