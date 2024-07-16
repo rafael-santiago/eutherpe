@@ -43,14 +43,14 @@ func ConvertSongs(basePath string, customPath... string) error {
         ext := path.Ext(strings.ToLower(fileName))
         if ext == ".m4a" || ext == ".mp4" {
             err = ConvertToMP3(filePath, customPath...)
+            if err != nil {
+                fmt.Fprintf(os.Stderr, "warn: error while converting '%s'.\n", filePath)
+            }
         } else {
             stat, err := os.Stat(filePath)
             if err == nil && stat.IsDir() {
                 err = ConvertSongs(filePath, customPath...)
             }
-        }
-        if err != nil {
-            return fmt.Errorf("Error while converting '%s'.\n", filePath)
         }
     }
     return nil
@@ -64,7 +64,7 @@ func ScanSongs(basePath string, coversCacheRootPath ...string) ([]SongInfo, erro
     songs := make([]SongInfo, 0)
     for _, file := range files {
         fileName := strings.ToLower(file.Name())
-        if path.Ext(fileName) == ".mp3" || path.Ext(fileName) == ".m4a" || path.Ext(fileName) == ".mp4" {
+        if path.Ext(fileName) == ".mp3" {
             songInfo, err := GetSongInfo(path.Join(basePath, file.Name()), coversCacheRootPath...)
             if err != nil {
                 continue

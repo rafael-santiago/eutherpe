@@ -281,6 +281,7 @@ build_and_install_bluez_alsa() {
     echo "*-- configured." >&2
     echo "+-- creating /etc/dbus-1/system.dbus/bluealsa.conf police file..." >&2
     mkdir -p /etc/dbus-1/system.dbus >/dev/null 2>&1
+    cd ../.. >/dev/null 2>&1
     cp src/etc/dbus-1/system.dbus/bluealsa.conf /etc/dbus-1/system.dbus/bluealsa.conf >/dev/null 2>&1
     if [[ $? != 0 ]] ; then
         echo "error: while creating /etc/dbus-1/system.dbus/bluealsa.conf policy file." >&2

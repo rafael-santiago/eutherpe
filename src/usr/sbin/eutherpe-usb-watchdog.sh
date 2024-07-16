@@ -25,7 +25,7 @@ try_mount() {
     for device in $(find /dev/ -maxdepth 1 -type b | grep .*[0-9]$)
     do
         if [[ $(udevadm info --name=$device | grep ID_BUS=usb | wc -l) > 0 ]] ; then
-            mount $device $mount_point >/dev/null 2>&1
+            mount $device $mount_point -o umask=000 >/dev/null 2>&1
             echo *** info: $device mounted at $mount_point >&2
             mounted_device=$device
             break

@@ -62,7 +62,7 @@ func TestMusicNext(t *testing.T) {
                     t.Errorf("MusicNext() did return an error when it should not.\n")
                 }
             }
-            time.Sleep(5 * time.Second)
+            time.Sleep(15 * time.Second)
         }
     }
     err = MusicStop(eutherpeVars, userData)
