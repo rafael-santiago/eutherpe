@@ -40,5 +40,6 @@ func RemoveSongsFromPlaylist(eutherpeVars *vars.EutherpeVars,
         }
         editedPlaylist.Remove(mplayer.SongInfo{ FilePath: data[2] })
     }
+    eutherpeVars.PlaylistsHTML = ""
     return nil
 }

@@ -42,5 +42,6 @@ func AddSelectionToUpNext(eutherpeVars *vars.EutherpeVars, userData *url.Values)
         upNextNewHead = append(upNextNewHead, eutherpeVars.Player.UpNext[eutherpeVars.Player.UpNextCurrentOffset+1:]...)
         eutherpeVars.Player.UpNext = append(eutherpeVars.Player.UpNext[:eutherpeVars.Player.UpNextCurrentOffset+1], upNextNewHead...)
     }
+    eutherpeVars.UpNextHTML = ""
     return nil
 }

@@ -49,5 +49,6 @@ func MusicRemove(eutherpeVars *vars.EutherpeVars, userData *url.Values) error {
             }
         }
     }
+    eutherpeVars.UpNextHTML = ""
     return nil
 }

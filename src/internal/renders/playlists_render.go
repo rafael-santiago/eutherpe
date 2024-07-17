@@ -9,12 +9,21 @@ package renders
 
 import (
     "internal/vars"
+    "internal/dj"
     "strings"
 )
 
 func PlaylistsRender(templatedInput string, eutherpeVars *vars.EutherpeVars) string {
+    if len(eutherpeVars.PlaylistsHTML) == 0 {
+        eutherpeVars.PlaylistsHTML = renderPlaylists(eutherpeVars.Playlists)
+    }
+    return strings.Replace(templatedInput, vars.EutherpeTemplateNeedlePlaylists,
+                           eutherpeVars.PlaylistsHTML, -1)
+}
+
+func renderPlaylists(playlists []dj.Playlist) string {
     var playlistsHTML string
-    for _, playlist := range eutherpeVars.Playlists {
+    for _, playlist := range playlists {
         playlistsHTML += "<ul id=\"eutherpeUL\"><li>"
         playlistName := playlist.Name
         playlistsHTML += "<input type=\"checkbox\" onclick=\"flush_child(this);selectPlaylist(this);\" id=\"" + playlistName + "\" class=\"Playlist\"><span class=\"caret\">" + playlistName + "</span>"
@@ -25,5 +34,5 @@ func PlaylistsRender(templatedInput string, eutherpeVars *vars.EutherpeVars) str
         playlistsHTML += "</ul>"
         playlistsHTML += "</li></ul>"
     }
-    return strings.Replace(templatedInput, vars.EutherpeTemplateNeedlePlaylists, playlistsHTML, -1)
+    return playlistsHTML
 }

@@ -27,6 +27,7 @@ func MusicShuffle(eutherpeVars *vars.EutherpeVars, _ *url.Values) error {
         eutherpeVars.Player.UpNextBkp = eutherpeVars.Player.UpNext
         eutherpeVars.Player.UpNext = shuffle(eutherpeVars.Player.UpNext)
     }
+    eutherpeVars.UpNextHTML = ""
     return nil
 }
 

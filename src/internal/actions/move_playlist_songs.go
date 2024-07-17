@@ -86,5 +86,6 @@ func metaMove(eutherpeVars *vars.EutherpeVars, userData *url.Values, move moveFu
             move(editedPlaylist, song)
         }
     }
+    eutherpeVars.PlaylistsHTML = ""
     return nil
 }

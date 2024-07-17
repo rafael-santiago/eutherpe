@@ -31,5 +31,6 @@ func AddSelectionToNext(eutherpeVars *vars.EutherpeVars, userData *url.Values) e
         }
         eutherpeVars.Player.UpNext = append(eutherpeVars.Player.UpNext, song)
     }
+    eutherpeVars.UpNextHTML = ""
     return nil
 }

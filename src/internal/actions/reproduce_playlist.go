@@ -29,6 +29,7 @@ func ReproducePlaylist(eutherpeVars *vars.EutherpeVars, userData *url.Values) er
                 eutherpeVars.Lock()
             }
             eutherpeVars.Player.UpNext = currPlaylist.Songs()
+            eutherpeVars.UpNextHTML = ""
             eutherpeVars.Unlock()
             err = MusicPlay(eutherpeVars, nil)
             eutherpeVars.Lock()

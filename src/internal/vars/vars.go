@@ -60,6 +60,8 @@ type EutherpeVars struct {
     }
     Collection mplayer.MusicCollection
     CollectionHTML string
+    UpNextHTML string
+    PlaylistsHTML string
     Playlists []dj.Playlist
     Tags dj.Tags
     RenderedPlaylist string

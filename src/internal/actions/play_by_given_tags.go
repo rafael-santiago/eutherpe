@@ -65,6 +65,7 @@ func PlayByGivenTags(eutherpeVars *vars.EutherpeVars, userData *url.Values) erro
         amount = len(songs)
     }
     eutherpeVars.Player.UpNext = songs[:amount]
+    eutherpeVars.UpNextHTML = ""
     eutherpeVars.Unlock()
     err = MusicPlay(eutherpeVars, nil)
     eutherpeVars.Lock()

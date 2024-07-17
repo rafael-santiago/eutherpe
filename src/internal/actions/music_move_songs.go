@@ -63,6 +63,7 @@ func metaMusicMove(eutherpeVars *vars.EutherpeVars, userData *url.Values, direct
             break
         }
     }
+    eutherpeVars.UpNextHTML = ""
     return nil
 }
 

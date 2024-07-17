@@ -26,5 +26,6 @@ func ClearAllPlaylist(eutherpeVars *vars.EutherpeVars, userData *url.Values) err
         return fmt.Errorf("Playlist '%s' not exists.", playlist[0])
     }
     editedPlaylist.ClearAll()
+    eutherpeVars.PlaylistsHTML = ""
     return nil
 }

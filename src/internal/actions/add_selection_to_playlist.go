@@ -51,5 +51,6 @@ func AddSelectionToPlaylist(eutherpeVars *vars.EutherpeVars, userData *url.Value
         editedPlaylist.Add(song)
     }
     eutherpeVars.SavePlaylist(editedPlaylist)
+    eutherpeVars.PlaylistsHTML = ""
     return nil
 }

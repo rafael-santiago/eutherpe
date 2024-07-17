@@ -34,5 +34,6 @@ func RemovePlaylist(eutherpeVars *vars.EutherpeVars, userData *url.Values) error
             break
         }
     }
+    eutherpeVars.PlaylistsHTML = ""
     return nil
 }
