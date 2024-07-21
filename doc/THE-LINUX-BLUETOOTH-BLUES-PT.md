@@ -1,3 +1,4 @@
+![bluetooth-blues](figures/bluetooth-blues.png "'I woke up this morning feeling unpaired all my audio tools'... (c) Creative Commons Rafael Santiago. Gostou do trocadalho? Se aproprie... ;)")
 # The Linux Bluetooth Blues
 
 **Resumo**: Nesse texto você vai encontrar um pouco sobre minhas lições aprendidas
@@ -9,13 +10,13 @@ mais raiva ainda. Aqui vou me permitir ter menos papas na língua, já aviso.
 ## Tópicos
 
 - [Onde o nosso Blues começa](#onde-o-nosso-blues-começa)
-- [Into the blue, ou, o que tristemente eu descobri](#into-the-blue-ou-o-que-tristemente-eu-descobri)
+- [Into the blue ou o que tristemente eu descobri](#into-the-blue-ou-o-que-tristemente-eu-descobri)
 - [Eis que nesse Blues vem o turnaround](#eis-que-nesse-blues-vem-o-turnaround)
 
 ## Onde o nosso Blues começa
 
-Há muito tempo eu era um colecionador de `CD`s, resistia a todo custo às `MP3`, até que um dia
-resolvi dar uma chance para o `iPod Shuffle`. Longa história curta: não era que aquele trequinho
+Há muito tempo eu era um ávido colecionador de `CD`s, resistia a todo custo às `MP3`, até que um
+dia resolvi dar uma chance para o `iPod Shuffle`. Longa história curta: não era que aquele trequinho
 era bacana? Nisso, eu logo adquiri um `iPod Touch` e durante anos ele foi meu principal tocador
 de música (e sim, o tenho e o uso até hoje!)
 
@@ -29,21 +30,21 @@ O treco não precisava ser intricado, mas não precisava ser porcamente mambembe
 
 Decidi que escreveria a maior parte do `software` em `C`, mas depois ponderando
 um pouco, optei por `Golang`. O `OS`, levando em conta que escolhi o `Raspberry Pi 4B` como
-minha placa alvo, seria `Linux` (Distro `Debian`, por conta de acabar embarcado num `Raspbian`).
+minha placa alvo, seria `Linux` (distro `Debian`, por conta de acabar embarcado num `Raspbian`).
 
 Decidi que poria suporte para `Bluetooth` pois de fato eu hoje uso bastante esse tipo de
 tecnologia para ouvir música. Eu sou aficionado em mitologia grega então eu chamaria o
-projeto de `Eutherpe`. Com `th` para fazer um trocadalho do carilho com `ethereal` pois
-a minha ideia principal era ter um `player` mais onipresente, etéreo via minha `LAN`,
-podendo acessar o `player` via qualquer `web browser` a partir de algum dispositivo com
-acesso à minha `LAN` (`smartphone` ou `desktop`).
+projeto de `Eutherpe`. Com "`th`" para fazer um trocadalho do carilho com `ethereal` pois
+a minha ideia principal era ter um `player` mais onipresente, etéreo via minha `LAN`.
+Podendo acessar o `player` via qualquer `web browser` a partir de algum dispositivo com
+acesso a minha `LAN` (meu `smartphone` ou meu `laptop`, `desktop` etc).
 
 Dei uma esquadrinhada nas possibilidades e pensei comigo: "Poxa, é simples, serão mais
-`wrappers` para disparar certas funcionalidades no sistema e vai rodar liso"... Ledo engano!...
+`wrappers` para disparar certas funcionalidades no sistema e vai rodar liso"... **Ledo engano!...**
 
 [`Voltar`](#tópicos)
 
-## Into the blue, ou o que tristemente eu descobri
+## Into the blue ou o que tristemente eu descobri
 
 Para iniciar o desenvolvimento eu escolhi `Debian 12 (com ambiente desktop)` e foi horroroso.
 Quando comecei testar a reprodução das músicas aquilo atrasava a reprodução o tempo todo,
@@ -55,9 +56,10 @@ de conseguir uma versão `beta` do `Eutherpe`.
 Daí eu constatei na pele que `PulseAudio` é um lixo. Muito ruim. Não serve para nada. Para
 nada mesmo, por ser abstrato, nem para peso de papel. Se você vai apenas ficar tocando
 notificação de sistema, beleza. Porém, se você quer usar o computador exclusivamente para
-áudio (mesmo a coisa mais básica: tocar música), ele é uma bela de uma bosta fedida escabrosa.
+áudio (mesmo a coisa mais básica: **tocar música**), ele é uma bela de uma bosta fedida escabrosa.
 Desculpa, mas nesse texto vou ser sincerão, ele é uma merda mesmo! Se você não gosta de
-ler a palavra merda, para de ler o texto, pois vai ter muito relato dessa merda e de outras...
+ler a palavra **merda**, para de ler o texto, pois vai ter muito relato dessa **merda** e de
+outras...
 
 Com o `PulseAudio`, encontrei problemas diversos: do som um dia funcionar super bem, no
 outro ficar reiniciando e reiniciando o sistema e nada do som via `Bluetooth` ficar bom.
@@ -68,7 +70,7 @@ Existe ainda quilos e quilos de `sets` crípticos que você vai coletando da `In
 agregar nos seus próprios `confs` do `PulseAudio` para ver se funciona melhor. A verdade é que
 não é que funciona, o que eu desconfio é que o comportamento do `PulseAudio` é tão anômalo que as
 pessoas depois de ficarem horas e horas tentando, colocam um `set` lá e o caiau "funciona" daí
-pensam: `- Aha! É isso!`, mas não, um belo dia o problema volta da mesma forma. No `core` do
+pensam: `- Aha! É isso!`. Mas não, um belo dia o problema volta da mesma forma. No `core` do
 `pulseaudio` deve ter um pombo caminhando entre duas áreas, uma verde e uma vermelha, quando
 o pombo pisa na verde tudo funciona, quando pisa na vermelha, você corre na `Internet` buscando
 passar seu tempo buscando um `set` para resolver enquanto o pombo com sorte se move para
@@ -83,9 +85,13 @@ comigo.
 Outra coisa extremamente irritante é o `switch` automático para `HFP`!!! Arrrrgh. Se você
 não sabe o que é `HFP` em `Bluetooth`, é um acrônimo para `Hands-free Profile`. `Headphones`
 com microfone, os `Headsets` se enquandram nesse perfil. Por padrão ao conectar o `pulseaudio`
-a um `headset` ele vai pôr no jeito para que você consiga usar o microfone e isso quase sempre
-cancela o áudio de uma forma que você não consegue usar a porção `headphone` dele. Você precisa
-dizer para o `pulseaudio` não fazer isso. Sim, mais um `set` de configuração.....
+a um `headset` ele vai pôr no jeito para que você consiga usar o microfone e funções `hands-free`
+para controlar o dispositivo e isso quase sempre cancela o áudio de uma forma que você não
+consegue usar a porção `headphone` dele. Você precisa dizer para o `pulseaudio` não fazer isso.
+Sim, mais um `set` de configuração.....
+
+Aqui cabe falta de malícia e capacidade de inferência, se o `pulseaudio` roda de um `desktop`
+é bem certo que o usuário não está dando a mínima para funções `hands-free`.
 
 Cheguei num ponto que o `Eutherpe` já tinha tanta gambiarra para conviver com a ruindade do
 `PulseAudio` que eu constatei que se você usa uma coisa tão ruim como contrapartida para seu
@@ -98,7 +104,7 @@ impregnar e fazer feder tudo.
 
 >Se você puser uma colher de esgoto em um barril cheio de vinho, você obtém esgoto.
 
-O inverso também é interessante de observar e não bi-implica:
+O inverso também é interessante de observar:
 
 >Se você puser uma colher de vinho em um barril cheio de esgoto, você ainda obtém esgoto.
 
@@ -113,12 +119,15 @@ tudo... A pessoa se puder cagar no chão e passar a bunda em cima da merda para 
 acharia isso crível e aceitável. Esse tipo de engenharia é inaceitável, tem muito por aí,
 infelizmente! Embora os seres humanos sejam inventivos, pouquíssimos são capazes de entregar
 coisas utilizáveis e manuteníveis, que possam se manter de pé durante tanto tempo.
-Veja as pouquíssimas ruínas que temos por aí que contam um pouco da nossa história...
+Veja as pouquíssimas ruínas que temos por aí que contam um pouco da nossa história enquanto
+civilização, que tal procurar tirar `insights` a partir do que pessoas espertas antes de nós
+fizeram ao invés de ficar inventando moda?...
 
 A boa notícia é que o `PulseAudio` já foi descontinuado. O `Debian 12` ainda o utiliza mas
 quase nenhuma `distro` parece que utilizará essa droga novamente. Foi tarde essa bagaceira!
-Deveriam fazer um `data wiping` em todo o servidor que ainda hospeda uma cópia dessa porra
-para que a humanidade nunca mais consiga buildar essa merda. Amém!
+Deveriam fazer um `data wiping` elevado a enésima potência em todo o servidor que ainda hospeda
+uma cópia dessa porra para que a humanidade nunca mais consiga buildar essa bela peça de merda.
+Amém!
 
 Aí resolvi dar uma chance para o `PipeWire`. Ah o `PipeWire`/`WirePlumber`... Ele FUNCIONOU!!!
 ...bem durante uma semana.... Mas a verdade é que eu testei ele em dois fones, um do tipo `earbud`
@@ -130,7 +139,7 @@ de ir entulhando os arquivos prefixando-os com número (sem comentários)... Log
 reduziria em nada a maior complexidade do som no `Linux`: simplesmente funcionar sem ficar
 enchendo o saco na frente com promessas que funciona, mas espera do usuário quilos e quilos de
 contrapartidas via remendos em arquivos de configuração. Porra, não é possível simplesmente
-funcionar?! No `Windows` vai de boa, no `MacOS` vai de boa, no `Android` vai de boa, no `iOS`
+funcionar?! No `Windows` vai de boa, no `macOS` vai de boa, no `Android` vai de boa, no `iOS`
 vai de boa. Porque no `Linux` o usuário simplesmente não consegue ter um `Bluetooth` decente e
 liso? É o que me perguntava...
 
@@ -144,13 +153,13 @@ liso? É o que me perguntava...
 
 Você já entendeu: descobri que o `PipeWire` também não me atende. Talvez ele tenha
 atendido usuários que precisem gravar coisas mas para mim que precisava tocar som direito sem
-engasgos e conectar de forma confiável e estável via `Bluetooth`. Falhou miseravelmente, não ficou
-melhor que o `PulseAudio`. No final, para mim foi merda por bosta, 6 por meia dúzia, você
+engasgos e conectar de forma confiável e estável via `Bluetooth` **SEMPRE**! Falhou miseravelmente,
+não ficou melhor que o `PulseAudio`. No final, para mim foi merda por bosta, 6 por meia dúzia, você
 escolhe... Pois a minha caixa de som `Bluetooth` conectava mas o som era péssimo. E o som
 picotava bastante às vezes. Pedir ajuda em fórum, abrir `issue`? Preguiça e quase certo que
 iriam me sugerir mais uma `conf` "sacerdotal"... blargh! Quase todo projeto `opensource`
-você relata `bugs`, expõe problemas e uma casta meio chatonilda fica fazendo que não ouve, é uma
-palhaçada total e eu cansei dessa dinâmica chata... Hoje pego as coisas por mim e resolvo,
+você relata `bugs`, expõe problemas e uma casta meio chatonilda e blasé fica fazendo que não ouve,
+é uma palhaçada total e eu cansei dessa dinâmica chata... Hoje pego as coisas por mim e resolvo,
 quer copiar, usar, pega e usa e não me enche o saco. `Pull request`?! Não perco mais meu tempo,
 desculpa, mas pronto, falei...
 
@@ -178,14 +187,14 @@ música para mim é um caiau bizarro!
 Depois de muito rodar lâmpada com `PulseAudio`, `PipeWire` e `WirePlumber` resolvi voltar as
 minhas origens: `minimalismo`. Ficar com o simples, porque o simples funciona. E quando não
 funciona de cara, você tem poucas partes para revisar e encontrar o problema. Porém, o pulo
-do gato é que o simples, nem sempre é simplório, com o tempo nos meus 1/4 de século programando
-eu aprendi isso...
+do gato é que o simples, nem sempre é simplório, com o tempo, nos meus 1/4 de século programando
+(`2024`) eu aprendi isso...
 
 Entendeu, né? O simples, nem sempre vai resolver via um `apt-get`...
 
 Num desses meus périplos pela `Internet` buscando `sets` de configuração para `Pulseaudio` e
-`PipeWire` li um `post` de um cara (soterrado em `posts` com `sets` e mais `sets`) que dizia
-mais ou menos isso:
+`PipeWire` (é uma `bad trip` viciante, cuidado!...) li um `post` de um cara (soterrado em `posts`
+com `sets` e mais `sets`) que dizia mais ou menos isso:
 
 > Esqueça essas coisas. Use `ALSA` e `Bluealsa`.
 
@@ -207,36 +216,50 @@ insanidade que é a nomenclatura dessas `libs` via gerenciadores de pacote. Cada
 padrão e varia de distro para distro. E o nome da `lib` via o gerenciador de pacotes às vezes
 nada tem a ver com o nome da `lib`. Porque não se cria um padrão para nomear essas coisas?!!!!
 Porra é muita falta de organização, muita deficiência em sensos básicos de engenharia, não sei
-como esse pessoal consegue cagar dentro do vaso (espero). Depois de descobrir o nome exato de
-cada dependência que precisei instalar no meu ambiente de `build` (o que me consumiu mais tempo),
-rapidamente buildei o `Bluez-Alsa`, fiz os ajustes com o `DBus-1` e o serviço `systemd` no meu
-`Raspbian` simplesmente subiu. Lindamente. Mas não estava muito confiante. Algo que o pessoal já
-abandonou deve ser muito ruim... Fiquei uns 30 minutos conectando e desconectando meus dispositivos
-`Bluetooth`, mas magicamente sempre conectava. Sem `reboot` ou `restart` no serviço!!!! Beleza.
-Aí depois foi tocar som. No caso encontrei o jeito de tocar `MP3` utilizando `mp123` (o qual você
-precisa habilitar o suporte durante o build). Cara, é lindo! Tocou sem engasgo. A conexão
-`Bluetooth` é muito mais estável. Você simplesmente inicia o serviço `bluealsa` e conecta.
-Igual você esperaria fazer num `smartphone` etc. Você não tem aquelas mensagens idiotas de não
-poder bindar um treco lá no `bluetooth`. Com `bluealsa` deu `systemctl start bluealsa` o serviço
-ativa e você vai embora ouvir sua música e tocar sua vida, o computador simplesmente faz a parte
-dele e não fica na frente te tomando tempo.
+como esse pessoal que idealiza as pantanosas "bases" dessas coisas conseguem cagar dentro do vaso
+(espero). Depois de descobrir o nome exato de cada dependência que precisei instalar no meu
+ambiente de `build` (o que me consumiu mais tempo), rapidamente buildei o `Bluez-Alsa`, fiz os
+ajustes com o `DBus-1` e o serviço `systemd` no meu `Raspbian` simplesmente subiu. Lindamente.
+Mas não estava muito confiante. Algo que o pessoal já abandonou deve ser muito ruim... Fiquei uns
+30 minutos conectando e desconectando meus dispositivos `Bluetooth`, mas magicamente sempre
+conectava. Sem `reboot` ou `restart` no serviço!!!! Beleza: aí depois foi tocar som... No caso
+encontrei o jeito de tocar `MP3` utilizando `mgp123` (o qual você precisa habilitar o suporte
+durante o build). Cara, é lindo! Tocou sem engasgo. A conexão `Bluetooth` é muito mais estável.
+Você simplesmente inicia o serviço `bluealsa` e conecta. Igual você esperaria fazer num
+`smartphone` etc. Você não tem aquelas mensagens idiotas de não poder bindar um treco lá no
+`bluetooth`. Com `bluealsa` deu `systemctl start bluealsa` o serviço ativa e você vai embora ouvir
+sua música e tocar sua vida, o computador simplesmente faz a parte dele e não fica na frente te
+tomando tempo. O computador colabora, se torna de fato uma ferramenta, um meio para você atingir
+o seu objetivo. Pelo visto, purificamos um barril que estava lotado de merda!!!!
 
 Com o `Bluez-Alsa` já embarcado eu notei que é muito mais leve. O `Raspberry-Pi` parece esquentar
 menos! Até agora só vi vantagem. Finalmente encontrei a melhor forma de tocar música via
 `Bluetooth` para o meu estado de coisas: `ALSA` e `Bluez-ALSA`. Mais uma vez o simples
-é que chegou e salvou o dia. Foi ou vai ser descontinuado no `Raspibian`? Foda-se. Eu buildo
+é que chegou e salvou o dia. Foi ou vai ser descontinuado no `Raspbian`? **Foda-se**. Eu buildo
 o negócio por mim mesmo e purgo o lixo que estiver na frente me atrapalhando. `ALSA` sempre
 vai estar lá. Meu tempo eu não perco mais. Uma coisa que eu noto com o `Linux` é que quanto
-mais perto do `kernel` você está, mais qualidade você tem. Realmente entregam. Taí um bom `insight`.
+mais perto do `kernel` você está, mais qualidade ou certeza que terá o que prometem, você tem.
+Realmente entregam. Taí um bom `takeaway`.
 
 Simplicidade é tudo. Se você precisar andar para frente, dê um passo, evite cambalhotas logo
 de cara. Complexidade se precisar existir, é algo que precisa ser legitimamente composto.
 
-Se tivesse me mantido nessa, eu teria economizado 6 meses e já estaria utilizando minha placa
+Se tivesse me mantido nessa, eu teria economizado seis meses e já estaria utilizando minha placa
 para ouvir minhas músicas. `Do not worry, stay simple and be happy`... :wink:
 
 Agora, se você precisa fazer coisas como gravar música, produzir música no `Linux`... Cara,
 sinceridade? Boa sorte e que você passe o mínimo possível de raiva.
 É o que eu te desejo! :four_leaf_clover:
+
+Ainda, se você quer `100%` do tempo um som sem nenhum tipo de inteferência, evite tecnologias
+baseadas em rádio, use cabos :electric_plug:. Porém, mesmo assim não se adapte a camadas de
+`software` instáveis que te prometem um `bluetooth` utilizável e não te dão nem um mínimo decente.
+
+Para mim, nós seres humanos temos dois super poderes: o pensamento e a adaptabilidade. Com todo
+superpoder vem de quebra o seu efeito rebote. O rebote do pensamento é ficar pensando demais e não
+agir. O rebote da adaptabilidade é se adaptar a situações inaceitáveis, normalizá-las, comer merda
+e depois de um tempo sentir que está se deliciando com uma ganache dos deuses. Reconheça os seus
+superpoderes e cuidado com eles! Se algo é ruim e não atende os seus requisitos, jogue fora e vá
+procurar algo melhor que te atenda! :dart:
 
 [`Voltar`](#tópicos)
