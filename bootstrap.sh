@@ -160,9 +160,9 @@ install_golang() {
     tar -xvzf $filename -C /usr/local >/dev/null 2>&1
     exit_code=$?
     if [[ $exit_code == 0 ]] ; then
-        echo "   *-- unpacked." >&2
+        echo "*-- unpacked." >&2
     else
-        echo "   x-- error during unpacking." >&2
+        echo "x-- error during unpacking." >&2
     fi
     rm -f $filename >/dev/null 2>&1
     cd $old_dir >/dev/null 2>&1
