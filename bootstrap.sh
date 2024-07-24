@@ -103,6 +103,7 @@ is_sysdep_installed() {
 
 install_sysdeps() {
     exit_code=0
+    apt-get update -y >/dev/null 2>&1
     for curr_dep in $(cat sysdeps.txt)
     do
         if [[ `is_sysdep_installed $curr_dep` == 0 ]] ; then
