@@ -409,13 +409,15 @@ in you `Wi-Fi` by picking an `IP` that you can access via your smartphone, deskt
 - **f.** You confirm the local name to access the `Web` interface. It is important to follow the
 form `<something>.local`, it you just define `<something>` `Eutherpe` you complete it with
 `.local` in order to finish up configuring.
-- **g.** Click here and you shut down the device running `Eutherpe` (this is useful when you are
+- **g.** Click here and you will get information about licensing and versioning.
+- **h.** Click here and you shut down the device running `Eutherpe` (this is useful when you are
 running `Eutherpe` embedded [actually, this is the basic idea] but you do not want to put
 pushdown on/off button on your board).
-- **h.** Click here and you restart the device running `Eutherpe`, you know, in computing
+- **i.** Click here and you restart the device running `Eutherpe`, you know, in computing
 sometimes we need to `reboot` to troubleshoot. Although I seek to make `Eutherpe` as stable
 as possible to you :wiki:!
-- **i.** If you want to change the access passowrd to the `Web` interface, click here.
+- **j.** In this edit you define the used name to access the `Eutherpe`'s `Web Interface`.
+- **k.** If you want to change the access passowrd to the `Web` interface, click here.
 If you forget the password you will have to do some incantations to reset it. More on over!
 
 [`Back`](#topics)

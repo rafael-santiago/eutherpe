@@ -417,13 +417,15 @@ militante/ilitante da criptografia (e com orgulho!) :smile:
 - **f.** Você confirma o nome para acessar a interface `Web Eutherpe`. É importante que seja nos moldes
 `<algo>.local`, se você digitar apenas `<algo>` `Eutherpe` vai completar isso com `.local` para
 terminar de configurar.
-- **g.** Clique aqui e você desliga o dispositivo que está rodando `Eutherpe` (isso é bom para quando
+- **g.** Clique aqui e você terá informações sobre versão e licença.
+- **h.** Clique aqui e você desliga o dispositivo que está rodando `Eutherpe` (isso é bom para quando
 você estiver rodando `Eutherpe` embarcada [na verdade essa é a ideia base] e não quiser colocar
 um botão liga/desliga na sua placa).
-- **h.** Clique aqui e você reinicia o dispositivo que está rodando `Eutherpe`, você sabe, em computação
+- **i.** Clique aqui e você reinicia o dispositivo que está rodando `Eutherpe`, você sabe, em computação
 sempre tem momentos em que acabamos precisando de um `reboot`. Embora procure deixar `Eutherpe`
 o mais estável possível para você :wink:!
-- **i.** Se você quiser alterar a senha de acesso à interface `Web` clica aqui. Se esquecer a
+- **j.** Nessa caixa de texto você define o nome para acessar a interface `Web Eutherpe`.
+- **k.** Se você quiser alterar a senha de acesso à interface `Web` clica aqui. Se esquecer a
 senha vai ter que fazer umas madracarias para resetar. Mais para frente te mostro!
 
 [`Voltar`](#tópicos)
