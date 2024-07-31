@@ -93,11 +93,10 @@ Well, it is a term that we use to indicate that we will provide all necessary to
 It would be similar to `free solo` on climbing by fixing all crampons by making easy and safer
 future ascendings. It seems that the term is original from a story called *The surprising Adventures
 of Baron Munchausen*, written by Rudolf Erich Raspe. In this story the baron was saved himself
-and your horse from a swamp by pulling itself and his horse by his hair and its pigtail
-(so true...). Some folks arguments about other origins of this term, but here it is not the case.
-The essence of the idea is that in the `bootstrapping` the goal is to overcome a swampy
-part, dry in resources to at the end to arrive in a solid ground. All by using practically
-nothing or few resources.
+and your horse from a swamp by pulling itself and his horse by its pigtail (so true...). Some folks
+arguments about other origins of this term, but here it is not the case. The essence of the idea is
+that in the `bootstrapping` the goal is to overcome a swampy part, dry in resources to at the end
+to arrive in a solid ground. All by using practically nothing or few resources.
 
 In the `Eutherpe`'s case, the `jukebox` uses some dependencies to make all its ecosystem. Those
 dependencies are applications and resources that `Eutherpe` uses under the hood to provide

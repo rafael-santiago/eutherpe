@@ -13,7 +13,7 @@ import (
 
 type EutherpeDataRendererFunc func(templatedInput string, eutherpeVars *vars.EutherpeVars) string
 
-func RenderData(templatedInput string, eutherpeVars *vars.EutherpeVars) string {
+func RenderData(templatedInput string, eutherpeVars *vars.EutherpeVars, template ...uint) string {
     var doRenderFuncs []EutherpeDataRendererFunc = []EutherpeDataRendererFunc {
         AlbumArtThumbnailRender, CollectionRender, EutherpeAddrRender,
         EutherpeRender, FoundBluetoothDevicesRender, FoundStorageDevicesRender,
@@ -25,11 +25,27 @@ func RenderData(templatedInput string, eutherpeVars *vars.EutherpeVars) string {
         UpNextCountRender, FoundStorageDevicesCountRender, FoundBluetoothDevicesCountRender,
         HTTPSModeSwitchRender, ESSIDRender, HostNameRender, VersionRender, CopyrightRender,
     }
+    if len(template) > 0 {
+        if template[0] == vars.EutherpeIndexTemplate &&
+            len(eutherpeVars.RenderedIndexHTML) > 0 {
+            return eutherpeVars.RenderedIndexHTML
+        } else if template[0] == vars.EutherpeGateTemplate &&
+                   len(eutherpeVars.RenderedGateHTML) > 0 {
+            return eutherpeVars.RenderedGateHTML
+        }
+    }
     var output string = templatedInput
     eutherpeVars.Lock()
     defer eutherpeVars.Unlock()
     for _, doRender := range doRenderFuncs {
         output = doRender(output, eutherpeVars)
+    }
+    if len(template) > 0 {
+        if template[0] == vars.EutherpeIndexTemplate {
+            eutherpeVars.RenderedIndexHTML = output
+        } else if template[0] == vars.EutherpeGateTemplate {
+            eutherpeVars.RenderedGateHTML = output
+        }
     }
     return output
 }

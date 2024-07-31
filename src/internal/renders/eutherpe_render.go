@@ -21,5 +21,5 @@ func EutherpeRender(templatedInput string, eutherpeVars *vars.EutherpeVars) stri
     }
     return strings.Replace(templatedInput,
                            vars.EutherpeTemplateNeedleEutherpe,
-                           eutherpeVars.APPName, -1)
+                           eutherpeVars.APPName, 1)
 }

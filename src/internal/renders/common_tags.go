@@ -18,6 +18,6 @@ func CommonTagsRender(templatedInput string, eutherpeVars *vars.EutherpeVars) st
         commonTagsHTML += "<input type=\"checkbox\" id=\"" + currTag + "\" class=\"Tag\" checked>" + currTag + "<br>"
     }
     commonTagsHTML += "</ul>"
-    return strings.Replace(templatedInput, vars.EutherpeTemplateNeedleCommonTags, commonTagsHTML, -1)
+    return strings.Replace(templatedInput, vars.EutherpeTemplateNeedleCommonTags, commonTagsHTML, 1)
 }
 

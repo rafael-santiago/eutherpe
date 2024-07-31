@@ -17,5 +17,5 @@ func NowPlayingRender(templatedInput string, eutherpeVars *vars.EutherpeVars) st
     if len(eutherpeVars.Player.NowPlaying.Title) > 0 {
         nowPlayingHTML = eutherpeVars.Player.NowPlaying.Artist + " - " + eutherpeVars.Player.NowPlaying.Title
     }
-    return strings.Replace(templatedInput, vars.EutherpeTemplateNeedleNowPlaying, nowPlayingHTML, -1)
+    return strings.Replace(templatedInput, vars.EutherpeTemplateNeedleNowPlaying, nowPlayingHTML, 1)
 }

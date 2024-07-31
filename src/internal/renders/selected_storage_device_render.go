@@ -19,5 +19,5 @@ func SelectedStorageDeviceRender(templatedInput string, eutherpeVars *vars.Euthe
     } else {
         selectedStorageDeviceHTML = "(null)"
     }
-    return strings.Replace(templatedInput, vars.EutherpeTemplateNeedleSelectedStorageDevice, selectedStorageDeviceHTML, -1)
+    return strings.Replace(templatedInput, vars.EutherpeTemplateNeedleSelectedStorageDevice, selectedStorageDeviceHTML, 1)
 }

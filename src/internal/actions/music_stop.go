@@ -26,6 +26,7 @@ func MusicStop(eutherpeVars *vars.EutherpeVars, _ *url.Values) error {
         eutherpeVars.Player.Handle = nil
         time.Sleep(10 * time.Nanosecond)
         eutherpeVars.Player.NowPlaying = mplayer.SongInfo{}
+        eutherpeVars.RenderedAlbumArtThumbnailHTML = ""
     }
     return nil
 }

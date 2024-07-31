@@ -86,6 +86,14 @@ func MusicPlay(eutherpeVars *vars.EutherpeVars, userData *url.Values) error {
             return
         }
         eutherpeVars.Lock()
+        if (eutherpeVars.Player.UpNextCurrentOffset + 1) < len(eutherpeVars.Player.UpNext) {
+            if eutherpeVars.Player.UpNext[eutherpeVars.Player.UpNextCurrentOffset].Album !=
+               eutherpeVars.Player.UpNext[eutherpeVars.Player.UpNextCurrentOffset + 1].Album {
+                eutherpeVars.RenderedAlbumArtThumbnailHTML = ""
+            }
+        } else {
+            eutherpeVars.RenderedAlbumArtThumbnailHTML = ""
+        }
         if !eutherpeVars.Player.RepeatOne {
             eutherpeVars.Player.UpNextCurrentOffset++
         }

@@ -15,9 +15,13 @@ import (
     "path"
 )
 
+var b64ImageData string
+
 func EncodeAlbumCover(albumCoverBlob string) string {
-    var b64ImageData string
     var imageFormat string
+    if len(b64ImageData) > 0 {
+        return b64ImageData
+    }
     if len(albumCoverBlob) > 0 {
         imageFormat = getImageFmt(albumCoverBlob)
         b64ImageData = base64.StdEncoding.EncodeToString([]byte(albumCoverBlob))
@@ -25,17 +29,20 @@ func EncodeAlbumCover(albumCoverBlob string) string {
         imageFormat = "png"
         b64ImageData = getUncoveredAlbumImageData()
     }
-    return "data:image/" + imageFormat  + ";base64," + b64ImageData
+    b64ImageData = "data:image/" + imageFormat  + ";base64," + b64ImageData
+    return b64ImageData
 }
 
 func AlbumArtThumbnailRender(templatedInput string, eutherpeVars *vars.EutherpeVars) string {
-    var albumArtThumbnailHTML string
-    if !eutherpeVars.Player.Stopped {
+    albumArtThumbnailHTML := eutherpeVars.RenderedAlbumArtThumbnailHTML
+    if !eutherpeVars.Player.Stopped && len(albumArtThumbnailHTML) == 0 {
+        b64ImageData = ""
         eutherpeVars.Player.NowPlaying.AlbumCover = getAlbumCoverBlob(eutherpeVars.GetCoversCacheRootPath(), eutherpeVars.Player.NowPlaying.AlbumCover)
         albumArtThumbnailHTML = "<img id=\"albumCover\" src=\"" + EncodeAlbumCover(eutherpeVars.Player.NowPlaying.AlbumCover) +
                                 "\" width=125 height=125>"
+        eutherpeVars.RenderedAlbumArtThumbnailHTML = albumArtThumbnailHTML
     }
-    return strings.Replace(templatedInput, vars.EutherpeTemplateNeedleAlbumArtThumbnail, albumArtThumbnailHTML, -1)
+    return strings.Replace(templatedInput, vars.EutherpeTemplateNeedleAlbumArtThumbnail, albumArtThumbnailHTML, 1)
 }
 
 func getAlbumCoverBlob(coversCacheRootPath, albumCoverBlob string) string {

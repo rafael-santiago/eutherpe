@@ -14,5 +14,5 @@ import (
 
 func CopyrightRender(templatedInput string, _ *vars.EutherpeVars) string {
     return strings.Replace(templatedInput, vars.EutherpeTemplateNeedleCopyrightDisclaimer,
-                           vars.EutherpeCopyrightDisclaimer, -1)
+                           vars.EutherpeCopyrightDisclaimer, 1)
 }

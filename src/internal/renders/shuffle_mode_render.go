@@ -19,5 +19,5 @@ func ShuffleModeRender(templatedInput string, eutherpeVars *vars.EutherpeVars) s
     } else {
         shuffleModeHTML = "Shuffle"
     }
-    return strings.Replace(templatedInput, vars.EutherpeTemplateNeedleShuffleMode, shuffleModeHTML, -1)
+    return strings.Replace(templatedInput, vars.EutherpeTemplateNeedleShuffleMode, shuffleModeHTML, 1)
 }

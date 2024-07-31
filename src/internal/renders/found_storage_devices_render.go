@@ -18,5 +18,5 @@ func FoundStorageDevicesRender(templatedInput string, eutherpeVars *vars.Eutherp
         foundStorageDevicesHTML += "<input type=\"checkbox\" id=\"" + storageDevice + "\" class=\"StorageDevice\" onclick=\"selectSingleElement(this);\">" + storageDevice + "<br>"
     }
     foundStorageDevicesHTML += "</ul>"
-    return strings.Replace(templatedInput, vars.EutherpeTemplateNeedleFoundStorageDevices, foundStorageDevicesHTML, -1)
+    return strings.Replace(templatedInput, vars.EutherpeTemplateNeedleFoundStorageDevices, foundStorageDevicesHTML, 1)
 }

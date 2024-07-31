@@ -102,6 +102,7 @@ func (ehh *EutherpeHTTPHandler) handler(w http.ResponseWriter, r *http.Request) 
     } else {
         ehh.eutherpeVars.HTTPd.RequestedByHostName = false
     }
+    var template uint = vars.EutherpeNoTemplate
     switch r.URL.Path {
         case "/eutherpe":
                 var contentType = "text/html"
@@ -109,8 +110,10 @@ func (ehh *EutherpeHTTPHandler) handler(w http.ResponseWriter, r *http.Request) 
                     if ehh.eutherpeVars.HTTPd.Authenticated &&
                       !ehh.eutherpeVars.HTTPd.AuthWatchdog.IsAuthenticated(r.RemoteAddr) {
                         templatedOutput = ehh.eutherpeVars.HTTPd.LoginHTML
+                        template = vars.EutherpeGateTemplate
                     } else {
                         templatedOutput = ehh.eutherpeVars.HTTPd.IndexHTML
+                        template = vars.EutherpeIndexTemplate
                     }
                     if len(ehh.eutherpeVars.CurrentConfig) == 0 {
                         ehh.eutherpeVars.CurrentConfig = vars.EutherpeWebUIConfigSheetDefault
@@ -120,10 +123,13 @@ func (ehh *EutherpeHTTPHandler) handler(w http.ResponseWriter, r *http.Request) 
                     if ehh.eutherpeVars.HTTPd.Authenticated &&
                        !ehh.eutherpeVars.HTTPd.AuthWatchdog.IsAuthenticated(r.RemoteAddr) {
                         templatedOutput = ehh.eutherpeVars.HTTPd.LoginHTML
+                        template = vars.EutherpeGateTemplate
                     } else {
                         ehh.eutherpeVars.HTTPd.AuthWatchdog.RefreshAuthWindow(r.RemoteAddr)
                         actionHandler := actions.GetEutherpeActionHandler(&r.Form)
                         templatedOutput = ehh.processAction(actionHandler, &r.Form)
+                        // INFO(Rafael): It is needed to force a re-caching.
+                        ehh.eutherpeVars.RenderedIndexHTML = ""
                     }
                     contentType = actions.GetContentTypeByActionId(&r.Form)
                 } else {
@@ -138,11 +144,13 @@ func (ehh *EutherpeHTTPHandler) handler(w http.ResponseWriter, r *http.Request) 
                 ehh.eutherpeVars.LastError = fmt.Errorf("303 See Other")
             } else if r.Method == "GET" {
                 templatedOutput = ehh.eutherpeVars.HTTPd.LoginHTML
+                template = vars.EutherpeIndexTemplate
             } else if r.Method == "POST" {
                 r.ParseForm()
                 r.Form.Add(vars.EutherpePostFieldRemoteAddr, r.RemoteAddr)
                 templatedOutput = ehh.processAction(actions.Authenticate, &r.Form)
                 r.URL.Path = "/eutherpe"
+                template = vars.EutherpeIndexTemplate
             } else {
                 templatedOutput = ehh.eutherpeVars.HTTPd.ErrorHTML
                 ehh.eutherpeVars.LastError = fmt.Errorf("501 Not Implemented")
@@ -152,7 +160,7 @@ func (ehh *EutherpeHTTPHandler) handler(w http.ResponseWriter, r *http.Request) 
         default:
             templatedOutput = ehh.processGET(&w, r)
     }
-    fmt.Fprintf(w, "%s", renders.RenderData(templatedOutput, ehh.eutherpeVars))
+    fmt.Fprintf(w, "%s", renders.RenderData(templatedOutput, ehh.eutherpeVars, template))
     ehh.eutherpeVars.LastError = nil
 }
 

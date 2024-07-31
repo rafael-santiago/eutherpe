@@ -7,6 +7,7 @@ ffmpeg
 alsa-utils
 wpasupplicant
 wireless-tools
+imagemagick
 binutils
 autotools-dev
 gawk

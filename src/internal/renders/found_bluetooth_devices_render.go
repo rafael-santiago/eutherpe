@@ -18,5 +18,5 @@ func FoundBluetoothDevicesRender(templatedInput string, eutherpeVars *vars.Euthe
         foundBluetoothDevicesHTML += "<input type=\"checkbox\" id=\"" + foundDevice.Id + "\" class=\"BluetoothDevice\" onclick=\"selectSingleElement(this);\">" + foundDevice.Alias + "<br>"
     }
     foundBluetoothDevicesHTML += "</ul>"
-    return strings.Replace(templatedInput, vars.EutherpeTemplateNeedleFoundBluetoothDevices, foundBluetoothDevicesHTML, -1)
+    return strings.Replace(templatedInput, vars.EutherpeTemplateNeedleFoundBluetoothDevices, foundBluetoothDevicesHTML, 1)
 }

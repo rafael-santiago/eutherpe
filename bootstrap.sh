@@ -293,6 +293,13 @@ build_and_install_bluez_alsa() {
     return 0
 }
 
+deactivate_avahi_daemon() {
+    systemctl stop avahi-daemon >/dev/null 2>&1
+    systemctl disable avahi-daemon >/dev/null 2>&1
+    systemctl mask avahi-daemon >/dev/null 2>&1
+    return 0
+}
+
 `bootstrap_banner`
 
 echo "=== Checking on your Internet conectivity..."
@@ -413,6 +420,15 @@ if [[ `build_eutherpe` != 0 ]] ; then
 fi
 
 echo "=== bootstrap info: Done."
+
+if [[ `is_active avahi-daemon` != 0 ]] ; then
+    echo "=== bootstrap info: Deactivating avahi-daemon..."
+    `deactivate_avahi_daemon`
+    echo "=== bootstrap info: Done."
+else
+    echo "=== bootstrap info: Nice, avahi-daemon is already deactivated."
+fi
+
 echo "=== bootstrap info: Now installing Eutherpe..."
 
 if [[ `install_eutherpe` != 0 ]] ; then

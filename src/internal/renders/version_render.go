@@ -14,5 +14,5 @@ import (
 
 func VersionRender(templatedInput string, _ *vars.EutherpeVars) string {
     return strings.Replace(templatedInput, vars.EutherpeTemplateNeedleVersion,
-                           vars.EutherpeVersion, -1)
+                           vars.EutherpeVersion, 1)
 }

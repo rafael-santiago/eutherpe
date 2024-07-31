@@ -18,7 +18,7 @@ func UpNextRender(templatedInput string, eutherpeVars *vars.EutherpeVars) string
         eutherpeVars.UpNextHTML = renderUpNext(eutherpeVars.Player.UpNext)
     }
     return strings.Replace(templatedInput, vars.EutherpeTemplateNeedleUpNext,
-                           eutherpeVars.UpNextHTML, -1)
+                           eutherpeVars.UpNextHTML, 1)
 }
 
 func renderUpNext(upNext []mplayer.SongInfo) string {

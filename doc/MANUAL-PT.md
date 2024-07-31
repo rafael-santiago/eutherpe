@@ -25,7 +25,7 @@ de projeto, como instalar e usar.
 capaz de ouvir suas `MP3` sem necessidade de se logar em nenhum serviço de `streaming` externo
 a sua rede local. Aqui é você quem `100%` manda.
 
-A ideia básica é você ter suas músicas gravadas em um `pendrive`, plugar esse `pendrive`
+A ideia básica se centra em você ter suas músicas gravadas em um `pendrive`, plugar esse `pendrive`
 ao computador rodando `Eutherpe`, conectar `Eutherpe` a uma caixa de som ou `headphone`
 `Bluetooth` e feito! Vá escutar sua música e acabou.
 
@@ -38,10 +38,10 @@ ao endereço do computador que está servindo `Eutherpe` em sua rede.
 
 Ao escrever `Eutherpe` minha principal preocupação foi `minimalismo`. A ideia é deixar você
 o máximo possível longe de telas e mais imerso na audição da sua música. Foda-se o `FOMO` eu
-só quero desacelerar cercado pelo o que eu já previamente amo.
+só quero desacelerar cercado pelo que eu já previamente amo.
 
 Então com `Eutherpe` você não tem propagandas, nem sugestões, nada disso. É só você e suas
-músicas. Você tem sua coleção de `MP3` quer ouvir suas músicas e só.
+músicas. Você tem a sua coleção de `MP3` quer ouvir suas músicas e só.
 
 As principais características de `Eutherpe` são:
 
@@ -65,10 +65,10 @@ As principais características de `Eutherpe` são:
 - Cada música pode ser marcada com `tags`.
 - `Tags` são basicamente palavras-chave: `80s`, `solos favoritos`, `stoner rock`, `mojo`,
   `blues`, `jazz`, `soul`, `sextou`, `segundou que tédio` etc.
-- Você pode pedir para o `Eutherpe` tocar `n` músicas que se encaixem numa lista de `tags`
+- Você pode pedir para a `Eutherpe` tocar `n` músicas que se encaixem numa lista de `tags`
   que você passar.
-- A dinâmica essencial do `player Eutherpe` é de uma `jukebox`, então você seleciona
-  o que quer ouvir.
+- A dinâmica essencial do `player Eutherpe` é a de uma `jukebox`, então você seleciona
+  ativamente o que quer ouvir.
 - Você pode se conectar a um dispositivo de saída `Bluetooth` (caixas de som ou `headphones`).
 - `Eutherpe` dá suporte para `MP3`, `MP4` e `M4A`.
 - A última sessão é salva, então suas seleções ficam gravadas entre um uso e outro do aplicativo.
@@ -76,8 +76,8 @@ As principais características de `Eutherpe` são:
 - Interface `Web` renderiza bem tanto no `Desktop` quanto em dispositivos móveis.
 - Funciona baseado na plataforma `Linux`.
 - No `Windows` você pode utilizar `Eutherpe` a partir de uma [`máquina virtual`](VM-PT.md).
-- Você ainda pode usar `Eutherpe` dentro de um `raspberry-pi` e nesse caso ele será carinhosamente
-  chamado de `Euther-PI`.
+- Você ainda pode usar `Eutherpe` dentro de um `raspberry-pi` e nesse caso ela será carinhosamente
+  chamada de `Euther-PI`.
 
 [`Voltar`](#tópicos)
 
@@ -93,11 +93,11 @@ Bem, isso é um termo que utilizamos para indicar que vamos provisionar todo o n
 começar de fato a brincadeira. Seria um escalar sem corda colocando os grampos, para que
 posteriores escaladas sejam mais fáceis. Ao que parece esse termo veio de uma história de
 *"As supreendentes Aventuras do Barão Munchausen"* (tradução livre), escrito por Rudolf Erich
-Raspe. Onde nessa história o barão teria saído de um pântano puxando a si mesmo pelos cabelos
-e seu cavalo pelo rabo (é vdd esse bilete [sic]...). Há controvérsias mas o sentido se mantém:
-no `bootstrapping`, o objetivo é passar por uma parte complicada, pantanosa, árida em recursos
-para então chegar do outro lado onde tudo será mais sólido sob os nossos pés e para isso,
-usando praticamente nada ou parcos recursos.
+Raspe. Onde nessa história o barão teria saído de um pântano puxando a si mesmo e seu cavalo pelo
+rabo (é vdd esse bilete [sic]...). Há controvérsias mas o sentido se mantém: no `bootstrapping`, o
+objetivo é passar por uma parte complicada, pantanosa, árida em recursos para então chegar do outro
+lado onde tudo será mais sólido sob os nossos pés e para isso usamos praticamente nada ou parcos
+recursos.
 
 No caso do `Eutherpe`, a `jukebox` utiliza algumas dependências para compor todo o seu
 ecossistema. Essas dependências no caso são aplicativos e recursos que ele usa por baixo dos
@@ -134,7 +134,7 @@ Após você preparar uma versão mínima `Debian` é necessário que você faça
 Uma vez a sessão `root` iniciada, você precisa baixar o código-fonte do `Eutherpe` e para isso você
 precisará do aplicativo `git`.
 
-Então vamos instalá-lo, emitindo o seguinte comando (se você instalou o `Debian 11` vai precisar
+Então vamos instalá-lo, emitindo o seguinte comando (se você instalou o `Debian 12` vai precisar
 inserir o `CD-ROM` ou imagem `.iso` dele):
 
 ```
@@ -338,7 +338,7 @@ As funções oferecidas por essa tela são:
 - `REMOVE SONGS...` (você seleciona a(s) música(s) que deseja remover).
 - `REPRODUCE` (você colocará para tocar a `playlist` selecionada).
 - `REPRODUCE SELECTION` (você colocará para tocar as músicas específicas que escolheu a partir da
-   listagem geral de uma playlist).
+   listagem geral de uma `playlist`).
 
 Pronto! Você já se formou na escola de `DJs Eutherpe`, congrats!
 
@@ -372,12 +372,12 @@ alterou a localização delas, vai precisar clicar em `SCAN` de novo.
 A **Figura 12** traz a tela `Bluetooth`. Na linha das outras telas é bem direta ao assunto.
 Possui três funções disparadas por três botões:
 
-- `PROBE` (você clica nele para sondar o local e ver se encontra o dispositivo bluetooth de saída
+- `PROBE` (você clica nele para sondar o local e ver se encontra o dispositivo `bluetooth` de saída
 de áudio do seu interesse).
 - `PAIR...` (você clica nele para parear com o dispositivo que você selecionou da lista que a
 sondagem te retornou, vai te exibir a tela da **Figura 13**).
 - `UNPAIR..` (você clica nele para desparear o pareamento prévio, o som vai parar de emanar via o
-dispositivo `Bluetooth` que você havia pareado antes).
+dispositivo `bluetooth` que você havia pareado antes).
 
 ![Screenshot tela Bluetooth](figures/eus-pt-br-bluetooth-screen.png)
 **Figura 12**: A tela `Bluetooth`.
@@ -404,7 +404,7 @@ Sound portuguese babe, I love my mother tongue). A cara geral dessa tela pode se
 
 A tela possui várias funcionalidades mas todas são bem diretas de configurar:
 
-- **a.** Quando marcado uma tela pedindo senha de acesso será apresentada. A senha `default` é `music` (essa eu tenho certeza que você nem eu esquecemos!!!).
+- **a.** Quando marcado uma tela pedindo senha de acesso será apresentada. A senha `default` é `music` (essa eu tenho certeza que você nem eu esqueceremos!!!).
 - **b.** Quando marcado, a conexão da interface `Web` será via `HTTPS`.
 - **c.** Clique aqui e você gera um certificado autoassinado para ser utilizado com o `HTTPS`.
 - **d.** Clique aqui e você faz o download do certificado, caso queira instalá-lo no dispositivo que
@@ -423,9 +423,9 @@ você estiver rodando `Eutherpe` embarcada [na verdade essa é a ideia base] e n
 um botão liga/desliga na sua placa).
 - **i.** Clique aqui e você reinicia o dispositivo que está rodando `Eutherpe`, você sabe, em computação
 sempre tem momentos em que acabamos precisando de um `reboot`. Embora procure deixar `Eutherpe`
-o mais estável possível para você :wink:!
+mais estável possível para você :wink:!
 - **j.** Nessa caixa de texto você define o nome para acessar a interface `Web Eutherpe`.
-- **k.** Se você quiser alterar a senha de acesso à interface `Web` clica aqui. Se esquecer a
+- **k.** Se você quiser alterar a senha de acesso à interface `Web`, clica aqui. Se esquecer a
 senha vai ter que fazer umas madracarias para resetar. Mais para frente te mostro!
 
 [`Voltar`](#tópicos)

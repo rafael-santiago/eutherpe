@@ -19,5 +19,5 @@ func PlayModeRender(templatedInput string, eutherpeVars *vars.EutherpeVars) stri
     } else {
         playModeHTML = "&#x25A0"
     }
-    return strings.Replace(templatedInput, vars.EutherpeTemplateNeedlePlayMode, playModeHTML, -1)
+    return strings.Replace(templatedInput, vars.EutherpeTemplateNeedlePlayMode, playModeHTML, 1)
 }

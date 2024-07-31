@@ -62,6 +62,9 @@ type EutherpeVars struct {
     CollectionHTML string
     UpNextHTML string
     PlaylistsHTML string
+    RenderedIndexHTML string
+    RenderedGateHTML string
+    RenderedAlbumArtThumbnailHTML string
     Playlists []dj.Playlist
     Tags dj.Tags
     RenderedPlaylist string
@@ -613,3 +616,7 @@ const EutherpePlaylistsHome = "playlists"
 const EutherpeLastCollectionsHome = "collections"
 const EutherpeCoversHome = "covers"
 const EutherpeTagsHome = "tags"
+
+const EutherpeNoTemplate = 0
+const EutherpeIndexTemplate = 1
+const EutherpeGateTemplate = 2

@@ -9,6 +9,7 @@ package mplayer
 
 import (
     "os"
+    "os/exec"
     "fmt"
     "strings"
     "regexp"
@@ -645,8 +646,28 @@ func isAlbumCoverCached(blob []byte, coversCacheRootPath string, imageHash *stri
     return (err == nil)
 }
 
+func resizeAlbumCover(sourcePath, destPath string, width, height uint) error {
+    fmt.Println(sourcePath, destPath)
+    return exec.Command("convert", sourcePath, "-resize",
+                        fmt.Sprintf("%dx%d", width, height),
+                        destPath).Run()
+}
+
 func makeAlbumCoverCache(coversCacheRootPath, imageHash string, blob []byte) {
-    os.WriteFile(path.Join(coversCacheRootPath, imageHash), blob, 0777)
+    tempCover, err := os.CreateTemp("", imageHash)
+    if err != nil {
+        return
+    }
+    tempCoverFilePath := tempCover.Name()
+    defer os.Remove(tempCover.Name())
+    defer tempCover.Close()
+    tempCover.Write(blob)
+    if resizeAlbumCover(tempCoverFilePath,
+                        path.Join(coversCacheRootPath, imageHash),
+                        500, 500) != nil {
+        fmt.Fprintf(os.Stderr, "warn: Unable to resize album cover image. Using the original size.\n")
+        os.WriteFile(path.Join(coversCacheRootPath, imageHash), blob, 0777)
+    }
 }
 
 func cleanUpUnusedCovers(coversCacheRootPath string, songs []SongInfo) {

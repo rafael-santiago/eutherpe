@@ -65,9 +65,9 @@ func TestMusicPlayStop(t *testing.T) {
         } else if eutherpeVars.Player.NowPlaying != currSong {
             t.Errorf("MusicPlay() seems not to be following the Player.UpNext sequence.\n")
         }
-        time.Sleep(500 * time.Millisecond)
+        time.Sleep(30 * time.Second)
         mplayer.Stop(eutherpeVars.Player.Handle)
-        time.Sleep(200 * time.Millisecond)
+        time.Sleep(30 * time.Second)
     }
     if len(eutherpeVars.Player.NowPlaying.FilePath) > 0 {
         t.Errorf("MusicPlayer() after consuming all UpNext list did not clear Player.NowPlaying register.\n")

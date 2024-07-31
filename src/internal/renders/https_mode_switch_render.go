@@ -20,5 +20,5 @@ func HTTPSModeSwitchRender(templatedInput string, eutherpeVars *vars.EutherpeVar
     } else {
         HTTPSModeSwitchHTML = fmt.Sprintf(HTTPSModeSwitchHTML, "")
     }
-    return strings.Replace(templatedInput, vars.EutherpeTemplateNeedleHTTPSModeSwitch, HTTPSModeSwitchHTML, -1)
+    return strings.Replace(templatedInput, vars.EutherpeTemplateNeedleHTTPSModeSwitch, HTTPSModeSwitchHTML, 1)
 }

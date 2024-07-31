@@ -19,7 +19,7 @@ dele, pois até o momento `Eutherpe` não é compatível com `Windows`. Penso qu
 também.
 
 > [!NOTE]
-> Se você já sabe sobre máquina virtuais, já as usa, muito certo que esse texto não irá te
+> Se você já sabe sobre máquinas virtuais, já as usa, muito certo que esse texto não irá te
 > acrescentar nada. A ideia geral é criar uma máquina virtual baseada em `Debian Linux` e rodar o
 > `bootstrapping Eutherpe`. Se você já sabe fazer isso por conta própria, esse texto não é para
 > você. :wink:
@@ -40,7 +40,7 @@ Pronto! Se você instalou o `Virtualbox` e baixou a `OVA` já tem tudo para ir a
 > [!TIP]
 > **Dica e observação**: Não vou me aprofundar no conceito de virtualização e máquinas virtuais.
 > Porém, é algo bem bacana e que com certeza você pode encontrar muitas ideias e utilidades para
-> resolver suas necessidades do dia a dia, eu te sugeriria utilizar o ensejo do `Eutherpe` e dar
+> resolver suas necessidades do dia a dia, eu te sugeriria utilizar o ensejo da `Eutherpe` e dar
 > uma aprofundada no assunto. :dart:
 
 [`Voltar`](#tópicos)
@@ -49,13 +49,13 @@ Pronto! Se você instalou o `Virtualbox` e baixou a `OVA` já tem tudo para ir a
 
 Entenda uma `OVA` como um arquivo `zip` ou um programa de instalação. Esse arquivo contém todos
 os arquivos que compõem a máquina virtual. É como se um computador estivesse embrulhado dentro de
-uma caixa e você apenas precisasse tirá-lo da caixa, conectar uns cabos, o ligar na tomada e
+uma caixa e você apenas precisasse tirá-lo da caixa, conectar uns cabos, ligá-lo à tomada e
 pronto!
 
 No caso da `OVA Eutherpe` o que eu fiz foi criar uma máquina virtual baseada em `Debian 12` onde
 cuidei de instalar apenas os aplicativos mais básicos para subir um sistema operacional no
 qual pudesse ser possível executar `Eutherpe`. Sim, depois que acabei a instalação mínima do
-`Debian 12` eu baixei os fontes do `Eutherpe` e rodei o `bootstrap` (se você não leu o manual
+`Debian 12` eu baixei os fontes da `Eutherpe` e rodei o `bootstrap` (se você não leu o manual
 ainda, [leia-o](MANUAL-PT.md) e *voilá*, desliguei a máquina virtual e criei a `OVA` (até rimou).
 
 Com essa `OVA`, o que você fará (rimou de novo...) vai ser importá-la a partir do seu

@@ -20,7 +20,7 @@ func CollectionRender(templatedInput string, eutherpeVars *vars.EutherpeVars) st
     }
     return strings.Replace(templatedInput,
                            vars.EutherpeTemplateNeedleCollection,
-                           eutherpeVars.CollectionHTML, -1)
+                           eutherpeVars.CollectionHTML, 1)
 }
 
 func renderCollectionListing(collection mplayer.MusicCollection) string {

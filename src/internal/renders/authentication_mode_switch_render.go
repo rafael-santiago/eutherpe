@@ -20,5 +20,5 @@ func AuthenticationModeSwitchRender(templatedInput string, eutherpeVars *vars.Eu
     } else {
         authenticationModeSwitchHTML = fmt.Sprintf(authenticationModeSwitchHTML, "")
     }
-    return strings.Replace(templatedInput, vars.EutherpeTemplateNeedleAuthenticationModeSwitch, authenticationModeSwitchHTML, -1)
+    return strings.Replace(templatedInput, vars.EutherpeTemplateNeedleAuthenticationModeSwitch, authenticationModeSwitchHTML, 1)
 }

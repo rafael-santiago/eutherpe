@@ -18,7 +18,7 @@ func PlaylistsRender(templatedInput string, eutherpeVars *vars.EutherpeVars) str
         eutherpeVars.PlaylistsHTML = renderPlaylists(eutherpeVars.Playlists)
     }
     return strings.Replace(templatedInput, vars.EutherpeTemplateNeedlePlaylists,
-                           eutherpeVars.PlaylistsHTML, -1)
+                           eutherpeVars.PlaylistsHTML, 1)
 }
 
 func renderPlaylists(playlists []dj.Playlist) string {

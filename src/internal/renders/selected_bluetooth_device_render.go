@@ -19,5 +19,5 @@ func SelectedBluetoothDeviceRender(templatedInput string, eutherpeVars *vars.Eut
     } else {
         selectedBluetoothDevice = "(null)"
     }
-    return strings.Replace(templatedInput, vars.EutherpeTemplateNeedleSelectedBluetoothDevice, selectedBluetoothDevice, -1)
+    return strings.Replace(templatedInput, vars.EutherpeTemplateNeedleSelectedBluetoothDevice, selectedBluetoothDevice, 1)
 }

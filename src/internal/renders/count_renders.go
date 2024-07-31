@@ -44,5 +44,5 @@ func metaCountRender(templatedInput,
                      countClosure func () string) string {
     return strings.Replace(templatedInput,
                            templateNeedle,
-                           countClosure(), -1)
+                           countClosure(), 1)
 }
