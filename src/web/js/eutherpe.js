@@ -5,8 +5,15 @@
 // This source code is licensed under the GPLv2 license, found in the
 // COPYING.GPLv2 file in the root directory of Eutherpe's source tree.
 //
+
+var g_FromMusicTabContext = false;
+
+function setFromMusicTabContext(value) {
+    g_FromMusicTabContext = value;
+}
+
 function closeAddToPlaylist() {
-    openConfig("Collection");
+    openConfig((!g_FromMusicTabContext) ? "Collection" : "Music");
 }
 
 function closeAddTags() {
@@ -94,7 +101,16 @@ function addToUpNext() {
 }
 
 function addToPlaylist() {
-    metaCollectionAdd("collection-addselectiontoplaylist");
+    if (!g_FromMusicTabContext) {
+        metaCollectionAdd("collection-addselectiontoplaylist");
+    } else {
+        songSelection = document.getElementsByClassName("UpNext");
+        selectedOnes = getSelectedSongs(songSelection);
+        if (selectedOnes.length == 0) {
+            selectAllSongs("UpNext");
+        }
+        metaActionOverSongSelection("music-addupnexttoplaylist", "UpNext");
+    }
     closeAddToPlaylist();
 }
 
@@ -128,13 +144,12 @@ function metaCollectionAdd(action) {
 function clearCollectionSelection() {
     setUnchecked(document.getElementsByClassName("CollectionArtist"));
     setUnchecked(document.getElementsByClassName("CollectionAlbum"));
-    setUnchecked(collectionSongs);
+    setUnchecked(document.getElementsByClassName("CollectionSong"));
 }
 
 function clearPlaylistSelection() {
     setUnchecked(document.getElementsByClassName("PlaylistName"));
     setUnchecked(document.getElementsByClassName("PlaylistSong"));
-    setUnchecked(collectionSongs);
 }
 
 function getSelectedSongs(songList) {
@@ -145,6 +160,13 @@ function getSelectedSongs(songList) {
         }
     }
     return selectedOnes;
+}
+
+function selectAllSongs(songListClassName) {
+    songSelection = document.getElementsByClassName(songListClassName);
+    for (var s = 0; s < songSelection.length; s++) {
+        songSelection[s].checked = true;
+    }
 }
 
 function setUnchecked(list) {
@@ -487,8 +509,12 @@ function metaActionOverSongSelection(action, songListClassName) {
     }
     var reqParams = { "action"    : action,
                       "selection" : JSON.stringify(selectedOnes) };
-    if (action == "collection-addselectiontoplaylist") {
+    if (action == "collection-addselectiontoplaylist" ||
+        action == "music-addupnexttoplaylist") {
         reqParams.playlist = document.getElementById("playlistName").value;
+        if (reqParams.playlist.length == 0) {
+            return;
+        }
     } else if (songListClassName == "PlaylistSong") {
         playlist = getSelectedPlaylist();
         if (playlist === null) {

@@ -90,6 +90,7 @@ COPYING.GPLv2 file in the root directory of Eutherpe's source tree.
             <input class="eutherpeBUTTON" type="button" value="&#x226B" onclick="musicNext();"/>
             <input class="eutherpeBUTTON" type="button" value="&#x23F6" onclick="moveSelectedSongsFromUpNextUp();"/>
             <input class="eutherpeBUTTON" type="button" value="&#x23F7" onclick="moveSelectedSongsFromUpNextDown();"/>
+            <input class="eutherpeBUTTON" type="button" value="&#x1F352;" onclick="openConfig('AddToPlaylist');"/>
             <input class="eutherpeBUTTON" type="button" value="{{.SHUFFLE-MODE}}" onclick="shuffleUpNext();"/>
             <input class="eutherpeBUTTON" type="button" value="Remove..." onclick="removeSelectedSongsFromUpNext();"/>
             <input class="eutherpeBUTTON" type="button" value="Clear all..." onclick="clearUpNextAll();"/>
@@ -228,6 +229,11 @@ COPYING.GPLv2 file in the root directory of Eutherpe's source tree.
 
 <script language="javascript">
 function openConfig(configName) {
+  if (configName === "Collection") {
+    setFromMusicTabContext(false);
+  } else if (configName === "Music") {
+    setFromMusicTabContext(true);
+  }
   // Declare all variables
   var i, configcontent, configtab;
 

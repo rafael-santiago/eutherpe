@@ -501,6 +501,7 @@ const EutherpeMusicStopId = "music-stop"
 const EutherpeMusicNextId = "music-next"
 const EutherpeMusicLastId = "music-last"
 const EutherpeMusicSetVolumeId = "music-setvolume"
+const EutherpeMusicAddUpNextToPlaylistId = "music-addupnexttoplaylist"
 
 // INFO(Rafael): Actions from "Collection" sheet.
 

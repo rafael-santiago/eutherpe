@@ -58,6 +58,8 @@ func getMetaRecordInfoFromSelectionId(selectionId string, offset int) string {
     eutpidIndex := strings.Index(info, "-eutpid_")
     if eutpidIndex > -1 {
         info = info[:eutpidIndex]
+    } else if strings.HasSuffix(info, ":") {
+        info = info[:len(info) - 1]
     }
     return info
 }
