@@ -12,6 +12,7 @@ import (
     "internal/auth"
     "net/url"
     "testing"
+    "time"
 )
 
 func TestChangePassphrase(t *testing.T) {
@@ -52,6 +53,7 @@ func TestChangePassphrase(t *testing.T) {
     if err != nil {
         t.Errorf("ChangePassphrase() has failed when it should succeed.\n")
     }
+    time.Sleep(5 * time.Second)
     if !auth.Validate("123mudou", eutherpeVars.HTTPd.HashKey) {
         t.Errorf("ChangePassphrase() seems not to be updating the hash key material.\n")
     }
