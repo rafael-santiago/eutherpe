@@ -265,6 +265,28 @@ function reboot() {
     );
 }
 
+function backupPlaylists() {
+    query("It will save the playlists into the storage device, continue",
+          function() {
+                doEutherpeRequest("/eutherpe", { "action" : "playlists-backupplaylists" }, "post");
+          },
+          function() {
+                openConfig("Playlists");
+          }
+    );
+}
+
+function restorePlaylists() {
+    query("It will overwrite all pre-existent playlist, continue",
+          function() {
+                doEutherpeRequest("/eutherpe", { "action" : "storage-restoreplaylists" }, "post");
+          },
+          function() {
+                openConfig("Storage");
+          }
+    );
+}
+
 function trustDevice() {
     blueDev = getSelectedBluetoothDevice();
     if (blueDev === null) {
@@ -689,9 +711,17 @@ function doEutherpeRequest(vdoc, userData, method, noWaitBanner = false) {
     form.submit();
 }
 
-function doMinimalEutherpeRequest(vdoc, action) {
+function setCurrentConfig(configName) {
+    doMinimalEutherpeRequest("/eutherpe", "set-currentconfig", "config=" + configName);
+}
+
+function doMinimalEutherpeRequest(vdoc, action, params = "") {
     var http = new XMLHttpRequest();
     http.open("POST", vdoc, true);
     http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    http.send("action=" + action);
+    var data = "action=" + action;
+    if (params.length > 0) {
+        data += "&" + params;
+    }
+    http.send(data);
 }

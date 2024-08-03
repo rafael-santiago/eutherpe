@@ -250,9 +250,18 @@ func (e *EutherpeVars) LoadCollection() error {
     if err != nil {
         return err
     }
+    err = e.LoadPlaylists()
+    if err == nil {
+        err = e.LoadTags()
+    }
+    return err
+}
+
+func (e *EutherpeVars) LoadPlaylists() error {
     e.Playlists = make([]dj.Playlist, 0)
+    musicDevSerial := storage.GetDeviceSerialNumberByMountPoint(e.CachedDevices.MusicDevId)
     playlistsRootPath := path.Join(e.ConfHome, EutherpePlaylistsHome, musicDevSerial)
-    _, err = os.Stat(playlistsRootPath)
+    _, err := os.Stat(playlistsRootPath)
     if err != nil {
         return nil
     }
@@ -265,7 +274,7 @@ func (e *EutherpeVars) LoadCollection() error {
         }
         e.Playlists = append(e.Playlists, playlist)
     }
-    return e.LoadTags()
+    return nil
 }
 
 func (e *EutherpeVars) SavePlaylists() error {
@@ -487,6 +496,13 @@ const EutherpeCopyrightDisclaimer = "Eutherpe is Copyright (c) 2024 by Rafael Sa
 
 const EutherpeActionId = "action"
 
+const EutherpeConfigMusic = "Music"
+const EutherpeConfigCollection = "Collection"
+const EutherpeConfigPlaylists = "Playlists"
+const EutherpeConfigStorage = "Storage"
+const EutherpeConfigBluetooth = "Bluetooth"
+const EutherpeConfigSettings = "Settings"
+
 // INFO(Rafael): Actions from "Music" sheet.
 
 const EutherpeMusicRemoveId = "music-remove"
@@ -523,6 +539,7 @@ const EutherpePlaylistClearAllId = "playlist-clearall"
 const EutherpePlaylistRemoveSongsId = "playlist-removesongs"
 const EutherpePlaylistReproduceId = "playlist-reproduce"
 const EutherpePlaylistReproduceSelectedOnesId = "playlist-reproduceselectedones"
+const EutherpePlaylistBackupPlaylistsId = "playlists-backupplaylists"
 
 // INFO(Rafael): Actions from "Storage" sheet.
 
@@ -530,6 +547,7 @@ const EutherpeStorageListId = "storage-list"
 const EutherpeStorageScanId = "storage-scan"
 const EutherpeStorageSetId = "storage-set"
 const EutherpeStorageConvert2MP3Id = "convert-2mp3"
+const EutherpeStorageRestorePlaylistsId = "storage-restoreplaylists"
 
 // INFO(Rafael): Actions from "Bluetooth" sheet.
 
@@ -552,6 +570,7 @@ const EutherpeSettingsRebootId = "settings-reboot"
 
 const EutherpePlayerStatusId = "player-status"
 const EutherpeGetCommonTagsId = "get-commontags"
+const EutherpeSetCurrentConfigId = "set-currentconfig"
 
 const EutherpeAuthenticateId = "authenticate"
 
@@ -568,6 +587,7 @@ const EutherpePostFieldPassword = "password"
 const EutherpePostFieldNewPassword = "new-password"
 const EutherpePostFieldESSID = "essid"
 const EutherpePostFieldHostName = "hostname"
+const EutherpePostFieldConfig = "config"
 
 // INFO(Rafael): Template markers id.
 
@@ -621,3 +641,6 @@ const EutherpeTagsHome = "tags"
 const EutherpeNoTemplate = 0
 const EutherpeIndexTemplate = 1
 const EutherpeGateTemplate = 2
+
+const EutherpeMusicDevRootDir = ".eutherpe"
+const EutherpeMusicDevPlaylistsDir = "playlists"

@@ -73,6 +73,8 @@ func GetEutherpeActionHandler(userData *url.Values) EutherpeActionFunc {
             return ReproducePlaylist
         case vars.EutherpePlaylistReproduceSelectedOnesId:
             return ReproduceSelectedOnesFromPlaylist
+        case vars.EutherpePlaylistBackupPlaylistsId:
+            return BackupPlaylists
         case vars.EutherpeStorageListId:
             return ListStorages
         case vars.EutherpeStorageScanId:
@@ -81,6 +83,8 @@ func GetEutherpeActionHandler(userData *url.Values) EutherpeActionFunc {
             return SetStorage
         case vars.EutherpeStorageConvert2MP3Id:
             return Convert2MP3
+        case vars.EutherpeStorageRestorePlaylistsId:
+            return RestorePlaylists
         case vars.EutherpeBluetoothProbeDevicesId:
             return ProbeBluetoothDevices
         case vars.EutherpeBluetoothPairId:
@@ -107,6 +111,8 @@ func GetEutherpeActionHandler(userData *url.Values) EutherpeActionFunc {
             return PowerOff
         case vars.EutherpeSettingsRebootId:
             return Reboot
+        case vars.EutherpeSetCurrentConfigId:
+            return SetCurrentConfig
     }
     return nil
 }
@@ -146,13 +152,15 @@ func CurrentConfigByActionId(userData *url.Values) string {
              vars.EutherpePlaylistMoveUpId,
              vars.EutherpePlaylistMoveDownId,
              vars.EutherpePlaylistClearAllId,
-             vars.EutherpePlaylistRemoveSongsId:
+             vars.EutherpePlaylistRemoveSongsId,
+             vars.EutherpePlaylistBackupPlaylistsId:
             return vars.EutherpeWebUIConfigSheetPlaylists
 
         case vars.EutherpeStorageListId,
              vars.EutherpeStorageScanId,
              vars.EutherpeStorageSetId,
-             vars.EutherpeStorageConvert2MP3Id:
+             vars.EutherpeStorageConvert2MP3Id,
+             vars.EutherpeStorageRestorePlaylistsId:
             return vars.EutherpeWebUIConfigSheetStorage
 
         case vars.EutherpeBluetoothProbeDevicesId,
@@ -205,10 +213,12 @@ func GetContentTypeByActionId(userData *url.Values) string {
              vars.EutherpePlaylistRemoveSongsId,
              vars.EutherpePlaylistReproduceId,
              vars.EutherpePlaylistReproduceSelectedOnesId,
+             vars.EutherpePlaylistBackupPlaylistsId,
              vars.EutherpeStorageListId,
              vars.EutherpeStorageScanId,
              vars.EutherpeStorageSetId,
              vars.EutherpeStorageConvert2MP3Id,
+             vars.EutherpeStorageRestorePlaylistsId,
              vars.EutherpeBluetoothProbeDevicesId,
              vars.EutherpeBluetoothPairId,
              vars.EutherpeBluetoothUnpairId,
@@ -259,10 +269,12 @@ func GetVDocByActionId(userData *url.Values, eutherpeVars *vars.EutherpeVars) st
              vars.EutherpePlaylistRemoveSongsId,
              vars.EutherpePlaylistReproduceId,
              vars.EutherpePlaylistReproduceSelectedOnesId,
+             vars.EutherpePlaylistBackupPlaylistsId,
              vars.EutherpeStorageListId,
              vars.EutherpeStorageScanId,
              vars.EutherpeStorageSetId,
              vars.EutherpeStorageConvert2MP3Id,
+             vars.EutherpeStorageRestorePlaylistsId,
              vars.EutherpeBluetoothProbeDevicesId,
              vars.EutherpeBluetoothPairId,
              vars.EutherpeBluetoothUnpairId,
