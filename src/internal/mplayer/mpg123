@@ -6,4 +6,4 @@
 # This source code is licensed under the GPLv2 license found in the
 # COPYING.GPLv2 file in the root directory of Eutherpe's source tree.
 
-[[ -z $MPG123_MUST_FAIL ]] && sleep 30m || exit 1
+[[ -z $MPG123_MUST_FAIL ]] && sleep 60s || exit 1

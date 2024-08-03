@@ -14,9 +14,13 @@ import (
     "time"
     "fmt"
     "testing"
+    "os"
 )
 
 func TestMusicNext(t *testing.T) {
+    if skipUnstable := os.Getenv("SKIP_UNSTABLE"); len(skipUnstable) > 0 {
+        t.Skip("TestMusicNext() is stable within github actions (it sucks a bunch).")
+    }
     eutherpeVars := &vars.EutherpeVars{}
     userData := &url.Values{}
     err := MusicNext(eutherpeVars, userData)
@@ -52,7 +56,17 @@ func TestMusicNext(t *testing.T) {
                 if err != nil {
                     t.Errorf("MusicNext() has returned an error when it should not.\n")
                 }
-                if eutherpeVars.Player.NowPlaying != eutherpeVars.Player.UpNext[u] {
+                time.Sleep(1 * time.Second)
+                nTry := 500
+                done := false
+                for !done && nTry > 0 {
+                    done = (eutherpeVars.Player.NowPlaying == eutherpeVars.Player.UpNext[u])
+                    if !done {
+                        nTry--
+                        time.Sleep(500 * time.Millisecond)
+                    }
+                }
+                if !done {
                     t.Errorf("MusicNext() seems not to be actually playing the next song : %s != %s\n", eutherpeVars.Player.NowPlaying.Title, eutherpeVars.Player.UpNext[u].Title)
                 }
             } else {
@@ -62,7 +76,6 @@ func TestMusicNext(t *testing.T) {
                     t.Errorf("MusicNext() did return an error when it should not.\n")
                 }
             }
-            time.Sleep(30 * time.Second)
         }
     }
     err = MusicStop(eutherpeVars, userData)

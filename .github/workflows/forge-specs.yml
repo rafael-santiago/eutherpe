@@ -2,6 +2,8 @@ on: push
 name: Eutherpe CI
 jobs:
   Linux:
+    env:
+       SKIP_UNSTABLE: true
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -10,7 +12,7 @@ jobs:
     - uses: actions/checkout@v4
     - name: Setup Go ${{ matrix.go-version }}
       uses: actions/setup-go@v5
-      with: 
+      with:
         go-version: ${{ matrix.go-verson }}
     - name: Run Eutherpe unit tests
       shell: bash

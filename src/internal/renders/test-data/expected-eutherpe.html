@@ -131,6 +131,7 @@ COPYING.GPLv2 file in the root directory of Eutherpe's source tree.
         <hr>
         <input class="eutherpeBUTTON" type="button" value="Reproduce" onclick="reproducePlaylist();"/>
         <input class="eutherpeBUTTON" type="button" value="Reproduce selection" onclick="reproduceSelectedOnesFromPlaylist();"/>
+        <input class="eutherpeBUTTON" type="button" value="Backup..." onclick="backupPlaylists();"/>
         </center>
     </div>
     <div id="Storage" class="configcontent" style="display:none;">
@@ -150,6 +151,7 @@ COPYING.GPLv2 file in the root directory of Eutherpe's source tree.
             <input class="eutherpeBUTTON" type="button" value="Set" onclick="setStorageDevice();"/>
             <input class="eutherpeBUTTON" type="button" value="Scan" onclick="scanStorageDevice();"/>
             <input class="eutherpeBUTTON" type="button" value="Convert" onclick="convertSongsFromDevice();"/>
+            <input class="eutherpeBUTTON" type="button" value="Restore playlists..." onclick="restorePlaylists();"/>
         </center>
     </div>
     </div>
@@ -233,6 +235,14 @@ function openConfig(configName) {
     setFromMusicTabContext(false);
   } else if (configName === "Music") {
     setFromMusicTabContext(true);
+  }
+  if (configName === "Music"
+      || configName === "Collection"
+      || configName === "Playlists"
+      || configName === "Storage"
+      || configName === "Bluetooth"
+      || configName === "Settings") {
+    setCurrentConfig(configName);
   }
   // Declare all variables
   var i, configcontent, configtab;

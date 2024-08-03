@@ -17,7 +17,7 @@ import (
 
 func TestAuthenticate(t *testing.T) {
     eutherpeVars := &vars.EutherpeVars{}
-    eutherpeVars.HTTPd.AuthWatchdog = auth.NewAuthWatchdog(time.Duration(1 * time.Minute))
+    eutherpeVars.HTTPd.AuthWatchdog = auth.NewAuthWatchdog(time.Duration(5 * time.Minute))
     eutherpeVars.HTTPd.HashKey = auth.HashKey("123mudar*")
     userData := &url.Values{}
     err := Authenticate(eutherpeVars, userData)
