@@ -19,7 +19,7 @@ import (
 
 func TestMusicNext(t *testing.T) {
     if skipUnstable := os.Getenv("SKIP_UNSTABLE"); len(skipUnstable) > 0 {
-        t.Skip("TestMusicNext() is stable within github actions (it sucks a bunch).")
+        t.Skip("TestMusicNext() is unstable within github actions (it sucks a bunch).")
     }
     eutherpeVars := &vars.EutherpeVars{}
     userData := &url.Values{}
