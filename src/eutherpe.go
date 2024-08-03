@@ -69,6 +69,7 @@ func main() {
     if len(eutherpeVars.HostName) > 0 {
         eutherpeVars.MDNS.GoinHome <- true
     }
+    os.Remove("/tmp/cache.mp3")
 }
 
 func tryToPairWithPreviousBluetoothDevice(eutherpeVars *vars.EutherpeVars,

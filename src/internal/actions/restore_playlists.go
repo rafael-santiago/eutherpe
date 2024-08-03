@@ -40,16 +40,13 @@ func RestorePlaylists(eutherpeVars *vars.EutherpeVars, _ *url.Values) error {
         }
         playlistBlob, err := os.ReadFile(path.Join(playlistsDir, fileName))
         if err != nil {
-            break
+            return err
         }
         playlistFilePath := path.Join(playlistsRootPath, fileName)
         err = os.WriteFile(playlistFilePath, playlistBlob, 0777)
         if err != nil {
-            break
+            return err
         }
-    }
-    if err != nil {
-        return err
     }
     err = eutherpeVars.LoadPlaylists()
     if err == nil {
