@@ -86,8 +86,8 @@ As principais características de `Eutherpe` são:
 ### Ãhm?!
 
 > [!IMPORTANT]
-> Se você não é do bonde dos malucos (leia-se gente que programa computadores), talvez seja legal
-> entender o que cargas d'água significa `bootstrapping`.
+> Se você não é da guange voadora dos malucos (leia-se gente que programa computadores), talvez
+> seja legal entender o que cargas d'água significa `bootstrapping`.
 
 Bem, isso é um termo que utilizamos para indicar que vamos provisionar todo o necessário para
 começar de fato a brincadeira. Seria um escalar sem corda colocando os grampos, para que
@@ -120,7 +120,7 @@ desperdício pode impactar na audição das suas amadas músicas.
 
 O `Debian 12` foi o meu sistema de escolha para desenvolver `Eutherpe`, tentei o `12` completo mas
 ficou bem ruim e estava utilizando um sistema com `Gnome` e todas aquelas tranqueiras *- que para o
-objetivo do `Eutherpe` são essencialmente inúteis*.
+objetivo de `Eutherpe` são essencialmente inúteis*.
 
 Você deve estar pensando: *"- Poxa fazer esse tal 'boostrapping' deve ser difícil bagarai..."*.
 Relaxa, não é!
@@ -258,7 +258,7 @@ o que quero tocar?*
 
 Nessa tela você tem todo acesso às músicas que `Eutherpe` conseguiu escanear de seu dispositivo
 de armazenamento. Entenda essa tela como a sua *estante*, onde todos seus álbuns seguem organizados.
-Note, organizados. E isso mesmo se você for uma criatura desorganizada! :wink:
+Note: organizados. E isso mesmo se você for uma criatura desorganizada! :wink:
 
 Dá uma conferida na **Figura 4** no `layout` dessa tela. Note que aqui eu também lancei mão daquela
 convenção pirada *sustenido/bemol*...
@@ -288,6 +288,10 @@ Na parte inferior da tela você vai notar que existem botões bem autoexplicativ
 A **Figura 5** exibe a tela que é apresentada ao clicar em `ADD TO PLAYLIST...`, você precisa
 fornecer o nome da `playlist` a qual deseja adicionar a seleção e clicar em `ADD`. Se quiser
 desistir da ideia, apenas clique em `BACK` que está tudo certo `Eutherpe` não brigará com você...
+
+> [!TIP]
+> Na tela `Music` existe um botão com uma cereja e lá você usa para adicionar toda a lista de
+> reprodução ou músicas presentes nela a uma `playlist`. A dinâmica é a mesma.
 
 ![Screenshot add to playlist](figures/eus-pt-br-collection-add-to-playlist.png)
 **Figura 5**: Gosta de criar listas de músicas?
@@ -339,6 +343,7 @@ As funções oferecidas por essa tela são:
 - `REPRODUCE` (você colocará para tocar a `playlist` selecionada).
 - `REPRODUCE SELECTION` (você colocará para tocar as músicas específicas que escolheu a partir da
    listagem geral de uma `playlist`).
+- `BACKUP...` (você copiará as playlists para o dispositivo de armazenamento selecionado).
 
 Pronto! Você já se formou na escola de `DJs Eutherpe`, congrats!
 
@@ -347,7 +352,7 @@ Pronto! Você já se formou na escola de `DJs Eutherpe`, congrats!
 ## A tela Storage
 
 A tela `Storage` é onde você sinaliza à `Eutherpe` a partir de onde tentar ler suas músicas.
-A **Figura 11** ilustra o que você encontra nessa tela. A tela oferece três operações:
+A **Figura 11** ilustra o que você encontra nessa tela. A tela oferece cinco operações:
 
 - `LIST` (todos os dispositivos `USB` encontrados são listados, se você plugou um USB é necessário
 clicar nesse botão para ter acesso ao seu novo dispositivo).
@@ -356,6 +361,8 @@ uso).
 - `SCAN` (o dispositivo é escaneado e a coleção extraída e organizada é listada na tela
 `Collection`, no primeiro escaneamento o processo pode demorar um pouco mais, isso é por conta de
 como o dispositivos de armazenamento `USB` funcionam no `Linux`).
+- `CONVERT` (todas as músicas em `MP4` ou `M4A` serão convertidas para `MP3`, isso é necessário para tocá-las).
+- `RESTORE PLAYLISTS...` (restaura uma cópia prévia das playlists a partir do dispositivo de armazenamento).
 
 ![A tela storage](figures/eus-pt-br-storage-screen.png)
 **Figure 11**: A tela `Storage`.

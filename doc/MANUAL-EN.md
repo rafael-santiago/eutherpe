@@ -284,6 +284,10 @@ The **Figure 5** depicts the screen presented when you click `ADD TO PLAYLIST...
 provide the `playlist` name that you want to add to. If you gave up adding anything, just click
 `BACK`, `Eutherpe` is easy going.
 
+> [!TIP]
+> At the `Music` screen exists a "cherry button" that you can use to add the entire up next
+> or some songs from it to a `playlist`. It follows the same dynamics.
+
 ![Add to playlist](figures/eus-pt-br-collection-add-to-playlist.png)
 **Figure 5**: Do you like creating music lists?
 
@@ -335,6 +339,7 @@ The functions offered by this screen are:
 - `REMOVE SONGS...` (you select the song(s) you want to remove).
 - `REPRODUCE` (you will play the selected `playlist`).
 - `REPRODUCE SELECTION` (you will play only the specific songs selected from a playlist).
+- `BACKUP...` (you will copy the playlists to the selected storage device).
 
 Done! You have just graduated at the `Eutherpe DJs` school, congrats!
 
@@ -344,7 +349,7 @@ Done! You have just graduated at the `Eutherpe DJs` school, congrats!
 
 The `Storage` screen is where you tell to `Eutherpe` the source of your songs.
 
-The **Figure 11** depicts what you will get on this screen. This screen offers three operations:
+The **Figure 11** depicts what you will get on this screen. This screen offers five operations:
 
 - `LIST` (all `USB` devices found are listed, if you have just plugged a USB stick, it is necessary
 to click on this button to access you new device).
@@ -352,6 +357,8 @@ to click on this button to access you new device).
 - `SCAN` (the selected device is scanned and the collection is extracted, organized and shown at
 the Collection screen, the first scanning tends to take longer, this is because the way of
 `USB` devices work on `Linux`).
+- `CONVERT` (all songs encoded as `MP4` or `M4A` will be converted into `MP3`, this is necessary to play those songs).
+- `RESTORE PLAYLISTS...` (restores a previous playlists copy from the storage device).
 
 ![Storage screen](figures/eus-pt-br-storage-screen.png)
 **Figure 11**: The `Storage` screen.
