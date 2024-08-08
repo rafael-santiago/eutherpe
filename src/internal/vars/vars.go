@@ -26,6 +26,7 @@ import (
     "strings"
     "net"
     "time"
+    "crypto/sha256"
 )
 
 type EutherpeVars struct {
@@ -90,6 +91,7 @@ type EutherpeVars struct {
         ConnSession *exec.Cmd
         Addr string
     }
+    confSum [32]byte
     mtx sync.Mutex
 }
 
@@ -190,6 +192,9 @@ func (e *EutherpeVars) fromJSON(filePath string) error {
 }
 
 func (e *EutherpeVars) SaveSession() error {
+    if !e.shouldSaveSession() {
+        return nil
+    }
     playerSettings := e.toJSON()
     if len(playerSettings) == 0 {
         return fmt.Errorf("Unable to serialize player settings.")
@@ -275,6 +280,27 @@ func (e *EutherpeVars) LoadPlaylists() error {
         e.Playlists = append(e.Playlists, playlist)
     }
     return nil
+}
+
+func (e *EutherpeVars) shouldSaveSession() bool {
+    confPool := fmt.Sprintf("%v%v", e.HTTPd.Authenticated, e.HTTPd.TLS)
+    confPool += e.CachedDevices.BlueDevId
+    confPool += e.CachedDevices.MusicDevId
+    confPool += e.CollectionHTML
+    confPool += e.UpNextHTML
+    confPool += e.PlaylistsHTML
+    confPool += e.RenderedIndexHTML
+    confPool += e.RenderedGateHTML
+    confPool += e.RenderedAlbumArtThumbnailHTML
+    confPool += fmt.Sprintf("%v%v%v%d", e.Player.Shuffle, e.Player.RepeatAll, e.Player.RepeatOne, e.Player.VolumeLevel)
+    confPool += e.WLAN.ESSID
+    confPool += fmt.Sprintf("%d", e.Player.UpNextCurrentOffset)
+    sum := sha256.Sum256([]byte(confPool))
+    should := (sum != e.confSum)
+    if should {
+        e.confSum = sum
+    }
+    return should
 }
 
 func (e *EutherpeVars) SavePlaylists() error {
