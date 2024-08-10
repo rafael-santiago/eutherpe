@@ -15,6 +15,7 @@ minha festa.
 - [Construções básicas](#construções-básicas)
     - [if/else](#ifelse)
     - [for](#for)
+    - [switches](#switches)
     - [func](#func)
 - [Definition of done](#definition-of-done)
 - [Use linguagem neutra e inclusiva](#use-linguagem-neutra-e-inclusiva)
@@ -25,12 +26,12 @@ minha festa.
 isso um pacote `go`, graças a isso eu não preciso engolir aqueles espaçamentos chatos
 e impostos do `go fmt`.
 
-Aqui use `quatro espaços` para indentar e alinhar.  Coloque o seu editor para substituir `tab`
-por espaço, assim todo aquele `bla-bla-bla` e polêmica sobre qual é melhor **acaba**. Pois, pouco
-importa o que você usa para indentar, o problema é usar sempre espaço para alinhar. Se o `tab`
-já vira espaço, pouco importa se você bate `tab` ou espaço. Vai sair um espaço e nunca vai
-desalinhar em lugar nenhum. (**Mic drop**). Porém, lembre-se **eu uso `4 espaços` para representar
-o `tab`**.
+Aqui use `quatro espaços` para indentar e espaço para alinhar.  Coloque o seu editor para
+substituir `tab` por espaço, assim todo aquele `bla-bla-bla` e polêmica sobre qual é melhor
+**acaba**. Pois, pouco importa o que você usa para indentar, o problema é usar sempre espaço
+para alinhar. Se o `tab` já vira espaço, pouco importa se você bate `tab` ou espaço. Vai sair
+um espaço e nunca vai desalinhar em lugar nenhum. (**Mic drop**). Porém, lembre-se **eu uso
+`4 espaços` para representar o `tab`**.
 
 Oitenta colunas como tamanho máximo de linhas é miserável. Procure não passar de cento e vinte
 colunas, estamos no século 21 e não existe forma de voltar ao passado (`2024`). Se você programa
@@ -190,6 +191,24 @@ for i := 1; i < 42; i++ {
 
 [`Voltar`](#tópicos)
 
+### switches
+
+Assim você formata `switches`:
+
+```go
+switch i {
+    case 0, 1, 2:
+        ...
+        break
+
+    case 3, 4, 5,
+         6, 7, 8:
+        break
+}
+```
+
+[`Voltar`](#tópicos)
+
 ### func
 
 Funções são assim:
@@ -221,7 +240,7 @@ palavras você fez uso da navalha de Occam.
 7. Ela é bem documentada.
 8. O commit que adiciona a feature para o upstream é descritivo.
 9. A mensagem de commit está em modo imperativo. Parecendo que você dá comandos ao sistema
-de controle de versão. Então `Dando commandos ao controle de versão` é errado. `Dá comandos
+de controle de versão. Então `Dando comandos ao controle de versão` é errado. `Dá comandos
 ao controle de versão` também. `Dê comandos ao controle de versão`. Não tenha vergonha de
 ser mandona/mandão com ele! :wink:
 

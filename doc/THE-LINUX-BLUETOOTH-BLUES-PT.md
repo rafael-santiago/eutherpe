@@ -95,7 +95,7 @@ Sim, mais um `set` de configuração.....
 Aqui cabe falta de malícia e capacidade de inferência, se o `pulseaudio` roda de um `desktop`
 é bem certo que o usuário não está dando a mínima para funções `hands-free`.
 
-Cheguei num ponto que o `Eutherpe` já tinha tanta gambiarra para conviver com a ruindade do
+Cheguei num ponto que `Eutherpe` já tinha tanta gambiarra para conviver com a ruindade do
 `PulseAudio` que eu constatei que se você usa uma coisa tão ruim como contrapartida para seu
 `software`, bem certo que aquela ruindade, desleixo, falta de jeito de resolver de forma
 geral as coisas, vai transbordar dessa parte zoada para todas as outras. O que estiver
