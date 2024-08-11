@@ -26,11 +26,11 @@ minha festa.
 isso um pacote `go`, graças a isso eu não preciso engolir aqueles espaçamentos chatos
 e impostos do `go fmt`.
 
-Aqui use `quatro espaços` para indentar e espaço para alinhar.  Coloque o seu editor para
+Aqui use `quatro espaços` para indentar e espaço para alinhar. Coloque o seu editor para
 substituir `tab` por espaço, assim todo aquele `bla-bla-bla` e polêmica sobre qual é melhor
 **acaba**. Pois, pouco importa o que você usa para indentar, o problema é usar sempre espaço
 para alinhar. Se o `tab` já vira espaço, pouco importa se você bate `tab` ou espaço. Vai sair
-um espaço e nunca vai desalinhar em lugar nenhum. (**Mic drop**). Porém, lembre-se **eu uso
+um espaço e nunca vai desalinhar em nenhum lugar, *yo!*. (**Mic drop**). Porém, lembre-se **eu uso
 `4 espaços` para representar o `tab`**.
 
 Oitenta colunas como tamanho máximo de linhas é miserável. Procure não passar de cento e vinte
@@ -39,7 +39,7 @@ de polainas e adora octal, vai dar uma olhada naquele DeLorean cor de gelo parad
 você tem aí uma caneta para rebobinar minha fita cassete?? Não quero gastar minhas pilhas...
 
 Falando em indentação, por favor evite abusar de código com `if` aninhado dentro de outros sem
-necessidade real. Sabe, vícios bem ruins como:
+necessidade real. Sabe, vícios bem ruins de gente sem muita experiência ou prática, como:
 
 ```go
 if i == 42 {
@@ -66,7 +66,7 @@ Falhe o mais cedo possível, pare de achar que o mundo é lindo enquanto program
 pela falha`, falhou? Tchau! A outra parte que chamou que se vire. Isso também evita aqueles
 código anhinhados Poliana: "se deu certo aqui, faz isso, se deu certo aqui, faça mais isso... Zzz".
 Aqui é Vietnã: "Se deu erro aqui, fim de conversa. Faz isso, deu erro aqui, não entra aqui e
-bom dia Vietnã, tchau.". Falo isso e repito: `Edgar Alan Poe` se não tivesse sido escritor
+bom dia Vietnã, tchau!". Falo isso e repito: `Edgar Alan Poe` se não tivesse sido escritor
 teria sido um ótimo programador. `Edward A. Murphy` a mesma coisa.
 
 É triste que a linguagem `Go` em certos casos orienta mesmo o programador produzir certos períodos
@@ -76,7 +76,7 @@ obrigado! :wink:
 Comece todo código com o copyright disclaimer. Organização. Sem isso, em pouco tempo o código
 vira um ninho de rato, acredite!
 
-Use `camelCase` para as variáveis. Nomes de função privadas e `EssaParaAsPublicas`. A convenção
+Use `camelCase` para as variáveis e nomes de funções privadas. `EssaParaAsPublicas`. A convenção
 básica de `Go` mesmo.
 
 Se comentar algo, se comprometa, ponha:
@@ -108,11 +108,11 @@ entregar o que se propõe. Acho essa ideia do `Go` de puxar fontes de bequinhos 
 momento do tempo, bastando apenas ter a versão exata do `Go` e acabou. Sou pragmático quanto
 à programação, não gosto de surpresas e sou maluco, aficionado por ter controle do código
 que produzo. A ideia de alguém impossibilitar o build do meu aplicativo porque mudou um repo
-ou comportamento de algo ao bel-prazer dela, acho absurda e não opcional. Nem considero.
-Meu objetivo é construir coisas que se mantenham em pé e que nem precisem mais de mim
-quando estiverem por aí funcionando. Quanto menos as pessoas se lembrarem de mim, me procurarem
-é porque o que eu fiz está funcionando. Em `T.I.` só vão lembrar de você para reclamar. Se
-não estão te enchendo, é porque está bom.
+ou comportamento de algo ao bel-prazer dela, acho absurda e não opcional. Para mim é atestado
+de incompetência. Nem considero. Meu objetivo é construir coisas que se mantenham em pé e que nem
+precisem mais de mim quando estiverem por aí funcionando. Quanto menos as pessoas se lembrarem de
+mim, me procurarem é porque o que eu fiz está funcionando. Em `T.I.` só vão lembrar de você para
+reclamar. Se não estão te enchendo, é porque está bom.
 
 Por fim mas não menos importante: **Busque status de roda nos seus construtos, por favor**.
 
@@ -137,8 +137,8 @@ No geral:
 
 - Procure deixar claro a precedência usando parênteses.
 - Comente partes intrincadas do código, pare de achar que você é um gênio ou poeta, isso não existe
-na programação, é tudo balela de gente que tem preguiça de aprender algo mais difícil que requeira
-de fato algum nível de virtuosismo :smirk:.
+na programação, é tudo balela de gente que tem preguiça ou é inapto em aprender algo mais difícil
+que requeira de fato algum nível de virtuosismo :smirk:.
 - Programe em inglês.
 - Mensagens de commit também são em inglês.
 - Documentações podem ser em português-BR e/ou inglês.
@@ -258,7 +258,7 @@ issue me sugerindo as melhorias. Obrigado desde já!
 Em geral evite usar cores para nomear o que deveria ser "bom" ou "mau". Termos ultrapassados
 como `whitelist`/`blacklist` estão depreciados/banidos aqui. Você deveria usar `allowlist/denylist`
 ou qualquer coisa mais relacionada ao que você realmente está fazendo. Termos como `master/slave`
-estão fora também. Você poderia usar `main`, `secodary`, `next`, `trunk`, `current`, `supervisor`,
+estão fora também. Você poderia usar `main`, `secondary`, `next`, `trunk`, `current`, `supervisor`,
 `worker` em substituição.
 
 Não use termos sexistas e/ou machistas também.
