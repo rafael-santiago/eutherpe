@@ -8,6 +8,7 @@
 
 EUTHERPE_USER=eutherpe
 EUTHERPE_PASSWD=eutherpe
+SHOULD_SETUP_ETH_RESCUE_IFACE=0
 
 has_internet_conectivity() {
     result=0
@@ -300,6 +301,36 @@ deactivate_avahi_daemon() {
     return 0
 }
 
+get_eth_iface() {
+    echo `ip link show | grep ': \(eth\|enp\)' | tail -1 | awk '{ print $2 }' | sed 's/://g'`
+}
+
+is_rescue_iface_set_already() {
+    echo `cat /etc/network/interfaces | grep 'address 42.42.42.42' | wc -l`
+}
+
+setup_eth_rescue_iface() {
+    eth_iface=`get_eth_iface`
+    exit_code=1
+    if [[ -z $eth_iface ]] ; then
+        echo "error: Unable to find out a ethernet interface." >&2
+    elif [[ `is_rescue_iface_set_already` == 0 ]] ; then
+        cp /etc/network/interfaces /etc/network/interfaces.bkp >/dev/null 2>&1
+        cat /etc/network/interfaces | grep -v $eth_iface > /etc/network/interfaces.stage
+        echo "auto $eth_iface" >> /etc/network/interfaces.stage
+        echo "iface $eth_iface inet static" >> /etc/network/interfaces.stage
+        echo " address 42.42.42.42" >> /etc/network/interfaces.stage
+        echo " netmask 255.255.255.0" >> /etc/network/interfaces.stage
+        echo " dns-domain euther-pi.rescue" >> /etc/network/interfaces.stage
+        mv /etc/network/interfaces.stage /etc/network/interface
+        exit_code=0
+    else
+        echo "=== bootstrap info: The ethernet rescue interface 42.42.42.42 is already set." >&2
+        exit_code=0
+    fi
+    echo $exit_code
+}
+
 `bootstrap_banner`
 
 echo "=== Checking on your Internet conectivity..."
@@ -321,6 +352,20 @@ do
     fi
     echo
 done
+
+if [[ $(echo `get_arch` | grep ^arm | wc -l) == 1 ]] ; then
+    answer="i"
+    while [[ ! $answer =~ ^[yYnN]$ ]]
+    do
+        read -p "Do you want to set up a rescue ethernet interface? [y/n] " -n 1 -r answer
+        if [[ $answer =~ ^[yY]$ ]]; then
+            echo
+            SHOULD_SETUP_ETH_RESCUE_IFACE=1
+            break
+        fi
+        echo
+    done
+fi
 
 if [[ `areUroot` == 0 ]] ; then
     exit 1
@@ -402,6 +447,16 @@ if [[ `create_usb_sto_mount_point` != 0 ]] ; then
 fi
 
 echo "=== bootstrap info: Done."
+
+if [[ $SHOULD_SETUP_ETH_RESCUE_IFACE == 1 ]] ; then
+    echo "=== bootstrap info: Setting up ethernet rescue interface 42.42.42.42..."
+    if [[ `setup_eth_rescue_iface` != 0 ]] ; then
+        echo "error: Unable to setup ethernet rescue interface." >&2
+        exit 1
+    fi
+    echo "=== bootstrap info: Done."
+fi
+
 echo "=== bootstrap info: Building and installing bluez-alsa..."
 
 `build_and_install_bluez_alsa`
