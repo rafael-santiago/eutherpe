@@ -30,7 +30,7 @@ Aqui use `quatro espaços` para indentar e espaço para alinhar. Coloque o seu e
 substituir `tab` por espaço, assim todo aquele `bla-bla-bla` e polêmica sobre qual é melhor
 **acaba**. Pois, pouco importa o que você usa para indentar, o problema é usar sempre espaço
 para alinhar. Se o `tab` já vira espaço, pouco importa se você bate `tab` ou espaço. Vai sair
-um espaço e nunca vai desalinhar em nenhum lugar, *yo!*. (**Mic drop**). Porém, lembre-se **eu uso
+um espaço e nunca vai desalinhar em nenhum lugar, *yo!* (**Mic drop**). Porém, lembre-se **eu uso
 `4 espaços` para representar o `tab`**.
 
 Oitenta colunas como tamanho máximo de linhas é miserável. Procure não passar de cento e vinte
@@ -39,7 +39,7 @@ de polainas e adora octal, vai dar uma olhada naquele DeLorean cor de gelo parad
 você tem aí uma caneta para rebobinar minha fita cassete?? Não quero gastar minhas pilhas...
 
 Falando em indentação, por favor evite abusar de código com `if` aninhado dentro de outros sem
-necessidade real. Sabe, vícios bem ruins de gente sem muita experiência ou prática, como:
+necessidade real. Isso aumenta a complexidade ciclomática. Evite coisas feito isso:
 
 ```go
 if i == 42 {
@@ -130,7 +130,7 @@ se aproximar disso</i>.
 
 ## Construções básicas
 
-À seguir você encontra a ideia geral de como se formata construções básicas
+A seguir você encontra a ideia geral de como se formata construções básicas
 que vão compor suas implementações.
 
 No geral:
