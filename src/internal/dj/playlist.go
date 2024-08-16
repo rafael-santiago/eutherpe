@@ -140,7 +140,7 @@ func (p *Playlist) LoadFrom(filePath string) error {
 
 func GetPlaylist(playlist string, playlists *[]Playlist) *Playlist {
     for p, curr_playlist := range *playlists {
-        if curr_playlist.Name == playlist {
+        if strings.ToLower(curr_playlist.Name) == strings.ToLower(playlist) {
             return &(*playlists)[p]
         }
     }
