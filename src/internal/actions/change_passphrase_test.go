@@ -51,7 +51,7 @@ func TestChangePassphrase(t *testing.T) {
     userData.Add(vars.EutherpePostFieldPassword, "123mudar*")
     err = ChangePassphrase(eutherpeVars, userData)
     if err != nil {
-        t.Errorf("ChangePassphrase() has failed when it should succeed.\n")
+        t.Errorf("ChangePassphrase() has failed when it should succeed : '%s'\n", err.Error())
     }
     time.Sleep(5 * time.Second)
     if !auth.Validate("123mudou", eutherpeVars.HTTPd.HashKey) {
