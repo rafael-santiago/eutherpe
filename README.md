@@ -1,4 +1,4 @@
-# Eutherpe
+# Eutherpe ![ci-status](https://github.com/rafael-santiago/eutherpe/actions/workflows/forge-specs.yml/badge.svg)
 
 `Eutherpe` é um tipo de fiação etérea para jukebox. Isso é a base do `Euther-Pi` que é um projeto `faça-você-mesmo` para
 trazer de volta o ritual prazeroso de escutar música longe de um super comportado, óbvio e sem-graça sistema computacional.
