@@ -322,7 +322,7 @@ setup_eth_rescue_iface() {
         echo " address 42.42.42.42" >> /etc/network/interfaces.stage
         echo " netmask 255.255.255.0" >> /etc/network/interfaces.stage
         echo " dns-domain euther-pi.rescue" >> /etc/network/interfaces.stage
-        mv /etc/network/interfaces.stage /etc/network/interface
+        mv /etc/network/interfaces.stage /etc/network/interfaces
         exit_code=0
     else
         echo "=== bootstrap info: The ethernet rescue interface 42.42.42.42 is already set." >&2

@@ -367,22 +367,36 @@ func (e *EutherpeVars) SetAddr() error {
     if err != nil {
         return err
     }
-    for _, iface := range ifaces {
-        if (iface.Flags & net.FlagLoopback) == 0 {
-            addrs, err := iface.Addrs()
-            if err != nil {
-                continue
-            }
-            for _, addr := range addrs {
-                ip, _, err := net.ParseCIDR(addr.String())
-                if err == nil {
-                    e.HTTPd.Addr = ip.String()
+    hasRescueIface := false
+    for _, version := range []int{ 4, 6 } {
+        for _, iface := range ifaces {
+            if (iface.Flags & net.FlagLoopback) == 0 {
+                addrs, err := iface.Addrs()
+                if err != nil {
+                    continue
+                }
+                for _, addr := range addrs {
+                    ip, _, err := net.ParseCIDR(addr.String())
+                    if err == nil {
+                        strAddr := ip.String()
+                        if version == 4 && strings.Index(strAddr, ":") > -1 {
+                            continue
+                        }
+                        if strAddr == "42.42.42.42" {
+                            hasRescueIface = true
+                            continue
+                        }
+                        e.HTTPd.Addr = strAddr
+                        break
+                    }
+                }
+                if len(e.HTTPd.Addr) > 0 {
                     break
                 }
             }
-            if len(e.HTTPd.Addr) > 0 {
-                break
-            }
+        }
+        if len(e.HTTPd.Addr) > 0 {
+            break
         }
     }
     if len(e.WLAN.ESSID) > 0 {
@@ -406,8 +420,12 @@ func (e *EutherpeVars) SetAddr() error {
             }
         }
     }
-    if len(e.HTTPd.Addr) == 0 {
+    if len(e.HTTPd.Addr) == 0 && !hasRescueIface {
         return fmt.Errorf("Unable to set a valid IP")
+    }
+    if hasRescueIface && len(e.HTTPd.Addr) == 0 {
+        e.HTTPd.Addr = "42.42.42.42"
+        fmt.Printf("info: Eutherpe is using rescue interface '42.42.42.42'.\n")
     }
     return nil
 }
