@@ -331,6 +331,12 @@ setup_eth_rescue_iface() {
     echo $exit_code
 }
 
+set_wpa_supplicant_access_rights() {
+    touch /etc/wpa_supplicant/wpa_supplicant.conf >/dev/null 2>&1
+    chmod ugo+rw /etc/wpa_supplicant/wpa_supplicant.conf >/dev/null 2>&1
+    return 0
+}
+
 `bootstrap_banner`
 
 echo "=== Checking on your Internet conectivity..."
@@ -409,6 +415,14 @@ echo "=== bootstrap info: granting $EUTHERPE_USER some nopasswd privileges..."
 
 if [[ `grant_eutherpe_user_nopasswd_privileges` != 0 ]] ; then
     echo "error: Unable to grant nopasswd privileges to $EUTHERPE_USER." >&2
+    exit 1
+fi
+
+echo "=== bootstrap info: Done."
+echo "=== bootstrap info: Setting up /etc/wpa_supplicant/wpa_supplicant.conf access rights..."
+
+if [[ `set_wpa_supplicant_access_rights` != 0 ]] ; then
+    echo "error: Unable to set /etc/wpa_supplicant/wpa_supplicant.conf access rights." >&2
     exit 1
 fi
 
