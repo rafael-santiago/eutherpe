@@ -93,7 +93,18 @@ func LeaseAddr(ifaceName string, customPath... string) (string, error) {
     if s_end == -1 {
         return "", fmt.Errorf("Unable to get a valid ip")
     }
-    return sOut[s:s+s_end], nil
+    addr := sOut[s:s+s_end]
+    // INFO(Rafael): In raspbian I observed that after ingressing in AP the routes for multicasting
+    //               was not being set up and as a result the mDNS stuff was not going up. It was
+    //               failing with setsockopt failure.
+    if strings.Index(addr, ":") == -1 {
+        exec.Command("sudo", path.Join(getToolPath(customPath...), "ip"), "route", "del", "224.0.0.0/4", "dev", ifaceName).Run()
+        exec.Command("sudo", path.Join(getToolPath(customPath...), "ip"), "route", "add", "224.0.0.0/4", "dev", ifaceName).Run()
+    } else {
+        exec.Command("sudo", path.Join(getToolPath(customPath...), "ip"), "route", "del", "ff02::/120", "dev", ifaceName).Run()
+        exec.Command("sudo", path.Join(getToolPath(customPath...), "ip"), "route", "add", "ff02::/120", "dev", ifaceName).Run()
+    }
+    return addr, nil
 }
 
 func ReleaseAddr(ifaceName string, customPath... string) error {

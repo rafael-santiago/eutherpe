@@ -15,6 +15,7 @@ import (
     "os"
     "time"
     _ "internal/mplayer"
+    "internal/wifi"
     "strings"
 )
 
@@ -48,6 +49,11 @@ func main() {
     fmt.Printf("info: Bluetooth subsystem initialized!\n")
     eutherpeVars := &vars.EutherpeVars{}
     eutherpeVars.TuneUp()
+    if eutherpeVars.WLAN.ConnSession != nil {
+        defer wifi.ReleaseAddr(eutherpeVars.WLAN.Iface)
+        defer wifi.Stop(eutherpeVars.WLAN.ConnSession)
+        defer wifi.SetIfaceDown(eutherpeVars.WLAN.Iface)
+    }
     if len(eutherpeVars.HTTPd.Addr) == 0 ||
        strings.HasPrefix(eutherpeVars.HTTPd.Addr, "169.") {
         // TIP(Rafael): This is necessary to prevent Eutherpe listening to

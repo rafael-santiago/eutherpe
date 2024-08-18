@@ -406,6 +406,7 @@ func (e *EutherpeVars) SetAddr() error {
             fmt.Printf("warn: No WLAN interface was found.\n")
         } else {
             wifi.SetIfaceUp(wlanIfaces[0])
+            time.Sleep(3 * time.Second)
             e.WLAN.ConnSession, err = wifi.Start(wlanIfaces[0])
             if err == nil {
                 e.WLAN.Iface = wlanIfaces[0]
@@ -512,11 +513,6 @@ func (e *EutherpeVars) TuneUp() {
     e.HTTPd.AuthWatchdog.On()
     e.RestoreSession()
     e.SetAddr()
-    if e.WLAN.ConnSession != nil {
-        defer wifi.ReleaseAddr(e.WLAN.Iface)
-        defer wifi.Stop(e.WLAN.ConnSession)
-        defer wifi.SetIfaceDown(e.WLAN.Iface)
-    }
     if strings.HasPrefix(runtime.GOARCH, "arm") && len(e.HostName) == 0 {
         // INFO(Rafael): It is convenient because find out ip address of a
         //               raspberry pi it is a pain in the neck.

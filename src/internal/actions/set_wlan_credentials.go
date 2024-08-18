@@ -36,6 +36,7 @@ func SetWLANCredentials(eutherpeVars *vars.EutherpeVars, userData *url.Values) e
     err := wifi.SetWPAPassphrase(ESSID[0], password[0])
     if err ==  nil {
         eutherpeVars.WLAN.ESSID = ESSID[0]
+        eutherpeVars.SaveSession()
     }
     return err
 }

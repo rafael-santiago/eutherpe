@@ -332,6 +332,9 @@ func doMDNSServerRunN(proto, listenAddr string,
         log.Fatal(err)
     }
     l, err := net.ListenMulticastUDP(proto, nil, addr)
+    if err != nil {
+        return err
+    }
     l.SetReadBuffer(128)
     for {
         select {
