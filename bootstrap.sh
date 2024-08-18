@@ -94,7 +94,10 @@ grant_eutherpe_user_nopasswd_privileges() {
     echo "$EUTHERPE_USER        ALL=(ALL:ALL)   NOPASSWD: $(which shutdown)">>/etc/sudoers &&\
     echo "$EUTHERPE_USER        ALL=(ALL:ALL)   NOPASSWD: $(which systemctl) start bluealsa">>/etc/sudoers &&\
     echo "$EUTHERPE_USER        ALL=(ALL:ALL)   NOPASSWD: $(which systemctl) stop bluealsa">>/etc/sudoers &&\
-    echo "$EUTHERPE_USER        ALL=(ALL:ALL)   NOPASSWD: $(which systemctl) restart bluealsa">>/etc/sudoers
+    echo "$EUTHERPE_USER        ALL=(ALL:ALL)   NOPASSWD: $(which systemctl) restart bluealsa">>/etc/sudoers &&\
+    echo "$EUTHERPE_USER        ALL=(ALL:ALL)   NOPASSWD: $(which systemctl) start wpa_supplicant">>/etc/sudoers &&\
+    echo "$EUTHERPE_USER        ALL=(ALL:ALL)   NOPASSWD: $(which systemctl) stop wpa_supplicant">>/etc/sudoers &&\
+    echo "$EUTHERPE_USER        ALL=(ALL:ALL)   NOPASSWD: $(which systemctl) restart wpa_supplicant">>/etc/sudoers
     echo $?
 }
 
@@ -334,7 +337,7 @@ setup_eth_rescue_iface() {
 set_wpa_supplicant_access_rights() {
     touch /etc/wpa_supplicant/wpa_supplicant.conf >/dev/null 2>&1
     chmod ugo+rw /etc/wpa_supplicant/wpa_supplicant.conf >/dev/null 2>&1
-    return 0
+    echo $?
 }
 
 `bootstrap_banner`

@@ -513,6 +513,12 @@ func (e *EutherpeVars) TuneUp() {
     e.HTTPd.AuthWatchdog.On()
     e.RestoreSession()
     e.SetAddr()
+    nTry := 60
+    for e.HTTPd.Addr == "42.42.42.42" && nTry > 0 {
+        time.Sleep(1 * time.Second)
+        e.HTTPd.Addr = ""
+        e.SetAddr()
+    }
     if strings.HasPrefix(runtime.GOARCH, "arm") && len(e.HostName) == 0 {
         // INFO(Rafael): It is convenient because find out ip address of a
         //               raspberry pi it is a pain in the neck.

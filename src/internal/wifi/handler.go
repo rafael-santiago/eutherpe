@@ -67,6 +67,7 @@ network={
 }
 
 func Start(ifaceName string, customPath ...string) (*exec.Cmd, error) {
+    exec.Command("sudo", path.Join(getToolPath(customPath...), "systemctl"), "stop", "wpa_supplicant").Run()
     procHandle := exec.Command("sudo", path.Join(getToolPath(customPath...), "wpa_supplicant"), "-c", "/etc/wpa_supplicant/wpa_supplicant.conf", "-i", ifaceName)
     return procHandle, procHandle.Start()
 }
