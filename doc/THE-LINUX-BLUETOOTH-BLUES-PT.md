@@ -147,7 +147,7 @@ ter um `Bluetooth` decente e liso? É o que me perguntava...
 
 > [!NOTE]
 > Um fato interessante e para pensar e, talvez juntar os pontos: o `Bluetooth` do meu
->`iPod Shuffle`, cuja a última atualização parou no `iOS 9` (o atual é `17.6`[2024]), dá um
+>`iPod Touch`, cuja a última atualização parou no `iOS 9` (o atual é `17.6`[2024]), dá um
 > banho no `PulseAudio`, `PipeWire` e `WirePlumber` juntos. O subsistema `bluetooth` dele
 > conecta em qualquer dispositivo `Bluetooth` de saída, não engasga o som e faz o que se propõe,
 > toca música sem enrolação. Uma perfeição! `Apple`, hein? Que dizem ter fama de só funcionar com `Apple`...
@@ -260,7 +260,7 @@ baseadas em rádio, use cabos :electric_plug:. Porém, mesmo assim não se adapt
 
 Para mim, nós seres humanos temos duas super habilidades: o pensamento e a adaptabilidade. Com toda
 habilidade vem de quebra o seu efeito rebote. O rebote do pensamento é ficar pensando demais e não
-agir. O rebote da adaptabilidade é se adaptar à situações inaceitáveis, normalizá-las, comer merda
+agir. O rebote da adaptabilidade é se adaptar a situações inaceitáveis, normalizá-las, comer merda
 e depois de um tempo sentir que está se deliciando com uma ganache dos deuses. Reconheça sua
 natureza humana e suas exclusivas habilidades e: **cuidado com elas!** Se algo é ruim e não atende
 os seus requisitos, jogue fora e vá procurar algo melhor que te atenda! :dart:

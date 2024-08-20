@@ -86,7 +86,7 @@ As principais características de `Eutherpe` são:
 ### Ãhm?!
 
 > [!IMPORTANT]
-> Se você não é da guange voadora dos malucos (leia-se gente que programa computadores), talvez
+> Se você não é da gangue voadora dos malucos (leia-se gente que programa computadores), talvez
 > seja legal entender o que cargas d'água significa `bootstrapping`.
 
 Bem, isso é um termo que utilizamos para indicar que vamos provisionar todo o necessário para

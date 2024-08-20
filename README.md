@@ -2,7 +2,7 @@
 
 `Eutherpe` é um tipo de fiação etérea para jukebox. Isso é a base do `Euther-Pi` que é um projeto `faça-você-mesmo` para
 trazer de volta o ritual prazeroso de escutar música longe de um super comportado, óbvio e sem-graça sistema computacional.
-A essência aqui é evitar ficar atrelado à telas e botões, subscrições, propaganda, sugestões enxeridas e blá-blá-blá. Vamos
+A essência aqui é evitar ficar atrelado a telas e botões, subscrições, propaganda, sugestões enxeridas e blá-blá-blá. Vamos
 parar com todo esse ruído de merda e ouvir as músicas que amamos. Esse é o convite que `Eutherpe` e `Euther-Pi` fazem
 a você. Com `Eutherpe` nos somos capazes de criar o equivalente a um serviço de streaming pessoal e `self-hosted` para tocar
 música em casa. Tudo que você precisa fazer é alimentar `Eutherpe` com sua biblioteca `MP3/4`, conectá-la a uma caixa de
