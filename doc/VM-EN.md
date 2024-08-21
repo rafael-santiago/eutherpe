@@ -32,7 +32,7 @@ In order to create our `Eutherpe` `VM` (**V**irtual **M**achine) we will use the
 application.
 
 You will need to install `Virtualbox` in your system and once it done, we will create a virtual
-machine based on an `OVA` that I previously prepared, available at [here](https://drive.google.com/file/d/1oow6zf-eEzRe6ySEQTkC9orsYNtQ3ZjJ/view?usp=sharing).
+machine based on an `OVA` that I previously prepared, available at [here](https://drive.google.com/file/d/1JBaB8biMJ0UaOQMg8X2aD-hcuFYnRbg-/view?usp=sharing).
 
 Done! If you have installed `Virtualbox` and downloaded the `OVA` you have already everyhing you
 need to continue.

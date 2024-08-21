@@ -1,17 +1,11 @@
-<img src="doc/figures/readme-glyph.png" width="259" height="438" style="box-shadow: 1px 1px 10px 0px black;">
+<img src="doc/figures/readme-glyph.png" width="359" height="438" style="box-shadow: 1px 1px 10px 0px black;">
 
 >[!TIP]
->Eutherpe é sobre as nuvens,<br>
->onde para tornar a experiência interessante,<br>
->tudo dependerá de você e da sua bagagem musical.<br>
->Ao usar Eutherpe, esqueça telas, pois,<br>
->a sua Música precisa voltar a ser a principal estrela,<br>
->nesse ritual tão banalizado...<br>
->Sim, escutar hoje em dia (inclusive música) é algo bem atípico<br>
->Sejamos a resistência!<br>
+>Já aviso: Eutherpe é sobre as nuvens, onde para tornar a experiência interessante,
+>tudo dependerá de você e da sua bagagem musical. Ao usar Eutherpe, esqueça telas, pois,
+>a sua Música precisa voltar a ser a principal estrela nesse ritual tão banalizado...
+>Sim, escutar hoje em dia (inclusive música) é algo bem atípico. Sejamos a resistência!
 >Escutemos!<br>
->Aqui deixo uma provocação: você ainda é capaz de ouvir algo sem que te mandem ou sugiram ouvir?<br>
->Você ainda se lembra de como se faz isso?<br>
 >:fist_raised: :vulcan_salute: :metal: :headphones: :notes: :dancer: :guitar: :drum:
 
 ---
