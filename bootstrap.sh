@@ -9,6 +9,7 @@
 EUTHERPE_USER=eutherpe
 EUTHERPE_PASSWD=eutherpe
 SHOULD_SETUP_ETH_RESCUE_IFACE=0
+EUTHERPE_DEFAULT_PORT=8080
 
 has_internet_conectivity() {
     result=0
@@ -230,6 +231,9 @@ install_eutherpe() {
     chmod 777 /usr/sbin/eutherpe-usb-watchdog.sh
     chmod 777 /usr/sbin/run-eutherpe.sh
     cp src/etc/systemd/system/*.service /etc/systemd/system/ >/dev/null 2>&1
+    if [[ $EUTHERPE_DEFAULT_PORT != 8080 ]]; then
+        sed -i "s/^eutherpe/eutherpe --listen-port=$EUTHERPE_DEFAULT_PORT//g" /etc/systemd/system/eutherpe.service >/dev/null 2>&1
+    fi
     systemctl start eutherpe-usb-watchdog eutherpe >/dev/null 2>&1
     systemctl enable eutherpe-usb-watchdog >/dev/null 2>&1
     systemctl enable eutherpe >/dev/null 2>&1
@@ -340,6 +344,18 @@ set_wpa_supplicant_access_rights() {
     echo $?
 }
 
+is_valid_number() {
+    echo `echo $1 | grep "[0-9]\{1,\}$" | wc -l`
+}
+
+is_valid_port() {
+    is_valid=`is_valid_number $1`
+    if [[ $is_valid == 1 ]] && ! ([ "$1" -gt "0" ] && [ "$1" -le "65535" ]) ; then
+        is_valid=0
+    fi
+    echo $is_valid
+}
+
 `bootstrap_banner`
 
 echo "=== Checking on your Internet conectivity..."
@@ -360,6 +376,22 @@ do
         exit 1
     fi
     echo
+done
+
+answer="i"
+while [[ ! $answer =~ ^[yYnN]$ ]]
+do
+    read -p "Do you want to change Eutherpe's default listen port (8080)? [y/n] " -n 1 -r answer
+    if [[ $answer =~ ^[yY]$ ]]; then
+        echo
+        read -p "Type the new listen port number: " EUTHERPE_DEFAULT_PORT
+        if [[ `is_valid_port $EUTHERPE_DEFAULT_PORT` == 0 ]]; then
+            echo "error: $EUTHERPE_DEFAULT_PORT is not a valid port."
+            exit 1
+        fi
+    else
+        echo
+    fi
 done
 
 if [[ $(echo `get_arch` | grep ^arm | wc -l) == 1 ]] ; then
