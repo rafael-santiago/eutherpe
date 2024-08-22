@@ -15,6 +15,7 @@ import (
     "internal/auth"
     "internal/wifi"
     "internal/mdns"
+    "internal/options"
     "sync"
     "os/exec"
     "runtime"
@@ -534,7 +535,7 @@ func (e *EutherpeVars) TuneUp() {
         e.MDNS.Hosts = append(e.MDNS.Hosts, mdns.MDNSHost { e.HostName, ipAddr, 300, })
         go mdns.MDNSServerStart(e.MDNS.Hosts, e.MDNS.GoinHome)
     }
-    e.HTTPd.Port = "8080"
+    e.HTTPd.Port = options.Get(EutherpeOptionListenPort, "8080")
 }
 
 const EutherpeVersion = "v1"
@@ -690,3 +691,5 @@ const EutherpeGateTemplate = 2
 
 const EutherpeMusicDevRootDir = ".eutherpe"
 const EutherpeMusicDevPlaylistsDir = "playlists"
+
+const EutherpeOptionListenPort = "listen-port"

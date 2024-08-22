@@ -14,24 +14,23 @@ import (
     "internal/webui"
     "os"
     "time"
-    _ "internal/mplayer"
     "internal/wifi"
+    "internal/options"
     "strings"
 )
 
 func main() {
-    //str := []rune("")
-    //for r, s := range str {
-    //    fmt.Println(r, s)
-    //}
-    //os.Exit(1)
-    //songInfo, err1 := mplayer.GetSongInfo("lovestain.mp3")
-    //fmt.Println(songInfo.Artist, songInfo.Album, songInfo.TrackNumber, songInfo.Title, songInfo.FilePath, len(songInfo.AlbumCover), err1)
-    //rn := []rune(songInfo.Title)
-    //for r, s := range rn {
-    //    fmt.Println(r, s)
-    //}
-    //os.Exit(1)
+    if options.HasFlag("version") {
+        version()
+        os.Exit(0)
+    } else if options.HasFlag("help") {
+        help()
+        os.Exit(0)
+    }
+    exec()
+}
+
+func exec() {
     fmt.Printf("info: Initializing bluealsa subsystem... wait...\n")
     err := bluebraces.StartBlueAlsa()
     if err != nil {
@@ -69,13 +68,21 @@ func main() {
                                                 eutherpeVars.CachedDevices.BlueDevId)
     }
     fmt.Printf("info: Listen at %s:%s\n", eutherpeVars.HTTPd.Addr, eutherpeVars.HTTPd.Port)
+    os.Remove("/tmp/cache.mp3")
     webui.RunWebUI(eutherpeVars)
     eutherpeVars.HTTPd.AuthWatchdog.Off()
     eutherpeVars.SaveSession()
     if len(eutherpeVars.HostName) > 0 {
         eutherpeVars.MDNS.GoinHome <- true
     }
-    os.Remove("/tmp/cache.mp3")
+}
+
+func version() {
+    fmt.Printf("eutherpe-%s\n", vars.EutherpeVersion)
+}
+
+func help() {
+    fmt.Printf("use: %s [ --listen-port=<port-number|defaults to 8080> | --version | --help ]\n", os.Args[0])
 }
 
 func tryToPairWithPreviousBluetoothDevice(eutherpeVars *vars.EutherpeVars,

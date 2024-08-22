@@ -26,3 +26,5 @@ require internal/mdns v1.0.0
 replace internal/mdns => ./internal/mdns
 require internal/system v1.0.0
 replace internal/system => ./internal/system
+require internal/options v1.0.0
+replace internal/options => ./internal/options
