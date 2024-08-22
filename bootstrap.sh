@@ -232,7 +232,7 @@ install_eutherpe() {
     chmod 777 /usr/sbin/run-eutherpe.sh
     cp src/etc/systemd/system/*.service /etc/systemd/system/ >/dev/null 2>&1
     if [[ $EUTHERPE_DEFAULT_PORT != 8080 ]]; then
-        sed -i "s/^eutherpe/eutherpe --listen-port=$EUTHERPE_DEFAULT_PORT//g" /etc/systemd/system/eutherpe.service >/dev/null 2>&1
+        sed -i "s/^eutherpe.*$/eutherpe --listen-port=$EUTHERPE_DEFAULT_PORT/g" /usr/sbin/run-eutherpe.sh >/dev/null 2>&1
     fi
     systemctl start eutherpe-usb-watchdog eutherpe >/dev/null 2>&1
     systemctl enable eutherpe-usb-watchdog >/dev/null 2>&1

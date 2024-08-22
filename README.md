@@ -1,4 +1,4 @@
-<img src="doc/figures/readme-glyph.png" width="359" height="438" style="box-shadow: 1px 1px 10px 0px black;">
+<img src="doc/figures/readme-glyph.png">
 
 >[!TIP]
 >Já aviso: Eutherpe é sobre as nuvens, onde para tornar a experiência interessante,
