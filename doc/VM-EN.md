@@ -1,3 +1,4 @@
+![VM-DOC-GLYPH](figures/vm-doc-glyph.png)
 # Running Eutherpe from a virtual machine
 
 **Abstract**: This text is intended to show the main steps of how to configure `Eutherpe`
