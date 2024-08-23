@@ -56,7 +56,7 @@ No caso da `OVA Eutherpe` o que eu fiz foi criar uma máquina virtual baseada em
 cuidei de instalar apenas os aplicativos mais básicos para subir um sistema operacional no
 qual pudesse ser possível executar `Eutherpe`. Sim, depois que acabei a instalação mínima do
 `Debian 12` eu baixei os fontes da `Eutherpe` e rodei o `bootstrap` (se você não leu o manual
-ainda, [leia-o](MANUAL-PT.md) e *voilá*, desliguei a máquina virtual e criei a `OVA` (até rimou).
+ainda, [leia-o](MANUAL-PT.md) e *voilà*, desliguei a máquina virtual e criei a `OVA` (até rimou).
 
 Com essa `OVA`, o que você fará (rimou de novo...) vai ser importá-la a partir do seu
 `Virtualbox` e você terá exatamente a máquina que preparei, precisando apenas fazer um pequeno
