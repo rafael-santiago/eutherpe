@@ -16,9 +16,9 @@
 trazer de volta o ritual prazeroso de escutar música longe de um super comportado, óbvio e sem-graça sistema computacional.
 A essência aqui é evitar ficar atrelado a telas e botões, subscrições, propaganda, sugestões enxeridas e blá-blá-blá. Vamos
 parar com todo esse ruído de merda e ouvir as músicas que amamos. Esse é o convite que `Eutherpe` e `Euther-Pi` fazem
-a você. Com `Eutherpe` nos somos capazes de criar o equivalente a um serviço de streaming pessoal e `self-hosted` para tocar
-música em casa. Tudo que você precisa fazer é alimentar `Eutherpe` com sua biblioteca `MP3/4`, conectá-la a uma caixa de
-som/`headphone` `bluetooth` e ir se divertir.
+a você. Com `Eutherpe` nós somos capazes de criar o equivalente a um serviço de streaming pessoal e `self-hosted` para tocar
+música em casa. Tudo que você precisa fazer é alimentar `Eutherpe` com sua biblioteca `MP3/4` e conectá-la a uma caixa de
+som/`headphone` `bluetooth` e por fim, ir se divertir.
 
 > [!NOTE]
 > Você não precisa pôr `Eutherpe` dentro de um `Raspberry Pi` mas isso é uma tarefa muito bacana de fazer e eu desconfio que
