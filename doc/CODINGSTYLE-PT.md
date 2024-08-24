@@ -17,6 +17,7 @@ minha festa.
     - [for](#for)
     - [switches](#switches)
     - [func](#func)
+- [Não polua a instalação go, esqueça download de packages](#não-polua-a-instalação-go-esqueça-download-de-packages)
 - [Definition of done](#definition-of-done)
 - [Use linguagem neutra e inclusiva](#use-linguagem-neutra-e-inclusiva)
 
@@ -225,6 +226,42 @@ func PublicFunc(i, j int, str string) ([]byte, error) {
 
 [`Voltar`](#tópicos)
 
+## Não polua a instalação go, esqueça download de packages
+
+A ideia é sempre usar a biblioteca padrão `go`. No caso das `packages` internas `Eutherpe`, evite
+instalá-las no seu `GOROOT`, esqueça toda essa baboseira.
+
+Quando for iniciar uma nova package abaixo de `src/internal` rode esse comando para criar o
+`go.mod` (vamos supor que você vai criar a package `shoobeedooblaublau`):
+
+```
+# mkdir src/internal/shoobeedooblaublau
+# cd src/internal/shoobeedooblaublau
+# go mod init github.com/rafael-santiago/eutherpe/shoobeedooblaublau
+```
+No `src/go.mod` (note, no `go.mod` imediatamente abaixo de `src`) adicione:
+
+```
+require internal/shoobeedooblaublau v1.0.0
+replace internal/shoobeedooblaublau => ./internal/shoobeedooblaublau
+
+```
+
+Agora, por exemplo, se o pacote `shoobeedooblaublau` utilizar `mplayer`, no `src/internal/shoobeedooblaublau/go.mod`
+você precisa adicionar:
+
+```
+require internal/mplayer v1.0.0
+replace internal/mplayer => ../mplayer
+```
+
+Esse cuidado é bom pois torna tudo mais autocontido e não bagunça o seu `GOROOT` com toda aquela
+suruba de pacotes baixados de qualquer lugar que `golang` se amarra em fazer. Eu acho essa
+"feature" uma ideia de jerico total, mas, o lance das tecnologias é desviar das más ideias e usar
+o que vale a pena, torcendo para que notem o quão idiota certas coisas são e purguem
+definitivamente essas tranqueiras em versões futuras :wink:!
+
+[`Voltar`](#tópicos)
 
 ## Definition of done
 

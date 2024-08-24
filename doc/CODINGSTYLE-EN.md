@@ -16,6 +16,7 @@ will enroll in a party that has already begun, this is my party.
     - [for](#for)
     - [switches](#switches)
     - [func](#func)
+- [Do not polute the go installation, forget about downloading packages](#do-not-polute-the-go-installation-forget-about-downloading-packages)
 - [Definition of done](#definition-of-done)
 - [Use inclusive and neutral language](#use-inclusive-and-neutral-language)
 
@@ -204,6 +205,42 @@ func PublicFunc(i, j int, str string) ([]byte, error) {
 
 [`Back`](#topics)
 
+## Do not polute the go installation, forget about downloading packages
+
+The idea is always using the `go` standard libraries. In the case of internal `Eutherpe` `packages`,
+avoid installing them in your `GOROOT`, forget about this bullshit.
+
+When initialising a new package under `src/internal` run the command to create the `go.mod`
+(let's suppose that you will create the package `shoobeedooblaublau`):
+
+```
+# mkdir src/internal/shoobeedooblaublau
+# cd src/internal/shoobeedooblaublau
+# go mod init github.com/rafael-santiago/eutherpe/shoobeedooblaublau
+```
+
+In `src/go.mod` (notice, in `go.mod` immediately under `src`) add:
+
+```
+require internal/shoobeedooblaublau v1.0.0
+replace internal/shoobeedooblaublau => ./internal/shoobeedooblaublau
+```
+
+Now, as instance, if the package `shoobeedooblaublau` uses `mplayer`, in `src/internal/shoobeedooblaublau/go.mod`
+you need to add:
+
+```
+require internal/mplayer v1.0.0
+replace internal/mplayer => ../mplayer
+```
+
+This care it is good because it makes everything more self-contained avoid messing your `GOOROOT`
+with all that package-downloading-from-anywhere orgy that `golang` is hooked up on doing. I think
+that this "feature" is a such bad idea, but, the secret on using technologies is divert from
+the bad ideas and using only what matters, hoping that maintainers figure out how idiot is some
+utilities (utils that really are inutils) and so purge this trinket out from new versions :wink:!
+
+[`Back`](#topics)
 
 ## Definition of done
 
