@@ -10,6 +10,7 @@ EUTHERPE_USER=eutherpe
 EUTHERPE_PASSWD=eutherpe
 SHOULD_SETUP_ETH_RESCUE_IFACE=0
 EUTHERPE_DEFAULT_PORT=8080
+SHOULD_BUILD_AND_INSTALL_BLUEZ_ALSA=1
 
 has_internet_conectivity() {
     result=0
@@ -141,6 +142,9 @@ get_arch() {
 }
 
 is_golang_installed() {
+    if [[ -f /etc/profile.d/goenv.sh ]]; then
+        source /etc/profile.d/goenv.sh
+    fi
     go version >/dev/null 2>&1
     [[ $? == 0 ]] && echo "1" || echo "0"
 }
@@ -414,6 +418,30 @@ else
     echo "=== Okay, you are root user :) let's start..."
 fi
 
+if [[ `is_active eutherpe` == 1 ]]; then
+    echo "bootstrap info: An instance of eutherpe.service is running, let's stop it..."
+    systemctl stop eutherpe
+    if [[ `is_active eutherpe` == 1 ]]; then
+        echo "error: Unable to stop eutherpe.service" >&2
+        exit 1
+    fi
+    echo "bootstrap info: eutherpe.service was stopped."
+fi
+
+if [[ `is_active eutherpe-usb-watchdog` == 1 ]]; then
+    echo "bootstrap info: An instance of eutherpe-usb-watchdog.service is running, let's stop it..."
+    systemctl stop eutherpe-usb-watchdog
+    if [[ `is_active eutherpe-usb-watchdog` == 1 ]]; then
+        echo "error: Unable to stop eutherpe-usb-watchdog.service" >&2
+        exit 1
+    fi
+    echo "bootstrap info: eutherpe-usb-watchdog.service was stopped."
+fi
+
+if [[ `is_active bluealsa` == 1 ]]; then
+    SHOULD_BUILD_AND_INSTALL_BLUEZ_ALSA=0
+fi
+
 if [[ `has_eutherpe_user` == 1 ]] ; then
     echo "=== Nice, $EUTHERPE_USER user already exists."
 elif [[ `add_eutherpe_user` == 0 ]] ; then
@@ -465,7 +493,7 @@ echo "=== bootstrap info: Done."
 echo "=== bootstrap info: Installing golang..."
 
 if [[ `is_golang_installed` == 0 && `install_golang` != 0 ]] ; then
-    echo "error: Unable to install golang. ($x)" >&2
+    echo "error: Unable to install golang." >&2
     exit 1
 fi
 
@@ -506,16 +534,17 @@ if [[ $SHOULD_SETUP_ETH_RESCUE_IFACE == 1 ]] ; then
     echo "=== bootstrap info: Done."
 fi
 
-echo "=== bootstrap info: Building and installing bluez-alsa..."
-
-`build_and_install_bluez_alsa`
-
-if [[ $? != 0 ]] ; then
-    echo "error: Unable to install bluez-alsa." >&2
-    exit 1
+if [[ $SHOULD_BUILD_AND_INSTALL_BLUEZ_ALSA == 1 ]]; then
+    echo "=== bootstrap info: Building and installing bluez-alsa..."
+    `build_and_install_bluez_alsa`
+    if [[ $? != 0 ]] ; then
+        echo "error: Unable to install bluez-alsa." >&2
+        exit 1
+    fi
+    echo "=== bootstrap info: Done."
+else
+    echo "=== bootstrap info: bluez-alsa is already installed."
 fi
-
-echo "=== bootstrap info: Done."
 echo "=== bootstrap info: Now building Eutherpe..."
 
 if [[ `build_eutherpe` != 0 ]] ; then
