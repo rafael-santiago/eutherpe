@@ -67,7 +67,7 @@ Após feito o `login` `root` edite o arquivo `/etc/eutherpe/player.cache` e faç
 - No `prompt` `root` execute `systemctl restart eutherpe`.
 - Acesse `http://<endereço ip da máquina>:8080/eutherpe`. Se você alterou `Eutherpe`
 para usar `https`, use `https://<endereço ip da máquina>:8080/eutherpe`. Se você alterou
-a porta subistitua `:8080` por `:<porta que você escolheu`.
+a porta substitua `:8080` por `:<porta que você escolheu>`.
 - Uma vez que você acessou `Eutherpe` via `web` pode atualizar as infos de senha da Wi-Fi,
 reativando-a. Depois com todas as infos atualizadas, faça um reboot e tudo deve voltar ao normal.
 

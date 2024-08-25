@@ -239,6 +239,7 @@ Quando for iniciar uma nova package abaixo de `src/internal` rode esse comando p
 # cd src/internal/shoobeedooblaublau
 # go mod init github.com/rafael-santiago/eutherpe/shoobeedooblaublau
 ```
+
 No `src/go.mod` (note, no `go.mod` imediatamente abaixo de `src`) adicione:
 
 ```
@@ -259,7 +260,7 @@ Esse cuidado é bom pois torna tudo mais autocontido e não bagunça o seu `GORO
 suruba de pacotes baixados de qualquer lugar que `golang` se amarra em fazer. Eu acho essa
 "feature" uma ideia de jerico total, mas, o lance das tecnologias é desviar das más ideias e usar
 o que vale a pena, torcendo para que notem o quão idiota certas coisas são e purguem
-definitivamente essas tranqueiras em versões futuras :wink:!
+definitivamente essas tranqueiras de versões futuras :wink:!
 
 [`Voltar`](#tópicos)
 

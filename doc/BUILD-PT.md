@@ -40,7 +40,7 @@ Se quiser mais informações sobre o que está acontecendo no processo, execute:
 ```
 
 > [!TIP]
-> `Golang` tem um comportamento meio irritante de cachear o resultado dos testes
+> `Golang` tem um comportamento meio irritante de cachear o resultado dos testes,
 > se quiser forçar a execução de todos os testes, antes de dispará-los, limpe o
 > cache da seguinte forma:
 >
