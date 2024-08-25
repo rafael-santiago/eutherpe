@@ -8,10 +8,11 @@
 package auth
 
 import (
-    "os/exec"
     "math/rand"
     "time"
     "strings"
+    "crypto/sha256"
+    "encoding/base64"
 )
 
 const (
@@ -25,21 +26,18 @@ func HashKey(password string) string {
 
 func Validate(password, hashData string) bool {
     hashDataFields := strings.Split(hashData, "$")
-    if len(hashDataFields) < 3 {
+    if len(hashDataFields) < 2 {
         return false
     }
-    reHashData := hashKey(password, hashDataFields[2])
+    reHashData := hashKey(password, hashDataFields[1])
     return (reHashData == hashData)
 }
 
 func hashKey(password, salt string) string {
-    cmd := exec.Command("openssl", "passwd", "-6", "-salt", salt, "-stdin")
-    cmd.Stdin = strings.NewReader(password)
-    hashData, err := cmd.CombinedOutput()
-    if err != nil {
-        return ""
-    }
-    return strings.Replace(string(hashData), "\n", "", -1)
+    m := len(salt) >> 1
+    sum := sha256.Sum256([]byte(salt[:m] + password + salt[m:]))
+    strSum := base64.StdEncoding.EncodeToString(sum[:])
+    return (strSum + "$" + salt)
 }
 
 func getSalt() string {
