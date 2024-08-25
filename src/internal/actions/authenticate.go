@@ -36,5 +36,8 @@ func Authenticate(eutherpeVars *vars.EutherpeVars, userData *url.Values) error {
         remoteAddr[0] = remoteAddr[0][0:p]
     }
     eutherpeVars.HTTPd.AuthWatchdog.RefreshAuthWindow(remoteAddr[0])
+    // INFO(Rafael): Otherwise after a wrong passpharse even with the
+    //               current matching, it will keep on failing ad aeternum.
+    eutherpeVars.RenderedIndexHTML = ""
     return nil
 }

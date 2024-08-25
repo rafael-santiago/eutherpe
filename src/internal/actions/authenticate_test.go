@@ -59,6 +59,6 @@ func TestAuthenticate(t *testing.T) {
     userData.Add(vars.EutherpePostFieldPassword, "123mudar*")
     err = Authenticate(eutherpeVars, userData)
     if err != nil {
-        t.Errorf("Authenticate did return an error when it should not.\n")
+        t.Errorf("Authenticate did return an error when it should not : '%s'\n", err.Error())
     }
 }

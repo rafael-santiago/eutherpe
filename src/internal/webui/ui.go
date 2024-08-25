@@ -114,6 +114,8 @@ func (ehh *EutherpeHTTPHandler) handler(w http.ResponseWriter, r *http.Request) 
                     } else {
                         templatedOutput = ehh.eutherpeVars.HTTPd.IndexHTML
                         template = vars.EutherpeIndexTemplate
+                        // INFO(Rafael): It is needed otherwise we will get a redirection loop.
+                        ehh.eutherpeVars.RenderedIndexHTML = ""
                     }
                     if len(ehh.eutherpeVars.CurrentConfig) == 0 {
                         ehh.eutherpeVars.CurrentConfig = vars.EutherpeWebUIConfigSheetDefault
