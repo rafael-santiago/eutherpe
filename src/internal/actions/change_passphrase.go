@@ -12,6 +12,7 @@ import (
     "internal/auth"
     "net/url"
     "fmt"
+    "flag"
 )
 
 func ChangePassphrase(eutherpeVars *vars.EutherpeVars, userData *url.Values) error {
@@ -32,5 +33,8 @@ func ChangePassphrase(eutherpeVars *vars.EutherpeVars, userData *url.Values) err
         return fmt.Errorf("Wrong passphrase!")
     }
     eutherpeVars.HTTPd.HashKey = auth.HashKey(newPassword[0])
+    if flag.Lookup("test.v") == nil {
+        eutherpeVars.SaveSession()
+    }
     return nil
 }
