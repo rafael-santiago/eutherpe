@@ -11,6 +11,7 @@ EUTHERPE_PASSWD=eutherpe
 SHOULD_SETUP_ETH_RESCUE_IFACE=0
 EUTHERPE_DEFAULT_PORT=8080
 SHOULD_BUILD_AND_INSTALL_BLUEZ_ALSA=1
+SHOULD_REBOOT=1
 
 has_internet_conectivity() {
     result=0
@@ -418,6 +419,20 @@ else
     echo "=== Okay, you are root user :) let's start..."
 fi
 
+if [[ `is_active pulseaudio` == 1 ]]; then
+    echo "bootstrap warn: Eutherpe uses ALSA and bluez-ALSA, you need to uninstall or at least deactivate pulseaudio before proceeding." >&2
+    echo "aborted."
+    exit 1
+elif [[ `is_active pipewire` == 1 ]]; then
+    echo "bootstrap warn: Eutherpe uses ALSA and bluez-ALSA, you need to uninstall or at least deactivate pipewire before proceeding." >&2
+    echo "aborted."
+    exit 1
+elif [[ `is_active wireplumber` == 1]]; then
+    echo "boostrap warn: Eutherpe uses ALSA and bluez-ALSA, you need to uninstall or at least deactivate wireplumber before proceeding." >&2
+    echo "aborted."
+    exit 1
+fi
+
 if [[ `is_active eutherpe` == 1 ]]; then
     echo "bootstrap info: An instance of eutherpe.service is running, let's stop it..."
     systemctl stop eutherpe
@@ -440,12 +455,14 @@ fi
 
 if [[ `is_active bluealsa` == 1 ]]; then
     SHOULD_BUILD_AND_INSTALL_BLUEZ_ALSA=0
+    SHOULD_REBOOT=0
 fi
 
 if [[ `has_eutherpe_user` == 1 ]] ; then
     echo "=== Nice, $EUTHERPE_USER user already exists."
 elif [[ `add_eutherpe_user` == 0 ]] ; then
     echo "=== The $EUTHERPE_USER user was added."
+    SHOULD_REBOOT=1
 fi
 
 echo "=== bootstrap info: Adding $EUTHERPE_USER to sudo group..."
@@ -582,6 +599,9 @@ if [[ `is_active eutherpe-usb-watchdog` == 0 ]] ; then
 fi
 
 echo "=== bootstrap info: Nice, eutherpe-usb-watchdog.service is running."
-echo "=== bootstrap info: Done. Reboot within 3 seconds..."
-
-sleep 3 && shutdown -r now
+if [[ $SHOULD_REBOOT == 1 ]]; then
+    echo "=== bootstrap info: Done. Reboot within 3 seconds..."
+    sleep 3 && shutdown -r now
+else
+    echo "=== bootstrap info: Done."
+fi
