@@ -1,7 +1,8 @@
+![manual-glyph](figures/manual-glyph.png)
 # Eutherpe Manual
 
 **Abstract**: This document gathers all information about `Eutherpe`: my motivations, project
-decisions, how to install and using it.
+decisions, how to install and using it. Ultimately, here you learn how to ride your musical ether.
 
 # Topics
 

@@ -1,7 +1,8 @@
+![manual-glyph](figures/manual-glyph.png)
 # Manual Eutherpe
 
 **Resumo**: Esse texto reúne todas as informações sobre `Eutherpe`: minhas motivações, decisões
-de projeto, como instalar e usar.
+de projeto, como instalar e usar. Enfim, aqui você aprende pilotar o seu éter musical.
 
 ## Tópicos
 
