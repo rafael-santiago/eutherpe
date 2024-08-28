@@ -9,13 +9,14 @@ package main
 
 import (
     "internal/bluebraces"
-    "fmt"
     "internal/vars"
     "internal/webui"
-    "os"
-    "time"
     "internal/wifi"
     "internal/options"
+    "internal/mplayer"
+    "fmt"
+    "os"
+    "time"
     "strings"
 )
 
@@ -68,12 +69,15 @@ func exec() {
                                                 eutherpeVars.CachedDevices.BlueDevId)
     }
     fmt.Printf("info: Listen at %s:%s\n", eutherpeVars.HTTPd.Addr, eutherpeVars.HTTPd.Port)
-    os.Remove("/tmp/cache.mp3")
+    defer os.Remove(vars.EutherpeCachedMP3FilePath)
     webui.RunWebUI(eutherpeVars)
     eutherpeVars.HTTPd.AuthWatchdog.Off()
     eutherpeVars.SaveSession()
     if len(eutherpeVars.HostName) > 0 {
         eutherpeVars.MDNS.GoinHome <- true
+    }
+    if len(eutherpeVars.CachedDevices.BlueDevId) > 0 {
+        bluebraces.UnpairDevice(eutherpeVars.CachedDevices.BlueDevId)
     }
 }
 
@@ -99,7 +103,7 @@ func tryToPairWithPreviousBluetoothDevice(eutherpeVars *vars.EutherpeVars,
         eutherpeVars.Unlock()
         return
     }
-    blueDevs, _ := bluebraces.ScanDevices(3 * time.Second)
+    blueDevs, _ := bluebraces.ScanDevices(time.Duration(10 * time.Second))
     found := false
     for _, blueDev := range blueDevs {
         found = (blueDev.Id == previousDevice)
@@ -112,6 +116,9 @@ func tryToPairWithPreviousBluetoothDevice(eutherpeVars *vars.EutherpeVars,
         err = bluebraces.PairDevice(previousDevice)
         if err == nil {
             err = bluebraces.ConnectDevice(previousDevice)
+            if err == nil {
+                eutherpeVars.CachedDevices.MixerControlName, err = bluebraces.GetBlueAlsaMixerControlName()
+            }
         }
     } else {
         err = fmt.Errorf("Previous device powered off.")
@@ -121,5 +128,8 @@ func tryToPairWithPreviousBluetoothDevice(eutherpeVars *vars.EutherpeVars,
     if shouldTryAgain  {
         time.Sleep(3 * time.Second)
         go tryToPairWithPreviousBluetoothDevice(eutherpeVars, previousDevice)
+    } else {
+        mplayer.SetVolume(int(eutherpeVars.Player.VolumeLevel),
+                          eutherpeVars.CachedDevices.MixerControlName)
     }
 }

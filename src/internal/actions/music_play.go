@@ -66,8 +66,8 @@ func MusicPlay(eutherpeVars *vars.EutherpeVars, userData *url.Values) error {
     //               I believe that some nosy compiler "optimzation" was causing the
     //               inconsistence, not sure. I have been facing this issue on Go 1.19. :S
     shouldSetVolume := eutherpeVars.Player.Stopped || len(customPath) > 0
-    createCache(eutherpeVars.Player.NowPlaying.FilePath, "/tmp/cache.mp3")
-    eutherpeVars.Player.Handle, err = mplayer.Play("/tmp/cache.mp3", len(eutherpeVars.CachedDevices.BlueDevId) > 0, customPath)
+    createCache(eutherpeVars.Player.NowPlaying.FilePath, vars.EutherpeCachedMP3FilePath)
+    eutherpeVars.Player.Handle, err = mplayer.Play(vars.EutherpeCachedMP3FilePath, len(eutherpeVars.CachedDevices.BlueDevId) > 0, customPath)
     eutherpeVars.Player.Stopped = (err != nil)
     if eutherpeVars.Player.Stopped {
         return err
@@ -112,4 +112,3 @@ func createCache(src, dest string) {
     input, _ := ioutil.ReadFile(src)
     ioutil.WriteFile(dest, input, 0644)
 }
-

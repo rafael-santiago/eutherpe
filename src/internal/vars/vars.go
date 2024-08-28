@@ -693,3 +693,5 @@ const EutherpeMusicDevRootDir = ".eutherpe"
 const EutherpeMusicDevPlaylistsDir = "playlists"
 
 const EutherpeOptionListenPort = "listen-port"
+
+const EutherpeCachedMP3FilePath = "/tmp/cache.mp3"
