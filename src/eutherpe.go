@@ -76,9 +76,6 @@ func exec() {
     if len(eutherpeVars.HostName) > 0 {
         eutherpeVars.MDNS.GoinHome <- true
     }
-    if len(eutherpeVars.CachedDevices.BlueDevId) > 0 {
-        bluebraces.UnpairDevice(eutherpeVars.CachedDevices.BlueDevId)
-    }
 }
 
 func version() {
