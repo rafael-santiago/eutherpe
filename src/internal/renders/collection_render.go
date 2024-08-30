@@ -28,12 +28,14 @@ func renderCollectionListing(collection mplayer.MusicCollection) string {
     collectionHTML := "<ul id=\"eutherpeUL\">"
     artists := mplayer.GetArtistsFromCollection(collection)
     for _, artist := range artists {
+        artistId := fmt.Sprintf("%s-eutpid_%d", artist, idNr)
+        idNr++
         collectionHTML += "<li>"
-        collectionHTML += "<input type=\"checkbox\" onclick=\"flush_child(this);\" id=\"" + artist + "\" class=\"CollectionArtist\"><span class=\"caret\">" + artist + "</span>"
+        collectionHTML += "<input type=\"checkbox\" onclick=\"flush_child(this);\" id=\"" + artistId + "\" class=\"CollectionArtist\"><span class=\"caret\">" + artist + "</span>"
         collectionHTML += "<ul class=\"nested\">"
         albums := mplayer.GetAlbumsFromArtist(artist, collection)
         for _, album := range albums {
-            albumId := fmt.Sprintf("%s/%s-eutpid_%d", artist, album, idNr)
+            albumId := fmt.Sprintf("%s/%s-eutpid_%d", artistId, album, idNr)
             idNr++
             collectionHTML += "<li>"
             collectionHTML += "<input type=\"checkbox\" onclick=\"flush_child(this);\" id=\"" + albumId + "\" class=\"CollectionAlbum\"><span class=\"caret\">" + album + "</span>"

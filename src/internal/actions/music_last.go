@@ -47,6 +47,10 @@ func MusicLast(eutherpeVars *vars.EutherpeVars, userData *url.Values) error {
     }
     if jumpIndex == -1 {
         eutherpeVars.Player.UpNextCurrentOffset--
+        if eutherpeVars.Player.UpNextCurrentOffset == -1 &&
+           eutherpeVars.Player.RepeatAll {
+            eutherpeVars.Player.UpNextCurrentOffset = len(eutherpeVars.Player.UpNext) - 1
+        }
     } else if jumpIndex < eutherpeVars.Player.UpNextCurrentOffset {
         eutherpeVars.Player.UpNextCurrentOffset = jumpIndex
     }

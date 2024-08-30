@@ -48,6 +48,8 @@ func MusicNext(eutherpeVars *vars.EutherpeVars, userData *url.Values) error {
     if jumpIndex == -1 {
         if eutherpeVars.Player.UpNextCurrentOffset < len(eutherpeVars.Player.UpNext) - 1 {
             eutherpeVars.Player.UpNextCurrentOffset++
+        } else if eutherpeVars.Player.RepeatAll {
+            eutherpeVars.Player.UpNextCurrentOffset = 0
         }
     } else if jumpIndex > eutherpeVars.Player.UpNextCurrentOffset {
         eutherpeVars.Player.UpNextCurrentOffset = jumpIndex

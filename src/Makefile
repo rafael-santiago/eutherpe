@@ -21,6 +21,7 @@ define do_update
 		sleep 1s;\
 	    done;\
 	fi
+	@sleep 5s
 	@cp eutherpe $$(which eutherpe) && \
 	cp -rf web/ /etc/eutherpe/web/ && \
 	systemctl start eutherpe && \
@@ -36,8 +37,14 @@ eutherpe:
 	fi
 
 tests:
-	@go clean -testcache
-	@go test internal/... -v
+	@ if [ -f /etc/profile.d/goenv.sh ] ; then\
+	    . /etc/profile.d/goenv.sh ;\
+	    go clean -testcache ;\
+	    go test internal/... -v ;\
+	else \
+	    go clean -testcache ;\
+	    go test internal/... -v ;\
+	fi
 
 bootstrap:
 	@$(shell cd .. && ./bootstrap.sh)
