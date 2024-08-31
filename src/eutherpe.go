@@ -123,7 +123,7 @@ func tryToPairWithPreviousBluetoothDevice(eutherpeVars *vars.EutherpeVars,
     shouldTryAgain :=  (err != nil)
     eutherpeVars.Unlock()
     if shouldTryAgain  {
-        time.Sleep(3 * time.Second)
+        time.Sleep(10 * time.Second)
         go tryToPairWithPreviousBluetoothDevice(eutherpeVars, previousDevice)
     } else {
         mplayer.SetVolume(int(eutherpeVars.Player.VolumeLevel),

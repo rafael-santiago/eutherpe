@@ -21,7 +21,8 @@ define do_update
 		sleep 1s;\
 	    done;\
 	fi
-	@sleep 5s
+	@echo info: Wait...
+	@sleep 10s
 	@cp eutherpe $$(which eutherpe) && \
 	cp -rf web/ /etc/eutherpe/web/ && \
 	systemctl start eutherpe && \
