@@ -12,6 +12,8 @@ SHOULD_SETUP_ETH_RESCUE_IFACE=0
 EUTHERPE_DEFAULT_PORT=8080
 SHOULD_BUILD_AND_INSTALL_BLUEZ_ALSA=1
 SHOULD_REBOOT=1
+EUTHERPE_WIFI_ESSID=""
+EUTHERPE_WIFI_PASSPHRASE=""
 
 has_internet_conectivity() {
     result=0
@@ -205,21 +207,35 @@ create_usb_sto_mount_point() {
     echo $?
 }
 
-#patch_out_etc_bluetooth_main_conf() {
-#    # TIP(Rafael): With bredr stuff I got rid of cases when I could connect to a
-#    #              bluetooth device but no sound emanated from it.
-#    #              With multiple stuff I got rid of low quality sound connection cases.
-#    sed -i 's/.*ControllerMode.*=.*$/ControllerMode = bredr/g' /etc/bluetooth/main.conf &&
-#        sed -i 's/.*MultiProfile.*=.*$/MultiProfile = multiple/g' /etc/bluetooth/main.conf &&
-#            sed -i 's/\[General\]$/[General]\n\nDisable=Headset/g' /etc/bluetooth/main.conf
-#            systemctl restart bluetooth >/dev/null 2>&1
-#    echo 0
-#}
-
 build_eutherpe() {
     cd src
     go build -buildvcs=false >/dev/null 2>&1
     echo $?
+}
+
+setup_eutherpe_wifi_credentials() {
+    player_cache_data=`cat /etc/eutherpe/player.cache | sed 's/"ESSID":".*",//'`
+    patched_player_cache_data=`echo $player_cache_data | sed 's/^{/{"ESSID":"'$EUTHERPE_WIFI_ESSID'",/'`
+    echo $patched_player_cache_data >/etc/eutherpe/player.cache
+    psk=`wpa_passphrase $EUTHERPE_WIFI_ESSID $EUTHERPE_WIFI_PASSPHRASE | grep psk | grep -v '#psk'`
+    EUTHERPE_WIFI_PASSPHRASE=""
+    wpa_supplicant_conf="ctrl_interface=/run/wpa_supplicant
+fast_reauth=1
+#ap_scan=1
+#update_config=1
+#country=BR
+network={
+        scan_ssid=0
+        proto=WPA
+        key_mgmt=WPA-PSK
+        auth_alg=OPEN
+        ssid=\"$EUTHERPE_WIFI_ESSID\"
+$psk
+}"
+    mkdir -p /etc/wpa_supplicant >/dev/null 2>&1
+    echo "$wpa_supplicant_conf" >/etc/wpa_supplicant/wpa_supplicant.conf
+    psk=""
+    echo 0
 }
 
 install_eutherpe() {
@@ -227,6 +243,12 @@ install_eutherpe() {
     if [[ ! -f /etc/eutherpe/player.cache ]] ; then
         echo "{\"HostName\":\"eutherpe.local\"}" > /etc/eutherpe/player.cache
         chmod 755 /etc/eutherpe/player.cache
+    fi
+    if [[ ! -z $EUTHERPE_WIFI_ESSID ]] ; then
+        if [[ `setup_eutherpe_wifi_credentials` != 0 ]] ; then
+            echo "error: Unable to setup Wi-Fi credentials." >&2
+            return 1
+        fi
     fi
     chown -R $EUTHERPE_USER:$EUTHERPE_USER /etc/eutherpe >/dev/null 2>&1
     cp -rf src/web /etc/eutherpe/web >/dev/null 2>&1
@@ -361,6 +383,29 @@ is_valid_port() {
     echo $is_valid
 }
 
+get_wifi_credentials() {
+    read -p "Type the name of your Wi-Fi: " -r ESSID
+    if [[ $? != 0 ]] ; then
+        echo "error: Aborted." >&2
+        return 1
+    fi
+    if [[ -z $ESSID ]] ; then
+        echo "error: Null ESSID." >&2
+        return 1
+    fi
+    read -sp "Type the Wi-Fi passphrase: " -r PASSPHRASE
+    echo >&2
+    read -sp "Confirm the Wi-Fi passpharse: " -r pass_confirm
+    echo >&2
+    if [[ $PASSPHRASE != $pass_confirm ]] ; then
+        echo "error: The passphrase confirmation does not match." >&2
+        return 1
+    fi
+    pass_confirm=""
+    echo "$ESSID $PASSPHRASE"
+}
+
+
 `bootstrap_banner`
 
 echo "=== Checking on your Internet conectivity..."
@@ -413,6 +458,26 @@ if [[ $(echo `get_arch` | grep ^arm | wc -l) == 1 ]] ; then
     done
 fi
 
+if [[ $(echo `get_arch` | grep ^arm | wc -l) == 1 ]] ; then
+    answer="i"
+    while [[ ! $answer =~ ^[yYnN]$ ]]
+    do
+        read -p "Do you want to set up the Wi-Fi? [y/n] " -n 1 -r answer
+        if [[ $answer =~ ^[yY]$ ]]; then
+            echo
+            wlan_creds=`get_wifi_credentials`
+            if [[ -z $wlan_creds ]] ; then
+                exit 1
+            fi
+            EUTHERPE_WIFI_ESSID=`echo $wlan_creds | awk '{ print $1 }'`
+            EUTHERPE_WIFI_PASSPHRASE=`echo $wlan_creds | awk '{ print $2 }'`
+            wlan_creds=""
+            break
+        fi
+        echo
+    done
+fi
+
 if [[ `areUroot` == 0 ]] ; then
     exit 1
 else
@@ -427,7 +492,7 @@ elif [[ `is_active pipewire` == 1 ]]; then
     echo "bootstrap warn: Eutherpe uses ALSA and bluez-ALSA, you need to uninstall or at least deactivate pipewire before proceeding." >&2
     echo "aborted."
     exit 1
-elif [[ `is_active wireplumber` == 1]]; then
+elif [[ `is_active wireplumber` == 1 ]]; then
     echo "boostrap warn: Eutherpe uses ALSA and bluez-ALSA, you need to uninstall or at least deactivate wireplumber before proceeding." >&2
     echo "aborted."
     exit 1
@@ -481,15 +546,6 @@ if [[ `install_sysdeps` != 0 ]] ; then
 fi
 
 echo "=== bootstrap info: Done."
-
-#echo "=== bootstrap info: Patching out bluetooth stuff for keeping it up more stable."
-
-#if [[ `patch_out_etc_bluetooth_main_conf` != 0 ]] ; then
-#    echo "error: Unable to patch out '/etc/bluetooth/main.conf'." >&2
-#    exit 1
-#fi
-
-#echo "=== bootstrap info: Done."
 
 echo "=== bootstrap info: granting $EUTHERPE_USER some nopasswd privileges..."
 
