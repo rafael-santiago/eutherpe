@@ -100,6 +100,7 @@ func tryToPairWithPreviousBluetoothDevice(eutherpeVars *vars.EutherpeVars,
         eutherpeVars.Unlock()
         return
     }
+    eutherpeVars.Unlock()
     blueDevs, _ := bluebraces.ScanDevices(time.Duration(10 * time.Second))
     found := false
     for _, blueDev := range blueDevs {
@@ -109,23 +110,26 @@ func tryToPairWithPreviousBluetoothDevice(eutherpeVars *vars.EutherpeVars,
         }
     }
     var err error
+    var mixerControlName string
     if found {
         err = bluebraces.PairDevice(previousDevice)
         if err == nil {
             err = bluebraces.ConnectDevice(previousDevice)
             if err == nil {
-                eutherpeVars.CachedDevices.MixerControlName, err = bluebraces.GetBlueAlsaMixerControlName()
+                mixerControlName, err = bluebraces.GetBlueAlsaMixerControlName()
             }
         }
     } else {
         err = fmt.Errorf("Previous device powered off.")
     }
     shouldTryAgain :=  (err != nil)
-    eutherpeVars.Unlock()
     if shouldTryAgain  {
         time.Sleep(10 * time.Second)
         go tryToPairWithPreviousBluetoothDevice(eutherpeVars, previousDevice)
     } else {
+        eutherpeVars.Lock()
+        defer eutherpeVars.Unlock()
+        eutherpeVars.CachedDevices.MixerControlName = mixerControlName
         mplayer.SetVolume(int(eutherpeVars.Player.VolumeLevel),
                           eutherpeVars.CachedDevices.MixerControlName)
     }
