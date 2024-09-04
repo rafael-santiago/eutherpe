@@ -55,7 +55,7 @@ to get it out of the box, plug in some cables, power it on and done!
 The `OVA Eutherpe` is a vitual machine based on `Debian 12` where I installed all basic dependencies
 to have an operating system where I could be able to run `Eutherpe`. Yes, after installing this
 well basic `Debian 12` I downloaded the `Eutherpe` sources and executed the `bootstrap` (if you have
-not read the manual yet, [read it](MANUAL-EN.md) and *voilá*, I powered off the virtual machine
+not read the manual yet, [read it](MANUAL-EN.md) and *voilà*, I powered off the virtual machine
 and then I created the `OVA`.
 
 Taking this `OVA`, you will import it from your `Virualbox` and you will have the exact virtual

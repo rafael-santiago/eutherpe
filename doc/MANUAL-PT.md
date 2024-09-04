@@ -190,10 +190,18 @@ Hi there! I am the Eutherpe's bootstrap! What I am intending to do:
 Do you want to bootstrap your system? [y/n]
 (...)
 ```
+> [!TIP]
+> O script de bootstrap vai te perguntar se você deseja mudar a porta default da Eutherpe.
+> A padrão é a 8080, não é uma boa prática usar a porta 80. Mas caso você deseje mudar para
+> a porta que bem entender, é possível!
+
 Uma vez o `bootstrapping` feito você poderá acessar sua `jukebox` etérea a partir
 de um `web browser` mais próximo via o endereço: [`http://eutherpe.local:8080/eutherpe`](http://eutherpe.local:8080/eutherpe).
 
 *Voilà!* :sunglasses:
+
+> [!TIP]
+> Se você mudou a porta default acesse :point_right: `http://eutherpe.local:<porta-escolhida>/eutherpe`.
 
 É hora de conhecer a sua `juke` minimalista e sem frescuras!
 

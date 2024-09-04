@@ -187,10 +187,18 @@ Hi there! I am the Eutherpe's bootstrap! What I am intending to do:
 Do you want to bootstrap your system? [y/n]
 (...)
 ```
+> [!TIP]
+> The bootstrap script will ask you if do you want to change the Eutherpe's default listen port,
+> The default one is 8080, it is not considered a best practice using the port 80. Anyway, if
+> you want to change it to the port you think better, you can!
+
 Once the `bootstrapping` done you will be able to acces your ethereal `jukebox`
 by using a nearest `web browser` at [`http://eutherpe.local:8080/eutherpe`](http://eutherpe.local:8080/eutherpe).
 
 *Voilà!* :sunglasses:
+
+> [!TIP]
+> If you have changed the default port browse :point_right: `http://eutherpe.local:<chosen-port>/eutherpe`.
 
 Now it is time to know your no-frills-minimalist `juke`!
 
