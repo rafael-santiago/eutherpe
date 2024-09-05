@@ -33,6 +33,18 @@ som/`headphone` `bluetooth` e por fim, ir se divertir.
 
 Divirta-se! :wink:
 
+> [!IMPORTANT]
+> Eu não criei esse projeto com fins lucrativos, é algo útil e que uso muito no meu dia a dia e
+> que se for útil para outras pessoas além de mim, tá valendo! Se você curtiu o projeto e quiser
+> contribuir com dinheiro, redirecione isso para artistas independentes. Compre discos de seu(s)
+> artista(s) favorito(s), *inclusive os independentes*. Frequente shows. Se o show oferecer entrada
+> solidária, dê preferência para ela. Prestigie artistas de rua, se parou para assistí-los/ouví-los,
+> ótimo, mas *contribua com dinheiro também*. Redirecione o valor para uma `ONG` de sua escolha ou
+> para sua própria comunidade. Você também pode relatar bugs, propor ideias, implementar novas
+> features ou corrigir, melhorar coisas por aqui.
+>
+> Valeu! :heart: :notes: :metal:
+
 -- Rafael
 
 ---
@@ -57,5 +69,17 @@ able to make an equivalent of a personal `self-hosted` music streaming service t
 > relax! Here the business is to be simple, because simple is less buggy: `ALSA`, `Bluez-ALSA` and period! It is what you got here.
 
 Enjoy! :wink:
+
+> [!IMPORTANT]
+> I have not been running this project for profit, it is a thing that is useful and that I use
+> a lot on my day to day, it being useful to more people than me, great! If you liked the project
+> and you are wanting to contribute with money, redirect it to independent artists. Buy records
+> from your favorite artist(s), *indenpendent ones, inclusive*. Attend to concerts. If the concert
+> offers solidarity tickets, give preference for this kind of ticket. Support buskers, if you stop
+> to watch/listen to them, pretty nice, but *contribute with money, too*. Redirect this value to
+> an `NGO` of your choice or to your own community. You can also do some bug reporting, to propose
+> ideas, to implement new features, to fix bugs, to improve on things over here.
+>
+> Thank ya! :heart: :notes: :metal:
 
 -- Rafael
