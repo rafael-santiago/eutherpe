@@ -77,7 +77,7 @@ Enjoy! :wink:
 > from your favorite artist(s), *indenpendent ones, inclusive*. Attend to concerts. If the concert
 > offers solidarity tickets, give preference for this kind of ticket. Support buskers, if you stop
 > to watch/listen to them, pretty nice, but *contribute with money, too*. Redirect this value to
-> an `NGO` of your choice or to your own community. You can also do some bug reporting, to propose
+> a `NGO` of your choice or to your own community. You can also do some bug reporting, to propose
 > ideas, to implement new features, to fix bugs, to improve on things over here.
 >
 > Thank ya! :heart: :notes: :metal:

@@ -1,0 +1,48 @@
+1. Latest releases are on the top.
+2. The versions are cummulative, any feature drop is informed.
+3. Usually, I try to do my best in order to bring you 'RELNOTES' insted of notes from hell ;)
+
+    Rafael
+
+--
+
+v1 [git-tag: 'v1']
+
+    The very first public release. Desculpa qualquer coisa!
+
+    Features:
+
+        - Minimalism but it is simple _NOT_ simpleton. Made to be useful and ready-to-go.
+        - Automagic bootstrapping.
+        - Support for mp3, mp4 and m4a formats.
+        - Bluetooth support (ALSA/Bluez-ALSA [sharp, unbloated and simple!]).
+        - Bluetooth's previous pairing restore.
+        - Wi-Fi support.
+        - No-frills Web UI (HTML, css, js and flat/standard golang [no 3rd party dependencies!]).
+        - Access to web ui http or https based.
+        - Support for authenticated web ui access.
+        - Integrated mDNS (you can access the web miniplayer through a name defined by you!).
+        - Automagic music collection scanning (based on id3 tagging).
+        - Collection feeding through usb sticks.
+        - Session saving.
+        - Playlists.
+        - Song tagging.
+        - Random selection by taking into consideration user's provided tags.
+        - Shuffle mode.
+        - Repeat one mode.
+        - Repeat all mode.
+        - Album cover displayer.
+        - Linux based.
+        - Works nicely in desktop, embedded (Raspberry Pi) and virtual machines.
+        - Made for people that is really involved on listenning their beloved tunes, forgetting
+          about FOMO and screens! It is about slowing down and having fun with ourselves ;)
+        - No ads!
+          No noisy nor nosy suggestions!
+          This is heaven! A musical ether at your home! Go fly around! :)
+
+    Bugfixes:
+
+        - None yet.
+
+    Enjoy! :) Rafael
+--
