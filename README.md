@@ -37,8 +37,8 @@ Divirta-se! :wink:
 > Eu não criei esse projeto com fins lucrativos, é algo útil e que uso muito no meu dia a dia e
 > que se for útil para outras pessoas além de mim, tá valendo! Se você curtiu o projeto e quiser
 > contribuir com dinheiro, redirecione isso para artistas independentes. Compre discos de seu(s)
-> artista(s) favorito(s), *inclusive os independentes*. Frequente shows. Se o show oferecer entrada
-> solidária, dê preferência para ela. Prestigie artistas de rua, se parou para assistí-los/ouví-los,
+> artista(s) favorito(s), *inclusive dos independentes*. Frequente shows. Se o show oferecer entrada
+> solidária, dê preferência para ela. Prestigie artistas de rua, se parou para assisti-los/ouvi-los,
 > ótimo, mas *contribua com dinheiro também*. Redirecione o valor para uma `ONG` de sua escolha ou
 > para sua própria comunidade. Você também pode relatar bugs, propor ideias, implementar novas
 > features ou corrigir, melhorar coisas por aqui.
