@@ -519,6 +519,13 @@ func normalizeStr(str string) string {
             case 39, 8217:
                 normStr += "_"
                 break
+            case 249, 250, 252:
+                normStr += "u"
+                break
+            case 217, 218, 220:
+                normStr += "U"
+                break
+
             default:
                 // TODO(Rafael): Find a way of improve it on, it is totally clumsy.
                 //               BUT it works!
