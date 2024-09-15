@@ -55,11 +55,18 @@ func ReproduceSelectedOnesFromPlaylist(eutherpeVars *vars.EutherpeVars, userData
         MusicClearAll(eutherpeVars, nil)
         eutherpeVars.Lock()
     }
+    shouldShuffle := eutherpeVars.Player.Shuffle
     eutherpeVars.Unlock()
     err = AddSelectionToUpNext(eutherpeVars, userData)
     if err != nil {
         eutherpeVars.Lock()
         return err
+    }
+    if shouldShuffle {
+        eutherpeVars.Lock()
+        eutherpeVars.Player.UpNextBkp = eutherpeVars.Player.UpNext
+        eutherpeVars.Player.UpNext = shuffle(eutherpeVars.Player.UpNextBkp)
+        eutherpeVars.Unlock()
     }
     err = MusicPlay(eutherpeVars, nil)
     eutherpeVars.Lock()

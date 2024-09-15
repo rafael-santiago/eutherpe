@@ -66,6 +66,7 @@ func RunWebUI(eutherpeVars *vars.EutherpeVars) error {
     goinHome <- true
     // INFO(Rafael): It is important otherwise Eutherpe can exits by letting music playing
     //               sometimes.
+    eutherpeVars.Player.AutoPlay = !eutherpeVars.Player.Stopped
     actions.MusicStop(eutherpeVars, nil)
     if len(eutherpeVars.CachedDevices.BlueDevId) > 0 {
         bluebraces.DisconnectDevice(eutherpeVars.CachedDevices.BlueDevId)

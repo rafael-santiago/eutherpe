@@ -81,6 +81,7 @@ type EutherpeVars struct {
         RepeatOne bool
         Stopped bool
         VolumeLevel uint
+        AutoPlay bool
     }
     LastError error
     CurrentConfig string
@@ -99,6 +100,7 @@ type EutherpeVars struct {
 type eutherpeVarsCacheCtx struct {
     UpNext []mplayer.SongInfo
     Shuffle bool
+    AutoPlay bool
     VolumeLevel uint
     RepeatOne bool
     RepeatAll bool
@@ -123,6 +125,7 @@ func (e *EutherpeVars) Unlock() {
 func (e *EutherpeVars) toJSON() string {
     cachedData := eutherpeVarsCacheCtx { e.Player.UpNext,
                                          e.Player.Shuffle,
+                                         e.Player.AutoPlay,
                                          e.Player.VolumeLevel,
                                          e.Player.RepeatOne,
                                          e.Player.RepeatAll,
@@ -170,6 +173,7 @@ func (e *EutherpeVars) fromJSON(filePath string) error {
     e.Player.UpNext = cachedData.UpNext
     e.Player.UpNextBkp = cachedData.UpNext
     e.Player.Shuffle = cachedData.Shuffle
+    e.Player.AutoPlay = cachedData.AutoPlay
     e.Player.VolumeLevel = cachedData.VolumeLevel
     e.Player.RepeatOne = cachedData.RepeatOne
     e.Player.RepeatAll = cachedData.RepeatAll

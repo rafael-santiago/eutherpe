@@ -28,7 +28,12 @@ func ReproducePlaylist(eutherpeVars *vars.EutherpeVars, userData *url.Values) er
                 MusicClearAll(eutherpeVars, nil)
                 eutherpeVars.Lock()
             }
-            eutherpeVars.Player.UpNext = currPlaylist.Songs()
+            if !eutherpeVars.Player.Shuffle {
+                eutherpeVars.Player.UpNext = currPlaylist.Songs()
+            } else {
+                eutherpeVars.Player.UpNextBkp = currPlaylist.Songs()
+                eutherpeVars.Player.UpNext = shuffle(eutherpeVars.Player.UpNextBkp)
+            }
             eutherpeVars.UpNextHTML = ""
             eutherpeVars.Unlock()
             err = MusicPlay(eutherpeVars, nil)

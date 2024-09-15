@@ -14,11 +14,14 @@ import (
     "internal/wifi"
     "internal/options"
     "internal/mplayer"
+    "internal/actions"
     "fmt"
     "os"
     "time"
     "strings"
 )
+
+var g_DoAutoPlay bool
 
 func main() {
     if options.HasFlag("version") {
@@ -65,6 +68,7 @@ func exec() {
         os.Exit(1)
     }
     if len(eutherpeVars.CachedDevices.BlueDevId) > 0 {
+        g_DoAutoPlay = eutherpeVars.Player.AutoPlay
         go tryToPairWithPreviousBluetoothDevice(eutherpeVars,
                                                 eutherpeVars.CachedDevices.BlueDevId)
     }
@@ -128,9 +132,12 @@ func tryToPairWithPreviousBluetoothDevice(eutherpeVars *vars.EutherpeVars,
         go tryToPairWithPreviousBluetoothDevice(eutherpeVars, previousDevice)
     } else {
         eutherpeVars.Lock()
-        defer eutherpeVars.Unlock()
         eutherpeVars.CachedDevices.MixerControlName = mixerControlName
         mplayer.SetVolume(int(eutherpeVars.Player.VolumeLevel),
                           eutherpeVars.CachedDevices.MixerControlName)
+        eutherpeVars.Unlock()
+        if g_DoAutoPlay {
+            actions.MusicPlay(eutherpeVars, nil)
+        }
     }
 }

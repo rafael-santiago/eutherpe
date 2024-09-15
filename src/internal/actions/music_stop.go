@@ -22,6 +22,7 @@ func MusicStop(eutherpeVars *vars.EutherpeVars, _ *url.Values) error {
     }
     if eutherpeVars.Player.Handle != nil {
         eutherpeVars.Player.Stopped = true
+        eutherpeVars.Player.AutoPlay = false
         mplayer.Stop(eutherpeVars.Player.Handle)
         eutherpeVars.Player.Handle = nil
         time.Sleep(10 * time.Nanosecond)

@@ -476,6 +476,7 @@ func getSongInfoFromM4A(filePath string, coversCacheRootPath ...string) (SongInf
 func normalizeStr(str string) string {
     var normStr string
     for s, annoyingRune := range str {
+        //fmt.Printf("%d - %v\n", int(str[s]), annoyingRune)
         switch annoyingRune {
             case 226, 224, 225, 227, 228, 229:
                 normStr += "a"
@@ -572,6 +573,14 @@ func normalizeStr(str string) string {
                     case 39:
                         normStr += "_"
                         break
+                    case 249, 250, 252:
+                        normStr += "u"
+                        break
+                    case 217, 218, 220:
+                        normStr += "U"
+                        break
+                    case 167:
+                        continue
                     default:
                         normStr += string(annoyingRune)
                         break

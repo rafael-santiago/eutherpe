@@ -69,6 +69,7 @@ func MusicPlay(eutherpeVars *vars.EutherpeVars, userData *url.Values) error {
     createCache(eutherpeVars.Player.NowPlaying.FilePath, vars.EutherpeCachedMP3FilePath)
     eutherpeVars.Player.Handle, err = mplayer.Play(vars.EutherpeCachedMP3FilePath, len(eutherpeVars.CachedDevices.BlueDevId) > 0, customPath)
     eutherpeVars.Player.Stopped = (err != nil)
+    eutherpeVars.Player.AutoPlay = true
     if eutherpeVars.Player.Stopped {
         return err
     }

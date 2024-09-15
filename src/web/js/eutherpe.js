@@ -12,8 +12,9 @@ function setFromMusicTabContext(value) {
     g_FromMusicTabContext = value;
 }
 
-function closeAddToPlaylist() {
-    openConfig((!g_FromMusicTabContext) ? "Collection" : "Music");
+function closeAddToPlaylist(sender) {
+    var divToShow = (sender.id == "addToPlaylist") ? "Loading" : "Music";
+    openConfig((!g_FromMusicTabContext) ? "Collection" : "Loading");
 }
 
 function closeAddTags() {

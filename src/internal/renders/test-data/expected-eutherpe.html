@@ -42,8 +42,8 @@ COPYING.GPLv2 file in the root directory of Eutherpe's source tree.
     <div id="AddToPlaylist" class="configcontent" style="text-align: center; padding: 10%; display:none;">
         <b>Give me the name of an existing or new playlist...</b><br><br>
         <input type="text" id="playlistName" size="15%">
-        <input class="eutherpeBUTTON" type="button" value="Add" onclick="addToPlaylist();">
-        <input class="eutherpeBUTTON" type="button" value="Back" onclick="closeAddToPlaylist();">
+        <input class="eutherpeBUTTON" type="button" id="addToPlaylistBtn" value="Add" onclick="addToPlaylist(this);">
+        <input class="eutherpeBUTTON" type="button" id="backFromAddToPlaylistBtn" value="Back" onclick="closeAddToPlaylist(this);">
     </div>
     <div id="AddTags" class="configcontent" style="text-align: center; padding: 10%; display:none;">
         <b>Give me the tag or a bunch separated by commas...</b><br><br>
