@@ -77,7 +77,7 @@ As principais características de `Eutherpe` são:
 - Interface `Web` renderiza bem tanto no `Desktop` quanto em dispositivos móveis.
 - Funciona baseado na plataforma `Linux`.
 - No `Windows` você pode utilizar `Eutherpe` a partir de uma [`máquina virtual`](VM-PT.md).
-- Você ainda pode usar `Eutherpe` dentro de um `raspberry-pi` e nesse caso ela será carinhosamente
+- Você ainda pode usar `Eutherpe` dentro de um `Raspberry Pi` e nesse caso ela será carinhosamente
   chamada de `Euther-PI`.
 
 [`Voltar`](#tópicos)
@@ -369,14 +369,14 @@ clicar nesse botão para ter acesso ao seu novo dispositivo).
 uso).
 - `SCAN` (o dispositivo é escaneado e a coleção extraída e organizada é listada na tela
 `Collection`, no primeiro escaneamento o processo pode demorar um pouco mais, isso é por conta de
-como o dispositivos de armazenamento `USB` funcionam no `Linux`).
+como os dispositivos de armazenamento `USB` funcionam no `Linux`).
 - `CONVERT` (todas as músicas em `MP4` ou `M4A` serão convertidas para `MP3`, isso é necessário para tocá-las).
 - `RESTORE PLAYLISTS...` (restaura uma cópia prévia das playlists a partir do dispositivo de armazenamento).
 
 ![A tela storage](figures/eus-pt-br-storage-screen.png)
 **Figure 11**: A tela `Storage`.
 
-Uma vez o dispositivo escolhido e escaneado. Na próxima sessão, caso `Eutherpe` detecte que o
+Uma vez o dispositivo escolhido e escaneado, na próxima sessão, caso `Eutherpe` detecte que o
 dispositivo `USB` já esteja plugado, a sua `juke` etérea é esperta o suficiente para já te
 apresentar a coleção escaneada da última vez. Se você adicionou ou removeu mais músicas ou
 alterou a localização delas, vai precisar clicar em `SCAN` de novo.

@@ -63,8 +63,8 @@ Se você fez o processo de [`bootstrapping`](MANUAL-PT.md#bootstrapping), tente 
 
 ### Utilizando as rules GNUMake
 
-É pouco usual um `software` escrito em `Golang` dispor de automações via `make`, porém `Eutherpe`
-vai muito além de compilar, testar e instalar. Existe muitas outras operações que se desenrolam
+É pouco usual um `software` escrito em `Golang` dispor de automações via `make`, porém, `Eutherpe`
+vai muito além de compilar, testar e instalar. Existem muitas outras operações que se desenrolam
 entre compilar e instalar. Levando isso em consideração, resolvi automatizar algumas operações
 comuns dos desenvolvedores precisarem fazer.
 
@@ -85,7 +85,7 @@ $ make eutherpe
 
 Essa `rule` é capaz de setar seu `GOENV` por conta própria.
 
-Quer rodar os testes (ignorando os caches), a partir do diretório `src`, rode:
+Quer rodar os testes (ignorando os caches)? A partir do diretório `src`, rode:
 
 ```
 $ make tests
@@ -107,10 +107,10 @@ está rodando em seu ambiente de desenvolvimento? Sendo `root` e estando no dire
 ```
 
 > [!IMPORTANT]
-> Esse update apenas atualiza a aplicação `Eutherpe` e nos seus `web assets` que
+> Esse update apenas atualiza a aplicação `Eutherpe` e os seus `web assets` que
 > compõem o `core` de `Eutherpe`. Caso você tenha feito alterações nos `serviços` ou nos `shell scripts`
 > é mais indicado rodar `bootstrap`. Nesse caso, ele vai detectar que já existe uma instalação prévia
 > e não vai reinstalar o `bluealsa`, não vai recriar o usuário `eutherpe` e nem `rebootar` o sistema.
-> Porém vai atualizar também os `serviços` e os `shell scripts`.
+> Porém, vai atualizar também os `serviços` e os `shell scripts`.
 
 [`Voltar`](#tópicos)
