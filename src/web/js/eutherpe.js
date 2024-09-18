@@ -14,7 +14,7 @@ function setFromMusicTabContext(value) {
 
 function closeAddToPlaylist(sender) {
     var divToShow = (sender.id == "addToPlaylist") ? "Loading" : "Music";
-    openConfig((!g_FromMusicTabContext) ? "Collection" : "Loading");
+    openConfig((!g_FromMusicTabContext) ? "Collection" : divToShow);
 }
 
 function closeAddTags() {

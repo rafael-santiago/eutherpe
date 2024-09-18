@@ -24,7 +24,7 @@ define do_update
 	@echo info: Wait...
 	@sleep 10s
 	@cp eutherpe $$(which eutherpe) && \
-	cp -rf web/ /etc/eutherpe/web/ && \
+	cp -rf web/ /etc/eutherpe/ && \
 	systemctl start eutherpe && \
 	echo info: Your Eutherpe\'s core was updated.
 endef
