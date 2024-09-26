@@ -15,6 +15,15 @@ import (
     "fmt"
 )
 
+const (
+    WPASupplicantConfFilePath = "/etc/wpa_supplicant/wpa_supplicant.conf"
+)
+
+type WLANPlainCredential struct {
+    ESSID string
+    Passphrase string
+}
+
 func GetIfaces(customPath ...string) []string {
     out, err := exec.Command(path.Join(getToolPath(customPath...), "ip"), "link", "show").CombinedOutput()
     if err != nil {
@@ -42,13 +51,21 @@ func SetIfaceDown(ifaceName string, customPath ...string) error {
     return exec.Command("sudo", path.Join(getToolPath(customPath...), "ip"), "link", "set", "dev", ifaceName, "down").Run()
 }
 
-func SetWPAPassphrase(ESSID, passphrase string, customPath ...string) error {
-    out, err := exec.Command(path.Join(getToolPath(customPath...), "wpa_passphrase"), ESSID, passphrase).CombinedOutput()
-    if err != nil {
-        return err
+func GetWPASupplicantConf(ESSID, passphrase string, customPath ...string) (string, error) {
+    var credentials string
+    var keyMgmt string
+    if len(passphrase) > 0 {
+        out, err := exec.Command(path.Join(getToolPath(customPath...), "wpa_passphrase"), ESSID, passphrase).CombinedOutput()
+        if err != nil {
+            return "", err
+        }
+        sOut := strings.Split(string(out), "\n")
+        credentials = sOut[1] + "\n" + sOut[3] + "\n"
+        keyMgmt = "WPA-PSK"
+    } else {
+        credentials = "ssid=\"" + ESSID + "\""
+        keyMgmt = "NONE"
     }
-    sOut := strings.Split(string(out), "\n")
-    credentials := sOut[1] + "\n" + sOut[3] + "\n"
     wpaSupplicantConf := `ctrl_interface=/run/wpa_supplicant
 fast_reauth=1
 #ap_scan=1
@@ -57,18 +74,27 @@ fast_reauth=1
 network={
         scan_ssid=0
         proto=WPA
-        key_mgmt=WPA-PSK
+        key_mgmt={{.KEY-MGMT}}
         auth_alg=OPEN
     {{.CREDENTIALS}}
 }
 `
-    wpaSupplicantConf = strings.Replace(wpaSupplicantConf, "{{.CREDENTIALS}}", credentials, -1)
-    return os.WriteFile("/etc/wpa_supplicant/wpa_supplicant.conf", []byte(wpaSupplicantConf), 0777)
+    wpaSupplicantConf = strings.Replace(wpaSupplicantConf, "{{.KEY-MGMT}}", keyMgmt, 1)
+    wpaSupplicantConf = strings.Replace(wpaSupplicantConf, "{{.CREDENTIALS}}", credentials, 1)
+    return wpaSupplicantConf, nil
 }
 
-func Start(ifaceName string, customPath ...string) (*exec.Cmd, error) {
+func SetWPAPassphrase(ESSID, passphrase string, customPath ...string) error {
+    confData, err := GetWPASupplicantConf(ESSID, passphrase, customPath...)
+    if err != nil {
+        return err
+    }
+    return os.WriteFile(WPASupplicantConfFilePath, []byte(confData), 0777)
+}
+
+func Start(ifaceName, wpaSupplicantConfFilePath string, customPath ...string) (*exec.Cmd, error) {
     exec.Command("sudo", path.Join(getToolPath(customPath...), "systemctl"), "stop", "wpa_supplicant").Run()
-    procHandle := exec.Command("sudo", path.Join(getToolPath(customPath...), "wpa_supplicant"), "-c", "/etc/wpa_supplicant/wpa_supplicant.conf", "-i", ifaceName)
+    procHandle := exec.Command("sudo", path.Join(getToolPath(customPath...), "wpa_supplicant"), "-c", wpaSupplicantConfFilePath, "-i", ifaceName)
     return procHandle, procHandle.Start()
 }
 
@@ -110,6 +136,50 @@ func LeaseAddr(ifaceName string, customPath... string) (string, error) {
 
 func ReleaseAddr(ifaceName string, customPath... string) error {
     return exec.Command(path.Join(getToolPath(customPath...), "dhclient"), "-r", ifaceName).Run()
+}
+
+func GetPlainWLANCredentials(plainCredentialsFilePath string) ([]WLANPlainCredential, error) {
+    blob, err := os.ReadFile(plainCredentialsFilePath)
+    plainCredentials := make([]WLANPlainCredential, 0)
+    if err != nil {
+        return plainCredentials, err
+    }
+    sBlob := string(blob)
+    sBlob = strings.Replace(sBlob, "\r", "", -1)
+    lines := strings.Split(sBlob, "\n")
+    for _, line := range lines {
+        shouldSkip := false
+        for _, l := range line {
+            if l == ' ' || l == '\t' {
+                continue
+            } else {
+                shouldSkip = (l == '#')
+                break
+            }
+        }
+        if shouldSkip {
+            continue
+        }
+        tokOff := len(line) - 1
+        for ; tokOff > 0; tokOff-- {
+            if line[tokOff] == ' ' || line[tokOff] == '\t' {
+                break
+            }
+        }
+        var ESSID string
+        var pass string
+        if tokOff > 0 && (tokOff+1) < len(line) {
+            pass = line[tokOff+1:]
+        } else {
+            tokOff = len(line)
+        }
+        ESSID = line[:tokOff]
+        if len(ESSID) == 0 {
+            continue
+        }
+        plainCredentials = append(plainCredentials, WLANPlainCredential { ESSID, pass })
+    }
+    return plainCredentials, nil
 }
 
 func getToolPath(customPath ...string) string {

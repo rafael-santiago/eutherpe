@@ -367,6 +367,68 @@ func (e *EutherpeVars) GetCoversCacheRootPath() string {
     return path.Join(e.ConfHome, EutherpeCoversHome)
 }
 
+func (e *EutherpeVars) hasPubAPs() bool {
+    pubAPsFilePath := path.Join(e.CachedDevices.MusicDevId,
+                                EutherpeMusicDevRootDir,
+                                EutherpeMusicDevWLANDir,
+                                EutherpeMusicDevWLANPubApsFile)
+    _, err := os.Stat(pubAPsFilePath)
+    return (err == nil)
+}
+
+func (e *EutherpeVars) getAddrByPubAPs() error {
+    pubAPsFilePath := path.Join(e.CachedDevices.MusicDevId,
+                                EutherpeMusicDevRootDir,
+                                EutherpeMusicDevWLANDir,
+                                EutherpeMusicDevWLANPubApsFile)
+    wlanCredentials, err := wifi.GetPlainWLANCredentials(pubAPsFilePath)
+    if err != nil {
+        return err
+    }
+    if len(wlanCredentials) == 0 {
+        return fmt.Errorf("No public credentials were found.")
+    }
+    wpaSupplicantConfFilePath := path.Join(os.TempDir(), "wpa_supplicant.conf")
+    for _, currCredential := range wlanCredentials {
+        wpaSupplicantConf, err := wifi.GetWPASupplicantConf(currCredential.ESSID, currCredential.Passphrase)
+        if err != nil {
+            continue
+        }
+        err = os.WriteFile(wpaSupplicantConfFilePath, []byte(wpaSupplicantConf), 0777)
+        if err != nil {
+            continue
+        }
+        e.HTTPd.Addr, err = e.connectToWLAN(wpaSupplicantConfFilePath)
+        if err == nil {
+            fmt.Printf("info: Public WLAN configured, trying to acquire a WLAN connection from '%s'... wait...\n", currCredential.ESSID)
+            break
+        }
+    }
+    return err
+}
+
+func (e *EutherpeVars) connectToWLAN(wpaSupplicantConfFilePath string) (string, error) {
+    var ipAddr string
+    wlanIfaces := wifi.GetIfaces()
+    err := fmt.Errorf("warn: No WLAN interface was found.\n")
+    if len(wlanIfaces) == 0 {
+        return "", err
+    } else {
+        wifi.SetIfaceUp(wlanIfaces[0])
+        time.Sleep(3 * time.Second)
+        e.WLAN.ConnSession, err = wifi.Start(wlanIfaces[0], wpaSupplicantConfFilePath)
+        if err == nil {
+            e.WLAN.Iface = wlanIfaces[0]
+            ipAddr, _ = wifi.LeaseAddr(wlanIfaces[0])
+            if len(ipAddr) == 0 {
+                wifi.Stop(e.WLAN.ConnSession)
+                e.WLAN.ConnSession = nil
+            }
+        }
+    }
+    return ipAddr, err
+}
+
 func (e *EutherpeVars) SetAddr() error {
     ifaces, err := net.Interfaces()
     if err != nil {
@@ -404,27 +466,15 @@ func (e *EutherpeVars) SetAddr() error {
             break
         }
     }
-    if len(e.WLAN.ESSID) > 0 {
+    wlanAddrConfigured := false
+    if e.hasPubAPs() {
+        err := e.getAddrByPubAPs()
+        wlanAddrConfigured = (err == nil)
+    }
+    if !wlanAddrConfigured && len(e.WLAN.ESSID) > 0 {
         fmt.Printf("info: WLAN is configured, trying to acquire a WLAN connection... wait...\n")
-        wlanIfaces := wifi.GetIfaces()
-        if len(wlanIfaces) == 0 {
-            fmt.Printf("warn: No WLAN interface was found.\n")
-        } else {
-            wifi.SetIfaceUp(wlanIfaces[0])
-            time.Sleep(3 * time.Second)
-            e.WLAN.ConnSession, err = wifi.Start(wlanIfaces[0])
-            if err == nil {
-                e.WLAN.Iface = wlanIfaces[0]
-                ipAddr, _ := wifi.LeaseAddr(wlanIfaces[0])
-                if len(ipAddr) == 0 {
-                    wifi.Stop(e.WLAN.ConnSession)
-                    e.WLAN.ConnSession = nil
-                } else {
-                    e.HTTPd.Addr = ipAddr
-                    fmt.Printf("info: Eutherpe has ingressed to the WLAN %s.\n", e.WLAN.ESSID)
-                }
-            }
-        }
+        e.HTTPd.Addr, err = e.connectToWLAN(wifi.WPASupplicantConfFilePath)
+        fmt.Printf("info: Eutherpe has ingressed to the WLAN %s.\n", e.WLAN.ESSID)
     }
     if len(e.HTTPd.Addr) == 0 && !hasRescueIface {
         return fmt.Errorf("Unable to set a valid IP")
@@ -695,6 +745,8 @@ const EutherpeGateTemplate = 2
 
 const EutherpeMusicDevRootDir = ".eutherpe"
 const EutherpeMusicDevPlaylistsDir = "playlists"
+const EutherpeMusicDevWLANDir = "wlan"
+const EutherpeMusicDevWLANPubApsFile = "pub-aps"
 
 const EutherpeOptionListenPort = "listen-port"
 
