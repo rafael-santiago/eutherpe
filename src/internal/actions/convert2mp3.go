@@ -17,6 +17,13 @@ import (
 
 func Convert2MP3(eutherpeVars *vars.EutherpeVars, _ *url.Values) error {
     eutherpeVars.Lock()
+    var doResume bool
+    if !eutherpeVars.Player.Stopped {
+        eutherpeVars.Unlock()
+        MusicStop(eutherpeVars, nil)
+        eutherpeVars.Lock()
+        doResume = true
+    }
     defer eutherpeVars.Unlock()
     var customPath string
     if flag.Lookup("test.v") != nil {
@@ -25,5 +32,11 @@ func Convert2MP3(eutherpeVars *vars.EutherpeVars, _ *url.Values) error {
     if len(eutherpeVars.CachedDevices.MusicDevId) == 0 {
         return fmt.Errorf("You need to set a storage device first.")
     }
-    return mplayer.ConvertSongs(eutherpeVars.CachedDevices.MusicDevId, customPath)
+    err := mplayer.ConvertSongs(eutherpeVars.CachedDevices.MusicDevId, customPath)
+    if doResume {
+        eutherpeVars.Unlock()
+        MusicPlay(eutherpeVars, nil)
+        eutherpeVars.Lock()
+    }
+    return err
 }
