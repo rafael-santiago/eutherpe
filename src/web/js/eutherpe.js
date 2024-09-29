@@ -8,8 +8,41 @@
 
 var g_FromMusicTabContext = false;
 
+function init(currentConfig) {
+    var toggler = document.getElementsByClassName("caret");
+    var i;
+    for (i = 0; i < toggler.length; i++) {
+        toggler[i].addEventListener("click", function() {
+            this.parentElement.querySelector(".nested").classList.toggle("active");
+            this.classList.toggle("caret-down");
+            this.classList.down = !this.classList.down;
+            if (document.getElementById("Music").style.display == "block") {
+                albumCover = document.getElementById("albumCover");
+                if (this.classList.down) {
+                    albumCover.width = 50;
+                    albumCover.height = 50;
+                } else {
+                    albumCover.width = 125;
+                    albumCover.height = 125;
+                }
+            }
+        });
+    }
+    openConfig(currentConfig);
+    showError();
+    setInterval(() => {
+        requestPlayerStatus();
+    }, 1000);
+    installKeyShortcuts();
+}
+
 function setFromMusicTabContext(value) {
     g_FromMusicTabContext = value;
+}
+
+function showAddToPlaylist() {
+    openConfig("AddToPlaylist");
+    document.getElementById("playlistName").focus();
 }
 
 function closeAddToPlaylist(sender) {
@@ -35,6 +68,7 @@ function showRemoveTagsDiv() {
 
 function showPlayByTags() {
     openConfig("PlayByTags");
+    document.getElementById("tagsCtx").focus();
 }
 
 function closeAbout() {
@@ -68,6 +102,7 @@ function closeChangePassphrase() {
 
 function showWiFiCredentials() {
     openConfig("WiFiCredentials");
+    document.getElementById("wifiESSID").focus();
 }
 
 function closeWiFiCredentials() {
@@ -726,3 +761,111 @@ function doMinimalEutherpeRequest(vdoc, action, params = "") {
     }
     http.send(data);
 }
+
+function installEnterEscKeyShortcuts(element, onEnter, onEsc) {
+    element.onkeyup = function(e) {
+        if (e.which == 13) {
+            onEnter();
+        } else if (e.which == 27) {
+            onEsc();
+        }
+    };
+}
+
+function installKeyShortcuts() {
+    // INFO(Rafael): ChangePassphrase div.
+    installEnterEscKeyShortcuts(document.getElementById("currPassphrase"),
+                                function() {
+                                    document.getElementById("newPassphrase").focus();
+                                },
+                                closeChangePassphrase);
+    installEnterEscKeyShortcuts(document.getElementById("newPassphrase"),
+                                function() {
+                                    document.getElementById("newPassphraseConfirmation").focus();
+                                },
+                                closeChangePassphrase);
+    installEnterEscKeyShortcuts(document.getElementById("newPassphraseConfirmation"),
+                                function() {
+                                    changePassphrase();
+                                },
+                                closeChangePassphrase);
+    // INFO(Rafael): WiFiCredentials div.
+    installEnterEscKeyShortcuts(document.getElementById("wifiESSID"),
+                                function() {
+                                    document.getElementById("wifiPassword").focus();
+                                },
+                                closeWiFiCredentials);
+    installEnterEscKeyShortcuts(document.getElementById("wifiPassword"),
+                                saveWiFiCredentials,
+                                closeWiFiCredentials);
+    // INFO(Rafael): AddTags div.
+    installEnterEscKeyShortcuts(document.getElementById("tagsSet"),
+                                addTagsToSelection,
+                                closeAddTags);
+    // INFO(Rafael): AddToPlaylist div.
+    installEnterEscKeyShortcuts(document.getElementById("playlistName"),
+                                function() {
+                                    document.getElementById("addToPlaylistBtn").click();
+                                },
+                                function() {
+                                    document.getElementById("backFromAddToPlaylistBtn").click();
+                                });
+    // INFO(Rafael): PlayByTags div.
+    installEnterEscKeyShortcuts(document.getElementById("tagsCtx"),
+                                function() {
+                                    document.getElementById("songsAmount").focus();
+                                },
+                                closePlayByTags);
+    installEnterEscKeyShortcuts(document.getElementById("songsAmount"),
+                                playByGivenTags,
+                                closePlayByTags);
+    // INFO(Rafael): Settings div.
+    installEnterEscKeyShortcuts(document.getElementById("hostName"),
+                                setHostName,
+                                function(){});
+}
+
+function openConfig(configName) {
+  if (configName === "Collection") {
+    setFromMusicTabContext(false);
+  } else if (configName === "Music") {
+    setFromMusicTabContext(true);
+  }
+  if (configName === "Music"
+      || configName === "Collection"
+      || configName === "Playlists"
+      || configName === "Storage"
+      || configName === "Bluetooth"
+      || configName === "Settings") {
+    setCurrentConfig(configName);
+  }
+  var i, configcontent, configtab;
+  configcontent = document.getElementsByClassName("configcontent");
+  for (i = 0; i < configcontent.length; i++) {
+    configcontent[i].style.display = "none";
+  }
+  configtab = document.getElementsByClassName("configtab");
+  for (i = 0; i < configtab.length; i++) {
+    configtab[i].className = configtab[i].className.replace(" active", "");
+    configtab[i].innerHTML = configtab[i].innerHTML.replace(" &gt;", "");
+  }
+  document.getElementById(configName).style.display = "block";
+  btn = document.getElementById(configName + "Button");
+  if (btn === null) {
+    return;
+  }
+  btn.className += " active";
+  if (window.matchMedia("(orientation: landscape)").matches) {
+    btn.innerHTML = btn.innerHTML + " &gt;";
+  }
+}
+
+function flush_child(sender) {
+    childs = document.getElementsByTagName("*");
+    for (var c = 0; c < childs.length; c++) {
+        if (childs[c].id.startsWith(sender.id)) {
+            childs[c].checked = sender.checked;
+        }
+    }
+}
+

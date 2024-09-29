@@ -22,7 +22,7 @@ define do_update
 	    done;\
 	fi
 	@echo info: Wait...
-	@sleep 10s
+	@sleep 42s
 	@cp eutherpe $$(which eutherpe) && \
 	cp -rf web/ /etc/eutherpe/ && \
 	systemctl start eutherpe && \

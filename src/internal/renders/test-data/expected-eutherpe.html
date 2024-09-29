@@ -90,7 +90,7 @@ COPYING.GPLv2 file in the root directory of Eutherpe's source tree.
             <input class="eutherpeBUTTON" type="button" value="&#x226B" onclick="musicNext();"/>
             <input class="eutherpeBUTTON" type="button" value="&#x23F6" onclick="moveSelectedSongsFromUpNextUp();"/>
             <input class="eutherpeBUTTON" type="button" value="&#x23F7" onclick="moveSelectedSongsFromUpNextDown();"/>
-            <input class="eutherpeBUTTON" type="button" value="&#x1F352;" onclick="openConfig('AddToPlaylist');"/>
+            <input class="eutherpeBUTTON" type="button" value="&#x1F352;" onclick="showAddToPlaylist();"/>
             <input class="eutherpeBUTTON" type="button" value="Shuffle" onclick="shuffleUpNext();"/>
             <input class="eutherpeBUTTON" type="button" value="Remove..." onclick="removeSelectedSongsFromUpNext();"/>
             <input class="eutherpeBUTTON" type="button" value="Clear all..." onclick="clearUpNextAll();"/>
@@ -108,7 +108,7 @@ COPYING.GPLv2 file in the root directory of Eutherpe's source tree.
             <hr>
             <input class="eutherpeBUTTON" type="button" value="Add to Next" onclick="addToNext();"/>
             <input class="eutherpeBUTTON" type="button" value="Add to Up Next" onclick="addToUpNext();"/>
-            <input class="eutherpeBUTTON" type="button" value="Add to Playlist..." onclick="openConfig('AddToPlaylist');"/>
+            <input class="eutherpeBUTTON" type="button" value="Add to Playlist..." onclick="showAddToPlaylist();"/>
             <hr>
             <input class="eutherpeBUTTON" type="button" value="Add tags..." onclick="showAddTags();"/>
             <input class="eutherpeBUTTON" type="button" value="Del tags..." onclick="showRemoveTagsDiv();"/>
@@ -230,105 +230,7 @@ COPYING.GPLv2 file in the root directory of Eutherpe's source tree.
 </body>
 
 <script language="javascript">
-function openConfig(configName) {
-  if (configName === "Collection") {
-    setFromMusicTabContext(false);
-  } else if (configName === "Music") {
-    setFromMusicTabContext(true);
-  }
-  if (configName === "Music"
-      || configName === "Collection"
-      || configName === "Playlists"
-      || configName === "Storage"
-      || configName === "Bluetooth"
-      || configName === "Settings") {
-    setCurrentConfig(configName);
-  }
-  // Declare all variables
-  var i, configcontent, configtab;
-
-  // Get all elements with class="tabcontent" and hide them
-  configcontent = document.getElementsByClassName("configcontent");
-  for (i = 0; i < configcontent.length; i++) {
-    configcontent[i].style.display = "none";
-  }
-
-  // Get all elements with class="tablinks" and remove the class "active"
-  configtab = document.getElementsByClassName("configtab");
-  for (i = 0; i < configtab.length; i++) {
-    configtab[i].className = configtab[i].className.replace(" active", "");
-    configtab[i].innerHTML = configtab[i].innerHTML.replace(" &gt;", "");
-  }
-
-  // Show the current tab, and add an "active" class to the link that opened the tab
-  document.getElementById(configName).style.display = "block";
-
-  btn = document.getElementById(configName + "Button");
-  if (btn === null) {
-    return;
-  }
-  btn.className += " active";
-  if (window.matchMedia("(orientation: landscape)").matches) {
-    btn.innerHTML = btn.innerHTML + " &gt;";
-  }
-}
-
-function flush_child(sender) {
-    childs = document.getElementsByTagName("*");
-    for (var c = 0; c < childs.length; c++) {
-        if (childs[c].id.startsWith(sender.id)) {
-            childs[c].checked = sender.checked;
-        }
-    }
-}
-
-var toggler = document.getElementsByClassName("caret");
-var i;
-
-for (i = 0; i < toggler.length; i++) {
-    toggler[i].addEventListener("click", function() {
-        this.parentElement.querySelector(".nested").classList.toggle("active");
-        this.classList.toggle("caret-down");
-        this.classList.down = !this.classList.down;
-        if (document.getElementById("Music").style.display == "block") {
-            albumCover = document.getElementById("albumCover");
-            if (this.classList.down) {
-                albumCover.width = 50;
-                albumCover.height = 50;
-            } else {
-                albumCover.width = 125;
-                albumCover.height = 125;
-            }
-        }
-    });
-}
-
-openConfig("");
-
-showError();
-
-setInterval(() => {
-    requestPlayerStatus();
-}, 1000);
-
-document.getElementById("currPassphrase").onkeyup = function(e) {
-    if (e.which == 13) {
-        document.getElementById("newPassphrase").focus();
-    }
-};
-
-document.getElementById("newPassphrase").onkeyup = function(e) {
-    if (e.which == 13) {
-        document.getElementById("newPassphraseConfirmation").focus();
-    }
-};
-
-document.getElementById("newPassphraseConfirmation").onkeyup = function(e) {
-    if (e.which == 13) {
-        changePassphrase();
-    }
-};
-
+    init("");
 </script>
 
 </html>
