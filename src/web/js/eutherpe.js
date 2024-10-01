@@ -603,13 +603,13 @@ function showError() {
 
 function showErrorDialog(errorMessage) {
     messageBuffer = document.getElementById("messageBuffer");
-    messageBuffer.innerHTML = "&#x1F4A3 "  + errorMessage + " &#x1F4A5";
+    messageBuffer.innerHTML = "&#x1F4A3; "  + errorMessage + " &#x1F4A5;";
     openConfig("ErrorDialog");
 }
 
 function query(queryMessage, doYes, doNo) {
     queryBuffer = document.getElementById("queryBuffer");
-    queryBuffer.innerHTML = "&#x1F4A1 " + queryMessage + " &#x2753";
+    queryBuffer.innerHTML = "&#x1F4A1; " + queryMessage + " &#x2753;";
     doYesBtn = document.getElementById("doYesBtn");
     doYesBtn.onclick = doYes;
     doNoBtn = document.getElementById("doNoBtn");
@@ -619,7 +619,7 @@ function query(queryMessage, doYes, doNo) {
 
 function tip(tipMessage, doGotIt) {
     tipBuffer = document.getElementById("tipBuffer");
-    tipBuffer.innerHTML = "&#x1F989 " + tipMessage + " &#x1F9A7";
+    tipBuffer.innerHTML = "&#x1F989; " + tipMessage + " &#x1F9A7;";
     doGotItBtn = document.getElementById("doGotItBtn");
     doGotItBtn.onclick = doGotIt;
     openConfig("TipDialog");

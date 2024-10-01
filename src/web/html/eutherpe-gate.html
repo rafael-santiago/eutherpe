@@ -20,22 +20,21 @@
         </div>
         <input type="hidden" id="lastError" value="{{.LAST-ERROR}}">
     </div>
-</body>
-
-<script language="javascript">
-    lastError = document.getElementById("lastError").value;
-    if (lastError.length > 0) {
-        LoginErrorDiv = document.getElementById("LoginErrorDiv");
-        LoginErrorDiv.innerHTML = "&#x1F989 " + lastError + " &#x1F9A7";
-    }
-    function clearLoginErrorDiv() {
-        document.getElementById("LoginErrorDiv").innerHTML = "";
-    }
-    document.getElementById("userPassword").onkeyup = function(e) {
-        if (e.which == 13) {
-            authenticate();
+    <script type="text/javascript">
+        lastError = document.getElementById("lastError").value;
+        if (lastError.length > 0) {
+            LoginErrorDiv = document.getElementById("LoginErrorDiv");
+            LoginErrorDiv.innerHTML = "&#x1F989; " + lastError + " &#x1F9A7;";
         }
-    };
-</script>
+        function clearLoginErrorDiv() {
+            document.getElementById("LoginErrorDiv").innerHTML = "";
+        }
+        document.getElementById("userPassword").onkeyup = function(e) {
+            if (e.which == 13) {
+                authenticate();
+            }
+        };
+    </script>
+</body>
 
 </html>

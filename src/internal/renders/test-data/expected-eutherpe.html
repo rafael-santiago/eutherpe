@@ -16,7 +16,7 @@ COPYING.GPLv2 file in the root directory of Eutherpe's source tree.
 <body>
     <div class="title-banner">Eutherpe</div>
     <div class="config">
-        <button class="configtab" id="MusicButton" onclick="openConfig('Music')"><script>setButtonLabel("&#x1F4FB", "Music");</script></button>
+        <button class="configtab" id="MusicButton" onclick="openConfig('Music')"><script>setButtonLabel("&#x1F4FB;", "Music");</script></button>
         <button class="configtab" id="CollectionButton" onclick="openConfig('Collection')"><script>setButtonLabel("&#x1F3B6;", "Collection");</script></button>
         <button class="configtab" id="PlaylistsButton" onclick="openConfig('Playlists')"><script>setButtonLabel("&#x1F352;", "Playlists");</script></button>
         <button class="configtab" id="StorageButton" onclick="openConfig('Storage')"><script>setButtonLabel("&#x1f4be;", "Storage");</script></button>
@@ -85,11 +85,11 @@ COPYING.GPLv2 file in the root directory of Eutherpe's source tree.
         </div>
         <center>
             <hr>
-            <input class="eutherpeBUTTON" type="button" value="&#x226A" onclick="musicLast();"/>
+            <input class="eutherpeBUTTON" type="button" value="&#x226A;" onclick="musicLast();"/>
             <input class="eutherpeBUTTON" type="button" id="playStop" value="&#x25A0" onclick="musicPlayOrStop(this);"/>
-            <input class="eutherpeBUTTON" type="button" value="&#x226B" onclick="musicNext();"/>
-            <input class="eutherpeBUTTON" type="button" value="&#x23F6" onclick="moveSelectedSongsFromUpNextUp();"/>
-            <input class="eutherpeBUTTON" type="button" value="&#x23F7" onclick="moveSelectedSongsFromUpNextDown();"/>
+            <input class="eutherpeBUTTON" type="button" value="&#x226B;" onclick="musicNext();"/>
+            <input class="eutherpeBUTTON" type="button" value="&#x23F6;" onclick="moveSelectedSongsFromUpNextUp();"/>
+            <input class="eutherpeBUTTON" type="button" value="&#x23F7;" onclick="moveSelectedSongsFromUpNextDown();"/>
             <input class="eutherpeBUTTON" type="button" value="&#x1F352;" onclick="showAddToPlaylist();"/>
             <input class="eutherpeBUTTON" type="button" value="Shuffle" onclick="shuffleUpNext();"/>
             <input class="eutherpeBUTTON" type="button" value="Remove..." onclick="removeSelectedSongsFromUpNext();"/>
@@ -176,9 +176,9 @@ COPYING.GPLv2 file in the root directory of Eutherpe's source tree.
     <div id="Settings" class="configcontent" style="display:none;">
         <h3>&#x1F528; Settings</h3>
         <div align="right">
-            <input class="eutherpeBUTTON" type="button" value="&#x1F97E Reboot" onclick="reboot();"/>
-            <input class="eutherpeBUTTON" type="button" value="&#x1F50C Power-off" onclick="powerOff();"/>
-            <input class="eutherpeBUTTON" type="button" value="&#x1F989 About..." onclick="showAboutDiv();"/>
+            <input class="eutherpeBUTTON" type="button" value="&#x1F97E; Reboot" onclick="reboot();"/>
+            <input class="eutherpeBUTTON" type="button" value="&#x1F50C; Power-off" onclick="powerOff();"/>
+            <input class="eutherpeBUTTON" type="button" value="&#x1F989; About..." onclick="showAboutDiv();"/>
         </div>
         <hr>
         <div style="text-align: center; padding: 10%;">
@@ -215,7 +215,7 @@ COPYING.GPLv2 file in the root directory of Eutherpe's source tree.
         <input class="eutherpeBUTTON" type="button" value="Back" onclick="closeWiFiCredentials();"/>
     </div>
     <div id="About" class="configcontent" style="text-align: left; padding: 1%; display: none;">
-        <h3>&#x1F4CC; About &#x1F3BC &#x1F3B5 &#x1F50A &#x1F3A7 &#x1F483 &#x1F57A &#x1F3B7 &#x1F3B9 &#x1F3A4 &#x1F3BA &#x1F3BB &#x1F941 &#x1F3B8 &#x1F3B6 &#x1F918</h3>
+        <h3>&#x1F4CC; About &#x1F3BC; &#x1F3B5; &#x1F50A; &#x1F3A7; &#x1F483; &#x1F57A; &#x1F3B7; &#x1F3B9; &#x1F3A4; &#x1F3BA; &#x1F3BB; &#x1F941; &#x1F3B8; &#x1F3B6; &#x1F918;</h3>
         <hr>
         You are using Eutherpe-<font color="green"><u>v1</u></font><br><br>
         Eutherpe is Copyright (c) 2024 by Rafael Santiago<br><br>You can redistribute it and/or modify under the terms of the GNU General Public License version 2.<br><br>Bug reports, feedback etc: <a href="mailto:voidbrainvoid@tutanota.com"?subject="[Eutherpe] <here goes the subject>"><u>mail me</u></a> or open an <a href="https://github.com/rafael-santiago/eutherpe/issues"><u>issue</u></a> at Eutherpe's project repository. Thanks in advance! &#x1F609
@@ -227,10 +227,8 @@ COPYING.GPLv2 file in the root directory of Eutherpe's source tree.
     <input type="hidden" id="lastSelection" name="lastSelection" value=""/>
     <input type="hidden" id="lastError" name="lastError" value=""/>
     <input type="hidden" id="lastQueryAnswer" name="lastQueryAnswer" value="false"/>
+    <script type="text/javascript">
+        init("");
+    </script>
 </body>
-
-<script language="javascript">
-    init("");
-</script>
-
 </html>
