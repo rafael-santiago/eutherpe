@@ -29,7 +29,14 @@ func ConvertToMP3(inputPath string, customPath ...string) error {
         //               already appears to be there.
         return nil
     }
-    return exec.Command(ffmpegPath, "-i", inputPath, outputPath).Run()
+    ffmpegArgs := make([]string, 0)
+    ffmpegArgs = append(ffmpegArgs, "-i", inputPath)
+    if strings.ToLower(ext) == ".flac" {
+        // INFO(Rafael): Since it is about a flac let's keep on its "HiRes".
+        ffmpegArgs = append(ffmpegArgs, "-ab", "320k")
+    }
+    ffmpegArgs = append(ffmpegArgs, "-map_metadata", "0", "-id3v2_version", "3", outputPath)
+    return exec.Command(ffmpegPath, ffmpegArgs...).Run()
 }
 
 func Play(filePath string, hasBlueAlsaSink bool, customPath ...string) (*exec.Cmd, error) {

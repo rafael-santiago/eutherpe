@@ -15,14 +15,13 @@ define do_update
 	    echo error: You have not ran bootstrap yet.;\
 	    exit 1;\
 	fi
+	@echo info: Wait...
 	@if [ "$$(systemctl status eutherpe | grep 'active (' | wc -l)" = "1" ]; then\
 	    systemctl stop eutherpe;\
-	    while [ "$$(systemctl status eutherpe | grep 'inactive (' | wc -l)" != "1" ]; do\
+	    while [ "$$(ps -ax | grep eutherpe$$ | grep -v grep | wc -l)" != "0" ]; do\
 		sleep 1s;\
 	    done;\
 	fi
-	@echo info: Wait...
-	@sleep 42s
 	@cp eutherpe $$(which eutherpe) && \
 	cp -rf web/ /etc/eutherpe/ && \
 	systemctl start eutherpe && \

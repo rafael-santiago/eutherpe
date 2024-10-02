@@ -42,7 +42,7 @@ func ConvertSongs(basePath string, customPath... string) error {
         fileName := file.Name()
         filePath := path.Join(basePath, fileName)
         ext := path.Ext(strings.ToLower(fileName))
-        if ext == ".m4a" || ext == ".mp4" {
+        if ext == ".m4a" || ext == ".mp4" || ext == ".flac" {
             err = ConvertToMP3(filePath, customPath...)
             if err != nil {
                 fmt.Fprintf(os.Stderr, "warn: error while converting '%s'.\n", filePath)
