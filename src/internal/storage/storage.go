@@ -28,7 +28,9 @@ func GetAllAvailableStorages(customPath ...string) []string {
         if !strings.HasPrefix(fields[9], "/dev/sd") {
             continue
         }
-        availStorages = append(availStorages, fields[4])
+        if !has(availStorages, fields[4]) {
+            availStorages = append(availStorages, fields[4])
+        }
     }
     return availStorages
 }
@@ -107,4 +109,16 @@ func getUdevadmInfoData(field string, outLines []string) string {
         }
     }
     return ""
+}
+
+func has(items []string, item string) bool {
+    if len(items) == 0 {
+        return false
+    }
+    for _, currItem := range items {
+        if currItem == item {
+            return true
+        }
+    }
+    return false
 }

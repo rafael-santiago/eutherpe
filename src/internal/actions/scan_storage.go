@@ -38,7 +38,11 @@ func ScanStorage(eutherpeVars *vars.EutherpeVars, _ *url.Values) error {
     if len(eutherpeVars.Collection) > 0 {
         eutherpeVars.SaveCollection()
     }
+    if eutherpeVars.LoadPlaylists() == nil {
+        eutherpeVars.LoadTags()
+    }
     eutherpeVars.CollectionHTML = ""
+    eutherpeVars.PlaylistsHTML = ""
     if doResume {
         eutherpeVars.Unlock()
         MusicPlay(eutherpeVars, nil)

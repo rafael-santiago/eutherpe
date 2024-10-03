@@ -7,6 +7,7 @@
 //
 
 var g_FromMusicTabContext = false;
+var g_PickedSongsQueue = []
 
 function init(currentConfig) {
     var toggler = document.getElementsByClassName("caret");
@@ -188,7 +189,10 @@ function clearPlaylistSelection() {
     setUnchecked(document.getElementsByClassName("PlaylistSong"));
 }
 
-function getSelectedSongs(songList) {
+function getSelectedSongs(songList, usePickingQueue=false) {
+    if (usePickingQueue) {
+        return g_PickedSongsQueue;
+    }
     selectedOnes = [];
     for (var s = 0; s < songList.length; s++) {
         if (songList[s].checked) {
@@ -561,10 +565,14 @@ function metaActionMusic(action) {
 
 function metaActionOverSongSelection(action, songListClassName) {
     songSelection = document.getElementsByClassName(songListClassName);
-    selectedOnes = getSelectedSongs(songSelection);
+    // INFO(Rafael): In this case is really interesting add songs in the exact user's
+    //               picking sequence. This is indispensable to compose up next and playlists.
+    shouldUsePickingQueue = (songListClassName === "CollectionSong");
+    selectedOnes = getSelectedSongs(songSelection, shouldUsePickingQueue);
     if (selectedOnes.length == 0) {
         return;
     }
+    g_PickedSongsQueue = [];
     var reqParams = { "action"    : action,
                       "selection" : JSON.stringify(selectedOnes) };
     if (action == "collection-addselectiontoplaylist" ||
@@ -861,10 +869,24 @@ function openConfig(configName) {
 }
 
 function flush_child(sender) {
+    is_song_collection = (sender.className === "CollectionSong"
+                          || sender.className === "CollectionAlbum"
+                          || sender.className === "CollectionArtist");
+    should_enqueue = sender.checked;
     childs = document.getElementsByTagName("*");
     for (var c = 0; c < childs.length; c++) {
         if (childs[c].id.startsWith(sender.id)) {
             childs[c].checked = sender.checked;
+            if (is_song_collection && childs[c].className === "CollectionSong") {
+                if (should_enqueue) {
+                    g_PickedSongsQueue.push(childs[c].id);
+                } else {
+                    const idx = g_PickedSongsQueue.indexOf(childs[c].id);
+                    if (idx > -1) {
+                        g_PickedSongsQueue.splice(idx, 1);
+                    }
+                }
+            }
         }
     }
 }
