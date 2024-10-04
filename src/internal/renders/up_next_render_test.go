@@ -37,7 +37,7 @@ func TestUpNextRender(t *testing.T) {
     eutherpeVars.Player.UpNext = append(eutherpeVars.Player.UpNext, eutherpeVars.Collection["Queens Of The Stone Age"]["Queens Of The Stone Age"][0])
     templatedInput := fmt.Sprintf("%s", vars.EutherpeTemplateNeedleUpNext)
     output := UpNextRender(templatedInput, eutherpeVars)
-    if output != "<ul class=\"nested\"><input type=\"checkbox\" id=\"Motorhead/Bomber:dead_men_tell_no_tales.mp3\" class=\"UpNext\">Dead Men Tell No Tales<br><input type=\"checkbox\" id=\"The Cramps/Songs The Lord Taught Us:fever.mp3\" class=\"UpNext\">Fever<br><input type=\"checkbox\" id=\"Queens Of The Stone Age/Queens Of The Stone Age:regular-john.mp3\" class=\"UpNext\">Regular John<br></ul>" {
+    if output != "<ul class=\"nested\"><input type=\"checkbox\" id=\"Motorhead/Bomber:dead_men_tell_no_tales.mp3\" class=\"UpNext\" onclick=\"flush_child(this);\">Dead Men Tell No Tales<br><input type=\"checkbox\" id=\"The Cramps/Songs The Lord Taught Us:fever.mp3\" class=\"UpNext\" onclick=\"flush_child(this);\">Fever<br><input type=\"checkbox\" id=\"Queens Of The Stone Age/Queens Of The Stone Age:regular-john.mp3\" class=\"UpNext\" onclick=\"flush_child(this);\">Regular John<br></ul>" {
         t.Errorf("UpNextRender() seems not to be working accordingly.\n")
     }
 }

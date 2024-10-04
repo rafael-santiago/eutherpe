@@ -26,7 +26,7 @@ func renderUpNext(upNext []mplayer.SongInfo) string {
     for _, song := range upNext {
         upNextHTML += "<input type=\"checkbox\" id=\"" + song.Artist +
                                                    "/" + song.Album +
-                                                   ":" + song.FilePath + "\" class=\"UpNext\">" + song.Title + "<br>"
+                                                   ":" + song.FilePath + "\" class=\"UpNext\" onclick=\"flush_child(this);\">" + song.Title + "<br>"
     }
     upNextHTML += "</ul>"
     return upNextHTML

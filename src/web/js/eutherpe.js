@@ -6,8 +6,14 @@
 // COPYING.GPLv2 file in the root directory of Eutherpe's source tree.
 //
 
+const kMusicSongsQueueIndex = 0;
+const kCollectionSongsQueueIndex = 1;
+const kPlaylistsSongsQueueIndex = 2;
+const kSongsQueueIndexNr = 3;
 var g_FromMusicTabContext = false;
-var g_PickedSongsQueue = []
+var g_PickedSongsQueueIndex = 0;
+var g_PickedSongsQueueSwap = [[], [], []];
+var g_PickedSongsQueue = [];
 
 function init(currentConfig) {
     var toggler = document.getElementsByClassName("caret");
@@ -35,6 +41,15 @@ function init(currentConfig) {
         requestPlayerStatus();
     }, 1000);
     installKeyShortcuts();
+}
+
+function swapPickedSongsQueue(newIndex) {
+    if (newIndex < 0 || newIndex >= kSongsQueueIndexNr) {
+        return;
+    }
+    g_PickedSongsQueueSwap[g_PickedSongsQueueIndex] = g_PickedSongsQueue;
+    g_PickedSongsQueueIndex = newIndex;
+    g_PickedSongsQueue = g_PickedSongsQueueSwap[g_PickedSongsQueueIndex];
 }
 
 function setFromMusicTabContext(value) {
@@ -142,13 +157,16 @@ function addToPlaylist() {
         metaCollectionAdd("collection-addselectiontoplaylist");
     } else {
         songSelection = document.getElementsByClassName("UpNext");
-        selectedOnes = getSelectedSongs(songSelection);
+        selectedOnes = getSelectedSongs(songSelection, true);
         if (selectedOnes.length == 0) {
             selectAllSongs("UpNext");
+            for (var s = 0; s < songSelection.length; s++) {
+                g_PickedSongsQueue.push(songSelection[s].id);
+            }
         }
         metaActionOverSongSelection("music-addupnexttoplaylist", "UpNext");
     }
-    closeAddToPlaylist();
+    closeAddToPlaylist(this);
 }
 
 function addTagsToSelection() {
@@ -236,6 +254,8 @@ function selectPlaylist(sender) {
     for (var p = 0; p < playlists.length; p++) {
         playlists[p].checked = false;
     }
+    g_PickedSongsQueue = [];
+    g_PickedSongsQueueSwap[kPlaylistsSongsQueueIndex] = [];
     sender.checked = state;
 }
 
@@ -567,12 +587,15 @@ function metaActionOverSongSelection(action, songListClassName) {
     songSelection = document.getElementsByClassName(songListClassName);
     // INFO(Rafael): In this case is really interesting add songs in the exact user's
     //               picking sequence. This is indispensable to compose up next and playlists.
-    shouldUsePickingQueue = (songListClassName === "CollectionSong");
+    shouldUsePickingQueue = (songListClassName === "CollectionSong"
+                                || songListClassName === "PlaylistSong"
+                                || songListClassName === "UpNext");
     selectedOnes = getSelectedSongs(songSelection, shouldUsePickingQueue);
     if (selectedOnes.length == 0) {
         return;
     }
     g_PickedSongsQueue = [];
+    g_PickedSongsQueueSwap[g_PickedSongsQueueIndex] = [];
     var reqParams = { "action"    : action,
                       "selection" : JSON.stringify(selectedOnes) };
     if (action == "collection-addselectiontoplaylist" ||
@@ -834,50 +857,62 @@ function installKeyShortcuts() {
 }
 
 function openConfig(configName) {
-  if (configName === "Collection") {
-    setFromMusicTabContext(false);
-  } else if (configName === "Music") {
-    setFromMusicTabContext(true);
-  }
-  if (configName === "Music"
-      || configName === "Collection"
-      || configName === "Playlists"
-      || configName === "Storage"
-      || configName === "Bluetooth"
-      || configName === "Settings") {
-    setCurrentConfig(configName);
-  }
-  var i, configcontent, configtab;
-  configcontent = document.getElementsByClassName("configcontent");
-  for (i = 0; i < configcontent.length; i++) {
-    configcontent[i].style.display = "none";
-  }
-  configtab = document.getElementsByClassName("configtab");
-  for (i = 0; i < configtab.length; i++) {
-    configtab[i].className = configtab[i].className.replace(" active", "");
-    configtab[i].innerHTML = configtab[i].innerHTML.replace(" &gt;", "");
-  }
-  document.getElementById(configName).style.display = "block";
-  btn = document.getElementById(configName + "Button");
-  if (btn === null) {
-    return;
-  }
-  btn.className += " active";
-  if (window.matchMedia("(orientation: landscape)").matches) {
-    btn.innerHTML = btn.innerHTML + " &gt;";
-  }
+    if (configName === "Collection") {
+        swapPickedSongsQueue(kCollectionSongsQueueIndex);
+        setFromMusicTabContext(false);
+    } else if (configName === "Music") {
+        swapPickedSongsQueue(kMusicSongsQueueIndex);
+        setFromMusicTabContext(true);
+    } else if (configName === "Playlists") {
+        swapPickedSongsQueue(kPlaylistsSongsQueueIndex);
+    }
+    if (configName === "Music"
+        || configName === "Collection"
+        || configName === "Playlists"
+        || configName === "Storage"
+        || configName === "Bluetooth"
+        || configName === "Settings") {
+        setCurrentConfig(configName);
+    }
+    var i, configcontent, configtab;
+    configcontent = document.getElementsByClassName("configcontent");
+    for (i = 0; i < configcontent.length; i++) {
+        configcontent[i].style.display = "none";
+    }
+    configtab = document.getElementsByClassName("configtab");
+    for (i = 0; i < configtab.length; i++) {
+        configtab[i].className = configtab[i].className.replace(" active", "");
+        configtab[i].innerHTML = configtab[i].innerHTML.replace(" &gt;", "");
+    }
+    document.getElementById(configName).style.display = "block";
+    btn = document.getElementById(configName + "Button");
+    if (btn === null) {
+        return;
+    }
+    btn.className += " active";
+    if (window.matchMedia("(orientation: landscape)").matches) {
+        btn.innerHTML = btn.innerHTML + " &gt;";
+    }
+}
+
+function is_song_item(item) {
+    return (item.className === "CollectionSong"
+                || item.className === "UpNext"
+                || item.className === "PlaylistSong");
 }
 
 function flush_child(sender) {
-    is_song_collection = (sender.className === "CollectionSong"
-                          || sender.className === "CollectionAlbum"
-                          || sender.className === "CollectionArtist");
+    is_song_asset = (sender.className === "CollectionSong"
+                        || sender.className === "CollectionAlbum"
+                        || sender.className === "CollectionArtist"
+                        || sender.className === "UpNext"
+                        || sender.className === "PlaylistSong");
     should_enqueue = sender.checked;
     childs = document.getElementsByTagName("*");
     for (var c = 0; c < childs.length; c++) {
         if (childs[c].id.startsWith(sender.id)) {
             childs[c].checked = sender.checked;
-            if (is_song_collection && childs[c].className === "CollectionSong") {
+            if (is_song_asset && is_song_item(childs[c])) {
                 if (should_enqueue) {
                     g_PickedSongsQueue.push(childs[c].id);
                 } else {
