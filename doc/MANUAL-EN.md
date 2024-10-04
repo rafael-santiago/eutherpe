@@ -19,6 +19,7 @@ decisions, how to install and using it. Ultimately, here you learn how to ride y
     - [The Bluetooth screen](#the-bluetooth-screen)
     - [The Settings screen](#the-settings-screen)
 - [A sympathetic slooth](#a-sympathetic-slooth)
+- [About the individual song picking from lists](#about-the-individual-song-picking-from-lists)
 
 ## What is it?
 
@@ -444,5 +445,14 @@ and just wait it :sleeping:. Take a look at **Figure 16** :sweat_smile:!
 
 ![The sympathetic slooth](figures/eus-pt-br-sympathetic-wait-slooth.png)
 **Figure 16**: Wait bro!
+
+[`Back`](#topics)
+
+## About the individual song picking from lists
+
+At the `Music`, `Collection` and `Playlist` screens, even the songs being sequentially listed
+the sequence of individual selection is kept. `Eutherpe` saves the exact sequence that you
+follow when picking the songs to add them to the up next or to a playlist. This feature gives
+you the freedom to select the songs that your are wanting to listen to in the way you want.
 
 [`Back`](#topics)

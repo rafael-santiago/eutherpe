@@ -19,6 +19,7 @@ de projeto, como instalar e usar. Enfim, aqui você aprende pilotar o seu éter 
     - [A tela Bluetooth](#a-tela-bluetooth)
     - [A tela Settings](#a-tela-settings)
 - [Uma preguiça simpática](#uma-preguiça-simpática)
+- [Sobre a escolha individual de músicas nas listas](#sobre-a-escolha-individual-de-músicas-nas-listas)
 
 ## O que é?
 
@@ -453,5 +454,15 @@ se assuste e apenas espere-a :sleeping:. Dê uma olhada na **Figura 16** :sweat_
 
 ![A preguiça simpática](figures/eus-pt-br-sympathetic-wait-slooth.png)
 **Figura 16**: Espera aí cara...
+
+[`Voltar`](#tópicos)
+
+## Sobre a escolha individual de músicas nas listas
+
+Nas telas `Music`, `Collection` e `Playlist`, embora as músicas estejam listadas
+de forma sequencial, a ordem de seleção individual de músicas é mantida. `Eutherpe`
+guarda a ordem que você foi selecionando para então adicionar à lista de reprodução
+ou a uma `playlist`. Isso te dá liberdade para selecionar as músicas que quer ouvir
+na ordem que bem entender.
 
 [`Voltar`](#tópicos)

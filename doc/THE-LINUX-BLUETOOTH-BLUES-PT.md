@@ -205,7 +205,7 @@ com `sets` e mais `sets`) que dizia mais ou menos isso:
 
 Lacônico assim. Eu não liguei... Continuei confiante que transformaria xixi em ouro com algum
 `set` filosofal. Até que intoxicado de tanto `set` e indignado por ter que jogar uns meses
-de trabalho fora e enconstar um `Raspberry-Pi` que havia comprado só para isso, decidi por
+de trabalho fora e encostar um `Raspberry-Pi` que havia comprado só para isso, decidi por
 tentar `ALSA` e `Bluealsa`.
 
 Nos meus áureos tempos utilizando `Slackware` já havia utilizado `ALSA` sem muita porcaria
