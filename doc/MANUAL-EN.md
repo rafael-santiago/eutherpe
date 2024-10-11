@@ -450,9 +450,10 @@ and just wait it :sleeping:. Take a look at **Figure 16** :sweat_smile:!
 
 ## About the individual song picking from lists
 
-At the `Music`, `Collection` and `Playlist` screens, even the songs being sequentially listed
-the sequence of individual selection is kept. `Eutherpe` saves the exact sequence that you
-follow when picking the songs to add them to the up next or to a playlist. This feature gives
-you the freedom to select the songs that your are wanting to listen to in the way you want.
+> [!TIP]
+> At the `Music`, `Collection` and `Playlist` screens, even the songs being sequentially listed
+> the sequence of individual selection is kept. `Eutherpe` saves the exact sequence that you
+> follow when picking the songs to add them to the up next or to a playlist. This feature gives
+> you the freedom to select the songs that your are wanting to listen to in the way you want.
 
 [`Back`](#topics)

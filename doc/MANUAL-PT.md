@@ -459,10 +459,11 @@ se assuste e apenas espere-a :sleeping:. Dê uma olhada na **Figura 16** :sweat_
 
 ## Sobre a escolha individual de músicas nas listas
 
-Nas telas `Music`, `Collection` e `Playlist`, embora as músicas estejam listadas
-de forma sequencial, a ordem de seleção individual de músicas é mantida. `Eutherpe`
-guarda a ordem que você foi selecionando para então adicionar à lista de reprodução
-ou a uma `playlist`. Isso te dá liberdade para selecionar as músicas que quer ouvir
-na ordem que bem entender.
+> [!TIP]
+> Nas telas `Music`, `Collection` e `Playlist`, embora as músicas estejam listadas
+> de forma sequencial, a ordem de seleção individual de músicas é mantida. `Eutherpe`
+> guarda a ordem que você foi selecionando para então adicionar à lista de reprodução
+> ou a uma `playlist`. Isso te dá liberdade para selecionar as músicas que quer ouvir
+> na ordem que bem entender. Aqui utilidade realmente rima com liberdade!
 
 [`Voltar`](#tópicos)
