@@ -14,7 +14,7 @@ v1 [git-tag: 'v1']
 
         - Minimalism but it is simple _NOT_ simpleton. Made to be useful and ready-to-go.
         - Automagic bootstrapping.
-        - Support for mp3, mp4 and m4a formats.
+        - Support for mp3, mp4, m4a and flac formats.
         - Bluetooth support (ALSA/Bluez-ALSA [sharp, unbloated and simple!]).
         - Bluetooth's previous pairing restore.
         - Wi-Fi support.
@@ -26,6 +26,8 @@ v1 [git-tag: 'v1']
         - Collection feeding through usb sticks.
         - Session saving.
         - Playlists.
+        - Reproduction list additions follow the sequence of your song picking.
+        - It also applies to the playlists.
         - Song tagging.
         - Random selection by taking into consideration user's provided tags.
         - Shuffle mode.
