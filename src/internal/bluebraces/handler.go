@@ -79,11 +79,7 @@ func GetPairedDevices(customPath ...string) []BluetoothDevice {
 }
 
 func Wear(customPath ...string) error {
-    err := exec.Command(path.Join(getToolPath(customPath...), "bluetoothctl"), "power", "on").Run()
-    if err == nil {
-        err = exec.Command(path.Join(getToolPath(customPath...), "bluetoothctl"), "discoverable", "on").Run()
-    }
-    return err
+    return exec.Command(path.Join(getToolPath(customPath...), "bluetoothctl"), "power", "on").Run()
 }
 
 func Unwear(customPath ...string) error {
@@ -97,11 +93,16 @@ func Unwear(customPath ...string) error {
 func ScanDevices(duration time.Duration, customPath ...string) ([]BluetoothDevice, error) {
     blueDevs := make([]BluetoothDevice, 0)
     err := doDevicesScan(&blueDevs, duration, customPath...)
+    if err == nil {
+        err = exec.Command(path.Join(getToolPath(customPath...), "bluetoothctl"), "discoverable", "on").Run()
+    }
     return blueDevs, err
 }
 
 func PairDevice(devId string, customPath ...string) error {
-    return exec.Command(path.Join(getToolPath(customPath...), "bluetoothctl"), "pair", devId).Run()
+    err := exec.Command(path.Join(getToolPath(customPath...), "bluetoothctl"), "pair", devId).Run()
+    exec.Command(path.Join(getToolPath(customPath...), "bluetoothctl"), "discoverable", "off").Run()
+    return err
 }
 
 func UnpairDevice(devId string, customPath ...string) error {
