@@ -18,6 +18,8 @@ minha festa.
     - [switches](#switches)
     - [func](#func)
 - [Não polua a instalação go, esqueça download de packages](#não-polua-a-instalação-go-esqueça-download-de-packages)
+- [Não programe a lógica do build dentro do yaml do CI](#não-programe-a-lógica-do-build-dentro-do-yaml-do-ci)
+- [Build precisa de documentação](#build-precisa-de-documentação)
 - [Definition of done](#definition-of-done)
 - [Use linguagem neutra e inclusiva](#use-linguagem-neutra-e-inclusiva)
 
@@ -261,6 +263,44 @@ suruba de pacotes baixados de qualquer lugar que `golang` se amarra em fazer. Eu
 "feature" uma ideia de jerico total, mas, o lance das tecnologias é desviar das más ideias e usar
 o que vale a pena, torcendo para que notem o quão idiota certas coisas são e purguem
 definitivamente essas tranqueiras de versões futuras :wink:!
+
+[`Voltar`](#tópicos)
+
+## Não programe a lógica do build dentro do yaml do CI
+
+Isso é desmanzelo e falta de esperteza. Por um motivo simples: para você rodar o build do `software`,
+você vai precisar de toda a infraestrutura para interpretar o seu `yaml` e então rodar o build do
+treco "lá longe". Notou como é estúpido ao extremo? Afunila suas possibilidades em conseguir o
+artefato que você está procurando conseguir o mais rápido possível.
+
+Build bem feito, funciona onde tiver que funcionar, o programador não precisa ficar levando
+o ambiente de build nas costas igual um caramujo.
+
+A lógica do build `deve` ser escrita em `scripts` que possam ser chamados a partir de qualquer
+ambiente apto a fazer o build, dessa forma no `yaml` do `CI` vai ser apenas chamar o `script` de lá.
+
+Entenda ainda `yamls` como scripts menores para prover a infra do `CI` baseado no `status quo` do
+serviço usado para hospedar os fontes, `nada mais além disso`. Entretanto, o projeto pode passar
+ser hospedado em outro lugar onde toda aquela tralha `yaml` passe não fazer mais sentido (daí
+`status quo`...) Basear seu build nisso seria uma ode à estupidez, ingenuidade e porcaria. Não
+faça isso, nem tente, eu não aceitarei.
+
+[`Voltar`](#tópicos)
+
+## Build precisa de documentação
+
+Se você não é capaz de escrever em linguagem natural `como fazer o build` de um `software` a
+partir da infra de build que criou, bem certo que deve estar um ninho de rato. Melhore isso
+até o ponto que você consiga descrever como fazer o build de forma sã e em linguagem natural.
+Talvez antes de melhorar os `scripts`, você precise até organizar entendimentos mais abstratos
+na sua própria cabeça. O maior problema talvez seja a bagunça que está em como você entende
+as coisas e isso se torna um reflexo nos seus build `scripts`.
+
+Instruir usuários a lerem os `scripts` ou os `yamls` do `CI` só provaria o quão incompetentes
+estariamos sendo em manter a infra de build do `software`. Seria uma vergonha total, sem
+chance. Se é para pegar para fazer algo, é para fazer direito, se você não souber fazer do
+jeito certo, descreva o que quer para alguém capaz e vamos ter a coisa pronta do jeito certo.
+Procure acompanhar a feitura para aproveitar e aprender.
 
 [`Voltar`](#tópicos)
 

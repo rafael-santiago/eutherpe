@@ -17,6 +17,8 @@ will enroll in a party that has already begun, this is my party.
     - [switches](#switches)
     - [func](#func)
 - [Do not polute the go installation, forget about downloading packages](#do-not-polute-the-go-installation-forget-about-downloading-packages)
+- [Do not code the build logics in the CI's yaml](#do-not-code-the-build-logics-in-the-cis-yaml)
+- [A build needs documentation](#a-build-needs-documentation)
 - [Definition of done](#definition-of-done)
 - [Use inclusive and neutral language](#use-inclusive-and-neutral-language)
 
@@ -242,9 +244,48 @@ utilities (utils that really are inutils) and so purge this trinket out from new
 
 [`Back`](#topics)
 
+## Do not code the build logics in the CI's yaml
+
+It is sloppy and not so smart. Due to a simple reason: to be able to run the `software` build, it
+would be needed all CI infrastructure to interpret and executing the `yaml`. Do you notice how
+stupid it is? It takes from you all possibilities of getting the artifact asap.
+
+A well written build is able to run where it should run. The programmer do not need to carrying
+the build environment on its shoulders like a snail.
+
+The build logics `must` be written in `scripts` that can be called from any environment with
+all tools necessary to build the project up. Writing things out in this way, from the point of
+view of the `CI`, it would be only about calling the script from some `yaml`.
+
+Still, `yamls` are only minor scripts, used to provide the `CI` infrastructure, based on the
+`status quo` of the source hosting service in use, `nothing more than it`. Nonetheless, the
+`project` can be hosted in another service in the future, where all `yaml` trinket become
+pointless (due to it `status quo`) Basing your build in a technology that can be easily
+abandoned is an ode to the stupidity, naiveless and sloppiness. Do not do it, do not try,
+I will not accept.
+
+[`Back`](#topics)
+
+## A build needs documentation
+
+If you are unable to write down in natural language `how to run the build` of a `sofware`
+taking into consideration the created infrastructure, for sure that it would be a mess.
+Make it better until the point that you can describe in natural language how to run the build.
+
+Suggesting users to read the `script` or even `CI` `yamls` is unacceptable, it would be
+a proof of how incompetent we would be on maintaining the `software` `build`.
+
+If the idea is to make something, let's make the things in the right way, if you do not know
+how to do it, describe what you want to someone able and let's get the things done. Follow
+up the process, so in this way you learn how to do.
+
+[`Back`](#topics)
+
 ## Definition of done
 
-A new feature is considered done when:
+A new feature is 
+
+considered done when:
 
 1. It does what it must do.
 2. It does not add mess, confusion or even unstability nor bugs in the previous stuff.
