@@ -93,6 +93,7 @@ func GetSongInfo(filePath string, coversCacheRootPath ...string) (SongInfo, erro
     if len(filePath) == 0 {
         return SongInfo{}, fmt.Errorf("Empty song file path was passed.")
     }
+    //fmt.Println("filePath = ", filePath)
     s := SongInfo{ }
     s.FilePath = filePath
     file, err := os.Open(s.FilePath)
@@ -217,10 +218,12 @@ func GetSongInfo(filePath string, coversCacheRootPath ...string) (SongInfo, erro
                     //startOff = 11
                     break
                 case 3:
-                    needleSize = (int(needle[4]) << 24) |
-                                 (int(needle[5]) << 16) |
-                                 (int(needle[6]) <<  8) |
-                                 int(needle[7])
+                    for off := 4; needleSize == 0 && off < 16; off += 4 {
+                        needleSize = (int(needle[off]) << 24) |
+                                     (int(needle[off+1]) << 16) |
+                                     (int(needle[off+2]) <<  8) |
+                                     int(needle[off+3])
+                    }
                     //startOff = 13
                     break
                 case 2:
@@ -232,7 +235,7 @@ func GetSongInfo(filePath string, coversCacheRootPath ...string) (SongInfo, erro
             needleSize -= 1
             //fmt.Println("info: ", info)
             //fmt.Println("needleSize = ", needleSize)
-            if needleSize > len(needle) {
+            if needleSize < 0 || needleSize > len(needle) {
                 // INFO(Rafael): Ahhh this is a mess, cross your fingers for it at least reproducing!
                 continue
             }
@@ -663,7 +666,7 @@ func isAlbumCoverCached(blob []byte, coversCacheRootPath string, imageHash *stri
 }
 
 func resizeAlbumCover(sourcePath, destPath string, width, height uint) error {
-    fmt.Println(sourcePath, destPath)
+    //fmt.Println(sourcePath, destPath)
     return exec.Command("convert", sourcePath, "-resize",
                         fmt.Sprintf("%dx%d", width, height),
                         destPath).Run()
