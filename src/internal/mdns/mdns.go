@@ -343,7 +343,8 @@ func doMDNSServerRunN(proto, listenAddr string,
             default:
         }
         b := make([]byte, 0xFFFF)
-        l.SetReadDeadline(time.Now().Add(30 * time.Second))
+        l.SetReadDeadline(time.Now().Add(3 * time.Second))
+        l.SetDeadline(time.Now().Add(3 * time.Second))
         bytesTotal, unicastAddr, err := l.ReadFromUDP(b)
         if bytesTotal <= 0 {
             continue
