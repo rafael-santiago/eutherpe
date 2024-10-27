@@ -87,7 +87,7 @@ func version() {
 }
 
 func help() {
-    fmt.Printf("use: %s [ --listen-port=<port-number|defaults to 8080> | --version | --help ]\n", os.Args[0])
+    fmt.Printf("use: %s [ --listen-port=<port-number|defaults to 8080> | --listen-addr=<ip4|ip6> | --version | --help ]\n", os.Args[0])
 }
 
 func tryToPairWithPreviousBluetoothDevice(eutherpeVars *vars.EutherpeVars,

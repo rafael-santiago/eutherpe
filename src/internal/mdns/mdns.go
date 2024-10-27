@@ -387,8 +387,11 @@ func doMDNSServerRunN(proto, listenAddr string,
         }
         if err != nil {
             fmt.Fprintf(os.Stderr, "error: %s\n", err.Error())
+            continue
         }
-        conn.Close()
+        if conn != nil {
+            conn.Close()
+        }
     }
 
 }

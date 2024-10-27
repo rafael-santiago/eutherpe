@@ -457,3 +457,26 @@ and just wait it :sleeping:. Take a look at **Figure 16** :sweat_smile:!
 > you the freedom to select the songs that your are wanting to listen to in the way you want.
 
 [`Back`](#topics)
+
+## Supported command line options
+
+While a command line application, `Eutherpe` accepts some options. If you want to use `Eutherpe`
+just as a final user, you do not need to mind about them. However, if you want to adapt `Eutherpe`
+to your state of things, the following options can be useful to make some customizations.
+
+An option is passed via command line prefixed with `--`, something like: `--blau`. If the option is
+a boolean flag (on/off stuff) it would be `--blau` (when passed it is on). If the option is about a
+content one, it follows the form `--blau=content`, the content depends on the option.
+
+Take a look at **Table 1** to know more about.
+
+| **Option** | **Utility** | **Usage sample** |
+|:----------:|:-----------:|:----------------:|
+| `--listen-port=<port>` | Changes the default listen port number (8080) to the passed one | `eutherpe --listen-port=4242` |
+| `--listen-addr=<ip>` | Specifies which ip address will be used as listen address, `Eutherpe` detects your system ip by design (giving preference to `IPv4`) | `eutherpe --listen-addr=2a2a::2a` |
+| `--version` | Shows the `Eutherpe` version and exits | `eutherpe --version` |
+| `--help` | Shows a quick help about these options and exits | `eutherpe --help` |
+
+**Table 1**: All command line options currently supported.
+
+[`Back`](#topics)

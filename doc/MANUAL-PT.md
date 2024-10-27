@@ -20,6 +20,7 @@ de projeto, como instalar e usar. Enfim, aqui você aprende pilotar o seu éter 
     - [A tela Settings](#a-tela-settings)
 - [Uma preguiça simpática](#uma-preguiça-simpática)
 - [Sobre a escolha individual de músicas nas listas](#sobre-a-escolha-individual-de-músicas-nas-listas)
+- [Opções de linha de comando suportadas](#opções-de-linha-de-comand-suportadas)
 
 ## O que é?
 
@@ -465,5 +466,29 @@ se assuste e apenas espere-a :sleeping:. Dê uma olhada na **Figura 16** :sweat_
 > guarda a ordem que você foi selecionando para então adicionar à lista de reprodução
 > ou a uma `playlist`. Isso te dá liberdade para selecionar as músicas que quer ouvir
 > na ordem que bem entender. Aqui utilidade realmente rima com liberdade!
+
+[`Voltar`](#tópicos)
+
+## Opções de linha de comando suportadas
+
+`Eutherpe` enquanto um aplicativo de linha de comando aceita algumas opções. Se você quer
+utilizar `Eutherpe` como um usuário final, não precisa se preocupar com essas opções. Entretanto,
+se você quiser adaptar `Eutherpe` para o seu estado de coisas as seguintes opções podem ser
+úteis para customizações.
+
+Uma opção é passada via linha de comando precedida por `--`, algo como: `--blau`. Se a
+opção for de liga e desliga é `--blau` (ela existindo está "ligada"). Se a opção for de
+conteúdo, ela segue a forma `--blau=conteúdo`, o conteúdo é vário, depende da opção.
+
+Dê uma olhada na **Tabela 1** para saber mais.
+
+| **Opção** | **Utilidade** | **Exemplo de uso** |
+|:---------:|:-------------:|:------------------:|
+| `--listen-port=<porta>` | Altera o número da porta de escuta default (8080) para uma de sua escolha | `eutherpe --listen-port=4242` |
+| `--listen-addr=<ip>`    | Especifica qual endereço ip será usado para a escuta por conexões, por padrão `Eutherpe` detecta o seu ip, dando preferência para `IPv4` | `eutherpe --listen-addr=2a2a::2a` |
+| `--version` | Exibe a versão de `Eutherpe` em seu sistema e sai | `eutherpe --version` |
+| `--help` | Exibe uma ajuda rápida sobre essas opções aqui e sai | `eutherpe --help` |
+
+**Tabela 1**: Opções de linha de comando suportadas por `Eutherpe` até o presente momento.
 
 [`Voltar`](#tópicos)

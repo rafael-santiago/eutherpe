@@ -430,6 +430,10 @@ func (e *EutherpeVars) connectToWLAN(wpaSupplicantConfFilePath string) (string, 
 }
 
 func (e *EutherpeVars) SetAddr() error {
+    e.HTTPd.Addr = options.Get(EutherpeOptionListenAddr)
+    if len(e.HTTPd.Addr) > 0 {
+        return nil
+    }
     ifaces, err := net.Interfaces()
     if err != nil {
         return err
@@ -586,8 +590,11 @@ func (e *EutherpeVars) TuneUp() {
         if strings.Index(e.HTTPd.Addr, ".") > - 1 {
             ipAddr = ipAddr[12:16]
         }
-        e.MDNS.Hosts = append(e.MDNS.Hosts, mdns.MDNSHost { e.HostName, ipAddr, 300, })
+        e.MDNS.Hosts = append(e.MDNS.Hosts, mdns.MDNSHost { e.HostName, ipAddr, 3600, })
         go mdns.MDNSServerStart(e.MDNS.Hosts, e.MDNS.GoinHome)
+    }
+    if strings.Index(e.HTTPd.Addr, ":") > -1 {
+        e.HTTPd.Addr = "[" + e.HTTPd.Addr + "]"
     }
     e.HTTPd.Port = options.Get(EutherpeOptionListenPort, "8080")
 }
@@ -749,5 +756,6 @@ const EutherpeMusicDevWLANDir = "wlan"
 const EutherpeMusicDevWLANPubApsFile = "pub-aps"
 
 const EutherpeOptionListenPort = "listen-port"
+const EutherpeOptionListenAddr = "listen-addr"
 
 const EutherpeCachedMP3FilePath = "/tmp/cache.mp3"

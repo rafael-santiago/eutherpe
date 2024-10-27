@@ -203,6 +203,12 @@ func TestGetSongInfo(t *testing.T) {
 }
 
 func TestScanSongs(t *testing.T) {
+    if _, err := os.Stat("/tmp/cache.mp3"); err == nil {
+        err := os.Remove("/tmp/cache.mp3")
+        if err != nil {
+            t.Errorf("/tmp/cache.mp3 found remove it yourself, please : '%s'", err.Error())
+        }
+    }
     songs, err := ScanSongs("/tmp")
     if err != nil {
         t.Errorf("ScanSongs() has returned an error while it should not.\n")
