@@ -572,8 +572,8 @@ func (e *EutherpeVars) TuneUp() {
     e.HTTPd.AuthWatchdog.On()
     e.RestoreSession()
     e.SetAddr()
-    nTry := 60
-    for e.HTTPd.Addr == "42.42.42.42" && nTry > 0 {
+    retriesTimeout := time.Now().Add(2 * time.Minute)
+    for e.HTTPd.Addr == "42.42.42.42" && time.Now().Before(retriesTimeout) {
         time.Sleep(1 * time.Second)
         e.HTTPd.Addr = ""
         e.SetAddr()
