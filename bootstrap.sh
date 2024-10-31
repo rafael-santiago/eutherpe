@@ -158,7 +158,7 @@ install_golang() {
         echo "error: Your architecture $(uname -m) is not supported." >&2
         exit 1
     fi
-    filename="go1.19.linux-"$arch_tag".tar.gz"
+    filename="go1.23.2.linux-"$arch_tag".tar.gz"
     download_uri="https://go.dev/dl"
     old_dir=$(pwd)
     cd /tmp
@@ -269,6 +269,7 @@ install_eutherpe() {
 
 build_and_install_bluez_alsa() {
     echo "+-- cloning santiago's bluez-alsa fork..." >&2
+    rm -rf bluez-alsa >&2
     git clone https://github.com/rafael-santiago/bluez-alsa -b v4.2.0 bluez-alsa >/dev/null 2>&1
     if [[ $? != 0 ]] ; then
         echo "error: while cloning bluez-alsa." >&2
@@ -335,31 +336,44 @@ deactivate_avahi_daemon() {
     return 0
 }
 
-get_eth_iface() {
-    echo `ip link show | grep ': \(eth\|enp\)' | tail -1 | awk '{ print $2 }' | sed 's/://g'`
+is_rescue_iface_set_already() {
+    echo `cat /etc/network/interfaces | grep 'address 42.42.42.' | wc -l`
 }
 
-is_rescue_iface_set_already() {
-    echo `cat /etc/network/interfaces | grep 'address 42.42.42.42' | wc -l`
+write_eth_config() {
+    eth_iface=$1
+    up_cmd=$2
+    ip_addr=$3
+    nt_mask=$4
+    dname=$5
+    cat /etc/network/interfaces > /etc/network/interfaces.stage
+    echo "auto $eth_iface" >> /etc/network/interfaces.stage
+    echo "iface $eth_iface inet static" >> /etc/network/interfaces.stage
+    if [[ ! -z $up_cmd ]] ; then
+        echo " up $up_cmd" >> /etc/network/interfaces.stage
+    fi
+    echo " address $ip_addr" >> /etc/network/interfaces.stage
+    echo " netmask $nt_mask" >> /etc/network/interfaces.stage
+    echo " dns-domain $dname" >> /etc/network/interfaces.stage
+    mv /etc/network/interfaces.stage /etc/network/interfaces
+}
+
+get_eth_iface_pattern() {
+    echo `ip link show | grep ': \(eth\|end\)' | tail -1 | awk '{ print $2 }' | sed 's/://g' | sed 's/[0-9]\+//g'`
 }
 
 setup_eth_rescue_iface() {
-    eth_iface=`get_eth_iface`
     exit_code=1
-    if [[ -z $eth_iface ]] ; then
-        echo "error: Unable to find out a ethernet interface." >&2
+    eth_iface_pattern=`get_eth_iface_pattern`
+    if [[ -z $eth_iface_pattern ]] ; then
+        echo "error: Unable to find out a ethernet interface. It only supports 'ethN' or 'endN' interfaces." >&2
     elif [[ `is_rescue_iface_set_already` == 0 ]] ; then
         cp /etc/network/interfaces /etc/network/interfaces.bkp >/dev/null 2>&1
-        cat /etc/network/interfaces | grep -v $eth_iface > /etc/network/interfaces.stage
-        echo "auto $eth_iface" >> /etc/network/interfaces.stage
-        echo "iface $eth_iface inet static" >> /etc/network/interfaces.stage
-        echo " address 42.42.42.42" >> /etc/network/interfaces.stage
-        echo " netmask 255.255.255.0" >> /etc/network/interfaces.stage
-        echo " dns-domain euther-pi.rescue" >> /etc/network/interfaces.stage
-        mv /etc/network/interfaces.stage /etc/network/interfaces
+        `write_eth_config ${eth_iface_pattern}0 'ip route del 42.42.42.0/24 dev eth1' 42.42.42.1 255.255.255.0 euther-pi0.rescue`
+        `write_eth_config ${eth_iface_pattern}1 'ip route del 42.42.42.0/24 dev eth0' 42.42.42.2 255.255.255.0 euther-pi1.rescue`
         exit_code=0
     else
-        echo "=== bootstrap info: The ethernet rescue interface 42.42.42.42 is already set." >&2
+        echo "=== bootstrap info: The ethernet rescue interfaces are already set." >&2
         exit_code=0
     fi
     echo $exit_code
@@ -599,7 +613,7 @@ fi
 echo "=== bootstrap info: Done."
 
 if [[ $SHOULD_SETUP_ETH_RESCUE_IFACE == 1 ]] ; then
-    echo "=== bootstrap info: Setting up ethernet rescue interface 42.42.42.42..."
+    echo "=== bootstrap info: Setting up ethernet rescue interface 42.42.42.x..."
     if [[ `setup_eth_rescue_iface` != 0 ]] ; then
         echo "error: Unable to setup ethernet rescue interface." >&2
         exit 1

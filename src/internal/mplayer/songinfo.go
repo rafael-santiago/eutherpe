@@ -64,9 +64,10 @@ func ScanSongs(basePath string, coversCacheRootPath ...string) ([]SongInfo, erro
     }
     songs := make([]SongInfo, 0)
     for _, file := range files {
-        fileName := strings.ToLower(file.Name())
-        if path.Ext(fileName) == ".mp3" {
-            songInfo, err := GetSongInfo(path.Join(basePath, file.Name()), coversCacheRootPath...)
+        fileName := file.Name()
+        fileExt := path.Ext(strings.ToLower(file.Name()))
+        if fileExt == ".mp3" {
+            songInfo, err := GetSongInfo(path.Join(basePath, fileName), coversCacheRootPath...)
             if err != nil {
                 continue
             }

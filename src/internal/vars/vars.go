@@ -438,10 +438,12 @@ func (e *EutherpeVars) SetAddr() error {
     if err != nil {
         return err
     }
+    var rescueIP string
     hasRescueIface := false
     for _, version := range []int{ 4, 6 } {
         for _, iface := range ifaces {
-            if (iface.Flags & net.FlagLoopback) == 0 {
+            if (iface.Flags & net.FlagLoopback) == 0 &&
+               (iface.Flags & net.FlagRunning) == net.FlagRunning {
                 addrs, err := iface.Addrs()
                 if err != nil {
                     continue
@@ -453,8 +455,9 @@ func (e *EutherpeVars) SetAddr() error {
                         if version == 4 && strings.Index(strAddr, ":") > -1 {
                             continue
                         }
-                        if strAddr == "42.42.42.42" {
+                        if strings.HasPrefix(strAddr, "42.42.42.") {
                             hasRescueIface = true
+                            rescueIP = strAddr
                             continue
                         }
                         e.HTTPd.Addr = strAddr
@@ -484,8 +487,8 @@ func (e *EutherpeVars) SetAddr() error {
         return fmt.Errorf("Unable to set a valid IP")
     }
     if hasRescueIface && len(e.HTTPd.Addr) == 0 {
-        e.HTTPd.Addr = "42.42.42.42"
-        fmt.Printf("info: Eutherpe is using rescue interface '42.42.42.42'.\n")
+        e.HTTPd.Addr = rescueIP
+        fmt.Printf("info: Eutherpe is using rescue interface '%s'.\n", rescueIP)
     }
     return nil
 }
@@ -573,7 +576,7 @@ func (e *EutherpeVars) TuneUp() {
     e.RestoreSession()
     e.SetAddr()
     retriesTimeout := time.Now().Add(2 * time.Minute)
-    for e.HTTPd.Addr == "42.42.42.42" && time.Now().Before(retriesTimeout) {
+    for strings.HasPrefix(e.HTTPd.Addr, "42.42.42.") && time.Now().Before(retriesTimeout) {
         time.Sleep(1 * time.Second)
         e.HTTPd.Addr = ""
         e.SetAddr()

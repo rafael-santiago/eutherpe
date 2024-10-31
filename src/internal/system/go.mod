@@ -1,3 +1,3 @@
 module github.com/rafael-santiago/eutherpe/system
 
-go 1.19
+go 1.23.2
