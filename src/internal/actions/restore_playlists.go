@@ -32,6 +32,7 @@ func RestorePlaylists(eutherpeVars *vars.EutherpeVars, _ *url.Values) error {
     }
     musicDevSerial := storage.GetDeviceSerialNumberByMountPoint(musicDevId)
     playlistsRootPath := path.Join(eutherpeVars.ConfHome, vars.EutherpePlaylistsHome, musicDevSerial)
+    os.MkdirAll(playlistsRootPath, 0777)
     files, err := os.ReadDir(playlistsDir)
     for _, file := range files {
         fileName := file.Name()
