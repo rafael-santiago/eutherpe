@@ -1,18 +1,21 @@
+![jegue](figures/o-nirvana-de-um-jegue-glyph.png "o nirvana de um jegue")
 # Evitador de más ideias
 
-Uma vez trabalhei com um rapaz bem novinho que gostava de alardear que:
+Eu conheci um programador que gostava sempre de alardear que:
 
->em `software` tudo é possível!!!!
+>Em `software` tudo é possível!!!!
 
-Ao ouvir isso eu sempre percebia o quão ingênuo e imaturo ele era e gostava de mentalmente
-complementá-lo da seguinte forma:
+Ao ouvir isso eu sempre ficava incomodado com a ingenuidade dessa declaração e
+gostava de mentalmente complementá-lo da seguinte forma:
 
->assim como na vida, em `software` existem muitas coisas que você PODE fazer mas bem poucas
->você DEVE... e nem estou nem entrando no P vs. NP, hein...
+>Assim como na vida, em `software` existem muitas coisas que você `PODE` fazer mas bem poucas
+>você `DEVE`... E eu nem estou entrando no P vs. NP, hein...
 
 Enfim, não existe reduto mais amaldiçoado de más ideias do que `TI`. Resolvi escrever esse
 texto para cortar o barato de qualquer ideia incrível mas que vai deturpar totalmente o
-objetivo principal desse software: `desfoder o ato de ouvir música que hoje está tão fodido`.
+objetivo principal desse software: `desf*der o ato de ouvir música que hoje está tão f*dido`...
+dado a quantidade de penduricalho sem sentido adicionado a um ritual que deveria se manter
+descomplicado, singelo e sem distrações para a estrela principal que é a *sua* `Música`.
 
 Siga a tabela seguinte e veja se a sua ideia não esbarra em algo listado ali, se esbarrar
 desista de tentar mergear as coisas aqui, parafraseando a saudosa `Rita Lee`: **Obrigado, não!**
@@ -24,13 +27,18 @@ desista de tentar mergear as coisas aqui, parafraseando a saudosa `Rita Lee`: **
 |[Vamos monitorar a quantidade de vezes que uma música é ouvida para perceber os gostos das pessoas e poder sugerir](#vamos-monitorar-a-quantidade-de-vezes-que-uma-música-é-ouvida-para-perceber-os-gostos-das-pessoas-e-poder-sugerir)|
 |[Vamos criar uma forma das pessoas compartilharem em redes sociais o que estão ouvindo](#vamos-criar-uma-forma-das-pessoas-compartilharem-em-redes-sociais-o-que-estão-ouvindo)|
 |[Vamos montar playlists automáticas](#vamos-montar-playlists-automáticas)|
+|[Vamos colocar visualizadores psicodélicos que reajam com o som](#vamos-colocar-visualizadores-psicodélicos-que-reajam-com-o-som)|
+|[Vamos colocar uma barra de progresso para adiantar a música](#vamos-colocar-uma-barra-de-progresso-para-adiantar-a-música)
+|[Analizadores de espectro para detectar a pulsação da música?](#analizadores-de-espectro-para-detectar-a-pulsação-da-música)
+|[Conectividade com serviços de streaming?](#conectividade-com-serviços-de-streaming)
+|[Propagandas?](#propagandas)|
 
 ## Vamos monitorar a quantidade de vezes que uma música é ouvida para perceber os gostos das pessoas e poder sugerir
 
-Note uma coisa: a `web` inteira hoje é (des)construída nessa métrica boçal e infantil de curto/não curto.
+Note uma coisa: a `web` inteira hoje é (des)construída nessa métrica binária, boçal e pueril de curto/não curto.
 Pessoas, seres humanos, adultos funcionais, são criaturas complexas em gostos. Um dia elas podem estar mais
 para doce e outro para salgado e vão ter dias que vomitarão para qualquer comida *E ESTÁ TUDO BEM*.
-Pare de achar que o mundo é simples assim, pois não é.
+Pare de pensar que o mundo é simples assim, pois não é.
 
 Existem músicas que as pessoas realmente amam e que as marcaram de alguma forma mas que nem por
 isso as escutam todo santo dia. O fato de escutarem raramente não faz a música ser menos querida a
@@ -39,9 +47,9 @@ como esse reducionismo bobo de achar que tudo que é muito é o suprassumo do bo
 super equívoca e ingênua?
 
 O que você implementaria seria um afunilamento de sugestões baseadas naqueles picos de obsessões
-que quase todo mundo têm. Aquelas fases em que começam ouvir demais uma coisa e um belo dia dizem
-*"cansei dessa merda vou ouvir outra coisa, mas esse treco é insistente em me sugerir essa bosta...
-Que programa chato."*
+que quase todo mundo têm. Aquelas fases em que começam ouvir demais uma coisa e um belo dia dizem:
+
+>"- Cansei dessa merda vou ouvir outra coisa, mas esse treco é insistente em me sugerir essa bosta... Que programa chato."
 
 Seres humanos são complexos e a melhor forma de não irritá-los é deixando-os autônomos e em paz.
 
@@ -79,5 +87,52 @@ quiser ter músicas a mão para ouvir, ela que selecione e ponha para tocar *qua
 Se quiser sugestões de música que procure um outro ser humano e pratique algo que também tem
 entrado em desuso hoje que é se comunicar com pessoas reais, buscando trocar experiências e
 aprender com elas.
+
+[`Voltar`](#obrigado-não)
+
+## Vamos colocar visualizadores psicodélicos que reajam com o som
+
+A ideia é não prender o usuário na tela. O que tem na tela é só para ele enfileirar o que
+está afim de ouvir e acabou. Note que as pessoas que usarão o programa partilham da filosofia
+dele: ter uma interface sem muita firula, que seja acessível de qualquer dispositivo na rede
+local para controlar a música que está tocando, mas o que se quer mesmo é ouvir a música. Som!
+Entendeu?
+
+[`Voltar`](#obrigado-não)
+
+## Vamos colocar uma barra de progresso para adiantar a música
+
+Isso é um player de música mas com uma pegada de `jukebox` das antigas. Você seleciona músicas
+de uma compilação de álbums organizada. A ideia é que você selecione o que quer ouvir. Se quiser
+ficar pulando de um momento para outro da música, talvez você não queira ouvir de fato a música.
+Talvez você esteja estudando a música tentando aprendê-la, ou sem paciência. Nesse caso eu te
+sugiro encontrar um programa que se adeque mais com as suas necessidades. Use sempre a ferramenta
+certa para a tarefa!
+
+[`Voltar`](#obrigado-não)
+
+## Analizadores de espectro para detectar a pulsação da música?
+
+Ao invés de ficar olhando hipnotizado barrinhas em um histograma pularem, experimente você mesmo
+pular, dançar ou simplesmente batucar, balançar a sua cabeça. Explore algo que já está implícito
+no seu "software" mais básico há milênios. É bem mais divertido! :wink: Te garanto!
+
+Internalize esse mantra: A ideia não é deixar as pessoas hipnotizadas olhando para uma tela.
+É deixá-las mais em contato com a música a maior parte do tempo.
+
+Algo "etéreo" é mais sobre algo que você não vê mas sente, sacou?
+
+[`Voltar`](#obrigado-não)
+
+## Conectividade com serviços de streaming?
+
+É... Eu acho que você não entendeu nada mesmo. Sugiro reler o [README.md](../README.md) com mais
+atenção e tentando depreender o conteúdo posto ali.
+
+[`Voltar`](#obrigado-não)
+
+## Propagandas?
+
+Some da minha frente, por favor.
 
 [`Voltar`](#obrigado-não)
