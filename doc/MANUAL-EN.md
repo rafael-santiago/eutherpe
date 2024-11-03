@@ -72,7 +72,7 @@ The main `Eutherpe` features are:
 - The essential dynamics of `Eutherpe`'s player is of a `jukebox`, then you actively select
   what you want to listen to.
 - You can connect `Eutherpe` to an output `Bluetooth` sound device (speakears or headphones).
-- `Eutherpe` supports `MP3`, `MP4` and `M4A`.
+- `Eutherpe` supports `MP3`, `MP4`, `M4A` and `FLAC`.
 - The last usage session is saved, so your selections stay remain between listening sessions.
   It does mean that you can continue your audition from the point that you previously stopped.
 - The `web` interface renders pretty well in `desktop` or `mobile` devices.

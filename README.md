@@ -17,7 +17,7 @@ trazer de volta o ritual prazeroso de escutar música longe de um super comporta
 A essência aqui é evitar ficar atrelado a telas e botões, subscrições, propaganda, sugestões enxeridas e blá-blá-blá. Vamos
 parar com todo esse ruído de merda e ouvir as músicas que amamos. Esse é o convite que `Eutherpe` e `Euther-Pi` fazem
 a você. Com `Eutherpe` nós somos capazes de criar o equivalente a um serviço de streaming pessoal e `self-hosted` para tocar
-música em casa. Tudo que você precisa fazer é alimentar `Eutherpe` com sua biblioteca `MP3/4` e conectá-la a uma caixa de
+música em casa. Tudo que você precisa fazer é alimentar `Eutherpe` com sua biblioteca `MP3/4` ou `FLAC` e conectá-la a uma caixa de
 som/`headphone` `bluetooth` e por fim, ir se divertir.
 
 > [!NOTE]
@@ -56,7 +56,7 @@ the pleasant ritual of listening to music outside from a flat well-behaved compu
 attached to screens and buttons, subscriptions, advertisements, nosy suggestions and, blah-blah-blah. Let's stop all this shitty
 noise and listening to the tunes that we love. This is the invite of `Eutherpe` and `Euther Pi`  do for you. With `Eutherpe` we are
 able to make an equivalent of a personal `self-hosted` music streaming service to play music at home. All you just do is feeding
-`Eutherpe` with your `MP3/4` library, connect it to a `bluetooth` speaker/headphone and go have fun.
+`Eutherpe` with your `MP3/4` or `FLAC` library, connect it to a `bluetooth` speaker/headphone and go have fun.
 
 > [!NOTE]
 > You do not need to build up `Eutherpe` into a `Raspberry Pi` but it is a very neat task to do and I hope you would love to have

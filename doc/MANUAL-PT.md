@@ -73,7 +73,7 @@ As principais características de `Eutherpe` são:
 - A dinâmica essencial do `player Eutherpe` é a de uma `jukebox`, então você seleciona
   ativamente o que quer ouvir.
 - Você pode se conectar a um dispositivo de saída `Bluetooth` (caixas de som ou `headphones`).
-- `Eutherpe` dá suporte para `MP3`, `MP4` e `M4A`.
+- `Eutherpe` dá suporte para `MP3`, `MP4`, `M4A` e `FLAC`.
 - A última sessão é salva, então suas seleções ficam gravadas entre um uso e outro do aplicativo.
   Você pode continuar a audição do ponto que parou.
 - Interface `Web` renderiza bem tanto no `Desktop` quanto em dispositivos móveis.
