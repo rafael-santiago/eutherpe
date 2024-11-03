@@ -23,7 +23,7 @@ som/`headphone` `bluetooth` e por fim, ir se divertir.
 > [!NOTE]
 > Você não precisa pôr `Eutherpe` dentro de um `Raspberry Pi` mas isso é uma tarefa muito bacana de fazer e eu desconfio que
 > você iria adorar ter esse "dispositivo de jukebox etérea" (`não grampeada`) em casa. Se você ficou interessada(o), você pode
-> seguir todos os passos de como fazer isso no repo do `Euther-Pi`.
+> seguir todos os passos de como fazer isso no repo do [`Euther-Pi`](https://github.com/rafael-santiago/euther-pi).
 >
 > Entretanto, para início de conversa, eu sugeriria você conhecer todos os detalhes sobre `Eutherpe` começando por [aqui](doc/MANUAL-PT.md).
 >
@@ -61,7 +61,7 @@ able to make an equivalent of a personal `self-hosted` music streaming service t
 > [!NOTE]
 > You do not need to build up `Eutherpe` into a `Raspberry Pi` but it is a very neat task to do and I hope you would love to have
 > this nice little `ethereal` jukebox (not tapped) device at your home. If you are interested, you can follow up all steps to do it
-> at `Euther-Pi` repo.
+> at [`Euther-Pi`](https://github.com/rafael-santiago/euther-pi) repo.
 >
 > However, firstly I would suggest you to know all single thing about `Eutherpe` by starting from [here](doc/MANUAL-EN.md).
 >
