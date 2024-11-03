@@ -77,7 +77,7 @@ Imagina se a privada da sua casa tivesse esse recurso... Eu tenho é medo de voc
 
 Coisa tola. Se a pessoa tem preguiça de ativamente selecionar o que quer ouvir, é porque não tem
 vontade de ouvir nada. Melhor não gastar energia e gerar calor com a `CPU` à toa, a pessoa talvez
-devesse ir procurar algo que quisesse de fato fazer e evitar gerar consumo de recurso desnecessário.
+devesse ir procurar algo que quisesse de fato fazer e evitar gerar consumo desnecessário de recurso.
 Inclusive nosso tempo ensinando um computador ter vontades por ela! Olha que triste escrever/verbalizar
 isso... Vamos pensar verde!
 
