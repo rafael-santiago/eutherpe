@@ -24,8 +24,8 @@ Entretanto, o projeto é `opensource`. Não querer sua ideia aqui não significa
 fazer o quer, *você só não pode colocar essa ideia aqui*. Quer fazer o seu `fork` de `Eutherpe`
 e divergir do `upstream`? Vai fundo, liberdade é o que há, apenas **respeite a licença, a minha
 propriedade intelectual e a dos outros eventuais colaboradores**. Sem essa de fazer um `fork` e
-sair retirando referências ao trabalho dos outros, isso é deplorável e antiético. Sem parasitismos,
-por favor!
+sair retirando referências ao trabalho dos outros, isso é deplorável e antiético.
+Sem parasitismos [sic], por favor!
 
 ## Obrigado, não!
 
@@ -35,9 +35,10 @@ por favor!
 |[Vamos criar uma forma das pessoas compartilharem em redes sociais o que estão ouvindo](#vamos-criar-uma-forma-das-pessoas-compartilharem-em-redes-sociais-o-que-estão-ouvindo)|
 |[Vamos montar playlists automáticas](#vamos-montar-playlists-automáticas)|
 |[Vamos colocar visualizadores psicodélicos que reajam com o som](#vamos-colocar-visualizadores-psicodélicos-que-reajam-com-o-som)|
-|[Vamos colocar uma barra de progresso para adiantar a música](#vamos-colocar-uma-barra-de-progresso-para-adiantar-a-música)
+|[Vamos colocar um slider para resetar a reprodução da música](#vamos-colocar-um-slider-para-resetar-a-reprodução-da-música)
 |[Analizadores de espectro para detectar a pulsação da música?](#analizadores-de-espectro-para-detectar-a-pulsação-da-música)
 |[Conectividade com serviços de streaming?](#conectividade-com-serviços-de-streaming)
+|[Estatísticas de uso?](#estatísticas-de-uso)
 |[Propagandas?](#propagandas)|
 
 ## Vamos monitorar a quantidade de vezes que uma música é ouvida para perceber os gostos das pessoas e poder sugerir
@@ -107,7 +108,7 @@ Entendeu?
 
 [`Voltar`](#obrigado-não)
 
-## Vamos colocar uma barra de progresso para adiantar a música
+## Vamos colocar um slider para resetar a reprodução da música
 
 Isso é um player de música mas com uma pegada de `jukebox` das antigas. Você seleciona músicas
 de uma compilação de álbums organizada. A ideia é que você selecione o que quer ouvir. Se quiser
@@ -135,6 +136,21 @@ Algo "etéreo" é mais sobre algo que você não vê mas sente, sacou?
 
 É... Eu acho que você não entendeu nada mesmo. Sugiro reler o [README.md](../README.md) com mais
 atenção e tentando depreender o conteúdo posto ali.
+
+[`Voltar`](#obrigado-não)
+
+## Estatísticas de uso
+
+Vivemos ultimamente tempos sombrios de chatonildos (`2024`). As pessoas precisam de métricas para
+tudo, não podem simplesmente se divertirem, querem gráficos para saberem como se divertem para
+ver se estão se divertindo bem; comparando os meses, comparando-se aos outros etc. Isso é coisa
+de cuzão, desculpa. Pessoas não são empresas. Não dou a mínima para essas bobeiras. Ouvir música
+não é esporte, competição, trading ou metas.
+
+As pessoas deveriam ouvir música para relaxar, se inspirar, viajar (fiscamente, na maionese,
+no tempo ou sei lá), se socializar, lembrar, se isolar, transar etc. Quem faz essas coisas vai
+querer saber do gráfico semanal do que ouviu? Então... Procura algo mais interessante para fazer,
+só uma dica... :wink:
 
 [`Voltar`](#obrigado-não)
 
