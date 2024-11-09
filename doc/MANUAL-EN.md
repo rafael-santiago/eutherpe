@@ -441,7 +441,7 @@ If you forget the password you will have to do some incantations to reset it. Mo
 
 ## A sympathetic slooth
 
-In plenty of operations you will face a sympathetic slooth ask you to wait. Do not be afraid of
+During plenty of operations you will face a sympathetic slooth ask you to wait. Do not be afraid of
 and just wait it :sleeping:. Take a look at **Figure 16** :sweat_smile:!
 
 ![The sympathetic slooth](figures/eus-pt-br-sympathetic-wait-slooth.png)

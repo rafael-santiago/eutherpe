@@ -17,7 +17,7 @@ mais raiva ainda. Aqui vou me permitir ter menos papas na língua, já aviso.
 
 ## Onde o nosso Blues começa
 
-Há muito tempo eu era um ávido colecionador de `CD`s, resistia a todo custo às `MP3`, até que um
+Há muito tempo eu era um ávido colecionador de `CDs`, resistia a todo custo às `MP3`, até que um
 dia resolvi dar uma chance para o `iPod Shuffle`. Longa história curta: não era que aquele trequinho
 era bacana? Nisso, eu logo adquiri um `iPod Touch` e durante anos ele foi meu principal tocador
 de música (e sim, o tenho e o uso até hoje!)
@@ -127,7 +127,7 @@ fizeram ao invés de ficar inventando moda furada?...
 
 A boa notícia é que o `PulseAudio` já foi descontinuado. O `Debian 12` ainda o utiliza mas
 quase nenhuma `distro` parece que utilizará essa droga novamente. Foi tarde essa bagaceira!
-Deveriam fazer um `data wiping` elevado à enésima potência em todo o servidor que ainda hospeda
+Deveriam fazer um `data wiping` elevado à enésima potência em todo servidor que ainda hospeda
 uma cópia dessa porra para que a humanidade nunca mais consiga buildar essa bela peça de merda.
 Amém!
 

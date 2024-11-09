@@ -54,7 +54,7 @@ como esse reducionismo bobo de achar que tudo que é muito é o suprassumo do bo
 super equívoca e ingênua?
 
 O que você implementaria seria um afunilamento de sugestões baseadas naqueles picos de obsessões
-que quase todo mundo têm. Aquelas fases em que começam ouvir demais uma coisa e um belo dia dizem:
+que quase todo mundo tem. Aquelas fases em que começam ouvir demais uma coisa e um belo dia dizem:
 
 >"- Cansei dessa merda vou ouvir outra coisa, mas esse treco é insistente em me sugerir essa bosta... Que programa chato."
 
@@ -100,7 +100,7 @@ aprender com elas.
 ## Vamos colocar visualizadores psicodélicos que reajam com o som
 
 A ideia é não prender o usuário na tela. O que tem na tela é só para ele enfileirar o que
-está afim de ouvir e acabou. Note que as pessoas que usarão o programa partilham da filosofia
+está a fim de ouvir e acabou. Note que as pessoas que usarão o programa partilham da filosofia
 dele: ter uma interface sem muita firula, que seja acessível de qualquer dispositivo na rede
 local para controlar a música que está tocando, mas o que se quer mesmo é ouvir a música. Som!
 Entendeu?
