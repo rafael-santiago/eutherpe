@@ -17,8 +17,15 @@ objetivo principal desse software: `desf*der o ato de ouvir música que hoje est
 dado a quantidade de penduricalho sem sentido adicionado a um ritual que deveria se manter
 descomplicado, singelo e sem distrações para a estrela principal que é a *sua* `Música`.
 
-Siga a tabela seguinte e veja se a sua ideia não esbarra em algo listado ali, se esbarrar
+Siga a tabela logo abaixo e veja se a sua ideia não esbarra em algo listado ali, se esbarrar
 desista de tentar mergear as coisas aqui, parafraseando a saudosa `Rita Lee`: **Obrigado, não!**
+
+Entretanto, o projeto é `opensource`. Não querer sua ideia aqui não significa que você não pode
+fazer o quer, *você só não pode colocar essa ideia aqui*. Quer fazer o seu `fork` de `Eutherpe`
+e divergir do `upstream`? Vai fundo, liberdade é o que há, apenas **respeite a licença, a minha
+propriedade intelectual e a dos outros eventuais colaboradores**. Sem essa de fazer um `fork` e
+sair retirando referências ao trabalho dos outros, isso é deplorável e antiético. Sem parasitismos,
+por favor!
 
 ## Obrigado, não!
 

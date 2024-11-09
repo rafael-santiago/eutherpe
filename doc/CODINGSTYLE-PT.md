@@ -100,7 +100,7 @@ o código, pois não precisamos de áreas incertas no projeto, buscamos por cert
 aqui é sobre ser empírico e pragmático para evitar adubar a vida das pessoas, o mundo já
 é muito incerto e zoado, nisso é legal entregar coisas bacanas e previsíveis nas mãos das
 pessoas e tornar o mundo delas menos bagunçado nem que seja com uma humilde peça abstrata
-de software (desculpa o pleonasmo) que simplesmente teima em ser contra a corrente e sempre
+de software (desculpa o pleonasmo) que simplesmente teima em ser contracorrente e sempre
 funcionar fazendo ela exclamar "porra, essa merdinha aqui funciona mesmo, cara que estranho...
 eu curto isso!", obrigado! :wink:
 

@@ -56,6 +56,7 @@ The main `Eutherpe` features are:
   be easily configured from the `Web` interface itself.
 - The connection to the `player` (done via `web browser`) can be `HTTP` or `HTTPS`. All of it
   can be easily configured from the `Web` interface itself.
+- `IPv6` support.
 - You are able to connecto to your `Eutherpe` device without needing to run crazy commands to
   figure out the `IP` address of your ethereal `jukebox`.
 - You can give tidiness to your music collection. Even it being untidy. When scanning the

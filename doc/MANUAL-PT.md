@@ -54,6 +54,7 @@ As principais características de `Eutherpe` são:
   configurável via a própria interface `Web`.
 - Conexão ao `player` via `web browser` pode ser `HTTP` ou `HTTPS`. Tudo isso facilmente
   configurável via a própria interface `Web`.
+- Suportar `IPv6`.
 - Você consegue se conectar ao seu dispositivo `Eutherpe` facilmente, sem precisar ficar
   rodando comandos malucos para descobrir o endereço `IP` da sua `jukebox` etérea,
   pois isso nada realmente tem a ver com o que você quer fazer: *ouvir a f_cking p_rra da
@@ -103,7 +104,7 @@ lado onde tudo será mais sólido sob os nossos pés e para isso usamos praticam
 recursos.
 
 No caso do `Eutherpe`, a `jukebox` utiliza algumas dependências para compor todo o seu
-ecossistema. Essas dependências no caso são aplicativos e recursos que ele usa por baixo dos
+ecossistema. Essas dependências no caso são aplicativos e recursos que ela usa por baixo dos
 panos para prover toda a infraestrutura necessária para você bater cabeça, dançar pelada(o)
 na sala ou simplesmente pôr uma música na conversa.
 
