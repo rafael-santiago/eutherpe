@@ -205,7 +205,7 @@ com `sets` e mais `sets`) que dizia mais ou menos isso:
 
 Lacônico assim. Eu não liguei... Continuei confiante que transformaria xixi em ouro com algum
 `set` filosofal. Até que intoxicado de tanto `set` e indignado por ter que jogar uns meses
-de trabalho fora e encostar um `Raspberry-Pi` que havia comprado só para isso, decidi por
+de trabalho fora e encostar um `Raspberry Pi` que havia comprado só para isso, decidi por
 tentar `ALSA` e `Bluealsa`.
 
 Nos meus áureos tempos utilizando `Slackware` já havia utilizado `ALSA` sem muita porcaria
@@ -237,7 +237,7 @@ ouvir sua música e tocar sua vida, o computador simplesmente faz a parte dele e
 te tomando tempo, te apurrinhando. O computador colabora, se torna de fato uma ferramenta, um meio
 para você atingir o seu objetivo. Pelo visto, purificamos um barril que estava lotado de merda!!!!
 
-Com o `Bluez-Alsa` já embarcado eu notei que é muito mais leve. O `Raspberry-Pi` parece esquentar
+Com o `Bluez-Alsa` já embarcado eu notei que é muito mais leve. O `Raspberry Pi` parece esquentar
 menos! Até agora só vi vantagem. Finalmente encontrei a melhor forma de tocar música via
 `Bluetooth` para o meu estado de coisas: `ALSA` e `Bluez-ALSA`. Mais uma vez o simples
 é que chegou e salvou o dia. Foi ou vai ser descontinuado no `Raspbian`? **Foda-se**. Eu buildo

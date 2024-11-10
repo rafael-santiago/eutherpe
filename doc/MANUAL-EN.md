@@ -79,7 +79,7 @@ The main `Eutherpe` features are:
 - The `web` interface renders pretty well in `desktop` or `mobile` devices.
 - It works based on `Linux`.
 - On `Windows` you can use `Eutherpe` from a [`virtual machine`](VM-EN.md).
-- You still can use `Eutherpe` embedded in a `raspeberry-pi` and in this case it will be called
+- You still can use `Eutherpe` embedded in a `Raspberry Pi` and in this case it will be called
   `Euther-PI`.
 
 [`Back`](#topics)
