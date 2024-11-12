@@ -7,5 +7,6 @@ Things that I am still plaining for the next versions.
 - [ ] Give native support for `Windows`.
 - [ ] Dark mode.
 - [ ] Provide some `EQ`.
+- [ ] Add some filtering convenience to quick find a collection entry.
 
 ---
