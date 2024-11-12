@@ -43,7 +43,7 @@ Sem parasitismos [sic], por favor!
 
 ## Vamos monitorar a quantidade de vezes que uma música é ouvida para perceber os gostos das pessoas e poder sugerir
 
-Note uma coisa: a `web` inteira hoje é (des)construída nessa métrica binária, boçal e pueril de curto/não curto.
+Note uma coisa: a `web` inteira hoje (2024) é (des)construída nessa métrica binária, boçal e pueril de curto/não curto.
 Pessoas, seres humanos, adultos funcionais, são criaturas complexas em gostos. Um dia elas podem estar mais
 para doce e outro para salgado e vão ter dias que vomitarão para qualquer comida *E ESTÁ TUDO BEM*.
 Pare de pensar que o mundo é simples assim, pois não é.
