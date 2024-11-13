@@ -5,11 +5,11 @@ I met a programmer that liked boast:
 
 >In `software` everything is possible!!!!
 
-I always bothered when listening to him naïve declaration and, I used to mentally answer him
+I always bothered when listening to his naïve declaration and, I used to mentally answer him
 in the following way:
 
 >Just like in life, in `software` there are many things that you `CAN` do but only a few
->you really `MUST` do... And I am not even talking about P vs. NP...
+>you really `MUST` to... And I am not even talking about P vs. NP...
 
 Well, do not exist more doomed place of bad ideas than `IT`. I made up my mind write this text
 seeking to eliminate any incredible idea that will deviate from the main goal of this software:
