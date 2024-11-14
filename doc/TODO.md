@@ -8,6 +8,6 @@ Things that I am still plaining for the next versions.
 - [ ] Dark mode.
 - [ ] Provide some `EQ`.
 - [ ] Add some filtering convenience to quick find a collection entry.
-- [ ] Show enlarged album cover in a float transparent div when user click on it.
+- [x] Show enlarged album cover in a float transparent div when user click on it.
 
 ---

@@ -39,7 +39,7 @@ func AlbumArtThumbnailRender(templatedInput string, eutherpeVars *vars.EutherpeV
         b64ImageData = ""
         eutherpeVars.Player.NowPlaying.AlbumCover = getAlbumCoverBlob(eutherpeVars.GetCoversCacheRootPath(), eutherpeVars.Player.NowPlaying.AlbumCover)
         albumArtThumbnailHTML = "<img id=\"albumCover\" src=\"" + EncodeAlbumCover(eutherpeVars.Player.NowPlaying.AlbumCover) +
-                                "\" width=125 height=125>"
+                                "\" width=125 height=125 onclick=\"openAlbumCoverViewer();\" class=\"AlbumCover\">"
         eutherpeVars.RenderedAlbumArtThumbnailHTML = albumArtThumbnailHTML
     }
     return strings.Replace(templatedInput, vars.EutherpeTemplateNeedleAlbumArtThumbnail, albumArtThumbnailHTML, 1)

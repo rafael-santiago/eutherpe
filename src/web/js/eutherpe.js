@@ -125,6 +125,22 @@ function closeWiFiCredentials() {
     openConfig("Settings");
 }
 
+function closeAlbumCoverViewer() {
+    document.getElementById("AlbumCoverViewer").style.display = "none";
+    document.getElementById("AlbumCoverDiv").style.display = "block";
+}
+
+function openAlbumCoverViewer() {
+    albumCover = document.getElementById("albumCover");
+    if (albumCover === null
+        || albumCover.src.length == 0) {
+        return;
+    }
+    document.getElementById("enlargedAlbumCover").src = albumCover.src;
+    document.getElementById("AlbumCoverDiv").style.display = "none";
+    document.getElementById("AlbumCoverViewer").style.display = "block";
+}
+
 function delTagsFromSelection() {
     unselectedOnes = getUnselectedElements("Tag");
     var tagsToDelete = "";

@@ -224,6 +224,9 @@ COPYING.GPLv2 file in the root directory of Eutherpe's source tree.
             <input class="eutherpeBUTTON" type="button" value="Back" onclick="closeAbout();"/>
         </center>
     </div>
+    <div id="AlbumCoverViewer" class="AlbumCoverDetail" style="display: none;" onclick="closeAlbumCoverViewer();">
+        <img id="enlargedAlbumCover" class="EnlargedAlbumCover">
+    </div>
     <input type="hidden" id="lastSelection" name="lastSelection" value="{{.LAST-SELECTION}}"/>
     <input type="hidden" id="lastError" name="lastError" value="{{.LAST-ERROR}}"/>
     <input type="hidden" id="lastQueryAnswer" name="lastQueryAnswer" value="false"/>
