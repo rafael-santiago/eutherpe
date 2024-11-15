@@ -140,14 +140,14 @@ in there.
 
 ## What about use stats?
 
-Nowadays (2024) we live pretty boring times. Some people need to metrics to everything, they
+Nowadays (2024) we live pretty boring times. Some people need metrics to everything, they
 simply cannot have some fun without any guilty, they rush for charts to know how they have fun
 to compare if they are really having fun; comparing months, comparing themselves to others etc.
 It is such asshole (in)attitude, sorry. People are not companies. I do not give a shit to those
 nonsense. Listen to music it is not a sport, competion, trading or goals.
 
 People should listen to music to relax, to inspire themselves, to trip (phiscally, in time,
-whatever), to socialize, to remember, to isolate, to get laid etc. Would be imporant a chart to
+whatever), to socialize, to remember, to isolate, to get laid etc. Would be important a chart to
 people who do those things? So... Find out a more interesting thing to do, just saying... :wink:
 
 [`Back`](#thanks-but-no-thanks)
