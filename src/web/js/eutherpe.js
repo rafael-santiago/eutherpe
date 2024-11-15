@@ -871,6 +871,19 @@ function installKeyShortcuts() {
     installEnterEscKeyShortcuts(document.getElementById("hostName"),
                                 setHostName,
                                 function(){});
+    // INFO(Rafael): The document as whole.
+    document.onkeydown = function(e) {
+        e = e || e.event;
+        if (e.keyCode == 27) {
+            if (document.getElementById("AlbumCoverViewer").style.display === "block") {
+                closeAlbumCoverViewer();
+            } else if (document.getElementById("About").style.display === "block") {
+                closeAbout();
+            } else if (document.getElementById("ErrorDialog").style.display === "block") {
+                document.getElementById("closeErrorBtn").click();
+            }
+        }
+    };
 }
 
 function openConfig(configName) {
