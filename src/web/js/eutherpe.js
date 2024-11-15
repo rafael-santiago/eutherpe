@@ -126,6 +126,7 @@ function closeWiFiCredentials() {
 }
 
 function closeAlbumCoverViewer() {
+    document.getElementById("enlargedAlbumCover").src = "";
     document.getElementById("AlbumCoverViewer").style.display = "none";
     document.getElementById("AlbumCoverDiv").style.display = "block";
 }

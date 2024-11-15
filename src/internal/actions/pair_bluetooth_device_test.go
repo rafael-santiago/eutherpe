@@ -41,7 +41,7 @@ func TestPairBluetoothDevice(t *testing.T) {
     } else if err.Error() != "exit status 1" {
         t.Errorf("PairBluetoothDevice() has failed with unexpected error.\n")
     }
-    if eutherpeVars.CachedDevices.BlueDevId != "Blue42" {
-        t.Errorf("PairBluetoothDevice() seems to be messing with cached device even when failing.\n")
+    if len(eutherpeVars.CachedDevices.BlueDevId) > 0 {
+        t.Errorf("PairBluetoothDevice() seems to be holding cached device when failing.\n")
     }
 }
