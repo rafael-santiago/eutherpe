@@ -14,6 +14,7 @@ var g_FromMusicTabContext = false;
 var g_PickedSongsQueueIndex = 0;
 var g_PickedSongsQueueSwap = [[], [], []];
 var g_PickedSongsQueue = [];
+var g_CurrentConfigName = "";
 
 function init(currentConfig) {
     var toggler = document.getElementsByClassName("caret");
@@ -874,14 +875,22 @@ function installKeyShortcuts() {
     // INFO(Rafael): The document as whole.
     document.onkeydown = function(e) {
         e = e || e.event;
-        if (e.keyCode == 27) {
-            if (document.getElementById("AlbumCoverViewer").style.display === "block") {
-                closeAlbumCoverViewer();
-            } else if (document.getElementById("About").style.display === "block") {
-                closeAbout();
-            } else if (document.getElementById("ErrorDialog").style.display === "block") {
-                document.getElementById("closeErrorBtn").click();
-            }
+        switch (e.keyCode) {
+            case 27:
+                if (document.getElementById("AlbumCoverViewer").style.display === "block") {
+                    closeAlbumCoverViewer();
+                } else if (document.getElementById("About").style.display === "block") {
+                    closeAbout();
+                } else if (document.getElementById("ErrorDialog").style.display === "block") {
+                    openConfig(g_CurrentConfigName);
+                }
+                break;
+
+            case 13:
+                if (document.getElementById("ErrorDialog").style.display === "block") {
+                    openConfig(g_CurrentConfigName);
+                }
+                break;
         }
     };
 }
@@ -913,6 +922,9 @@ function openConfig(configName) {
     for (i = 0; i < configtab.length; i++) {
         configtab[i].className = configtab[i].className.replace(" active", "");
         configtab[i].innerHTML = configtab[i].innerHTML.replace(" &gt;", "");
+    }
+    if (configName !== "ErrorDialog") {
+        g_CurrentConfigName = configName;
     }
     document.getElementById(configName).style.display = "block";
     btn = document.getElementById(configName + "Button");

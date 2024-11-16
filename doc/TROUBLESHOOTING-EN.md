@@ -69,6 +69,6 @@ Once it done, edit the file `/etc/eutherpe/player.cache` by doing the following:
 of `http`, use `https://<eutherpe server ip address>:8080/eutherpe`. If you have changed the
 default port, replace `:8080` to `:<chosen port>`.
 - Once `Eutherpe` accessed by `web` you can update all Wi-Fi credentials info, besides reactivating
-it. After with all info updated, do the reboot and the access to your Wi-Fi will be restablished.
+it. After with all info updated, do the reboot and the access to your Wi-Fi will be re-established.
 
 [`Back`](#topics)
