@@ -130,7 +130,7 @@ Com as configurações ok, se você mudou algo (bem provável que sim), clique `
 **Figura 7**: Verificando as configurações de rede da `VM`.
 
 Pronto! Agora você só tem que ligar a sua `VM` e depois disso mapear nela a sua placa `Bluetooth` e
-o `Pen-drive USB` contendo suas músicas. Para ligar a `VM` deixe ela marcada e vá no menu
+o `Pen drive USB` contendo suas músicas. Para ligar a `VM` deixe ela marcada e vá no menu
 `Máquina|Iniciar|Início Normal`. Vide **Figura 8**. Vai demorar um tempinho e depois do `boot`
 você vai ver uma tela igual a ilustrada pela **Figura 9**.
 
@@ -145,7 +145,7 @@ você vai ver uma tela igual a ilustrada pela **Figura 9**.
 Após isso é necessário deixar a `VM` acessar sua controladora `Bluetooth` e o `USB` com as suas
 músicas. Espete o `USB` com as músicas no seu computador. Vá ao menu `Dispositivos|USB`.
 Vão ser listados todos os dispositivos que o `Virtualbox` encontrou. No caso do exemplo a
-placa `Bluetooth` é a `Intel Corp [0002]` e o `Pen-drive USB` é o `SanDisk Corp. Cruzer Blade [0100]`.
+placa `Bluetooth` é a `Intel Corp [0002]` e o `Pen drive USB` é o `SanDisk Corp. Cruzer Blade [0100]`.
 Dê uma olhada na **Figura 10**.
 
 ![VirtualboxListandoOsDispositivosUSB](figures/eus-vm-010.png)
@@ -157,7 +157,7 @@ conforme a **Figura 11**.
 
 ![BluetoothEPenDriveUSBAtivados](figures/eus-vm-011.png)
 
-**Figura 11**: `Bluetooth` e `Pen-drive USB` mapeados para a `VM Eutherpe`.
+**Figura 11**: `Bluetooth` e `Pen drive USB` mapeados para a `VM Eutherpe`.
 
 Feito isso, está pronto! Acesse o `miniplayer Eutherpe` via
 [`http://eutherpe.local:8080/eutherpe`](http://eutherpe.local:8080/eutherpe) com o seu
@@ -171,7 +171,7 @@ Feito isso, está pronto! Acesse o `miniplayer Eutherpe` via
 > [!IMPORTANT]
 > **Observações**:
 >
-> - Sempre que você ligar a `VM` é necessário mapear o `Bluetooth` e o `Pen-drive`
+> - Sempre que você ligar a `VM` é necessário mapear o `Bluetooth` e o `Pen drive`
 > `USB`. Enquanto o `Bluetooth` não for iniciado, você não conseguirá acessar o `miniplayer`
 > via `Web`.
 >

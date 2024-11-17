@@ -57,7 +57,7 @@ super equívoca e ingênua?
 O que você implementaria seria um afunilamento de sugestões baseadas naqueles picos de obsessões
 que quase todo mundo tem. Aquelas fases em que começam ouvir demais uma coisa e um belo dia dizem:
 
->"- Cansei dessa merda vou ouvir outra coisa, mas esse treco é insistente em me sugerir essa bosta... Que programa chato."
+>"- Cansei dessa merda vou ouvir outra coisa, mas esse treco é insistente em só me sugerir essa bosta... Que programa chato."
 
 Seres humanos são complexos e a melhor forma de não irritá-los é deixando-os autônomos e em paz.
 
@@ -92,7 +92,7 @@ isso... Vamos pensar verde!
 Não tem playlist melhor do que a feita ativamente pela própria pessoa. Ela que sabe dela. Se ela
 quiser ter músicas a mão para ouvir, ela que selecione e ponha para tocar *quando quiser*.
 
-Se quiser sugestões de música que procure um outro ser humano e pratique algo que também tem
+Se quiser sugestões de músicas que procure um outro ser humano e pratique algo que também tem
 entrado em desuso hoje que é se comunicar com pessoas reais, buscando trocar experiências e
 aprender com elas.
 
@@ -142,7 +142,7 @@ atenção e tentando depreender o conteúdo posto ali.
 ## Estatísticas de uso
 
 Vivemos ultimamente tempos sombrios de chatonildos (`2024`). As pessoas precisam de métricas para
-tudo, não podem simplesmente se divertirem, querem gráficos para saberem como se divertem para
+tudo, não podem simplesmente se divertir, querem gráficos para saberem como se divertem para
 ver se estão se divertindo bem; comparando os meses, comparando-se aos outros etc. Isso é coisa
 de cuzão, desculpa. Pessoas não são empresas. Não dou a mínima para essas bobeiras. Ouvir música
 não é esporte, competição, trading ou metas.

@@ -149,7 +149,7 @@ With the configurations done, if you have changed something (probably yes), clic
 
 **Figure 7**: Verifying `VM` network configurations.
 
-Done! Now you only need to power the `VM` on and after mapping the `Bluetooth` and `USB Pen-drive`
+Done! Now you only need to power the `VM` on and after mapping the `Bluetooth` and `USB Pen drive`
 interfaces. In order to power the `VM` on, select it and go to the menu `Machine|Start|Normal Start`.
 Check on the **Figure 8**. It will take a little and so you will se a screen like the
 one illustrated in **Figure 9**.
@@ -165,7 +165,7 @@ one illustrated in **Figure 9**.
 Once the `VM` started it is necessary to configure the `VM` to access your `Bluetooth` and `USB`
 controllers. Plug the `USB` containing your songs in your real machine. Go to the menu `Devices|USB`.
 It will be shown all devices found by `Virtualbox`. In the example case, the `Bluetooth` interface
-is `Intel Corp [0002]` and the `USB Pen-drive` is `SanDisk Cruzer Blade [0100]`. Take a look at
+is `Intel Corp [0002]` and the `USB Pen drive` is `SanDisk Cruzer Blade [0100]`. Take a look at
 **Figure 10**.
 
 ![VirtualboxListandoOsDispositivosUSB](figures/eus-en-vm-010.png)
@@ -177,7 +177,7 @@ selected out, according the **Figure 11**.
 
 ![BluetoothEPenDriveUSBAtivados](figures/eus-en-vm-011.png)
 
-**Figure 11**: `Bluetooth` and `USB Pen-drive` mapped to `VM Euthrepe`.
+**Figure 11**: `Bluetooth` and `USB Pen drive` mapped to `VM Euthrepe`.
 
 Once it done, all is ready! Access the `miniplayer Eutherpe` via [`http://eutherpe.local:8080/eutherpe`](http://eutherpe.local:8080/eutherpe) by using
 your `web browser` and operating it according to the way described in [manual](MANUAL-EN.md).
@@ -190,7 +190,7 @@ Take a look at the **Figure 12**.
 > [!IMPORTANT]
 > **Remarks**:
 >
-> - Always after powering the `VM` on it is necessary to map the `Bluetooth` and `USB Pen-drive`.
+> - Always after powering the `VM` on it is necessary to map the `Bluetooth` and `USB Pen drive`.
 > While it is not done you will not be able to access the `miniplayer` via `Web`.
 >
 > - If for some reason you need to log in this `VM` as `root` the password is `music`.
