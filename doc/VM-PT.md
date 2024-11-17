@@ -34,7 +34,7 @@ Para criar a nossa `VM` (**V**irtual **M**achine) `Eutherpe` vamos utilizar o ap
 
 Você vai precisar instalar o `Virtualbox` no seu computador e após feito isso, iremos
 criar uma máquina virtual baseada numa `OVA` que eu previamente preparei, disponível
-[aqui](https://drive.google.com/file/d/1_Ees6sOIdeSANgAK8wTTeyhds_dnkmeC/view?usp=sharing).
+[aqui](https://drive.google.com/file/d/1J4wEpDknFffUe9LL7VZUTi-rGYR5emm7/view?usp=sharing).
 
 Pronto! Se você instalou o `Virtualbox` e baixou a `OVA` já tem tudo para ir adiante.
 
