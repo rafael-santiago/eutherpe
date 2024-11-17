@@ -31,9 +31,10 @@ ou ainda se você não se logou ainda como nenhum usuário, faça o login como `
 Uma vez com um prompt `root` edite o arquivo `/etc/eutherpe/player.cache`, faça o que segue:
 
 - Localize no arquivo a configuração `"Authenticated":true` e mude-a para `"Authenticated":false`.
+  Você também pode executar o seguinte encantamento: `sed -i 's/"Authenticated":true/"Authenticated":false/g' /etc/eutherpe/player.cache`.
 - Ainda no arquivo localize a configuração `"HashKey":"<um montão de letra>"` e substitua para
-`"HashKey":""`.
-- Salve as alterações que você fez ao `/etc/eutherpe/player.cache`.
+`"HashKey":""`. Você pode ainda executar esse encantamento aqui: `sed -i 's/"HashKey":".*"/"HashKey":""/g' /etc/eutherpe/player.cache`.
+- Salve as alterações que você fez ao `/etc/eutherpe/player.cache`, já com o encantamento do `sed` nem precisa!
 - No `prompt` `root` execute `systemctl restart eutherpe`.
 - Faça `log-off` do usuário `root` (digite `exit` no `prompt` `root`).
 - Agora acesse `Eutherpe` via seu `web browser`, não irá mais pedir senha.
@@ -63,7 +64,9 @@ ou ainda se você não se logou ainda como nenhum usuário, faça o login como `
 Após feito o `login` `root` edite o arquivo `/etc/eutherpe/player.cache` e faça o seguinte:
 
 - Localize a configuração `"ESSID":"<nome da sua rede Wi-Fi>"` e substitua para `"ESSID":""`.
+  Você pode executar esse encantamento aqui também: `sed -i 's/"ESSID":".*"/"ESSID":""/g' /etc/eutherpe/player.cache`.
 - Salve a alteração que você fez em `/etc/eutherpe/player.cache`.
+  Se você fez o encantamento do `sed`, não precisa!
 - No `prompt` `root` execute `systemctl restart eutherpe`.
 - Acesse `http://<endereço ip da máquina>:8080/eutherpe`. Se você alterou `Eutherpe`
 para usar `https`, use `https://<endereço ip da máquina>:8080/eutherpe`. Se você alterou
