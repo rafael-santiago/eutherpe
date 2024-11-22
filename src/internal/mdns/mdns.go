@@ -118,12 +118,20 @@ type MDNSPacket struct {
     Arcount uint16
     Questions []MDNSQuestion
     Answers []MDNSResourceRecord
+    RawPkt []byte
 }
 
 type MDNSHost struct {
     Name string
     Addr []byte
     TTL uint32
+}
+
+type MDNSResolution struct {
+    QName []byte
+    Addr []byte
+    TTL uint32
+    Error error
 }
 
 func parseMDNSPacket(wireBytes []byte) (MDNSPacket, error) {
@@ -210,10 +218,24 @@ func parseMDNSPacket(wireBytes []byte) (MDNSPacket, error) {
         w += nextOff
     }
     */
+    MDNSPkt.RawPkt = wireBytes
     return MDNSPkt, nil
 }
 
-func makeMDNSAnswer(MDNSPkt *MDNSPacket, ip []byte, TTL uint32) error {
+func getAncountFromResolutions(resolutions []MDNSResolution) uint16 {
+    if len(resolutions) == 0 {
+        return 0
+    }
+    ancount := uint16(0)
+    for _, resolution := range resolutions {
+        if resolution.Error == nil {
+            ancount++
+        }
+    }
+    return ancount
+}
+
+func makeMDNSAnswer(MDNSPkt *MDNSPacket, resolutions []MDNSResolution, anCount uint16) error {
     if MDNSPkt.Qdcount == 0 || len(MDNSPkt.Questions) == 0 {
         return fmt.Errorf("MDNS packet has no questions.")
     }
@@ -221,22 +243,22 @@ func makeMDNSAnswer(MDNSPkt *MDNSPacket, ip []byte, TTL uint32) error {
     //               in one packet more than one question and
     //               the requestor only accepts the response
     //               when it has the same count of answers.
-    MDNSPkt.Ancount = MDNSPkt.Qdcount
+    MDNSPkt.Ancount = anCount
     MDNSPkt.Qdcount = 0
     MDNSPkt.Flags = 0x8400
     MDNSPkt.Answers = make([]MDNSResourceRecord, MDNSPkt.Ancount)
     for a := uint16(0); a < MDNSPkt.Ancount; a++ {
-        MDNSPkt.Answers[a].QName = MDNSPkt.Questions[0].QName
-        if len(ip) == 4 {
+        MDNSPkt.Answers[a].QName = resolutions[a].QName
+        if len(resolutions[a].Addr) == 4 {
             MDNSPkt.Answers[a].QType = MDNSQTypeA
         } else {
             MDNSPkt.Answers[a].QType = MDNSQTypeAAAA
         }
         // WARN(Rafael): Windows boxes accepts cache-flush flag, on apple stuff it rejects
-        MDNSPkt.Answers[a].QClass = /*0x80 |*/ MDNSQClassIN 
-        MDNSPkt.Answers[a].RDLength = uint16(len(ip))
-        MDNSPkt.Answers[a].RData = ip
-        MDNSPkt.Answers[a].TTL = TTL
+        MDNSPkt.Answers[a].QClass = /*0x80 |*/ MDNSQClassIN
+        MDNSPkt.Answers[a].RDLength = uint16(len(resolutions[a].Addr))
+        MDNSPkt.Answers[a].RData = resolutions[a].Addr
+        MDNSPkt.Answers[a].TTL = resolutions[a].TTL
     }
     MDNSPkt.Questions = make([]MDNSQuestion, 0)
     return nil
@@ -293,11 +315,37 @@ func makeMDNSPacket(MDNSPkt MDNSPacket) []byte {
     return datagram
 }
 
-func getQueriedName(MDNSPkt MDNSPacket) string {
+func getCompressedName(offset int, rawPkt []byte) string {
+    return getName(rawPkt[offset:], rawPkt)
+}
+
+func getName(qName []byte, rawPkt []byte) string {
+    if len(qName) == 0 {
+        return ""
+    }
+    if qName[0] == 0xC0 && len(qName) == 2 {
+        return getCompressedName(int(qName[1]), rawPkt)
+    }
     var name string
+    for w := 0; w < len(qName); {
+        blobSize := int(qName[w])
+        if w > 0 && blobSize > 0 {
+            name += "."
+        }
+        w += 1
+        name += string(qName[w:w+blobSize])
+        w += blobSize
+    }
+    return name
+}
+
+func getQueriedNames(MDNSPkt MDNSPacket) []string {
+    names := make([]string, 0)
     for _, question := range MDNSPkt.Questions {
-        if len(question.QName) == 0 || question.QName[0] == 0xC0 {
+        /*if len(question.QName) == 0 {
             continue
+        } else if question.QName[0] == 0xC0 && len(question.QName) == 2 {
+            name = getCompessedName(int(question.QName[1]), MDNSPacket.RawPkt)
         }
         for w := 0; w < len(question.QName); {
             blobSize := int(question.QName[w])
@@ -307,22 +355,29 @@ func getQueriedName(MDNSPkt MDNSPacket) string {
             w += 1
             name += string(question.QName[w:w+blobSize])
             w += blobSize
-        }
+        }*/
+        name := getName(question.QName, MDNSPkt.RawPkt)
         if len(name) > 0 {
-            break
+            names = append(names, name)
         }
     }
-    return name
+    return names
 }
 
-func resolveAddr(MDNSPkt MDNSPacket, MDNSHosts []MDNSHost) ([]byte, uint32, error) {
-    qname := getQueriedName(MDNSPkt)
-    for _, host := range MDNSHosts {
-        if host.Name == qname {
-            return host.Addr, host.TTL, nil
+func resolveAddrs(MDNSPkt MDNSPacket, MDNSHosts []MDNSHost) []MDNSResolution {
+    qnames := getQueriedNames(MDNSPkt)
+    resolutions := make([]MDNSResolution, 0)
+    for q, qname := range qnames {
+        resolution := MDNSResolution { []byte{}, []byte{}, 0, fmt.Errorf("No addr resolution for '%s'.", qname) }
+        for _, host := range MDNSHosts {
+            if host.Name == qname {
+                resolution = MDNSResolution { MDNSPkt.Questions[q].QName, host.Addr, host.TTL, nil }
+                break
+            }
         }
+        resolutions = append(resolutions, resolution)
     }
-    return []byte{}, 0, fmt.Errorf("No addr resolution for '%s'.", qname)
+    return resolutions
 }
 
 func doMDNSServerRunN(proto, listenAddr string,
@@ -362,14 +417,15 @@ func doMDNSServerRunN(proto, listenAddr string,
             continue
         }
 
-        rdata, ttl, err := resolveAddr(MDNSPkt, MDNSHosts)
-        if err != nil {
+        resolutions := resolveAddrs(MDNSPkt, MDNSHosts)
+        anCount := getAncountFromResolutions(resolutions)
+        if anCount == 0 {
             continue
         }
         // INFO(Rafael): I think that almost all implementations of clients does not
         //               mind about avoiding multicasting abuse on their networks.
         shouldUnicast := (MDNSPkt.Questions[0].UnicastResp != 0)
-        makeMDNSAnswer(&MDNSPkt, rdata, ttl)
+        makeMDNSAnswer(&MDNSPkt, resolutions, anCount)
         MDNSReply := makeMDNSPacket(MDNSPkt)
         var addr *net.UDPAddr
         if !shouldUnicast {

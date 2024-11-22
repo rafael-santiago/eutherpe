@@ -36,7 +36,7 @@ v1 [git-tag: 'v1']
         - Album cover displayer.
         - Linux based.
         - Works nicely in desktop, embedded (Raspberry Pi) and virtual machines.
-        - Made for people that is really involved on listenning their beloved tunes, forgetting
+        - Made for people that is really involved on listening their beloved tunes, forgetting
           about FOMO and screens! It is about slowing down and having fun with ourselves ;)
         - No ads!
           No noisy nor nosy suggestions!
