@@ -103,7 +103,7 @@ objetivo é passar por uma parte complicada, pantanosa, árida em recursos para 
 lado onde tudo será mais sólido sob os nossos pés e para isso usamos praticamente nada ou parcos
 recursos.
 
-No caso do `Eutherpe`, a `jukebox` utiliza algumas dependências para compor todo o seu
+No caso de `Eutherpe`, a `jukebox` utiliza algumas dependências para compor todo o seu
 ecossistema. Essas dependências no caso são aplicativos e recursos que ela usa por baixo dos
 panos para prover toda a infraestrutura necessária para você bater cabeça, dançar pelada(o)
 na sala ou simplesmente pôr uma música na conversa.
@@ -232,7 +232,7 @@ você acessa as funções e configurações da sua `juke` etérea.
 
 Na **Figura 2** você confere o *layout* da tela do `player`. Ela é bem autoexplicativa. Basicamente
 a tela te oferece funções básicas como tocar, parar a música, ir para próxima da lista de
-reprodução, ir para a anterior, mover música(s) para cima ou para baixo da lista de reprodução,
+reprodução, ir para a anterior, mover música(s) para cima ou para baixo na lista de reprodução,
 ativar o `shuffle` (que vai misturar a sua lista de reprodução), remover músicas selecionadas da
 sua lista de reprodução e limpar toda a lista de reprodução.
 
@@ -254,7 +254,7 @@ te ensinar sobre uma convenção que adotei.
 
 Confira na **Figura 3** uma lista de reprodução em modo de detalhamento. Note que do lado de
 cada música existe uma caixa de checagem que você poderá marcar para aplicar sobre ela certas
-funções como remover e também movê-la para cima ou para baixo da lista de reprodução. Caso
+funções como remover e também movê-la para cima ou para baixo na lista de reprodução. Caso
 queira tocar uma música específica, selecione ela e dê um `play`.
 
 ![Lista de repodução em modo de detalhamento](figures/eus-pt-br-music-screen-up-next-listing.png)
@@ -279,7 +279,7 @@ convenção pirada *sustenido/bemol*...
 **Figure 4**: A tela `Collection`, onde sua bagunça ganha uma organização :satisfied:!
 
 Ainda em relação à tela ilustrada na **Figura 4**, perceba que a coleção fica organizada seguindo
-`Artista/Álbum/Músicas` e os álbuns mais recentes vão sendo listados antes. Artistas, álbums e
+`Artista/Álbum/Músicas` e os álbuns mais recentes vão sendo listados antes. Artistas, álbuns e
 músicas podem ser usados para compor uma seleção (pois eles possuem caixas de checagem ao lado
 dos nomes, eu tenho certeza absoluta que você entendeu!).
 

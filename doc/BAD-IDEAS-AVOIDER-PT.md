@@ -111,7 +111,7 @@ Entendeu?
 ## Vamos colocar um slider para resetar a reprodução da música
 
 Isso é um player de música mas com uma pegada de `jukebox` das antigas. Você seleciona músicas
-de uma compilação de álbums organizada. A ideia é que você selecione o que quer ouvir. Se quiser
+de uma compilação de álbuns organizada. A ideia é que você selecione o que quer ouvir. Se quiser
 ficar pulando de um momento para outro da música, talvez você não queira ouvir de fato a música.
 Talvez você esteja estudando a música tentando aprendê-la, ou sem paciência. Nesse caso eu te
 sugiro encontrar um programa que se adeque mais com as suas necessidades. Use sempre a ferramenta

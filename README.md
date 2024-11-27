@@ -74,7 +74,7 @@ Enjoy! :wink:
 > I have not been running this project for profit, it is a thing that is useful and that I use
 > a lot on my day to day, it being useful to more people than me, great! If you liked the project
 > and you are wanting to contribute with money, redirect it to independent artists. Buy records
-> from your favorite artist(s), *indenpendent ones, inclusive*. Attend to concerts. If the concert
+> from your favorite artist(s), *independent ones, inclusive*. Attend to concerts. If the concert
 > offers solidarity tickets, give preference for this kind of ticket. Support buskers, if you stop
 > to watch/listen to them, pretty nice, but *contribute with money, too*. Redirect this value to
 > a `NGO` of your choice or to your own community. You can also do some bug reporting, to propose
