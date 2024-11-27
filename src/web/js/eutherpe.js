@@ -130,6 +130,7 @@ function closeAlbumCoverViewer() {
     document.getElementById("enlargedAlbumCover").src = "";
     document.getElementById("AlbumCoverViewer").style.display = "none";
     document.getElementById("AlbumCoverDiv").style.display = "block";
+    document.getElementById("NowPlayingDiv").style.display = "block";
 }
 
 function openAlbumCoverViewer() {
@@ -140,6 +141,7 @@ function openAlbumCoverViewer() {
     }
     document.getElementById("enlargedAlbumCover").src = albumCover.src;
     document.getElementById("AlbumCoverDiv").style.display = "none";
+    document.getElementById("NowPlayingDiv").style.display = "none";
     document.getElementById("AlbumCoverViewer").style.display = "block";
 }
 

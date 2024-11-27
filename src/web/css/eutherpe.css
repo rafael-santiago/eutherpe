@@ -160,7 +160,7 @@ img {
     width: 100vw;
     height: 100vh;
     font-family: "Sabo-Regular";
-    background-color: rgba(0, 0, 0, 0.1);
+    background-color: rgba(0, 0, 0, 0.5);
     overflow: auto;
 }
 ul, #eutherpeUL {
