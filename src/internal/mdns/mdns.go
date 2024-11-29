@@ -342,20 +342,6 @@ func getName(qName []byte, rawPkt []byte) string {
 func getQueriedNames(MDNSPkt MDNSPacket) []string {
     names := make([]string, 0)
     for _, question := range MDNSPkt.Questions {
-        /*if len(question.QName) == 0 {
-            continue
-        } else if question.QName[0] == 0xC0 && len(question.QName) == 2 {
-            name = getCompessedName(int(question.QName[1]), MDNSPacket.RawPkt)
-        }
-        for w := 0; w < len(question.QName); {
-            blobSize := int(question.QName[w])
-            if w > 0 && blobSize > 0 {
-                name += "."
-            }
-            w += 1
-            name += string(question.QName[w:w+blobSize])
-            w += blobSize
-        }*/
         name := getName(question.QName, MDNSPkt.RawPkt)
         if len(name) > 0 {
             names = append(names, name)
