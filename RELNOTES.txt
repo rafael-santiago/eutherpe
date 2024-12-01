@@ -1,5 +1,5 @@
 1. Latest releases are on the top.
-2. The versions are cummulative, any feature drop is informed.
+2. The versions are cumulative, any feature drop is informed.
 3. Usually, I try to do my best in order to bring you 'RELNOTES' instead of notes from hell ;)
 
     Rafael
