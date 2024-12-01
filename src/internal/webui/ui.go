@@ -23,6 +23,7 @@ import (
     "sync"
     "strings"
     "time"
+    "context"
 )
 
 type EutherpeHTTPHandler struct {
@@ -39,8 +40,13 @@ func RunWebUI(eutherpeVars *vars.EutherpeVars) error {
         actions.MusicShuffle(eutherpeVars, nil)
     }
     sigintWatchdog := make(chan os.Signal, 1)
-    var err error = nil
-    go eutherpeHTTPd(EutherpeHTTPHandler { sync.Mutex{}, eutherpeVars }, sigintWatchdog, &err)
+    signal.Notify(sigintWatchdog, os.Interrupt)
+    signal.Notify(sigintWatchdog, syscall.SIGINT, syscall.SIGTERM)
+
+    var err error
+    eutherpeMiniplayer := &http.Server{}
+    go eutherpeHTTPd(EutherpeHTTPHandler { sync.Mutex{}, eutherpeVars },
+                     sigintWatchdog, eutherpeMiniplayer, &err)
     goinHome := make(chan bool, 1)
     go func() {
         const kSavingWindow = 42
@@ -60,10 +66,18 @@ func RunWebUI(eutherpeVars *vars.EutherpeVars) error {
             }
         }
     }()
-    signal.Notify(sigintWatchdog, os.Interrupt)
-    signal.Notify(sigintWatchdog, syscall.SIGINT|syscall.SIGTERM)
     <-sigintWatchdog
     goinHome <- true
+    if eutherpeMiniplayer != nil {
+        shutdownStatus := eutherpeMiniplayer.Shutdown(context.Background())
+        if shutdownStatus != nil {
+            fmt.Fprintf(os.Stderr,
+                        "error: when trying to shutdown web miniplayer : '%s'\n", shutdownStatus.Error())
+        } else {
+            fmt.Fprintf(os.Stdout, "info: web miniplayer has exit.\n")
+            err = nil
+        }
+    }
     // INFO(Rafael): It is important otherwise Eutherpe can exits by letting music playing
     //               sometimes.
     eutherpeVars.Player.AutoPlay = !eutherpeVars.Player.Stopped
@@ -75,21 +89,24 @@ func RunWebUI(eutherpeVars *vars.EutherpeVars) error {
     return err
 }
 
-func eutherpeHTTPd(eutherpeHTTPHandler EutherpeHTTPHandler, sigintWatchdog chan os.Signal, err *error) {
+func eutherpeHTTPd(eutherpeHTTPHandler EutherpeHTTPHandler,
+                   sigintWatchdog chan os.Signal,
+                   eutherpeMiniplayer *http.Server,
+                   err *error) {
     http.HandleFunc("/", eutherpeHTTPHandler.handler)
+    eutherpeMiniplayer.Addr = eutherpeHTTPHandler.eutherpeVars.HTTPd.Addr + ":" +
+                              eutherpeHTTPHandler.eutherpeVars.HTTPd.Port
     if !eutherpeHTTPHandler.eutherpeVars.HTTPd.TLS {
-        (*err) = http.ListenAndServe(eutherpeHTTPHandler.eutherpeVars.HTTPd.Addr + ":" +
-                                     eutherpeHTTPHandler.eutherpeVars.HTTPd.Port, nil)
+        (*err) = eutherpeMiniplayer.ListenAndServe()
     } else {
         cerFilePath := path.Join(eutherpeHTTPHandler.eutherpeVars.HTTPd.PubRoot, "cert/eutherpe.cer")
         privKeyFilePath := path.Join(eutherpeHTTPHandler.eutherpeVars.ConfHome, "eutherpe.priv")
-        (*err) = http.ListenAndServeTLS(eutherpeHTTPHandler.eutherpeVars.HTTPd.Addr + ":" +
-                                        eutherpeHTTPHandler.eutherpeVars.HTTPd.Port,
-                                        cerFilePath, privKeyFilePath, nil)
+        (*err) = eutherpeMiniplayer.ListenAndServeTLS(cerFilePath, privKeyFilePath)
     }
     if (*err) != nil {
         fmt.Fprintf(os.Stderr, "panic: %s\n", (*err).Error())
         sigintWatchdog <- syscall.SIGINT
+        eutherpeMiniplayer = nil
     }
 }
 

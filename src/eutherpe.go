@@ -31,22 +31,22 @@ func main() {
         help()
         os.Exit(0)
     }
-    exec()
+    os.Exit(exec())
 }
 
-func exec() {
+func exec() int {
     fmt.Printf("info: Initializing bluealsa subsystem... wait...\n")
     err := bluebraces.StartBlueAlsa()
     if err != nil {
         fmt.Printf("panic: Unable to start out bluealsa service: '%s'\n", err.Error())
-        os.Exit(1)
+        return 1
     }
     defer bluebraces.StopBlueAlsa()
     fmt.Printf("info: Initializing bluetooth subsystem... wait...\n")
     err = bluebraces.Wear()
     if err != nil {
         fmt.Printf("panic: Unable to power on bluetooth subsystem : '%s'\n", err.Error())
-        os.Exit(1)
+        return 1
     }
     defer bluebraces.Unwear()
     fmt.Printf("info: Bluetooth subsystem initialized!\n")
@@ -65,7 +65,7 @@ func exec() {
         //              It is also useful in scenarios where you are running
         //              Eutherpe embedded and the address network is about a WLAN.
         fmt.Printf("panic: Unable to get a valid IP address.")
-        os.Exit(1)
+        return 1
     }
     if len(eutherpeVars.CachedDevices.BlueDevId) > 0 {
         g_DoAutoPlay = eutherpeVars.Player.AutoPlay
@@ -74,12 +74,16 @@ func exec() {
     }
     fmt.Printf("info: Listen at %s:%s\n", eutherpeVars.HTTPd.Addr, eutherpeVars.HTTPd.Port)
     defer os.Remove(vars.EutherpeCachedMP3FilePath)
-    webui.RunWebUI(eutherpeVars)
+    err = webui.RunWebUI(eutherpeVars)
     eutherpeVars.HTTPd.AuthWatchdog.Off()
     eutherpeVars.SaveSession()
     if len(eutherpeVars.HostName) > 0 {
         eutherpeVars.MDNS.GoinHome <- true
     }
+    if err != nil {
+        return 1
+    }
+    return 0
 }
 
 func version() {
