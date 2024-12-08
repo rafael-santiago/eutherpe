@@ -241,7 +241,6 @@ func GetContentTypeByActionId(userData *url.Values) string {
 }
 
 func GetVDocByActionId(userData *url.Values, eutherpeVars *vars.EutherpeVars) string {
-    httpStatus := http.StatusNotFound
     switch userData.Get(vars.EutherpeActionId) {
         case vars.EutherpeMusicRemoveId,
              vars.EutherpeMusicMoveUpId,
@@ -292,11 +291,11 @@ func GetVDocByActionId(userData *url.Values, eutherpeVars *vars.EutherpeVars) st
              vars.EutherpeSettingsPowerOffId,
              vars.EutherpeSettingsRebootId,
              vars.EutherpeSetCurrentConfigId:
-            httpStatus = http.StatusOK
+            eutherpeVars.HTTPd.ResponseWriter.WriteHeader(http.StatusOK)
             return eutherpeVars.HTTPd.IndexHTML
 
         case vars.EutherpeAuthenticateId:
-            httpStatus = http.StatusOK
+            eutherpeVars.HTTPd.ResponseWriter.WriteHeader(http.StatusOK)
             if eutherpeVars.LastError == nil {
                 return "<html><script>window.location=\"{{.URL-SCHEMA}}://{{.EUTHERPE-ADDR}}/eutherpe\"</script></html>"
             } else {
@@ -305,9 +304,9 @@ func GetVDocByActionId(userData *url.Values, eutherpeVars *vars.EutherpeVars) st
             break
 
         case vars.EutherpePlayerStatusId:
-            httpStatus = http.StatusOK
+            eutherpeVars.HTTPd.ResponseWriter.WriteHeader(http.StatusOK)
             return vars.EutherpeTemplateNeedlePlayerStatus
     }
-    eutherpeVars.HTTPd.ResponseWriter.WriteHeader(httpStatus)
+    eutherpeVars.HTTPd.ResponseWriter.WriteHeader(http.StatusNotFound)
     return eutherpeVars.HTTPd.ErrorHTML
 }
