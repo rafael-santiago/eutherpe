@@ -10,6 +10,7 @@ package actions
 import (
     "internal/vars"
     "net/url"
+    "net/http"
 )
 
 type EutherpeActionFunc func(eutherpeInstance *vars.EutherpeVars, userData *url.Values) error
@@ -240,6 +241,7 @@ func GetContentTypeByActionId(userData *url.Values) string {
 }
 
 func GetVDocByActionId(userData *url.Values, eutherpeVars *vars.EutherpeVars) string {
+    httpStatus := http.StatusNotFound
     switch userData.Get(vars.EutherpeActionId) {
         case vars.EutherpeMusicRemoveId,
              vars.EutherpeMusicMoveUpId,
@@ -288,10 +290,13 @@ func GetVDocByActionId(userData *url.Values, eutherpeVars *vars.EutherpeVars) st
              vars.EutherpeSettingsSetWLANCredentialsId,
              vars.EutherpeSettingsSetHostNameId,
              vars.EutherpeSettingsPowerOffId,
-             vars.EutherpeSettingsRebootId:
+             vars.EutherpeSettingsRebootId,
+             vars.EutherpeSetCurrentConfigId:
+            httpStatus = http.StatusOK
             return eutherpeVars.HTTPd.IndexHTML
 
         case vars.EutherpeAuthenticateId:
+            httpStatus = http.StatusOK
             if eutherpeVars.LastError == nil {
                 return "<html><script>window.location=\"{{.URL-SCHEMA}}://{{.EUTHERPE-ADDR}}/eutherpe\"</script></html>"
             } else {
@@ -300,8 +305,9 @@ func GetVDocByActionId(userData *url.Values, eutherpeVars *vars.EutherpeVars) st
             break
 
         case vars.EutherpePlayerStatusId:
+            httpStatus = http.StatusOK
             return vars.EutherpeTemplateNeedlePlayerStatus
     }
-
+    eutherpeVars.HTTPd.ResponseWriter.WriteHeader(httpStatus)
     return eutherpeVars.HTTPd.ErrorHTML
 }

@@ -113,6 +113,7 @@ func eutherpeHTTPd(eutherpeHTTPHandler EutherpeHTTPHandler,
 func (ehh *EutherpeHTTPHandler) handler(w http.ResponseWriter, r *http.Request) {
     ehh.requestTurnstile.Lock()
     defer ehh.requestTurnstile.Unlock()
+    ehh.eutherpeVars.HTTPd.ResponseWriter = w
     var templatedOutput string
     if len(ehh.eutherpeVars.HostName) > 0 &&
        strings.HasPrefix(r.Host, ehh.eutherpeVars.HostName) {
@@ -153,6 +154,7 @@ func (ehh *EutherpeHTTPHandler) handler(w http.ResponseWriter, r *http.Request) 
                     }
                     contentType = actions.GetContentTypeByActionId(&r.Form)
                 } else {
+                    w.WriteHeader(http.StatusNotImplemented)
                     templatedOutput = ehh.eutherpeVars.HTTPd.ErrorHTML
                     ehh.eutherpeVars.LastError = fmt.Errorf("501 Not Implemented")
                 }
@@ -160,6 +162,7 @@ func (ehh *EutherpeHTTPHandler) handler(w http.ResponseWriter, r *http.Request) 
             break
         case "/eutherpe-auth":
             if !ehh.eutherpeVars.HTTPd.Authenticated {
+                w.WriteHeader(http.StatusSeeOther)
                 templatedOutput = ehh.eutherpeVars.HTTPd.ErrorHTML
                 ehh.eutherpeVars.LastError = fmt.Errorf("303 See Other")
             } else if r.Method == "GET" {
@@ -172,6 +175,7 @@ func (ehh *EutherpeHTTPHandler) handler(w http.ResponseWriter, r *http.Request) 
                 r.URL.Path = "/eutherpe"
                 template = vars.EutherpeIndexTemplate
             } else {
+                w.WriteHeader(http.StatusNotImplemented)
                 templatedOutput = ehh.eutherpeVars.HTTPd.ErrorHTML
                 ehh.eutherpeVars.LastError = fmt.Errorf("501 Not Implemented")
             }
@@ -202,6 +206,7 @@ func (ehh *EutherpeHTTPHandler) processAction(actionHandler actions.EutherpeActi
 func (ehh *EutherpeHTTPHandler) processGET(w *http.ResponseWriter, r *http.Request) string {
     vdoc := r.URL.Path
     if !ehh.isPubFile(vdoc) {
+        (*w).WriteHeader(http.StatusForbidden)
         ehh.eutherpeVars.LastError = fmt.Errorf("403 Forbidden")
         return ehh.eutherpeVars.HTTPd.ErrorHTML
     }

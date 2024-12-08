@@ -26,6 +26,7 @@ import (
     "fmt"
     "strings"
     "net"
+    "net/http"
     "time"
     "crypto/sha256"
 )
@@ -48,6 +49,7 @@ type EutherpeVars struct {
         ErrorHTML string
         LoginHTML string
         RequestedByHostName bool
+        ResponseWriter http.ResponseWriter
     }
     MDNS struct {
         Hosts []mdns.MDNSHost
