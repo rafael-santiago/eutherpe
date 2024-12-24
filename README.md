@@ -1,5 +1,7 @@
 <img src="doc/figures/readme-glyph.png">
 
+[Oh! English, please...](#oh-english-please)
+
 >[!TIP]
 >Já aviso: Eutherpe é sobre as nuvens, onde para tornar a experiência interessante,
 >tudo dependerá de você e da sua bagagem musical. Ao usar Eutherpe, esqueça telas, pois,
@@ -49,7 +51,7 @@ Divirta-se! :wink:
 
 ---
 
-"- Oh! Huh! English please..." Okay...
+## Oh! English, please...
 
 `Eutherpe` is a kind of `ethereal` jukebox wiring. This is the base of `Euther-Pi` what is a `diy` project for bringing back
 the pleasant ritual of listening to music outside from a flat well-behaved computer system. The essence here is avoid being
